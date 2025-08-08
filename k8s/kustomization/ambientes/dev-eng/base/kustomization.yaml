@@ -1,0 +1,19 @@
+apiVersion: 
+kind: 
+commonLabels:
+ app: eventbus-flow-restoutbound
+ env:
+ owner: 
+commonAnnotations:
+ author: "Tonny Reis"
+ email: "tonny.reis@engdb.com.br"
+ company: "Claro BR"
+ revision: "1.0"
+ version: "1.0.0"
+images:
+ - name: 
+   newName: ""
+   newTag: ""
+resources:
+- ./eventbus-flow-restoutbound-configmap-env.yaml
+- ./eventbus-flow-restoutbound-deployment.yaml

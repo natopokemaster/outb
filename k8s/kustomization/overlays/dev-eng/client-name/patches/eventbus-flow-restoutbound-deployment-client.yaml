@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventbus-flow-restoutbound-deployment-1
+spec:
+  selector: 
+    matchLabels:
+      component: eventbus-flow-restoutbound
+  template:
+    metadata:
+      labels:
+        component: eventbus-flow-restoutbound
+    spec:
+      hostAliases:
+      - ip: "10.0.132.189"
+        hostnames:
+        - "hashicorp-vault.dev.k8s.eventbus.vcp.oci.cloud.claro"        
+      imagePullSecrets:
+      - name: container-registry-oci-dev
+      containers:
+      - name: eventbus-flow-restoutbound-container
+        image: gru.ocir.io/engdb/eventbus-dev/eventbus/flow/eventbus:latest
+        envFrom:
+        - configMapRef:
+            name: eventbus-flow-restoutbound-configmap-env
+        - configMapRef:
+            name: eventbus-flow-restoutbound-configmap-env-client

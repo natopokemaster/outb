@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventbus-flow-restoutbound-deployment
+spec:
+  selector: 
+    matchLabels:
+      component: eventbus-flow-restoutbound
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1 
+      maxSurge: 1      
+  replicas: 1
+  template: # Definição única do template
+    metadata:
+      labels:
+        component: eventbus-flow-restoutbound-pod
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 3000
+      containers:
+      - name: eventbus-flow-restoutbound-container
+        image: gru.ocir.io/engdb/eventbus-dev/eventbus/flow/eventbus:latest
+        envFrom:
+        - configMapRef:
+            name: flow
+        - configMapRef:
+            name: eventbus-flow-restoutbound-configmap-env
+        imagePullPolicy: Always
+        securityContext: 
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 4048Mi
+          requests:
+            cpu: 500m
+            memory: 600Mi
+        volumeMounts:
+         - name: eventbus-flow-key-store-secret
+           mountPath: "/usr/local/eventbus/certs/eventbus-keystore.jks"
+           subPath: eventbus-keystore.jks 
+         - name: eventbus-flow-key-store-secret
+           mountPath: "/usr/local/eventbus/certs/eventbus-truststore.jks"
+           subPath: eventbus-truststore.jks        
+      volumes:
+          - name: eventbus-flow-key-store-secret
+            secret:
+              secretName: eventbus-flow-key-store-secret

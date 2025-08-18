@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/cliente" 
+		xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+		xmlns:cliente="http://www.netservicos.com.br/modelocanonico/cliente">
+	
+	<annotation>
+		<documentation>
+			Entidade responsavel por mapear o Hobby do cliente
+		</documentation>
+	</annotation>
+	
+	<complexType name="Hobby">
+		<sequence>
+			<element name="identificadorHobbyCliente" maxOccurs="1" minOccurs="1" nillable="true" type="string">
+                <annotation>
+                	<documentation>Identificador do hobby do cliente</documentation>
+                </annotation>
+
+			</element>
+			<element name="descricao" minOccurs="1" maxOccurs="1" nillable="true" type="string">
+                <annotation>
+                	<documentation>Descricao do hobby do cliente.</documentation>
+                </annotation>
+
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Hobbies">
+        <annotation>
+        	<documentation>Entidade responsavel por mapear um conjunto de Hobbies do cliente</documentation>
+        </annotation>
+        <sequence>
+			<element name="hobby" type="cliente:Hobby" maxOccurs="unbounded" minOccurs="0" nillable="true"></element>
+		</sequence>
+	</complexType>
+
+</schema>

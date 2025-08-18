@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnBancoDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_BANCO" type="xs:integer"/>
+            <xs:element name="NOME" type="xs:string" minOccurs="0"/>
+            <xs:element name="CARTEIRA" type="xs:string" minOccurs="0"/>
+            <xs:element name="ACEITE" type="xs:string" minOccurs="0"/>
+            <xs:element name="ESPECIE" type="xs:string" minOccurs="0"/>
+            <xs:element name="UTILIZA_DV" type="xs:integer"/>
+            <xs:element name="NUM_DV" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DIAS_RETIRADA_DCC" type="xs:integer" minOccurs="0"/>
+            <xs:element name="PERMITE_RETIRADA_DCC" type="xs:integer" minOccurs="0"/>
+            <xs:element name="QT_DIG_AGENCIA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="QT_DIG_CC" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

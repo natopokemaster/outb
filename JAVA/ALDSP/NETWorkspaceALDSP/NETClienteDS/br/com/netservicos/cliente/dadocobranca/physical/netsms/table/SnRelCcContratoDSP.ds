@@ -1,0 +1,52 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelCcContratoDSP" xmlns:t="ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP">
+<creationDate>2010-06-30T18:13:47</creationDate>
+<relationalDB name="CLIENTE_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.ClienteOnlineNETSMSBindingProvider"/>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_CC" type="xs:integer">
+  <extension nativeXpath="ID_CC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="8" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="STATUS" type="xs:double">
+  <extension nativeXpath="STATUS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="22" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_CC_CONTRATO" type="snr:SnRelCcContratoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/schemas/SnRelCcContratoDSP.xsd";
+
+import schema "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/schemas/SnRelCcContratoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_REL_CC_CONTRATO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelCcContratoDSP() as schema-element(t1:SnRelCcContratoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_REL_CC_CONTRATO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelCcContratoDSP($p as element(t1:SnRelCcContratoDSP)*)as schema-element(t1:SnRelCcContratoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_REL_CC_CONTRATO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelCcContratoDSP($p as changed-element(t1:SnRelCcContratoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_REL_CC_CONTRATO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelCcContratoDSP($p as element(t1:SnRelCcContratoDSP)*) as empty()  external;
+

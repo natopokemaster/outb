@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://netservicos.com.br/core/schema"
+	xmlns:tns="http://netservicos.com.br/core/schema"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+
+	<xsd:complexType name="Message">
+		<xsd:sequence>
+			<xsd:element name="ID_MSG" minOccurs="1" maxOccurs="1" nillable="false">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:pattern
+							value="(WLI|ESB)(-)(REDES|EQUIP|ENDER|GERFA|PROSP|VENDA|PRODU|OFERT|CLIEN|ATEND|LINEUP|APROV|ROTEA|DESPA|EMISS|FATUR|PAGTO|CENCOB|FRAUDE|GERAL|ORGAN|SEGUR|AUDIT)(-)[0-9][0-9][0-9][0-9]" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="NOME_ERRO" type="xsd:string"></xsd:element>
+			<xsd:element name="MENSAGEM_DETALHADA" type="xsd:string"></xsd:element>
+			<xsd:element name="MENSAGEM_USUARIO" type="xsd:string"></xsd:element>
+
+			<xsd:element name="CATEGORIA_MENSAGEM" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="INFO"></xsd:enumeration>
+						<xsd:enumeration value="WARNING"></xsd:enumeration>
+						<xsd:enumeration value="ERROR"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="CODIGO_SISTEMA" type="xsd:string"></xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element type="tns:Message" name="Message"/>
+
+	<xsd:complexType name="Messages">
+		<xsd:sequence>
+			<xsd:element type="tns:Message" name="Message"
+				minOccurs="1" maxOccurs="unbounded" nillable="false">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Messages" type="tns:Messages">
+		<xsd:unique name="un_name">
+			<xsd:selector xpath="./tns:Message" />
+			<xsd:field xpath="tns:ID_MSG" />
+		</xsd:unique>
+	</xsd:element>
+
+</xsd:schema>

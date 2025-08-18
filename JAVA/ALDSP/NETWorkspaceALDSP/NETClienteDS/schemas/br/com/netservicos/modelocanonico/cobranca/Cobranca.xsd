@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.netservicos.com.br/modelocanonico/cobranca" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cobranca="http://www.netservicos.com.br/modelocanonico/cobranca">
+
+    <xsd:complexType name="TipoCobranca">
+    	<xsd:sequence>
+    		<xsd:element name="IdentificadorTipoCobranca"
+    			type="xsd:string" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="DescricaoTipoCobranca" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/contrato"
+	xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	xmlns:contrato="http://www.netservicos.com.br/modelocanonico/contrato"
+	xmlns:telefone="http://www.netservicos.com.br/modelocanonico/telefone"
+	xmlns:produto="http://www.netservicos.com.br/modelocanonico/produto"
+	xmlns:evento="http://www.netservicos.com.br/modelocanonico/evento"
+	xmlns:fatura="http://www.netservicos.com.br/modelocanonico/fatura"
+	xmlns:cobranca="http://www.netservicos.com.br/modelocanonico/cobranca"
+	xmlns:formapagameto="http://www.netservicos.com.br/modelocanonico/formapagameto">
+
+	<include schemaLocation="EnderecoContratoDeVenda.xsd" />
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/produto"
+		schemaLocation="../produto/ProdutoServicoContratado.xsd" />
+
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/evento"
+		schemaLocation="../evento/Evento.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/fatura"
+		schemaLocation="../fatura/Fatura.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/cobranca"
+		schemaLocation="../cobranca/Cobranca.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/formapagameto"
+		schemaLocation="../cobranca/FormaPagamento.xsd">
+	</import>
+	<annotation>
+		<documentation>
+			Contrato de venda firmado com cliente
+		</documentation>
+	</annotation>
+
+	<complexType name="ContratoDeVenda">
+		<sequence>
+			<element name="numeroContrato" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Numero do contrato de venda do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="long" />
+				</simpleType>
+			</element>
+			<element name="cidadeContrato" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Cidade relacionada ao contrato
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+
+			<element name="codigoOperadora" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Codigo da operadora relacionada ao contrato
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+
+			<element name="digitoVerificador" maxOccurs="1"
+				minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>Digito verificador</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="int">
+						<totalDigits value="1" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="numeroContratoEmbratel" maxOccurs="1"
+				minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>
+						Numero do contrato da embratel
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="long" />
+				</simpleType>
+			</element>
+			<element name="tipoContrato" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>Tipo de contrato</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="tipoDeVenda" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>Tipo de venda</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="dataVenda" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Data da venda dos produtos
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="dataCancelamento" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Data de cancelamento do contrato
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="tipoDeCobranca" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>Tipo de cobranca</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="diaVencimento" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Data do vencimento para pagamento
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="int" />
+				</simpleType>
+			</element>
+			<element name="segmentoCliente" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>Segmento do cliente</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="situacaoContrato" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>Situacao do contrato</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="enderecoContratoDeVenda"
+				type="contrato:EnderecoContratoDeVenda" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Endereco associado ao contrato
+					</documentation>
+				</annotation>
+			</element>
+			<element name="produtosServicosContratados"
+				type="produto:ProdutosServicosContratados" maxOccurs="1"
+				minOccurs="0">
+				<annotation>
+					<documentation>
+						Produtos ou servicos associados a um determinado
+						contrato
+					</documentation>
+				</annotation>
+			</element>
+			<element name="eventos" type="evento:Eventos" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="Faturas" type="fatura:Faturas" minOccurs="0"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ContratosDeVenda">
+		<annotation>
+			<documentation>
+				Conjunto de contratos de venda firmados com cliente
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="contratoDeVenda"
+				type="contrato:ContratoDeVenda" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="ContratoDeVenda" type="contrato:ContratoDeVenda" />
+
+
+	<complexType name="ModalidadePagamentoContrato">
+		<annotation>
+			<documentation>
+				Todos os informações sobre a forma de pagamento e dados
+				cadastrais de cobrança de um contrato
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="TipoCobranca" type="cobranca:TipoCobranca"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			<element name="DiaVencimento" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="int">
+
+						<minInclusive value="1"></minInclusive>
+						<maxInclusive value="31"></maxInclusive>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="IndicadorCoboletamento" type="boolean"
+				nillable="true" minOccurs="0" maxOccurs="1">
+			</element>
+			<element name="TipoPostagemFatura" minOccurs="0"
+				maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="CORREIO"></enumeration>
+						<enumeration value="EMAIL"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FormaPagamento"
+				type="formapagameto:FormaPagamento" minOccurs="0" maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+</schema>

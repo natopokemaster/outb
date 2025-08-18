@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification"
+        elementFormDefault="qualified" 
+        xmlns="http://www.w3.org/2001/XMLSchema" 
+        xmlns:tns="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification"
+        xmlns:excep="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification">
+
+	<simpleType name="ExceptionClassification">
+        <annotation>
+        	<documentation>
+        		Tipo para definir o tipo de classificação de exceções,
+        		bem como seu domínio. Os valores permitidos são:
+        		CLASSIFICATION_RESOURCE, CLASSIFICATION_UNEXPECTED,
+        		CLASSIFICATION_BUSINESS, CLASSIFICATION_VALIDATION,
+        		CLASSIFICATION_SECURITY
+        	</documentation>
+        </annotation>
+        <restriction base="string">
+			<enumeration value="CLASSIFICATION_BUSINESS"/>
+			<enumeration value="CLASSIFICATION_VALIDATION"/>
+			<enumeration value="CLASSIFICATION_SECURITY"/>
+			<enumeration value="CLASSIFICATION_UNEXPECTED"/>
+			<enumeration value="CLASSIFICATION_RESOURCE"/>
+		</restriction>
+	</simpleType>
+	
+	<element name="ExceptionClassification" type="tns:ExceptionClassification"/>
+
+</schema>

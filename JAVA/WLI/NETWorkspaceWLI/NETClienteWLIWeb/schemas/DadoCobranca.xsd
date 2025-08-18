@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.netservicos.com.br/NETClienteWLIWeb/DadoCobranca" 
+		xmlns:tns="http://www.netservicos.com.br/NETClienteWLIWeb/DadoCobranca" 
+		elementFormDefault="qualified">
+
+    <xsd:complexType name="DadoCobrancaContratoType">
+    	<xsd:complexContent>
+			<xsd:extension base="tns:DadoCobrancaType">
+		    	<xsd:sequence>
+		    		<xsd:element name="numeroContrato" type="xsd:long"/>		    		
+		    		<xsd:element name="nomeContato" type="xsd:string"/>
+					<xsd:element name="telefoneContato" type="xsd:string"/>
+					<xsd:element name="observacao" type="xsd:string"/>
+		    	</xsd:sequence>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="DadoCobrancaPropostaType">
+    	<xsd:complexContent>
+			<xsd:extension base="tns:DadoCobrancaType">
+    			<xsd:sequence>
+    				<xsd:element name="numeroProposta" type="xsd:string"/>
+    			</xsd:sequence>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+	<xsd:complexType name="DadoCobrancaType" abstract="true">
+		<xsd:sequence>
+			<xsd:element name="identificacaoCidade" type="xsd:string"/>
+    		<xsd:element name="indicadorCoboletamento" type="xsd:boolean"/>
+    		<xsd:element name="idTipoPostagem" type="xsd:long"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

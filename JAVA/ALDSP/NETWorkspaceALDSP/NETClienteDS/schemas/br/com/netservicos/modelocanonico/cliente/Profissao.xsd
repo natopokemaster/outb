@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/cliente" 
+		elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:cliente="http://www.netservicos.com.br/modelocanonico/cliente"
+		xmlns:empresa="http://www.netservicos.com.br/modelocanonico/empresa">
+	<import schemaLocation="../geral/Empresa.xsd" 
+		   namespace="http://www.netservicos.com.br/modelocanonico/empresa"/>
+    <complexType name="Profissao">
+    	<sequence>
+    		<element name="identificadorProfissaoCliente" type="string"
+    			minOccurs="0" maxOccurs="1">
+                <annotation>
+                	<documentation>
+                		Identificador de Profissao de Cliente
+                	</documentation>
+                </annotation>
+    		</element>
+    		<element name="descricao" type="string" minOccurs="0" maxOccurs="1">
+    			<annotation>
+    				<documentation>
+    					Descrição de profissão de cliente
+    				</documentation>
+    			</annotation>
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Profissoes">
+        <annotation>
+        	<documentation>
+        		Entidade responsavel por mapear um conjunto de
+        		Profissões do cliente
+        	</documentation>
+        </annotation>
+        <sequence>
+    		<element name="profissao" type="cliente:Profissao" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+</schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/processo" 
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:processo="http://www.netservicos.com.br/modelocanonico/v2/processo">	
+
+	
+	<xsd:simpleType name="Processo">
+        <xsd:annotation>
+        	<xsd:documentation>
+        		Processos de negócio da NET, os valores válidos
+        		são:rede, endereco, equipamento, gerenciamentofalhas,
+        		prospect, venda, produto, oferta, cliente, atendimento,
+        		lineup, emissao, faturamento, pagamento,
+        		aprovisionamento, roteamento, despacho, cenariocobranca,
+        		fraude, seguranca, auditoria, organizacional
+        	</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+			<xsd:enumeration value="rede"></xsd:enumeration>
+			<xsd:enumeration value="endereco"></xsd:enumeration>
+			<xsd:enumeration value="equipamento"></xsd:enumeration>
+			<xsd:enumeration value="gerenciamentofalhas"></xsd:enumeration>
+			<xsd:enumeration value="prospect"></xsd:enumeration>
+			<xsd:enumeration value="venda"></xsd:enumeration>
+			<xsd:enumeration value="produto"></xsd:enumeration>
+			<xsd:enumeration value="oferta"></xsd:enumeration>
+			<xsd:enumeration value="cliente"></xsd:enumeration>
+			<xsd:enumeration value="atendimento"></xsd:enumeration>
+			<xsd:enumeration value="lineup"></xsd:enumeration>
+			<xsd:enumeration value="emissao"></xsd:enumeration>
+			<xsd:enumeration value="faturamento"></xsd:enumeration>
+			<xsd:enumeration value="pagamento"></xsd:enumeration>
+			<xsd:enumeration value="aprovisionamento"></xsd:enumeration>
+			<xsd:enumeration value="roteamento"></xsd:enumeration>
+			<xsd:enumeration value="despacho"></xsd:enumeration>
+			<xsd:enumeration value="cenariocobranca"></xsd:enumeration>
+			<xsd:enumeration value="fraude"></xsd:enumeration>			
+			<xsd:enumeration value="seguranca"></xsd:enumeration>
+			<xsd:enumeration value="auditoria"></xsd:enumeration>
+			<xsd:enumeration value="organizacional"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+    <xsd:element name="Processo" type="processo:Processo"></xsd:element>
+	
+</xsd:schema>

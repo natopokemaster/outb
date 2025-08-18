@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	targetNamespace="http://www.netservicos.com.br/NetHeader"
+	xmlns:tns="http://www.netservicos.com.br/NetHeader"
+	xmlns:evento="http://www.netservicos.com.br/modelocanonico/evento">
+	<element name="NetHeader" type="tns:Header">
+		<annotation>
+			<documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+		</annotation>
+	</element>
+	<complexType name="Header">
+		<annotation>
+			<documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="aplicacao" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Aplicação que esta consumindo o serviço
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="NETSMS"></enumeration>
+						<enumeration value="NETSALES"></enumeration>
+						<enumeration value="PORTAL NET"></enumeration>
+						<enumeration value="URA"></enumeration>
+						<enumeration value="MODULO COBRANCA"></enumeration>
+						<enumeration value="ATLAS"></enumeration>
+						<enumeration value="RETENCAO REVERSAO"></enumeration>
+						<enumeration value="COMISSIONAMENTO"></enumeration>
+						<enumeration value="WORKFORCE"></enumeration>
+						<enumeration value="EMBRATEL"></enumeration>
+						<enumeration value="OTHER"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="funcionalidade" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<minLength value="0"></minLength>
+						<maxLength value="200"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="versaoServico" type="string" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+				</annotation>
+			</element>
+			<element name="token" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<minLength value="0"></minLength>
+						<maxLength value="200"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="atendimento" type="tns:Atendimento"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Atendimento de cliente.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="Atendimento">
+		<annotation>
+			<documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamado deveria preencher os
+				valores desde entidade.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="numeroProtocolo" type="string">
+				<annotation>
+					<documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+				</annotation>
+			</element>
+			<element name="numeroChamado" type="string">
+				<annotation>
+					<documentation>
+						Numero de chamando de atendimento
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

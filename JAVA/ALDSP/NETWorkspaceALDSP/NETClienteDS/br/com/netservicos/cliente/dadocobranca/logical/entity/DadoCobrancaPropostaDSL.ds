@@ -1,0 +1,123 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="sch:ModalidadePagamentoContrato" xmlns:x="urn:annotations.ld.bea.com" xmlns:sch="http://www.netservicos.com.br/DadoCobranca/schemas">
+    <creationDate>2010-02-01T15:57:56</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+declare namespace snb= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP";
+
+declare namespace snf= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnFormaEnvioFaturaDSP";
+
+declare namespace sno= "ld:br/com/netservicos/cliente/faturamento/physical/netsms/table/SnOperadoraCartaoDSP";
+
+declare namespace snc1= "ld:br/com/netservicos/cliente/contrato/physical/netsms/table/SnContratoDSP";
+
+declare namespace snc= "ld:br/com/netservicos/cliente/operadora/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace snp= "ld:br/com/netservicos/cliente/parametro/physical/netsms/table/SnParametroDSP";
+
+declare namespace cpc2= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/CpCartaoCreditoDSP";
+
+declare namespace cpc1= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/CpContaCorrenteDSP";
+
+declare namespace snd= "ld:br/com/netservicos/cliente/faturamento/physical/netsms/table/SnDiaVctoDSP";
+
+declare namespace cpp= "ld:br/com/netservicos/cliente/proposta/physical/netsales/table/CpPropostaDSP";
+
+declare namespace dat= "http://www.netservicos.com.br/dataServices";
+
+declare namespace cpc= "ld:br/com/netservicos/cliente/proposta/physical/netsales/table/CpCobrancaDSP";
+
+import schema namespace sch="http://www.netservicos.com.br/DadoCobranca/schemas" at "ld:br/com/netservicos/cliente/dadocobranca/schemas/ModalidadePagamentoContrato.xsd";
+
+declare namespace tns="ld:br/com/netservicos/cliente/dadocobranca/logical/entity/DadoCobrancaPropostaDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultar($numeroProposta as xs:long, $identificacaoCidade as xs:string) as element(sch:ModalidadePagamentoContrato)? {
+for $CpPropostaDSP in cpp:CpPropostaDSP()
+where $numeroProposta eq $CpPropostaDSP/ID_PROPOSTA
+where $identificacaoCidade eq $CpPropostaDSP/ID_CIDADE
+for $CpCobrancaDSP in cpc:CpCobrancaDSP()
+where $CpPropostaDSP/ID_PROPOSTA eq $CpCobrancaDSP/ID_PROPOSTA
+
+return
+        <sch:ModalidadePagamentoContrato>
+        {
+			for $SnDiaVctoDSP in snd:SnDiaVctoDSP()
+			where $SnDiaVctoDSP/ID_DIA_VCTO eq $CpCobrancaDSP/ID_DIA_VENCIMENTO
+			return
+            <sch:DiaVencimento?>{fn:data($SnDiaVctoDSP/DIA)}</sch:DiaVencimento>
+          	}
+            <sch:IndicadorCoboletamento?>{fn:true()}</sch:IndicadorCoboletamento>
+			{
+				if(fn:empty($CpCobrancaDSP/ID_FORMA_ENVIO_FATURA)) then
+					<sch:TipoPostagemFatura?>{xs:string("")}</sch:TipoPostagemFatura>
+				else
+					for $SnFormaEnvioFaturaDSP in snf:SnFormaEnvioFaturaDSP()
+					where $CpCobrancaDSP/ID_FORMA_ENVIO_FATURA eq $SnFormaEnvioFaturaDSP/ID_FORMA_ENVIO_FATURA
+					return
+					<sch:TipoPostagemFatura?>{fn:data($SnFormaEnvioFaturaDSP/DS_FORMA_ENVIO_FATURA)}</sch:TipoPostagemFatura>
+
+			}
+            <sch:FormaPagamento?>{fn:data($CpCobrancaDSP/ID_TIPO_COBRANCA)}</sch:FormaPagamento>
+           {
+            if ((fn:data($CpCobrancaDSP/ID_TIPO_COBRANCA) = 1) or (fn:data($CpCobrancaDSP/ID_TIPO_COBRANCA) = 4) or (fn:data($CpCobrancaDSP/ID_TIPO_COBRANCA) = 5)) then
+            	<sch:FormaPagamentoBoleto?></sch:FormaPagamentoBoleto>
+            else(
+			 		if (fn:data($CpCobrancaDSP/ID_TIPO_COBRANCA) = 2) then
+						for $CpContaCorrenteDSP in cpc1:CpContaCorrenteDSP()
+						where $CpPropostaDSP/ID_PROSPECT eq $CpContaCorrenteDSP/ID_PROSPECT
+						for $SnBancoDSP in snb:SnBancoDSP()
+						where $CpContaCorrenteDSP/ID_BANCO eq $SnBancoDSP/ID_BANCO
+	            		return
+	            		<sch:FormaPagamentoDebitoContaCorrente?>
+		            		<sch:NomeTitularContaCorrente?>{fn:data($CpContaCorrenteDSP/TITULAR)}</sch:NomeTitularContaCorrente>
+		            		<sch:AgenciaContaCorrente?>{fn:data($CpContaCorrenteDSP/AGENCIA)}</sch:AgenciaContaCorrente>
+		            		<sch:NumeroContaCorrente?>{fn:data($CpContaCorrenteDSP/CONTA)}</sch:NumeroContaCorrente>
+		            		<sch:DigitoContaCorrente?>{fn:data($CpContaCorrenteDSP/DIGITO_CONTA)}</sch:DigitoContaCorrente>
+		            		<sch:BancoContaCorrente>
+								<sch:Identificador>{ data($SnBancoDSP/ID_BANCO) }</sch:Identificador>
+								<sch:NomeBanco>{ data($SnBancoDSP/NOME) }</sch:NomeBanco>
+		            		</sch:BancoContaCorrente>
+	            		</sch:FormaPagamentoDebitoContaCorrente>
+            		else(
+            				for $CpCartaoCreditoDSP in cpc2:CpCartaoCreditoDSP()
+							where $CpPropostaDSP/ID_PROSPECT eq $CpCartaoCreditoDSP/ID_PROSPECT
+							for $SnOperadoraCartaoDSP in sno:SnOperadoraCartaoDSP()
+            				where $CpCartaoCreditoDSP/OPERADORA eq  xs:string($SnOperadoraCartaoDSP/ID_OPERADORA_CARTAO)
+           		 			return
+           		 			<sch:FormaPagamentoCartaoCredito?>
+           		  			<sch:NomeTitularCartaoCredito?>{fn:data($CpCartaoCreditoDSP/TITULAR)}</sch:NomeTitularCartaoCredito>
+           		  			<sch:NumeroCartaoCredito?>{fn:data($CpCartaoCreditoDSP/NUMERO)}</sch:NumeroCartaoCredito>
+           		  			<sch:ValidadeCartaoCredito?>{fn:data($CpCartaoCreditoDSP/VALIDADE)}</sch:ValidadeCartaoCredito>
+           		  			<sch:OperadoraCartaoCredito?>
+           		  				<sch:Identificador?>{fn:data($SnOperadoraCartaoDSP/ID_OPERADORA_CARTAO)}</sch:Identificador>
+           		  				<sch:NomeOperadora?>{fn:data($SnOperadoraCartaoDSP/DESCRICAO)}</sch:NomeOperadora>
+           		  			</sch:OperadoraCartaoCredito>
+           		 			</sch:FormaPagamentoCartaoCredito>
+           		 	)
+            	)
+            }
+            <sch:PeriodicidadeCobranca?>{xs:int(1)}</sch:PeriodicidadeCobranca>
+	      	{
+for $SnParametroDSP in snp:SnParametroDSP()
+where $SnParametroDSP/NOME_PARAMETRO eq xs:string("VINCENDA")
+for $SnCidadeOperadoraDSP in snc:SnCidadeOperadoraDSP()
+where $SnCidadeOperadoraDSP/ID_EMPRESA eq $SnParametroDSP/ID_EMPRESA
+where $CpPropostaDSP/ID_CIDADE eq $SnCidadeOperadoraDSP/CID_CONTRATO
+return
+            if ((fn:data($SnParametroDSP/VLR_PARAMETRO) = 0)) then
+            	<sch:PoliticaCobranca?>{xs:string("Vencido")}</sch:PoliticaCobranca>
+            else
+            (
+            	<sch:PoliticaCobranca?>{xs:string("Vincendo")}</sch:PoliticaCobranca>
+            	)
+            }
+        </sch:ModalidadePagamentoContrato>
+};
+
+
+
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.netservicos.com.br/modelocanonico/cliente" 
+			elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:cliente="http://www.netservicos.com.br/modelocanonico/cliente"
+			xmlns:empresa="http://www.netservicos.com.br/modelocanonico/empresa">
+	<xsd:import schemaLocation="../geral/Empresa.xsd" 
+		   namespace="http://www.netservicos.com.br/modelocanonico/empresa"/>
+
+    <xsd:complexType name="GrauDeInstrucao">
+    	<xsd:sequence>
+    		<xsd:element name="identificadorGrauDeInstrucaoCliente"
+    			type="xsd:string" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="descricao" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="GrauDeInstrucoes">
+    	<xsd:sequence>
+    		<xsd:element name="grauDeInstrucao" type="cliente:GrauDeInstrucao" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

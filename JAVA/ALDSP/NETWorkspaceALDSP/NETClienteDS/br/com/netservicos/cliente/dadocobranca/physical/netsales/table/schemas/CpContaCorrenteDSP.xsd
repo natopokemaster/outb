@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://www.netservicos.com.br/dataServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CpContaCorrenteDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_PROSPECT" type="xs:integer"/>
+            <xs:element name="ID_BANCO" type="xs:integer"/>
+            <xs:element name="CONTA" type="xs:string"/>
+            <xs:element name="DIGITO_CONTA" type="xs:string" minOccurs="0"/>
+            <xs:element name="AGENCIA" type="xs:string"/>
+            <xs:element name="DIGITO_AGENCIA" type="xs:string" minOccurs="0"/>
+            <xs:element name="FONE" type="xs:string" minOccurs="0"/>
+            <xs:element name="TITULAR" type="xs:string" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

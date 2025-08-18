@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/fatura"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:fatura="http://www.netservicos.com.br/modelocanonico/v2/fatura"
+	xmlns:cobranca="http://www.netservicos.com.br/modelocanonico/v2/cobranca"
+	xmlns:formapagamento="http://www.netservicos.com.br/modelocanonico/v2/formapagamento">
+
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/cobranca"
+		schemaLocation="../cobranca/Cobranca.xsd" />	
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/formapagamento"
+		schemaLocation="../cobranca/FormaPagamento.xsd" />
+
+	<xsd:complexType name="Fatura">
+		<xsd:sequence>
+			<xsd:element name="IdentificadorFatura" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="TipoCobranca"
+				type="cobranca:TipoCobranca" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="SituacaoFatura"
+				type="fatura:SitucaoFatura" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="NotaFiscal" type="fatura:NotaFiscal"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="DataVencimento" type="xsd:date"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="DataPagamento" type="xsd:date"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="DataBaixaPagamento" type="xsd:date"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="ValorFatura" type="xsd:double"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="formaPagamento" type="formapagamento:FormaPagamento"
+				minOccurs="0" maxOccurs="1" />				
+			<xsd:element name="TipoPostagemFatura"
+				type="fatura:TipoPostagemFatura" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                	<xsd:documentation>Define o tipo de postagem que foi aplicado para a fatura em questão. </xsd:documentation>
+                </xsd:annotation>
+			</xsd:element>				
+				
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SitucaoFatura">
+		<xsd:sequence>
+			<xsd:element name="IdentificadorSitucaoFatura"
+				type="xsd:string" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="DescricaoSitucaoFatura" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TipoPostagemFatura">
+		<xsd:sequence>
+			<xsd:element name="identificador"
+				type="xsd:long" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                	<xsd:documentation>Identificador único do tipo de postagem de fatura.</xsd:documentation></xsd:annotation>
+			</xsd:element>
+			<xsd:element name="descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1" >
+				<xsd:annotation>
+					<xsd:documentation>Texto descritivo do tipo de postagem do contrato. Ex: E-mail, Correio, SMS</xsd:documentation></xsd:annotation></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>	
+
+	<xsd:complexType name="NotaFiscal">
+		<xsd:sequence>
+			<xsd:element name="NumeroNotaFisical" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Faturas">
+		<xsd:sequence>
+			<xsd:element name="Fatura" type="fatura:Fatura"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

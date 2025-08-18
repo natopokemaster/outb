@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>NETClienteWLIWeb</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/META-INF/applicationContext-config.xml
+		</param-value>
+	</context-param>
+
+
+	<listener>
+		<listener-class>
+			com.bea.wli.management.WliWebAppListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>NETClienteWLIWeb</web-resource-name>
+			<description>
+				Mapeamento de Acesso para o Sistema
+			</description>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ACESSO</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Unsecured resources</web-resource-name>
+			<description>
+				Mapeamento de Acesso para o Sistema
+			</description>
+			<url-pattern>/*?WSDL</url-pattern>
+			<url-pattern>/*?wsdl</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+
+
+	<!-- Define o modulo de logon -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>NET Cliente Web WLI</realm-name>
+	</login-config>
+
+
+	<!-- Mapping of the basic security role -->
+	<security-role>
+		<description>ACESSO A SISTEMA NET CLIENTE</description>
+		<role-name>ACESSO</role-name>
+	</security-role>
+</web-app>

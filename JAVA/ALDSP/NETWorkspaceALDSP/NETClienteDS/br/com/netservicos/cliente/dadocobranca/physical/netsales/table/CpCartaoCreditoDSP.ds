@@ -1,0 +1,56 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:CpCartaoCreditoDSP" xmlns:t="http://www.netservicos.com.br/dataServices">
+<creationDate>2010-01-18T18:35:22</creationDate>
+<relationalDB name="CLIENTE_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.ClienteOnlineNETSMSBindingProvider"/>
+<field xpath="ID_PROSPECT" type="xs:integer">
+  <extension nativeXpath="ID_PROSPECT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUMERO" type="xs:string">
+  <extension nativeXpath="NUMERO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="TITULAR" type="xs:string">
+  <extension nativeXpath="TITULAR" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="OPERADORA" type="xs:string">
+  <extension nativeXpath="OPERADORA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="VALIDADE" type="xs:string">
+  <extension nativeXpath="VALIDADE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="SYS_C0010490" type="dat:CpCartaoCreditoDSP_KEY" inferredSchema="true" xmlns:dat="http://www.netservicos.com.br/dataServices"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/CpCartaoCreditoDSP";
+
+import schema namespace t1 = "http://www.netservicos.com.br/dataServices" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/schemas/CpCartaoCreditoDSP.xsd";
+
+import schema "http://www.netservicos.com.br/dataServices" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/schemas/CpCartaoCreditoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="CP_CARTAO_CREDITO" nativeLevel2Container="NETSALES" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:CpCartaoCreditoDSP() as schema-element(t1:CpCartaoCreditoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="CP_CARTAO_CREDITO" nativeLevel2Container="NETSALES" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createCpCartaoCreditoDSP($p as element(t1:CpCartaoCreditoDSP)*)as schema-element(t1:CpCartaoCreditoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="CP_CARTAO_CREDITO" nativeLevel2Container="NETSALES" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateCpCartaoCreditoDSP($p as changed-element(t1:CpCartaoCreditoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="CP_CARTAO_CREDITO" nativeLevel2Container="NETSALES" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteCpCartaoCreditoDSP($p as element(t1:CpCartaoCreditoDSP)*) as empty()  external;
+

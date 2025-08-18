@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.netservicos.com.br/modelocanonico/usuario" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:usuario="http://www.netservicos.com.br/modelocanonico/usuario">
+
+    <xsd:complexType name="Usuario">
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			Usuario de sistemas de NET
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<xsd:sequence>
+    		<xsd:element name="LoginUsuario" type="xsd:string" minOccurs="0" maxOccurs="1">
+    			<xsd:annotation>
+    				<xsd:documentation>
+    					Login de usuario
+    				</xsd:documentation>
+    			</xsd:annotation>
+    		</xsd:element>
+    		<xsd:element name="NomeUsuario" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+    		<xsd:element name="EmailUsuario" type="usuario:EmailType"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="EmailType">
+    	<xsd:sequence>
+    		<xsd:element name="EnderecoEmail" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Usuarios">
+    	<xsd:sequence>
+    		<xsd:element name="Usuarios" type="usuario:Usuario" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

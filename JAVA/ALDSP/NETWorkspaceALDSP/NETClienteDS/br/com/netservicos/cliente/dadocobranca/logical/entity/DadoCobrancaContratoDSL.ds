@@ -1,0 +1,192 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="sch:ModalidadePagamentoContrato" xmlns:x="urn:annotations.ld.bea.com" xmlns:sch="http://www.netservicos.com.br/DadoCobranca/schemas">
+    <creationDate>2010-02-01T20:29:20</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+
+declare namespace snf= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnFormaEnvioFaturaDSP";
+
+declare namespace sno= "ld:br/com/netservicos/cliente/faturamento/physical/netsms/table/SnOperadoraCartaoDSP";
+
+declare namespace snc2= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnCartaoCreditoDSP";
+
+declare namespace snd1= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnDebitoAutomaticoDSP";
+
+declare namespace snr= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCoboletamentoContratosDSP";
+
+declare namespace snd= "ld:br/com/netservicos/cliente/faturamento/physical/netsms/table/SnDiaVctoDSP";
+
+declare namespace snc1= "ld:br/com/netservicos/cliente/contrato/physical/netsms/table/SnContratoDSP";
+
+declare namespace dat= "http://www.netservicos.com.br/dataServices";
+
+declare namespace snc= "ld:br/com/netservicos/cliente/faturamento/physical/netsms/table/SnCicloCobrancaDSP";
+
+import schema namespace sch="http://www.netservicos.com.br/DadoCobranca/schemas" at "ld:br/com/netservicos/cliente/dadocobranca/schemas/ModalidadePagamentoContrato.xsd";
+
+declare namespace tns="ld:br/com/netservicos/cliente/dadocobranca/logical/entity/DadoCobrancaContratoDSL";
+
+declare namespace sncc= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnCcDSP";
+
+declare namespace sncr= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnRelCcContratoDSP";
+
+declare namespace banc= "ld:br/com/netservicos/cliente/dadocobranca/physical/netsms/table/SnBancoDSP";
+
+declare namespace sna= "ld:br/com/netservicos/cliente/contrato/physical/netsms/table/SnAssinanteDSP";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultar($numeroContrato as xs:long, $identificacaoCidade as xs:string) as element(sch:ModalidadePagamentoContrato)? {
+
+
+for $SnContratoDSP in snc1:SnContratoDSP()
+where $numeroContrato eq $SnContratoDSP/NUM_CONTRATO
+where $identificacaoCidade eq $SnContratoDSP/CID_CONTRATO
+for $SnCicloCobrancaDSP in snc:SnCicloCobrancaDSP()
+where $SnContratoDSP/ID_CICLO_COBRANCA eq $SnCicloCobrancaDSP/ID_CICLO_COBRANCA
+for $SnRelCoboletamentoContratosDSP in snr:SnRelCoboletamentoContratosDSP()
+where $SnRelCoboletamentoContratosDSP/DT_FIM eq fn-bea:dateTime-from-string-with-format("yyyy-MM-dd", "2049-12-30")
+where $SnContratoDSP/NUM_CONTRATO eq $SnRelCoboletamentoContratosDSP/NUM_CONTRATO
+where $SnContratoDSP/CID_CONTRATO eq $SnRelCoboletamentoContratosDSP/CID_CONTRATO
+return
+
+        <sch:ModalidadePagamentoContrato>
+        	{
+        	for $SnDiaVctoDSP in snd:SnDiaVctoDSP()
+			where $SnDiaVctoDSP/ID_DIA_VCTO eq $SnContratoDSP/ID_DIA_VCTO
+			return
+            <sch:DiaVencimento?>{fn:data($SnDiaVctoDSP/DIA)}</sch:DiaVencimento>
+        	}
+           	{
+		        if(fn:upper-case(fn:data($SnRelCoboletamentoContratosDSP/TP_COBOLETAMENTO)) eq xs:string("S")) then
+            		<sch:IndicadorCoboletamento?>{fn:true()}</sch:IndicadorCoboletamento>
+		        else
+		            <sch:IndicadorCoboletamento?>{fn:false()}</sch:IndicadorCoboletamento>
+		    }
+			{
+				if(fn:empty($SnContratoDSP/ID_FORMA_ENVIO_FATURA)) then
+					<sch:TipoPostagemFatura?>{xs:string("")}</sch:TipoPostagemFatura>
+				else
+					for $SnFormaEnvioFaturaDSP in snf:SnFormaEnvioFaturaDSP()
+					where $SnContratoDSP/ID_FORMA_ENVIO_FATURA eq $SnFormaEnvioFaturaDSP/ID_FORMA_ENVIO_FATURA
+					return
+					<sch:TipoPostagemFatura?>{fn:data($SnFormaEnvioFaturaDSP/DS_FORMA_ENVIO_FATURA)}</sch:TipoPostagemFatura>
+			}
+		    
+		    <sch:FormaPagamento?>{fn:data($SnContratoDSP/ID_TIPO_COBRANCA)}</sch:FormaPagamento>
+
+            {
+            if ((fn:data($SnContratoDSP/ID_TIPO_COBRANCA) = 1) or (fn:data($SnContratoDSP/ID_TIPO_COBRANCA) = 4) or (fn:data($SnContratoDSP/ID_TIPO_COBRANCA) = 5)) then
+            	<sch:FormaPagamentoBoleto?></sch:FormaPagamentoBoleto>
+            else
+    	        (
+    	        if (fn:data($SnContratoDSP/ID_TIPO_COBRANCA) = 2) then
+            		for $SnCcDSP in sncc:SnCcDSP()
+            		for $SnRelCcContratoDSP in sncr:SnRelCcContratoDSP()
+            		for $SnBancoDSP in banc:SnBancoDSP()
+            		where $SnCcDSP/ID_CC eq $SnRelCcContratoDSP/ID_CC
+            		and $SnRelCcContratoDSP/NUM_CONTRATO eq $numeroContrato
+            		and $SnRelCcContratoDSP/CID_CONTRATO eq $identificacaoCidade
+            		and $SnCcDSP/ID_BANCO eq $SnBancoDSP/ID_BANCO
+            		and $SnRelCcContratoDSP/STATUS eq xs:int(1)
+
+            		return
+            			<sch:FormaPagamentoDebitoContaCorrente?>
+            					        					 
+    						<sch:NomeTitularContaCorrente?>
+    						{	
+    						
+    						 	fn:data(tns:getNomeTitular($numeroContrato, $identificacaoCidade, $SnRelCcContratoDSP/ID_CC))
+    						 
+    						}
+    						</sch:NomeTitularContaCorrente>
+            				<sch:AgenciaContaCorrente?>{fn:data($SnCcDSP/AGENCIA)}</sch:AgenciaContaCorrente>
+            				<sch:NumeroContaCorrente?>
+	            			{
+	            				fn:data($SnCcDSP/NUM_CC)
+		            		}
+	            			</sch:NumeroContaCorrente>
+	            			<sch:DigitoContaCorrente?>{fn:data($SnCcDSP/DV_CC)}</sch:DigitoContaCorrente>
+            				<sch:BancoContaCorrente>
+								<sch:Identificador>{ data($SnBancoDSP/ID_BANCO) }</sch:Identificador>
+								<sch:NomeBanco>{ data($SnBancoDSP/NOME) }</sch:NomeBanco>
+            				</sch:BancoContaCorrente>
+            		</sch:FormaPagamentoDebitoContaCorrente>
+           		 else
+           		 (
+           		 
+           		 
+           		 for $SnCartaoCreditoDSP in snc2:SnCartaoCreditoDSP()
+           		 where $SnContratoDSP/NUM_CONTRATO eq $SnCartaoCreditoDSP/NUM_CONTRATO
+           		 where $SnContratoDSP/CID_CONTRATO eq $SnCartaoCreditoDSP/CID_CONTRATO
+           		 where fn:empty($SnCartaoCreditoDSP/DT_BLOQUEIO)
+
+           		 
+           		 return
+           		 <sch:FormaPagamentoCartaoCredito?>
+           		  <sch:NomeTitularCartaoCredito?>{fn:data($SnCartaoCreditoDSP/NOME_TITULAR)}</sch:NomeTitularCartaoCredito>
+           		  <sch:NumeroCartaoCredito?>{fn:data($SnCartaoCreditoDSP/NUM_CARTAO)}</sch:NumeroCartaoCredito>
+           		  <sch:ValidadeCartaoCredito?>{fn:data($SnCartaoCreditoDSP/VALIDADE)}</sch:ValidadeCartaoCredito>
+           		 {
+           		 for $SnOperadoraCartaoDSP in sno:SnOperadoraCartaoDSP()
+           		 where $SnCartaoCreditoDSP/ID_OPERADORA_CARTAO eq $SnOperadoraCartaoDSP/ID_OPERADORA_CARTAO
+           		 return
+           		  <sch:OperadoraCartaoCredito?>
+           		  	<sch:Identificador?>{fn:data($SnOperadoraCartaoDSP/ID_OPERADORA_CARTAO)}</sch:Identificador>
+           		  	<sch:NomeOperadora?>{fn:data($SnOperadoraCartaoDSP/DESCRICAO)}</sch:NomeOperadora>
+           		  </sch:OperadoraCartaoCredito>
+           		  }
+           		 </sch:FormaPagamentoCartaoCredito>
+           		 )
+    	        ) 
+            }
+            <sch:PeriodicidadeCobranca?>{xs:int(1)}</sch:PeriodicidadeCobranca>
+             {
+            if ((fn:data($SnContratoDSP/VINCENDA) = 0)) then
+            	<sch:PoliticaCobranca?>{xs:string("Vencido")}</sch:PoliticaCobranca>
+            else
+            (
+            	<sch:PoliticaCobranca?>{xs:string("Vincendo")}</sch:PoliticaCobranca>
+            	)
+            }
+        </sch:ModalidadePagamentoContrato>
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:getNmTitularBySnDebitoAutomatico($numeroContrato as xs:long, $identificacaoCidade as xs:string, $idCc as xs:integer) as xs:string*{
+	for $SnDebitoAutomaticoDSP in snd1:SnDebitoAutomaticoDSP()
+	where $SnDebitoAutomaticoDSP/NUM_CONTRATO eq $numeroContrato
+	and $SnDebitoAutomaticoDSP/CID_CONTRATO eq $identificacaoCidade
+	and $SnDebitoAutomaticoDSP/ID_CC eq $idCc
+	return
+		$SnDebitoAutomaticoDSP/NOME_TITULAR
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:getNmTitularBySnAssinante($numeroContrato as xs:long, $identificacaoCidade as xs:string) as xs:string*{
+	for $SnContratoDSP in snc1:SnContratoDSP()
+	for $SnAssinanteDSP in sna:SnAssinanteDSP()
+	where $SnAssinanteDSP/ID_ASSINANTE eq $SnContratoDSP/ID_ASSINANTE 
+	where $SnContratoDSP/NUM_CONTRATO eq $numeroContrato
+	where $SnContratoDSP/CID_CONTRATO eq $identificacaoCidade
+
+	return
+		$SnAssinanteDSP/NOME_TITULAR
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:getNomeTitular($numeroContrato as xs:long, $identificacaoCidade as xs:string, $idCc as xs:integer) as xs:string*{
+	let $nomeTitular := tns:getNmTitularBySnDebitoAutomatico($numeroContrato, $identificacaoCidade, $idCc)
+	return 
+		if(fn:empty($nomeTitular))
+		then
+			tns:getNmTitularBySnAssinante($numeroContrato, $identificacaoCidade)
+		else(
+			$nomeTitular
+		)
+};

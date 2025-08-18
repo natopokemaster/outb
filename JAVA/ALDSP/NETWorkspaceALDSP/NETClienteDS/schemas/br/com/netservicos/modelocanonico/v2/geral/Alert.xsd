@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/alert" 
+        elementFormDefault="qualified" 
+        xmlns="http://www.w3.org/2001/XMLSchema" 
+        xmlns:tns="http://www.netservicos.com.br/modelocanonico/v2/alert" 
+        xmlns:macroprocesso="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso"
+        xmlns:processo="http://www.netservicos.com.br/modelocanonico/v2/processo"
+        xmlns:excep="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification">
+
+	<import namespace="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso" schemaLocation="MacroProcesso.xsd"/>
+	<import namespace="http://www.netservicos.com.br/modelocanonico/v2/processo" schemaLocation="Processo.xsd"/>
+    <import namespace="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification" schemaLocation="ExceptionClassification.xsd"/>
+    
+	<complexType name="Alert">
+        <annotation>
+        	<documentation>
+        		Tipo para representar o tipo Alert utilizados para
+        		geração de Alerts.
+        	</documentation>
+        </annotation>
+        <sequence>
+			<element name="timestamp" type="dateTime">
+				<annotation>
+					<documentation>
+						Data e hora da geração do Alerta pela aplicação.
+					</documentation>
+				</annotation></element>
+            <element name="transactionId" type="string">
+            	<annotation>
+            		<documentation>
+            			Identificador único da Transação.
+            		</documentation>
+            	</annotation></element>			
+			<element name="message" type="string">
+				<annotation>
+					<documentation>
+						Mensagem a ser enviada no Alert.
+					</documentation>
+				</annotation></element>
+			<element name="serviceSeverityLevel" type="tns:ServiceSeverityLevel">
+				<annotation>
+					<documentation>
+						Nível de escalonamento do Alerta. Quanto mais
+						alto o nível de escalonamento, destinatários com
+						maior alçada são envolvidos.
+					</documentation>
+				</annotation></element>
+			<element name="consumidor" type="string">
+				<annotation>
+					<documentation>
+						Consumidor responsável pela geração do Alert.
+						(Aplicação no NetHeader).
+					</documentation>
+				</annotation></element>						
+			<element name="macroProcesso" type="macroprocesso:MacroProcesso">
+				<annotation>
+					<documentation>
+						Macro Processo de negócio para o qual o Alert é
+						destinado.
+					</documentation>
+				</annotation></element>
+			<element name="macroProcessoNivel" type="processo:Processo">
+				<annotation>
+					<documentation>
+						Informação do segundo nível abaixo do macro
+						processo para envio das notificações. Ex:
+						MacroProcesso: Ativar, macroProcessoNivel:
+						aprovisionamento
+					</documentation>
+				</annotation></element>
+			<element name="macroProcessoSubNivel" type="string">
+				<annotation>
+					<documentation>
+						Informação do segundo nível abaixo do macro
+						processo para envio das notificações. Ex:
+						MacroProcesso: Ativar, macroProcessoNivel:
+						Aprovisionamento, macroProcessoSubNivel:
+						integracaoembratel
+
+						Este campo não é obrigatório. No caso de não
+						preenchido o alerta e enviado para a caixa
+						padrão do nível superior, informado em
+						macroProcessoNivel.
+					</documentation>
+				</annotation></element>
+			<element name="exceptionClassification" type="excep:ExceptionClassification">
+				<annotation>
+					<documentation>
+						Classificação da exceção. Valor vindo do
+						atributo exceptionClassification das exceções
+						lançadas ou informado diretamente quando o
+						alerta é gerado no serviço. O valor deste campo
+						indica o nível de Severidade que será gerado no
+						Alerta. Da seguinte forma: VAZIO ou NULL -&gt;
+						1-Normal CLASSIFICATION_BUSINESS -&gt; 2-Warning
+						CLASSIFICATION_VALIDATION -&gt; 2-Warning
+						CLASSIFICATION_SECURITY -&gt; 2-Warning
+						CLASSIFICATION_UNEXPECTED -&gt; 5-Critical
+						CLASSIFICATION_RESOURCE -&gt; 6-Fatal
+					</documentation>
+				</annotation></element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="ServiceSeverityLevel">
+        <annotation>
+        	<documentation>
+        		Tipo para representar o nível de escalonamento do
+        		Alerta. Quanto mais alto o nível de escalonamento,
+        		destinatários com maior alçada são envolvidos.
+        		Os valores são: NIVEL1, NIVEL2, NIVEL3, NIVEL4 e NIVEL5
+        	</documentation>
+        </annotation>
+        <restriction base="string">
+			<enumeration value="NIVEL1"/>
+			<enumeration value="NIVEL2"/>
+			<enumeration value="NIVEL3"/>
+			<enumeration value="NIVEL4"/>
+			<enumeration value="NIVEL5"/>
+		</restriction>
+	</simpleType>
+
+	<element name="Alert" type="tns:Alert"/>
+	
+	<element name="ServiceSeverityLevel" type="tns:ServiceSeverityLevel">
+		<annotation>
+			<documentation></documentation>
+		</annotation></element>
+
+</schema>

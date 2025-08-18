@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.netservicos.com.br/modelocanonico/formapagameto" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:formapagameto="http://www.netservicos.com.br/modelocanonico/formapagameto">
+
+    <xsd:complexType name="FormaPagamento" abstract="true"></xsd:complexType>
+
+    <xsd:complexType name="FormaPagamentoBoleto">
+    	<xsd:complexContent>
+    		<xsd:extension base="formapagameto:FormaPagamento"></xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="FormaPagamentoCartaoCredito">
+    	<xsd:complexContent>
+    		<xsd:extension base="formapagameto:FormaPagamento">
+    			<xsd:sequence>
+    				<xsd:element name="NomeTitularCartaoCredito"
+    					type="xsd:string" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="NumeroCartaoCredito"
+    					type="formapagameto:CartaoCredito" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="ValidadeCartaoCredito"
+    					type="formapagameto:MonthYear" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="OperadoraCartaoCredito" type="formapagameto:OperadoraCartaoCredito" minOccurs="0" maxOccurs="1"></xsd:element>
+    			</xsd:sequence>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="FormaPagamentoDebitoContaCorrente">
+    	<xsd:complexContent>
+    		<xsd:extension base="formapagameto:FormaPagamento">
+    			<xsd:sequence>
+    				<xsd:element name="NomeTitularContaCorrente"
+    					type="xsd:string" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="AgenciaContaCorrente"
+    					type="xsd:int" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="NumeroContaCorrente"
+    					type="xsd:long" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="DigitoContaCorrente"
+    					type="xsd:int" minOccurs="0" maxOccurs="1">
+    				</xsd:element>
+    				<xsd:element name="BancoContaCorrente" type="formapagameto:Banco" minOccurs="0" maxOccurs="1"></xsd:element>
+    			</xsd:sequence>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CartaoCredito">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\d{4}[- ]){3}\d{4}|\d{16}$"/>
+		</xsd:restriction>
+	</xsd:simpleType>  
+    
+    	<xsd:simpleType name="MonthYear">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(0[1-9]|1[012])[/](19|20)\d\d"/>
+		</xsd:restriction>
+	</xsd:simpleType>  
+    
+
+    <xsd:complexType name="OperadoraCartaoCredito"></xsd:complexType>
+
+    <xsd:complexType name="Banco"></xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/oferta"
+	elementFormDefault="qualified"
+
+	xmlns:cobranca="http://www.netservicos.com.br/modelocanonico/v2/cobranca"
+	xmlns:formapagamento="http://www.netservicos.com.br/modelocanonico/v2/formapagamento"
+	xmlns:venda="http://www.netservicos.com.br/modelocanonico/v2/venda"
+	xmlns:rede="http://www.netservicos.com.br/modelocanonico/v2/rede"
+	xmlns:produto="http://www.netservicos.com.br/modelocanonico/v2/produto"
+	xmlns:oferta="http://www.netservicos.com.br/modelocanonico/v2/oferta">
+
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/cobranca"
+		schemaLocation="../cobranca/Cobranca.xsd">
+	</xs:import>
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/venda"
+		schemaLocation="Venda.xsd">
+	</xs:import>
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/rede"
+		schemaLocation="../rede/Rede.xsd">
+	</xs:import>
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/formapagamento"
+		schemaLocation="../cobranca/FormaPagamento.xsd">
+	</xs:import>
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/produto"
+		schemaLocation="../produto/ProdutoServico.xsd">
+	</xs:import>
+	
+	<xs:complexType name="FaixaPenetracaoProdutoServico">
+		<xs:annotation>
+			<xs:documentation>
+				10 - 15 adesoes, 16 - 30 adesoes (+ DE 23 AP, 05-15
+				APTOS, 07-15 APTOS, 100%, 16-22 APTOS, 23-36 APTOS,
+				50-54.99, 50-64.99, ACIMA DE 37 APTOS, NAO SE APLICA)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+		<xs:complexType name="FormaDeAquisicao">
+		<xs:annotation>
+			<xs:documentation>
+				Entidade que representa a forma de aquisicao de um
+				produto servico. Por exemplo: COMODATO, PROPRIO,
+				ALUGUEL, SEM FORMA AQUISICAO, ALUGUEL ZERO, COMODATO
+				DIGITAL
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="formaPagamento"
+				type="formapagamento:FormaPagamento" minOccurs="0" maxOccurs="1" />
+			<xs:element name="promocao" type="venda:Promocao"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Oferta">
+		<xs:annotation>
+			<xs:documentation>
+				Eh uma condicao comercial para precificar um determinado
+				Produto e Serviço. Uma Oferta pode ser diferente levando
+				em consideracao o Publico Alvo, Area Geografica,
+				Segmento de Cliente, Campanha e Promoções.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="canalVenda" type="venda:CanalVenda"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="adesaoProdutoServico"
+				type="oferta:AdesaoProdutoServico" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="faixaPenetracaoProdutoServico"
+				type="oferta:FaixaPenetracaoProdutoServico" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="formaPagamento"
+				type="formapagamento:FormaPagamento" minOccurs="0" maxOccurs="1" />
+			<xs:element name="campanha" type="venda:Campanha"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="adesaoEquipamento"
+				type="oferta:AdesaoEquipamento" minOccurs="0" maxOccurs="unbounded" />
+
+			<xs:element name="recorrente" type="oferta:Recorrente"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="formaDeAquisicao"
+				type="oferta:FormaDeAquisicao" minOccurs="0" maxOccurs="1" />
+			<xs:element name="localDomicilio" type="rede:LocalDomicilio"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="promocao" type="venda:Promocao"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdesaoEquipamento">
+		<xs:complexContent>
+			<xs:extension base="cobranca:PlanoPagamento">
+				<xs:sequence>
+					<xs:element name="numeroParcelas" type="xs:int"
+						minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Numero de parcelas em que a adesao sera
+								paga
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Recorrente">
+		<xs:complexContent>
+			<xs:extension base="cobranca:PlanoPagamento">
+				<xs:sequence>
+					<xs:element name="tipoRecorrencia" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								MENSAL, SEMANAL, DIARIA, ANUAL,
+								SEMESTRAL
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="MENSAL"></xs:enumeration>
+								<xs:enumeration value="SEMANAL"></xs:enumeration>
+								<xs:enumeration value="DIARIA"></xs:enumeration>
+								<xs:enumeration value="ANUAL"></xs:enumeration>
+								<xs:enumeration value="SEMESTRAL"></xs:enumeration>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="dataInicioVigencia"
+						type="xs:dateTime" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Data de Inicio do pagamento do valor
+								recorrente
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dataFimVigencia"
+						type="xs:dateTime" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Data de Fim do pagamento do valor
+								recorrente
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AdesaoProdutoServico">
+		<xs:complexContent>
+			<xs:extension base="cobranca:PlanoPagamento">
+				<xs:sequence>
+					<xs:element name="numeroParcelas" type="xs:int"
+						minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Numero de Parcelas para o Pagamento do
+								ProdutoServicos
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="Oferta" type="oferta:Oferta"></xs:element>
+	
+	<xs:element name="ProdutoServicoOferta" type="oferta:ProdutoServicoOferta"></xs:element>
+
+	<xs:complexType name="ProdutoServicoOferta">
+	
+				<xs:sequence>
+										<xs:element name="produtoServico"
+				type="produto:ProdutoServico" minOccurs="0"
+				maxOccurs="1" />
+					
+					<xs:element name="produtoServicoAgregado"
+				type="produto:ProdutoServicoAgregado" minOccurs="0"
+				maxOccurs="unbounded" />
+				<xs:element name="Oferta" type="oferta:Oferta"></xs:element>		
+			<xs:element name="tipoVenda" type="xs:string" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Especifica o Tipo da Venda que deve ser usada
+						para esse produto. Se sera necessario um
+						Upgrade, Downgrade ou Migracao.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="perfil" type="xs:string" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Especifica qual eh o Perfil do produto.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dataInicioVigencia" type="xs:dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="dataFimVigencia" type="xs:dateTime"
+				minOccurs="0" maxOccurs="1" />
+				
+				</xs:sequence>			
+			
+	</xs:complexType>
+</xs:schema>

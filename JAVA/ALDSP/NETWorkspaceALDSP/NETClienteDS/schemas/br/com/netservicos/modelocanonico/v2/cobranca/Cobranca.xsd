@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/cobranca"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:cobranca="http://www.netservicos.com.br/modelocanonico/v2/cobranca" xmlns:moeda="http://www.netservicos.com.br/modelocanonico/v2/moeda">
+
+	<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/moeda" schemaLocation="../geral/Moeda.xsd"></xsd:import>
+	<xsd:complexType name="TipoCobranca">
+		<xsd:sequence>
+			<xsd:element name="Identificador" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Tipo de Cobrança é a forma de pagamento que
+						estava vinculada com a cobrança dentro do
+						processo de geração e emissão
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PlanoPagamento">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:long"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="valor" type="moeda:Valor" minOccurs="0"
+				maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="PlanoPagamento" type="cobranca:PlanoPagamento"></xsd:element>
+
+	<xsd:element name="TipoCobranca" type="cobranca:TipoCobranca"></xsd:element>
+</xsd:schema>

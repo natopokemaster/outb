@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:cliente="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	xmlns:contrato="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+	elementFormDefault="qualified">
+
+	<include schemaLocation="Profissao.xsd" />
+	<include schemaLocation="GrauDeInstrucao.xsd" />
+	<include schemaLocation="EstadoCivil.xsd" />
+	<include schemaLocation="Email.xsd" />
+	<annotation>
+		<documentation>
+			Entidade responsavel por mapear um cliente ou um prospect no
+			dominio NET
+		</documentation>
+	</annotation>
+
+	<include schemaLocation="Hobby.xsd" />
+	<include schemaLocation="TelefoneContato.xsd" />
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+		schemaLocation="../contrato/ContratoDeVenda.xsd" />
+
+	<complexType name="ClienteProspect">
+		<sequence>
+			<element name="Identificador" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Identificador do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="long" />
+				</simpleType>
+			</element>
+			<element name="nome" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<simpleType>
+					<annotation>
+						<documentation>Nome do cliente</documentation>
+					</annotation>
+					<restriction base="string" />
+				</simpleType>
+			</element>
+			<element name="tipoPessoa" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Tipo de pessoa Juridica ou Fisica
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="8" />
+						<enumeration value="fisica" />
+						<enumeration value="juridica" />
+					</restriction>
+				</simpleType>
+
+			</element>
+			<element name="CPF" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<simpleType>
+					<annotation>
+						<documentation>CPF do cliente</documentation>
+					</annotation>
+					<restriction base="string">
+						<pattern value="\d{10,11}" />
+						<maxLength value="11" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RG" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>RG do cliente</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="20" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CNPJ" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>CNPJ do cliente</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<pattern value="\d{14,15}" />
+						<maxLength value="15" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="InscricaoEstadual" maxOccurs="1"
+				minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>
+						Inscricao estadual do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="14" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OrgaoExpedidor" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Orgao expedidor do documento do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="10" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Profissao" maxOccurs="1" minOccurs="0"
+				nillable="true" type="cliente:Profissao">
+				<annotation>
+					<documentation>Profissao do cliente</documentation>
+				</annotation>
+
+			</element>
+			<element name="DataNascimento" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Data de nascimento do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="date" />
+				</simpleType>
+			</element>
+			<element name="Sexo" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Sexo do cliente Masculino, Feminino e Indefinido
+						no caso de cliente pessoa juridica
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="MASCULINO" />
+						<enumeration value="FEMININO" />
+						<enumeration value="NAO SE APLICA" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EstadoCivil" maxOccurs="1" minOccurs="0"
+				nillable="true" type="cliente:EstadoCivil">
+				<annotation>
+					<documentation>
+						Estado civil do cliente Solteiro, Casado ou
+						Indefinido no caso de cliente Pessoa Juridica
+					</documentation>
+				</annotation>
+			</element>
+			<element name="IndicadorDeEstrangeiro" maxOccurs="1"
+				minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>
+						Indicador de cliente estrangeiro
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="boolean" />
+				</simpleType>
+			</element>
+			<element name="GrauDeInstrucao" maxOccurs="1" minOccurs="0"
+				nillable="true" type="cliente:GrauDeInstrucao">
+				<annotation>
+					<documentation>
+						Grau de instrucao do cliente. Ex: Superior
+						incompleto
+					</documentation>
+				</annotation>
+
+			</element>
+			<element name="NomeMae" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Nome da mae do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="80" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="NomePai" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Nome do Pai do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="80" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Emails" maxOccurs="1" minOccurs="0"
+				nillable="true" type="cliente:Emails">
+				<annotation>
+					<documentation>Email do cliente</documentation>
+				</annotation>
+			</element>
+			<element name="TelefonesContato"
+				type="cliente:TelefonesContato" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Telefones de contato do cliente
+					</documentation>
+				</annotation>
+			</element>
+			<element name="Hobbies" type="cliente:Hobbies" maxOccurs="1"
+				minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>Hobbies do cliente</documentation>
+				</annotation>
+			</element>
+			<element name="ContratosDeVenda"
+				type="contrato:ContratosDeVenda" nillable="true" maxOccurs="1"
+				minOccurs="0">
+				<annotation>
+					<documentation>
+						Contratos de venda do cliente
+					</documentation>
+				</annotation>
+			</element>
+			<element name="CodigoSuframa" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="TipoCliente" type="string" minOccurs="0"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ClientesProspect">
+		<annotation>
+			<documentation>
+				Entidade responsavel por mapear um conjunto de clientes
+				ou prospects no dominio NET
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="clienteProspect"
+				type="cliente:ClienteProspect" maxOccurs="unbounded"
+				minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<element name="ClienteProspect" type="cliente:ClienteProspect" />
+
+</schema>

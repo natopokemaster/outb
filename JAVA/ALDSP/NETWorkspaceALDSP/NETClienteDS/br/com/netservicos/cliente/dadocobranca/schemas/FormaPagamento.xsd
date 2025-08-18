@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.netservicos.com.br/DadoCobranca/FormaPagamento/schemas"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:formapagamento="http://www.netservicos.com.br/DadoCobranca/FormaPagamento/schemas"
+	xmlns:empresa="http://www.netservicos.com.br/modelocanonico/v2/empresa">
+
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/empresa"
+		schemaLocation="../../../../../../schemas/br/com/netservicos/modelocanonico/v2/geral/Empresa.xsd" />
+	<xsd:complexType name="FormaPagamento">
+		<xsd:annotation>
+			<xsd:documentation>
+				Formas de pagamento disponíveis para o cliente escolher,
+				sempre têm uma forma de pagamento atual vinculada com o
+				contrato. (Boleto, DCC ou CC e os respectivo informações
+				de cadastro)
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		        	<xsd:element name="FormaPagamentoBoleto" type="formapagamento:FormaPagamentoBoleto" minOccurs="0" maxOccurs="1"/>
+		        	<xsd:element name="FormaPagamentoCartaoCredito" type="formapagamento:FormaPagamentoCartaoCredito" minOccurs="0" maxOccurs="1"/>
+		        	<xsd:element name="FormaPagamentoDebitoContaCorrente" type="formapagamento:FormaPagamentoDebitoContaCorrente" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="FormaPagamentoBoleto">
+	</xsd:complexType>
+    
+    <xsd:complexType name="FormaPagamentoCartaoCredito">
+				<xsd:sequence>
+					<xsd:element name="NomeTitularCartaoCredito"
+						type="xsd:string" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="NumeroCartaoCredito"
+						type="formapagamento:CartaoCredito" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="ValidadeCartaoCredito"
+						type="formapagamento:MonthYear" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="OperadoraCartaoCredito"
+						type="formapagamento:OperadoraCartaoCredito" minOccurs="0"
+						maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+	</xsd:complexType>
+    
+	<xsd:complexType name="FormaPagamentoDebitoContaCorrente">
+				<xsd:sequence>
+					<xsd:element name="NomeTitularContaCorrente"
+						type="xsd:string" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="AgenciaContaCorrente"
+						type="xsd:int" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="NumeroContaCorrente"
+						type="xsd:long" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="DigitoContaCorrente"
+						type="xsd:int" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="BancoContaCorrente"
+						type="formapagamento:Banco" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="CartaoCredito">
+		<xsd:restriction base="xsd:string"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="MonthYear">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(0[1-9]|1[012])[/](19|20)\d\d" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="OperadoraCartaoCredito">
+		<xsd:sequence>
+			<xsd:element name="Identificador" type="xsd:int" />
+			<xsd:element name="NomeOperadora" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Banco">
+		<xsd:sequence>
+			<xsd:element name="Identificador" type="xsd:int" />
+			<xsd:element name="NomeBanco" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Banco" type="formapagamento:Banco" />
+
+	<xsd:complexType name="Bancos">
+		<xsd:sequence>
+			<xsd:element name="Banco" type="formapagamento:Banco"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Bancos" type="formapagamento:Bancos" />
+
+	<xsd:complexType name="OpcoesFormaPagamento">
+		<xsd:sequence>
+			<xsd:element name="OperadorasCartaoCredito"
+				type="formapagamento:OperadorasCartaoCredito" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Opções de operadoras de cartão de credito que e
+						disponivel
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Bancos" type="formapagamento:Bancos"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Opções de bancos que e disponivel
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DiaVencimentosDisponivies"
+				type="formapagamento:DiaVencimentoDisponiveis" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Dia de vencimentos que e disponivel
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperadoraNET" type="empresa:OperadoraNET"
+				minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						OperadoraNET do que este opções pertence
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpcaoPagamentoBoletoDisponivel"
+				type="xsd:boolean" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Se a opção de pagamento via boleto e disponivel,
+						atualmente no legado este opção e verdadeiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="OperadorasCartaoCredito">
+		<xsd:sequence>
+			<xsd:element name="OperadoraCartaoCredito"
+				type="formapagamento:OperadoraCartaoCredito" minOccurs="0"
+				maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="OpcoesFormaPagamento"
+		type="formapagamento:OpcoesFormaPagamento" />
+
+	<xsd:complexType name="DiaVencimentoDisponiveis">
+		<xsd:sequence>
+			<xsd:element name="DiaVencimento" minOccurs="1"
+				maxOccurs="31">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:minInclusive value="1" />
+						<xsd:maxInclusive value="31" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="OperadoraCartaoCredito"
+		type="formapagamento:OperadoraCartaoCredito" />
+
+	<xsd:element name="OperadorasCartaoCredito"
+		type="formapagamento:OperadorasCartaoCredito" />
+</xsd:schema>

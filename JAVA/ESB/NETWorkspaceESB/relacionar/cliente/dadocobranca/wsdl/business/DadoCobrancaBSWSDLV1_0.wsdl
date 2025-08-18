@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws" name="DadoCobrancaJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/DadoCobranca/schemas">
+      <xs:import namespace="http://www.netservicos.com.br/DadoCobranca/schemas"/>
+      <xs:element name="consultarProposta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="numeroProposta" type="xs:long"/>
+            <xs:element name="identificacaoCidade" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarPropostaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:ModalidadePagamentoContrato" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarContrato">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="numeroContrato" type="xs:long"/>
+            <xs:element name="identificacaoCidade" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarContratoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:ModalidadePagamentoContrato" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/DadoCobranca/schemas" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/DadoCobranca/schemas">
+      <complexType name="ModalidadePagamentoContrato">
+        <annotation>
+          <documentation>Todos os informacoes sobre a forma de pagamento e dados
+				cadastrais de cobranca de um contrato</documentation>
+        </annotation>
+        <sequence>
+          <element name="DiaVencimento" minOccurs="0" maxOccurs="1">
+            <simpleType>
+              <restriction base="int">
+                <minInclusive value="1"/>
+                <maxInclusive value="31"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="IndicadorCoboletamento" type="boolean" nillable="true" minOccurs="0" maxOccurs="1"></element>
+          <element name="TipoPostagemFatura" minOccurs="0" maxOccurs="1"/>
+          <element name="FormaPagamento" type="int" minOccurs="1" maxOccurs="1"/>
+          <element name="FormaPagamentoBoleto" type="tns:FormaPagamentoBoleto" minOccurs="0" maxOccurs="1"/>
+          <element name="FormaPagamentoCartaoCredito" type="tns:FormaPagamentoCartaoCredito" minOccurs="0" maxOccurs="1"/>
+          <element name="FormaPagamentoDebitoContaCorrente" type="tns:FormaPagamentoDebitoContaCorrente" minOccurs="0" maxOccurs="1"/>
+          <element name="PeriodicidadeCobranca" type="int" minOccurs="0" maxOccurs="1"></element>
+          <element name="PoliticaCobranca" minOccurs="0" maxOccurs="1">
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="Vencido"/>
+                <enumeration value="Vincendo"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <xsd:complexType name="FormaPagamentoBoleto"></xsd:complexType>
+      <xsd:complexType name="FormaPagamentoCartaoCredito">
+        <xsd:sequence>
+          <xsd:element name="NomeTitularCartaoCredito" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="NumeroCartaoCredito" type="tns:CartaoCredito" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="ValidadeCartaoCredito" type="tns:MonthYear" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="OperadoraCartaoCredito" type="tns:OperadoraCartaoCredito" minOccurs="0" maxOccurs="1"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FormaPagamentoDebitoContaCorrente">
+        <xsd:sequence>
+          <xsd:element name="NomeTitularContaCorrente" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="AgenciaContaCorrente" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="NumeroContaCorrente" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="DigitoContaCorrente" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>
+          <xsd:element name="BancoContaCorrente" type="tns:Banco" minOccurs="0" maxOccurs="1"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Banco">
+        <xsd:sequence>
+          <xsd:element name="Identificador" type="xsd:int"/>
+          <xsd:element name="NomeBanco" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="CartaoCredito">
+        <xsd:restriction base="xsd:string"/>
+      </xsd:simpleType>
+      <xsd:simpleType name="MonthYear">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="(0[1-9]|1[012])[/](19|20)\d\d"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="OperadoraCartaoCredito">
+        <xsd:sequence>
+          <xsd:element name="Identificador" type="xsd:int"/>
+          <xsd:element name="NomeOperadora" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <element name="ModalidadePagamentoContrato" type="tns:ModalidadePagamentoContrato"/>
+    </schema>
+  </types>
+  <message name="consultarPropostaIn">
+    <part name="parameters" element="tns:consultarProposta"/>
+  </message>
+  <message name="consultarPropostaOut">
+    <part name="parameters" element="tns:consultarPropostaResponse"/>
+  </message>
+  <message name="consultarContratoIn">
+    <part name="parameters" element="tns:consultarContrato"/>
+  </message>
+  <message name="consultarContratoOut">
+    <part name="parameters" element="tns:consultarContratoResponse"/>
+  </message>
+  <portType name="DadoCobrancaJWSPT">
+    <operation name="consultarProposta">
+      <input message="tns:consultarPropostaIn"/>
+      <output message="tns:consultarPropostaOut"/>
+    </operation>
+    <operation name="consultarContrato">
+      <input message="tns:consultarContratoIn"/>
+      <output message="tns:consultarContratoOut"/>
+    </operation>
+  </portType>
+  <binding name="DadoCobrancaJWSSoapBinding" type="tns:DadoCobrancaJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarProposta">
+      <soap:operation soapAction="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws/consultarProposta" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultarContrato">
+      <soap:operation soapAction="ld:br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws/consultarContrato" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="DadoCobrancaJWSSoapService">
+    <port binding="tns:DadoCobrancaJWSSoapBinding" name="DadoCobrancaJWSSoapPort">
+      <soap:address location="http://10.9.7.210:7012/NETClienteDSBasicAuth/ALDSPWebServiceSOAP12BasicAuth/br/com/netservicos/cliente/dadocobranca/webservice/DadoCobrancaJWS.ws"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/produto"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.netservicos.com.br/modelocanonico/v2/produto"
+	elementFormDefault="qualified"
+	xmlns:empresa="http://www.netservicos.com.br/modelocanonico/v2/empresa">
+
+	<xs:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/empresa"
+		schemaLocation="../geral/Empresa.xsd">
+	</xs:import>
+
+	<xs:element name="ProdutoAgregadoPayTV" type="ProdutoAgregadoPayTV" />
+	<xs:complexType name="ProdutoAgregadoPayTV">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServicoAgregado"></xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:element name="TipoProdutoServico" type="TipoProdutoServico" />
+	<xs:complexType name="TipoProdutoServico">
+		<xs:annotation>
+			<xs:documentation>
+				Ex. PPV, Pacote, A la carte, Serviços, Complementar e
+				Revista
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LinhaNegocio" type="LinhaNegocio" />
+	<xs:complexType name="LinhaNegocio" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Exemplo: Pay TV, Internet e VoIP
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CategoriaPPV" type="CategoriaPPV" />
+	<xs:complexType name="CategoriaPPV">
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TecnologiaProdutoServico"
+		type="TecnologiaProdutoServico" />
+	<xs:complexType name="TecnologiaProdutoServico">
+		<xs:annotation>
+			<xs:documentation>
+				Analagico, Digital, Voip, xs:internet, Digitalizado
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ClassificacaoProdutoServico"
+		type="ClassificacaoProdutoServico" />
+	<xs:complexType name="ClassificacaoProdutoServico">
+		<xs:annotation>
+			<xs:documentation>
+				Individual e Coletivo (AMBAS, CONDOMINIO, EMPRESA,
+				RESIDENCIAL)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FamiliaProdutoServico"
+		type="FamiliaProdutoServico" />
+	<xs:complexType name="FamiliaProdutoServico">
+		<xs:annotation>
+			<xs:documentation>
+				Ex. Advanced, Gold, Silver ...
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PlanoProdutoServico" type="PlanoProdutoServico" />
+	<xs:complexType name="PlanoProdutoServico">
+		<xs:annotation>
+			<xs:documentation>Ex. Conforto e Basico</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VelocidadeProdutoServico"
+		type="VelocidadeProdutoServico" />
+	<xs:complexType name="VelocidadeProdutoServico">
+		<xs:annotation>
+			<xs:documentation>1 Mega, 2 Mega ....</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="velocidade" type="xs:long" minOccurs="0"
+				maxOccurs="1">
+			</xs:element>
+			<xs:element name="unidadeVelocidade" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Kbps"></xs:enumeration>
+						<xs:enumeration value="bps"></xs:enumeration>
+						<xs:enumeration value="Mbps"></xs:enumeration>
+						<xs:enumeration value="Gbps"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProdutoServico" type="ProdutoServico" />
+	<xs:complexType name="ProdutoServico" abstract="true">
+		<xs:sequence>
+			<xs:element name="identificador" type="xs:long"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="descricao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="indicadorFidelidade" type="xs:boolean"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="usaTerminal" type="xs:boolean"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="tecnologiaProdutoServico"
+				type="TecnologiaProdutoServico" minOccurs="0" maxOccurs="1" />
+			<xs:element name="classificacaoProdutoServico"
+				type="ClassificacaoProdutoServico" minOccurs="0" maxOccurs="1" />
+			<xs:element name="familiaProdutoServico"
+				type="FamiliaProdutoServico" minOccurs="0" maxOccurs="1" />
+			<xs:element name="planoProdutoServico"
+				type="PlanoProdutoServico" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ParceiroNET" type="empresa:ParceiroNET"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="tipoProdutoServico"
+				type="TipoProdutoServico" minOccurs="0" maxOccurs="1" />
+			<xs:element name="linhaNegocio" type="LinhaNegocio"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="HardFone" type="HardFone" />
+	<xs:complexType name="HardFone">
+		<xs:complexContent>
+			<xs:extension base="Fone">
+				<xs:sequence></xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Exibicoes" type="Exibicoes" />
+	<xs:complexType name="Exibicoes">
+		<xs:sequence>
+			<xs:element name="identificadorExibicao" type="xs:long"
+				minOccurs="0" maxOccurs="1">
+			</xs:element>
+			<xs:element name="dataInicioEvento" type="xs:dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="tamanho" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="dataJanelaCompra" type="xs:dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="dataJanelaCancelamento" type="xs:dateTime"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SoftFone" type="SoftFone" />
+	<xs:complexType name="SoftFone">
+		<xs:complexContent>
+			<xs:extension base="Fone">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ComboProdutos" type="ComboProdutos" />
+	<xs:complexType name="ComboProdutos">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+				<xs:sequence>
+					<xs:element name="payTV" type="PayTV" minOccurs="0"
+						maxOccurs="1" />
+					<xs:element name="bandaLarga" type="BandaLarga"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="fone" type="Fone" minOccurs="0"
+						maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PayTV" type="PayTV" />
+	<xs:complexType name="PayTV">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+
+				<xs:sequence>
+					<xs:element name="retornoTelefonico"
+						type="xs:boolean">
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PayPerView" type="PayPerView" />
+	<xs:complexType name="PayPerView" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ProdutoAgregadoPayTV">
+				<xs:sequence>
+					<xs:element
+						name="dataInicioJanelaCompraCancelamento" type="xs:dateTime"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="dataFimJanelaCompra"
+						type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+					<xs:element name="dataFimJanelaCancelamento"
+						type="xs:dateTime" minOccurs="0" />
+					<xs:element name="categoriaPPV" type="CategoriaPPV"
+						minOccurs="0" maxOccurs="1">
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="EventoPPV" type="EventoPPV" />
+	<xs:complexType name="EventoPPV">
+		<xs:complexContent>
+			<xs:extension base="PayPerView">
+				<xs:sequence>
+					<xs:element name="dataPrimeiraExibicao"
+						type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+					<xs:element name="dataUltimaExibicao"
+						type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+					<xs:element name="exibicoes" type="Exibicoes"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CanalPPV" type="CanalPPV" />
+	<xs:complexType name="CanalPPV">
+		<xs:complexContent>
+			<xs:extension base="PayPerView">
+				<xs:sequence>
+					<xs:element name="dataInicio" type="xs:dateTime"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="dataFim" type="xs:dateTime"
+						minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CanalALaCarte" type="CanalALaCarte" />
+	<xs:complexType name="CanalALaCarte">
+		<xs:complexContent>
+			<xs:extension base="ProdutoAgregadoPayTV">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BandaLarga" type="BandaLarga" />
+	<xs:complexType name="BandaLarga">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+				<xs:sequence>
+					<xs:element name="velocidadeProdutoServico"
+						type="VelocidadeProdutoServico" minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Servico" type="Servico" />
+	<xs:complexType name="Servico">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Fone" type="Fone" />
+	<xs:complexType name="Fone" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+				<xs:sequence>
+					<xs:element name="telefoneVoip" type="TelefoneVoip"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="publicarLista" type="xs:boolean"
+						minOccurs="0" maxOccurs="1">
+					</xs:element>
+					<xs:element name="nomePublicacaoLista"
+						type="xs:string" minOccurs="0" maxOccurs="1">
+					</xs:element>
+					<xs:element name="nrExtensoes" type="xs:int"
+						minOccurs="0" maxOccurs="1">
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="TelefoneVoip" type="TelefoneVoip" />
+	<xs:complexType name="TelefoneVoip">
+		<xs:sequence>
+			<xs:element name="ddd" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="numero" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="tipoNumero" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Indica o tipo do Número Voip, os tipos são:
+						Número comum, Número escolhido, Número
+						anteriores, Número especial e Número Portado Att
+
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="NUMERO_COMUM"></xs:enumeration>
+						<xs:enumeration value="NUMERO_ESCOLHIDO"></xs:enumeration>
+						<xs:enumeration value="NUMERO_ANTERIORES"></xs:enumeration>
+						<xs:enumeration value="NUMERO_ESPECIAL"></xs:enumeration>
+						<xs:enumeration value="NUMERO_PORTADO"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AgregadoInformativo" type="AgregadoInformativo" />
+	<xs:complexType name="AgregadoInformativo">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ProdutoServicoAgregado"
+		type="ProdutoServicoAgregado" />
+	<xs:complexType name="ProdutoServicoAgregado" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServico">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ProdutoAgregadoBandaLarga"
+		type="ProdutoAgregadoBandaLarga" />
+	<xs:complexType name="ProdutoAgregadoBandaLarga">
+		<xs:complexContent>
+			<xs:extension base="ProdutoServicoAgregado">
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:complexType name="TV">
+		<xs:complexContent>
+			<xs:extension base="LinhaNegocio">
+				<xs:sequence>
+					<xs:element name="tipo" minOccurs="0"
+						maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="ANALOGICO"></xs:enumeration>
+								<xs:enumeration value="DIGITAL"></xs:enumeration>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="VoIP">
+		<xs:complexContent>
+			<xs:extension base="LinhaNegocio"></xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Internet">
+		<xs:complexContent>
+			<xs:extension base="LinhaNegocio"></xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://www.netservicos.com.br/dataServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnCartaoCreditoDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_CARTAO_CREDITO" type="xs:integer"/>
+            <xs:element name="NUM_CARTAO" type="xs:integer"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer"/>
+            <xs:element name="CID_CONTRATO" type="xs:string"/>
+            <xs:element name="ID_OPERADORA_CARTAO" type="xs:integer"/>
+            <xs:element name="NOME_TITULAR" type="xs:string" minOccurs="0"/>
+            <xs:element name="VALIDADE" type="xs:dateTime"/>
+            <xs:element name="DT_BLOQUEIO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="COD_SEGURANCA" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

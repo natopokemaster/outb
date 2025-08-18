@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DadoCobrancaWSDL12V1_0"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:dadoCobranca="http://www.netservicos.com.br/DadoCobranca/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/DadoCobranca/"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:idContratoProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta"
+	xmlns:contrato="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+	xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/DadoCobranca/" xmlns:idencon="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta">
+			<xsd:import
+				schemaLocation="../../../../../modelocanonicoV2/evento/Evento.xsd"
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/evento">
+			</xsd:import>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta"
+				schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContratoProposta.xsd">
+			</xsd:import>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+				schemaLocation="../../../../../modelocanonicoV2/contrato/ContratoDeVenda.xsd">
+			</xsd:import>
+
+			<xsd:element name="consultarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="modalidadePagamentoContrato"
+							type="contrato:ModalidadePagamentoContrato" minOccurs="0"
+							maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="alterarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="evento" type="evento:Evento" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="alterarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:element name="indicadorCoboletamento"
+							type="xsd:boolean" minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="tipoPostagem"
+							type="xsd:string" minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="nomeContato"
+							type="xsd:string" minOccurs="1" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="telefoneContato"
+							type="xsd:string" minOccurs="1" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="observacao" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+						<xsd:element
+							name="IdentificacaoContratoProposta"
+							type="idContratoProposta:IdentificacaoContratoPropostaType"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta"
+				schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContratoProposta.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="alterarRequest">
+		<wsdl:part name="request_header" element="netheader:NetHeader" />
+		<wsdl:part name="alterarRequest"
+			element="dadoCobranca:alterarRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="alterarResponse">
+		<wsdl:part element="dadoCobranca:alterarResponse"
+			name="alterarResponse" />
+	</wsdl:message>
+	<wsdl:message name="consultarRequest">
+		<wsdl:part name="request_header"
+			element="netheader:NetHeader">
+		</wsdl:part>
+		<wsdl:part name="consultarRequest"
+			element="idContratoProposta:IdentificacaoContratoProposta">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarResponse">
+		<wsdl:part name="consultarResponse"
+			element="dadoCobranca:consultarResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="DadoCobrancaPortType">
+		<wsdl:operation name="alterar">
+			<wsdl:input message="dadoCobranca:alterarRequest" />
+			<wsdl:output message="dadoCobranca:alterarResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultar">
+			<wsdl:input message="dadoCobranca:consultarRequest"></wsdl:input>
+			<wsdl:output message="dadoCobranca:consultarResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DadoCobrancaBinding12"
+		type="dadoCobranca:DadoCobrancaPortType">
+		<soap12:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="alterar">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/DadoCobranca/alterar" />
+			<wsdl:input>
+				<soap12:header use="literal" part="request_header"
+					message="dadoCobranca:alterarRequest" />
+				<soap12:body use="literal" parts="alterarRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="alterarResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultar">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/DadoCobranca/consultar" />
+			<wsdl:input>
+				<soap12:header use="literal" part="request_header"
+					message="dadoCobranca:consultarRequest" />
+				<soap12:body use="literal"
+					parts="consultarRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header use="literal" part="request_header"
+					message="dadoCobranca:consultarResponse" />
+				<soap12:body use="literal" parts="consultarResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="DadoCobrancaBinding11"
+		type="dadoCobranca:DadoCobrancaPortType">
+		<soap11:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="alterar">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/DadoCobranca/alterar" />
+			<wsdl:input>
+				<soap11:header use="literal" part="request_header"
+					message="dadoCobranca:alterarRequest" />
+				<soap11:body use="literal" parts="alterarRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="alterarResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultar">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/DadoCobranca/consultar" />
+			<wsdl:input>
+				<soap11:header use="literal" part="request_header"
+					message="dadoCobranca:consultarRequest" />
+				<soap11:body use="literal"
+					parts="consultarRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="consultarResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DadoCobrancaService">
+		<wsdl:port binding="dadoCobranca:DadoCobrancaBinding11"
+			name="DadoCobrancaPort11">
+			<soap11:address location="http://servbus:7001/" />
+		</wsdl:port>
+		<wsdl:port name="DadoCobrancaPort12"
+			binding="dadoCobranca:DadoCobrancaBinding12">
+			<soap12:address location="http://servbus:7001/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

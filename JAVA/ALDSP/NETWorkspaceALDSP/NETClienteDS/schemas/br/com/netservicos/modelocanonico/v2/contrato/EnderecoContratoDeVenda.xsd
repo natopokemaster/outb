@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:contrato="http://www.netservicos.com.br/modelocanonico/v2/contrato"
+	xmlns:endereco="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+	elementFormDefault="qualified">
+
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+		schemaLocation="../endereco/Endereco.xsd" />
+
+	<annotation>
+		<documentation>
+			Endereco associado a um contrato de venda
+		</documentation>
+	</annotation>
+
+	<complexType name="EnderecoContratoDeVenda">
+		<sequence>
+			<element name="identificador" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Identificador do endereco associado a um contato
+						do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="long" />
+				</simpleType>
+			</element>
+			<element name="tipoEndereco" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Tipo de endereco do cliente. Ex: Instalacao,
+						Cobranca, Revista..
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="endereco de cobranca" />
+						<enumeration value="endereco de instalacao" />
+						<enumeration
+							value="endereco de entrega de revista" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="endereco" type="endereco:Endereco"
+				maxOccurs="1" minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>
+						Endereco associado ao contrato de venda
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="EnderecosContratoDeVenda">
+		<sequence>
+			<element name="enderecosContratoDeVenda"
+				type="contrato:EnderecoContratoDeVenda" maxOccurs="unbounded"
+				minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<element name="EnderecoContratoDeVenda"
+		type="contrato:EnderecoContratoDeVenda">
+	</element>
+</schema>

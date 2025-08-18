@@ -1,0 +1,80 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnBancoDSP" xmlns:t="ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP">
+<creationDate>2010-04-11T14:31:11</creationDate>
+<relationalDB name="CLIENTE_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.ClienteOnlineNETSMSBindingProvider" />
+<field xpath="ID_BANCO" type="xs:integer">
+  <extension nativeXpath="ID_BANCO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NOME" type="xs:string">
+  <extension nativeXpath="NOME" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CARTEIRA" type="xs:string">
+  <extension nativeXpath="CARTEIRA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="3" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ACEITE" type="xs:string">
+  <extension nativeXpath="ACEITE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ESPECIE" type="xs:string">
+  <extension nativeXpath="ESPECIE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="UTILIZA_DV" type="xs:integer">
+  <extension nativeXpath="UTILIZA_DV" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUM_DV" type="xs:integer">
+  <extension nativeXpath="NUM_DV" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DIAS_RETIRADA_DCC" type="xs:integer">
+  <extension nativeXpath="DIAS_RETIRADA_DCC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="PERMITE_RETIRADA_DCC" type="xs:integer">
+  <extension nativeXpath="PERMITE_RETIRADA_DCC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="QT_DIG_AGENCIA" type="xs:integer">
+  <extension nativeXpath="QT_DIG_AGENCIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="QT_DIG_CC" type="xs:integer">
+  <extension nativeXpath="QT_DIG_CC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_BANCO" type="snb:SnBancoDSP_KEY" inferredSchema="true" xmlns:snb="ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/schemas/SnBancoDSP.xsd";
+
+import schema "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/SnBancoDSP" at "ld:br/com/netservicos/cliente/dadocobranca/physical/netsales/table/schemas/SnBancoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_BANCO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnBancoDSP() as schema-element(t1:SnBancoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_BANCO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnBancoDSP($p as element(t1:SnBancoDSP)*)as schema-element(t1:SnBancoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_BANCO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnBancoDSP($p as changed-element(t1:SnBancoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_BANCO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnBancoDSP($p as element(t1:SnBancoDSP)*) as empty()  external;
+

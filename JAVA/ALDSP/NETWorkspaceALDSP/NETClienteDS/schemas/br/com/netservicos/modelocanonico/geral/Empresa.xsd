@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/empresa"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:empresa="http://www.netservicos.com.br/modelocanonico/empresa">
+
+	<xsd:complexType name="Empresa" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>
+				Empresa que pode se um parceiro, operadora NET etc.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="NomeEmpresa" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						Nome de empresa
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CNPJ" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[0-9].{14}" />
+						<xsd:maxLength value="15" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OperadoraNET">
+		<xsd:complexContent>
+			<xsd:extension base="empresa:Empresa">
+				<xsd:sequence>
+					<xsd:element name="CodigoOperdaora" minOccurs="0"
+						maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Codigo de Operdaora NET
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+
+								<xsd:length value="3"></xsd:length>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="IdentificacaoCidade"
+						minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Identificação de cidade (Cidade
+								Contrato)
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="5"></xsd:length>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="NomeOperadora" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Nome de operadora NET
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="ParceiroNET">
+		<xsd:annotation>
+			<xsd:documentation>Parceio de NET</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="empresa:Empresa"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="OperadoraNET" type="empresa:OperadoraNET"></xsd:element>
+</xsd:schema>

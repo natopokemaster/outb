@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET"
+	xmlns:tns="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET"
+	elementFormDefault="qualified">
+	
+	
+	
+	<complexType name="IdentificacaoOperadoraNET">
+		<sequence>
+			<choice>
+				<element name="CodigoOperadora" minOccurs="1"
+					maxOccurs="1">
+                    <annotation>
+                    	<documentation>
+                    		Código da Operadora onde o contrato está
+                    		cadastrado, conforme cadastro no legado.
+                    	</documentation>
+                    </annotation>
+                    <simpleType>
+						<restriction base="string">
+
+							<length value="3"></length>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="IdentificacaoCidade" minOccurs="1"
+					maxOccurs="1">
+                    <annotation>
+                    	<documentation>
+                    		Identificação da Cidade onde o contrato está
+                    		cadastrado, conforme cadastro no legado.
+                    	</documentation>
+                    </annotation>
+                    <simpleType>
+						<restriction base="string">
+
+							<length value="5"></length>
+						</restriction>
+					</simpleType>
+				</element>
+			</choice>
+		</sequence>
+	</complexType>
+
+	<element name="IdentificacaoOperadoraNET"
+		type="tns:IdentificacaoOperadoraNET">
+	</element>
+</schema>

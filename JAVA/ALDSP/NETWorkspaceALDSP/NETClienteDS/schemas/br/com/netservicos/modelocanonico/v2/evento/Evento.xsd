@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/evento"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento"
+	xmlns:usuario="http://www.netservicos.com.br/modelocanonico/v2/usuario"
+	xmlns:rede="http://www.netservicos.com.br/modelocanonico/v2/rede" xmlns:ident="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato">
+
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/usuario"
+		schemaLocation="../geral/Usuario.xsd">
+	</xsd:import>
+	<xsd:include schemaLocation="Atendimento.xsd" />
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/rede"
+		schemaLocation="../rede/Rede.xsd">
+	</xsd:import>
+	<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" schemaLocation="../geral/IdentificacaoContrato.xsd"></xsd:import>
+	<xsd:complexType name="Evento" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>
+				Listagem de todas ocorrências do sistema que gera uma
+				ação manual ou automática para seu tratamento.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Usuario" type="usuario:Usuario"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Usuario de sistema que abriu o evento
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DataEvento" type="xsd:date" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Data que o evento foi criado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Observacao" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Observação de evento
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrigemEvento" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="Identificador" type="xsd:long"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						Utilizado para identifcar o evento, exemplo
+						evento de ocorrencia
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Eventos" type="evento:Eventos"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+			<xsd:element name="Descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="Tipo" type="evento:TipoEvento"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Registro" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entidade abstrato utilizando para agrupar os registros
+				gerados.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Evento" />
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Contato">
+		<xsd:annotation>
+			<xsd:documentation>
+				É o registro de qualquer Contato da NET com seus
+				Clientes e Prospects
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Registro">
+				<xsd:sequence>
+					<xsd:element name="Protocolo" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="NumeroChamado" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+
+					<xsd:element name="NomeContato" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="FormaContato"
+						type="evento:FormaContato" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="RegistroContato">
+		<xsd:annotation>
+			<xsd:documentation>
+				Registro de Contato com o cliente
+
+				- Traduzação para legado --> Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Registro">
+				<xsd:sequence>
+					<xsd:element name="Contato" type="evento:Contato"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="RegistroSistemico">
+		<xsd:annotation>
+			<xsd:documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzação para legado --> Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Registro">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="OrdemInterna">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entidade que contem os informações de um evento que esta
+				gerado para alguem executar alguma tipo de tratamento
+				(via backoffice, faturamento etc.)
+
+				Traduização de Legado : Requisão Interno - Ocorrencia
+				Aberto
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Evento">
+				<xsd:sequence>
+					<xsd:element name="DataRetorno" type="xsd:date"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="ResolucaoOrdemInterna"
+						type="evento:ResolucaoOrdemInterna" minOccurs="0"
+						maxOccurs="unbounded">
+					</xsd:element>
+					<xsd:element name="Contato" type="evento:Contato"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="Situacao" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrdemServico" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>
+				Toda Solicitação de cliente que gera uma ou mais tarefas
+				de aprovisionamento para ativar / desativar produtos e
+				serviços.
+
+				Traduziação de Legado: Solicitação
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:Evento">
+				<xsd:sequence>
+					<xsd:element name="situacao" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="instalacoes"
+						type="rede:Instalacao" minOccurs="0" maxOccurs="unbounded">
+					</xsd:element>
+					<xsd:element name="contrato" type="ident:ContratoType" minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrdemCampo">
+		<xsd:annotation>
+			<xsd:documentation>
+				Ordem de Serviço que indicar que e necessario que um
+				tecnico e necessario para resolver o ordem de serviço
+				Traduzição de legado : Ordem de Serviço (OS)
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:OrdemServico">
+				<xsd:sequence>
+					<xsd:element name="CodigoOrdemCampo"
+						type="xsd:string" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="DataBaixa" type="xsd:dateTime"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="InicioExecucao"
+						type="xsd:dateTime" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="FimExecucao" type="xsd:dateTime"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="DataAgendamento"
+						type="xsd:dateTime" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="DataAtendimento"
+						type="xsd:dateTime" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="Portabilidade" type="xsd:boolean"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrdemAtivacao">
+		<xsd:annotation>
+			<xsd:documentation>
+				Ordem de Serviço que indicar que e necessario executar
+				alguma tipo de aprovisionamento para resolver a
+				problemas
+
+				Traduzição de legado : Ordem de Configuração (OC)
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:OrdemServico">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="Contato" type="evento:Contato">
+		<xsd:annotation>
+			<xsd:documentation>
+				É o registro de qualquer Contato da NET com seus
+				Clientes e Prospects
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="RegistroContato" type="evento:RegistroContato">
+		<xsd:annotation>
+			<xsd:documentation>
+				Registro de Contato com o cliente
+
+				- Traduzação para legado --> Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="RegistroSistemica"
+		type="evento:RegistroSistemico">
+		<xsd:annotation>
+			<xsd:documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzação para legado --> Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="OrdemInterna" type="evento:OrdemInterna">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entidade que contem os informações de um evento que esta
+				gerado para alguem executar alguma tipo de tratamento
+				(via backoffice, faturamento etc.)
+
+				Traduização de Legado : Requisão Interno - Ocorrencia
+				Aberto
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="OrdemCampo" type="evento:OrdemCampo">
+		<xsd:annotation>
+			<xsd:documentation>
+				Ordem de Serviço que indicar que e necessario que um
+				tecnico e necessario para resolver o ordem de serviço
+
+				Traduzição de legado : Ordem de Serviço (OS)
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="OrdemAtivacao" type="evento:OrdemAtivacao">
+		<xsd:annotation>
+			<xsd:documentation>
+				Ordem de Serviço que indicar que e necessario executar
+				alguma tipo de aprovisionamento para resolver a
+				problemas
+
+				Traduzição de legado : Ordem de Configuração (OC)
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="Eventos" type="evento:Eventos">
+		<xsd:annotation>
+			<xsd:documentation>
+				Listagem de varios contatos
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:complexType name="Eventos">
+		<xsd:annotation>
+			<xsd:documentation>
+				Listagem de varios eventos
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Evento" type="evento:Evento"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TipoEvento">
+		<xsd:sequence>
+			<xsd:element name="Identificador" type="xsd:long"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Grupo" type="evento:GrupoTipoEvento"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="GrupoTipoEvento">
+		<xsd:sequence>
+			<xsd:element name="Identificador" type="xsd:long"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Descricao" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

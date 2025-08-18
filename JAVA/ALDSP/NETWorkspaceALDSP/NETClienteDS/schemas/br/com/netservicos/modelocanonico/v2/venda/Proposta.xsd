@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/proposta"
+	xmlns:proposta="http://www.netservicos.com.br/modelocanonico/v2/proposta"
+	elementFormDefault="qualified"
+	xmlns:cliente="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	xmlns:endereco="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+	xmlns:usuario="http://www.netservicos.com.br/modelocanonico/v2/usuario"
+	xmlns:venda="http://www.netservicos.com.br/modelocanonico/v2/venda"
+	xmlns:produto="http://www.netservicos.com.br/modelocanonico/v2/produto"
+	xmlns:Q1="http://www.netservicos.com.br/modelocanonico/v2/oferta">
+
+	<import schemaLocation="Oferta.xsd"
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/oferta">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+		schemaLocation="../cliente/ClienteProspect.xsd">
+	</import>
+
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+		schemaLocation="../endereco/Endereco.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/usuario"
+		schemaLocation="../geral/Usuario.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/venda"
+		schemaLocation="Venda.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/produto"
+		schemaLocation="../produto/ProdutoServico.xsd">
+	</import>
+
+	<element name="Proposta" type="proposta:Proposta"></element>
+
+	<complexType name="Proposta">
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="retornoTelefonico" type="string"
+				minOccurs="0" maxOccurs="1" />
+			<element name="flagMigracao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="observacao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="dataCriacaoProposta" type="dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<element name="dataExpiracaoProposta" type="dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<element name="clienteProspect"
+				type="cliente:ClienteProspect" maxOccurs="1" minOccurs="0" />
+			<element name="motivoPropostaVenda"
+				type="proposta:MotivoPropostaVenda" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="dataAgendamento" type="dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<element name="atendente" type="usuario:Usuario"
+				minOccurs="0" maxOccurs="1" />
+			<element name="situacaoProposta"
+				type="proposta:SituacaoProposta" minOccurs="0" maxOccurs="1" />
+			<element name="produtos" type="Q1:ProdutoServicoOferta"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="vendedor" type="venda:Vendedor" minOccurs="0"
+				maxOccurs="1" />
+			<element name="canalVenda" type="venda:CanalVenda"
+				minOccurs="0" maxOccurs="1" />
+			<element name="midia" type="venda:Midia" minOccurs="0"
+				maxOccurs="1" />
+			<element name="EnderecoProposta"
+				type="proposta:EnderecoProposta" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="MotivoPropostaVenda">
+		<annotation>
+			<documentation>
+				Entidade para representar motivos utilizados na Proposta
+				Venda. Engloba todos os motivos relacionados com acoes
+				do processo de venda.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="descricao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="tipo" type="string" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Define o tipo que o motivo se refere, ex:
+						MOTIVO_NAO_VENDA MOTIVO_NAO_OFERTA,
+						MOTIVO_OPORTUNIDADE, MOTIVO_DOWNGRADE
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="EnderecoProposta">
+		<annotation>
+			<documentation>
+				Enderecos da proposta de venda
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="tipoEndereco" type="string" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Indica o tipo do endereco (correspondencia,
+						cobranca)
+					</documentation>
+				</annotation>
+			</element>
+			<element name="endereco" type="endereco:Endereco"
+				minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="SituacaoProposta">
+		<annotation>
+			<documentation>
+				Entidade que representa o conjunto de estados possiveis
+				para uma Proposta
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="descricao" type="string" minOccurs="0"
+				maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<element name="MotivoPropostaVenda"
+		type="proposta:MotivoPropostaVenda">
+	</element>
+
+	<complexType name="MotivosPropostaVenda">
+		<sequence>
+			<element name="motivoPropostaVenda"
+				type="proposta:MotivoPropostaVenda" minOccurs="0"
+				maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+
+</schema>

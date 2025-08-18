@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/cliente" 
+		xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+		xmlns:cliente="http://www.netservicos.com.br/modelocanonico/cliente">
+
+	<annotation>
+		<documentation>
+			Telefone de contato do cliente
+		</documentation>
+	</annotation>
+
+	<complexType name="TelefoneContato">
+		<sequence>
+			<element name="identificadorTelefoneContato" maxOccurs="1" minOccurs="0" nillable="true">
+                <annotation>
+                	<documentation>Identificador do telefone de contato do cliente</documentation>
+                </annotation>
+                <simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+			<element name="DDD" maxOccurs="1" minOccurs="0">
+                <annotation>
+                	<documentation>
+                		DDD do telefone de contato do cliente
+                	</documentation>
+                </annotation>
+                <simpleType>
+					<restriction base="string">
+					<maxLength value="3"></maxLength>
+					<pattern value="[0-9].*"></pattern>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="numeroTelefone" maxOccurs="1" minOccurs="0" nillable="true">
+				<annotation>
+					<documentation>
+						Numero de telefone de contato do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="14"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ramal" maxOccurs="1" minOccurs="0" nillable="true">
+                <annotation>
+                	<documentation>Ramal do telefone do cliente</documentation>
+                </annotation>
+                <simpleType>
+					<restriction base="string">
+						<maxLength value="4"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="tipoTelefone" maxOccurs="1" minOccurs="0"
+				nillable="true">
+				<annotation>
+					<documentation>
+						Tipo de telefone do cliente
+					</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="celular"></enumeration>
+						<enumeration value="residencial"></enumeration>
+						<enumeration value="comercial"></enumeration>
+						<enumeration value="netfone"></enumeration>
+						<enumeration value="outros"></enumeration>
+						<enumeration value="fax"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="nomeRecado" maxOccurs="1" minOccurs="0" nillable="true">
+                <annotation>
+                	<documentation>Nome para recados</documentation>
+                </annotation>
+                <simpleType>
+					<restriction base="string"></restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="TelefonesContato">
+		<annotation>
+			<documentation>Telefones de contato do cliente</documentation>
+		</annotation>
+		<sequence>
+			<element name="telefoneContato" type="cliente:TelefoneContato" maxOccurs="unbounded" minOccurs="0" nillable="true"></element>
+		</sequence>
+	</complexType>
+
+</schema>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/DadoCobranca/schemas" 
+      elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:identProposta="http://www.netservicos.com.br/DadoCobranca/schemas">
+
+    <complexType name="PropostaType">
+        <annotation>
+        	<documentation>
+        	    Entidade utilizada para localizar uma proposta de venda.
+        	    Deve ser utilizado a combinacao de Numero da Proposta +
+        		Codigo Operadora ou Numero da Proposta + Identificacao
+        		Cidade
+        	</documentation>
+        </annotation>
+        <sequence>
+			<element name="NumeroProposta" minOccurs="1"
+				maxOccurs="1">
+                <annotation>
+                	<documentation>
+                		Número de identificação da proposta de venda.
+                		Deve sempre ser utilizado em conjunto com
+                		CodigoOperadora ou IdentificacaoCidade
+                	</documentation>
+                </annotation>
+                <simpleType>
+                	<restriction base="long">
+                	</restriction>
+                </simpleType>
+			</element>
+				<element name="CodigoOperadora" minOccurs="0" maxOccurs="1">
+                    <annotation>
+                    	<documentation>
+                    		Código da Operadora onde a proposta de venda está
+                    		cadastrada, conforme cadastro no legado.
+                    	</documentation>
+                    </annotation>
+                    <simpleType>
+						<restriction base="string"/>
+					</simpleType>
+				</element>
+				<element name="IdentificacaoCidade" minOccurs="0"
+					maxOccurs="1">
+                    <annotation>
+                    	<documentation>
+                    		Identificação da Cidade onde a proposta de venda está
+                    		cadastrada, conforme cadastro no legado.
+                    	</documentation>
+                    </annotation>
+                    <simpleType>
+						<restriction base="string"/>
+					</simpleType>
+				</element>
+		</sequence>
+	</complexType>
+
+
+    <complexType name="IdentificacaoPropostaType">
+        <sequence>
+    		<element name="Protocolo" type="string" minOccurs="0" maxOccurs="1">
+                <annotation>
+                	<documentation>
+                		Atualmente as propostas de venda nao estao
+                		gerando numero de protocolo, mas a ideia e no
+                		futuro gerar o numero de protocolo tambem para
+                		vendas.
+                	</documentation>
+                </annotation>
+    		</element>
+    		<element name="Proposta" type="identProposta:PropostaType" minOccurs="1" maxOccurs="1">
+    			<annotation>
+    				<documentation>
+    					Elemento para identificacao de uma proposta de
+    					venda.
+    				</documentation>
+    			</annotation></element>
+    	</sequence>
+    </complexType>
+    <element name="IdentificacaoProposta" type="identProposta:IdentificacaoPropostaType"></element>
+</schema>

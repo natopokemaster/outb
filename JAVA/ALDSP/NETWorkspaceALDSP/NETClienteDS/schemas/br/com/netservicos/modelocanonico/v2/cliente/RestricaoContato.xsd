@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cliente="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	elementFormDefault="qualified">
+
+	<annotation>
+		<documentation>
+			Entidade que representa a existencia de restricao de
+			contato com cliente, pelo meio a que está associada. Ex:
+			TelefoneContato e Email
+
+			No futuro poderao ser adicionados tipos de restricao (COMERCIAL,
+			TECNICO) e tambem por intervalo de tempo (Horario, TARDE, NOITE).
+			Objetivo eh permitir definicao de restricoes como: Nao ligar a noite
+			para oferta de produtos.</documentation>
+	</annotation>
+
+	<complexType name="RestricaoContato">
+		<sequence>
+			<element name="restrito" maxOccurs="1" minOccurs="0"
+				nillable="true" type="boolean">
+				<annotation>
+					<documentation>Flag que indica se o contato esta restrito. Caso
+						true o nao devem ser feitos contatos para o meio.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="RestricaoContatoInterna">
+		<annotation>
+			<documentation>Restricao de contato originada de cadastro em
+				sistema interno NET.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="cliente:RestricaoContato">
+
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RestricaoContatoProcon">
+		<annotation>
+			<documentation>Restricao de contato originada de cadastro em
+				sistema interno NET.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="cliente:RestricaoContato">
+				<sequence>
+					<element name="dataCadastro" maxOccurs="1" minOccurs="0"
+						nillable="true" type="dateTime">
+						<annotation>
+							<documentation>Data em que a solicitacao para a restricao de
+								ligacoes naquele meio de contato foi feita no Procon. Esta
+								informacao eh originada no PROCON.</documentation>
+						</annotation>
+					</element>
+					<element name="dataRestricao" maxOccurs="1" minOccurs="0"
+						nillable="true" type="dateTime">
+						<annotation>
+							<documentation>Data inicial que deve ser considerada para a
+								restricao do recebimento de contato. Esta informação eh originada
+								no PROCON.</documentation>
+						</annotation>
+					</element>
+
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="RestricaoContato" type="cliente:RestricaoContato" />
+
+</schema>

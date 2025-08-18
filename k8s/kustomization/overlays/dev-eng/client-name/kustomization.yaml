@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - ../../../ambientes/dev-eng/base
-  - resources/eventbus-flow-restoutbound-configmap-env-client.yaml
-
-patches:
-  - patch: eventbus-flow-restoutbound-deployment-client.yaml

@@ -1,0 +1,275 @@
+<sql-query name="SnRelPontoProdutoBeanBuscaProdutosContratadosByIdtipoProduto">
+	<return-scalar column="idProduto" type="java.lang.Long"/>	
+	<return-scalar column="descProduto" type="java.lang.String"/>	
+	<return-scalar column="planoProduto" type="java.lang.String"/>	
+	<return-scalar column="familia" type="java.lang.String"/>	
+	<return-scalar column="velocidade" type="java.lang.String"/>	
+	<return-scalar column="classificacao" type="java.lang.String"/>	
+	<return-scalar column="tipoProduto" type="java.lang.String"/>
+	<return-scalar column="tipoPonto" type="java.lang.String"/>	
+	<return-scalar column="dataInstalacaoProduto" type="java.lang.String"/>	
+	<return-scalar column="situacaoInstalacaoProduto" type="java.lang.String"/>	
+	<return-scalar column="linhaNegocio" type="java.lang.String"/>	
+	<return-scalar column="faixaOcupacao" type="java.lang.String"/>	
+	<return-scalar column="comercializacao" type="java.lang.String"/>
+	<return-scalar column="codigoEnderecavel" type="java.lang.String"/>
+	<return-scalar column="tipoTecnologia" type="java.lang.String"/>	
+	<![CDATA[
+		SELECT prod.id_produto idProduto,
+		       prod.descricao descProduto,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 1
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) planoProduto,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 9
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) familia,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 8
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) velocidade,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 6
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) classificacao,
+			     (SELECT tp.descricao
+			        FROM sn_tipo_produto tp, sn_produto p
+			       WHERE tp.id_tipo_produto = p.id_tipo_produto
+			         AND p.id_produto = rpp.id_produto) tipoProduto,
+			     (SELECT tipp.descricao
+			        FROM sn_tipo_ponto tipp, sn_rel_ponto_produto_preco ppp
+			       WHERE tipp.id_tipo_ponto = ppp.id_tipo_ponto
+			         AND ppp.id_ponto = rpp.id_ponto
+			         AND ppp.id_prod_instalado = rpp.id_produto
+			         AND ppp.dt_fim = TO_DATE('30122049', 'DDMMYYYY')) tipoPonto,
+			     rpp.dt_ini dataInstalacaoProduto,
+				   DECODE(rpp.dt_fim, TO_DATE('30122049', 'DDMMYYYY'), 'ATIVO','INATIVO') situacaoInstalacaoProduto,         
+			     (SELECT ssn.descricao 
+			        FROM prod_jd.so_segmento_negocios ssn
+			       WHERE ssn.id_segmento_negocios = (SELECT carac.id_segmento_negocios
+			                                           FROM sn_caracteristica carac
+			                                          WHERE carac.id_caracteristica = prod.id_caracteristica)) linhaNegocio,
+				   (SELECT rap.descricao 
+				      FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+				     WHERE rap.id_atributo_parametro = ap.id_atributo_parametro
+				       AND ap.id_produto = rpp.id_produto
+				       AND rap.id_atributo = 4) faixaOcupacao,
+		  		 (SELECT rap.descricao 
+				      FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+				     WHERE rap.id_atributo_parametro = ap.id_atributo_parametro
+				       AND ap.id_produto = rpp.id_produto
+				       AND rap.id_atributo = 7)  comercializacao,
+		       (SELECT st.tm_serie 
+		          FROM prod_jd.so_terminal_natl2 st, prod_jd.so_tm_modelo_natl2 stm,
+		               prod_jd.so_tm_tipo_natl2 tptm, prod_jd.sn_ponto_historico sph
+		         WHERE prod.id_produto = rpp.id_produto 
+		           AND rpp.instalado = 1 
+		           AND rpp.id_ponto = sph.id_ponto 
+		           AND sph.tm_id = st.tm_id 
+		           AND tptm.tt_descricao = 'SMART CARD' 
+		           AND tptm.tt_id = stm.tt_id
+		           AND stm.tmod_id = st.tmod_id) codigoEnderecavel,    
+		       (SELECT stc.ds_tipo_carateristica
+		          FROM prod_jd.sn_tipo_caracteristica stc,
+		               prod_jd.sn_rel_tipo_carac_produto srtcp
+		         WHERE srtcp.id_tipo_caracteristica = stc.id_tipo_caracteristica
+		           AND srtcp.id_produto = prod.id_produto) tipoTecnologia   		           
+		  FROM sn_rel_ponto_produto rpp, 
+		       sn_produto prod,
+		       prod_jd.sn_caracteristica sc,
+		       prod_jd.sn_ponto_historico sph,
+		       prod_jd.so_terminal_natl2 st,
+		       prod_jd.so_tm_modelo_natl2 stm,
+		       prod_jd.so_tm_tipo_natl2 tptm
+		 WHERE prod.id_produto = rpp.id_produto
+		   AND rpp.num_contrato = :numContrato
+		   AND rpp.cid_contrato = :cidContrato
+		   AND rpp.instalado = 1
+		   AND prod.id_tipo_produto = :idTipoProduto
+		   AND rpp.dt_fim = DECODE(:statusProduto, 1, TO_DATE('30122049', 'DDMMYYYY'), 2, rpp.dt_fim)
+		   AND sc.id_caracteristica = prod.id_caracteristica
+		   AND sc.id_segmento_negocios = DECODE(NVL(:linhaNegocio,0), 1, 1, 2, 2, 3, 3, 4, 4, (SELECT carac.id_segmento_negocios
+	                                                                                             FROM sn_caracteristica carac
+		                                                                                        WHERE carac.id_caracteristica = prod.id_caracteristica))
+		   AND rpp.id_ponto = sph.id_ponto 
+		   AND sph.tm_id = st.tm_id 
+		   AND tptm.tt_descricao = 'SMART CARD' 
+		   AND tptm.tt_id = stm.tt_id
+		   AND stm.tmod_id = st.tmod_id   
+		   AND st.tm_serie = NVL(:codigoEnderecavel, (SELECT st.tm_serie 
+		                                                FROM prod_jd.so_terminal_natl2 st, prod_jd.so_tm_modelo_natl2 stm,
+		                                                     prod_jd.so_tm_tipo_natl2 tptm, prod_jd.sn_ponto_historico sph
+		                                               WHERE prod.id_produto = rpp.id_produto 
+		                                                 AND rpp.instalado = 1 
+		                                                 AND rpp.id_ponto = sph.id_ponto 
+		                                                 AND sph.tm_id = st.tm_id 
+		                                                 AND tptm.tt_descricao = 'SMART CARD' 
+		                                                 AND tptm.tt_id = stm.tt_id
+		                                                 AND stm.tmod_id = st.tmod_id))
+	]]>
+</sql-query>
+
+<sql-query name="SnRelPontoProdutoBeanBuscaProdutosContratadosAll">
+	<return-scalar column="idProduto" type="java.lang.Long"/>	
+	<return-scalar column="descProduto" type="java.lang.String"/>	
+	<return-scalar column="planoProduto" type="java.lang.String"/>	
+	<return-scalar column="familia" type="java.lang.String"/>	
+	<return-scalar column="velocidade" type="java.lang.String"/>	
+	<return-scalar column="classificacao" type="java.lang.String"/>	
+	<return-scalar column="tipoProduto" type="java.lang.String"/>
+	<return-scalar column="tipoPonto" type="java.lang.String"/>	
+	<return-scalar column="dataInstalacaoProduto" type="java.lang.String"/>	
+	<return-scalar column="situacaoInstalacaoProduto" type="java.lang.String"/>	
+	<return-scalar column="linhaNegocio" type="java.lang.String"/>	
+	<return-scalar column="faixaOcupacao" type="java.lang.String"/>	
+	<return-scalar column="comercializacao" type="java.lang.String"/>	
+	<return-scalar column="codigoEnderecavel" type="java.lang.String"/>
+	<return-scalar column="tipoTecnologia" type="java.lang.String"/>
+	<![CDATA[
+		SELECT prod.id_produto idProduto,
+		       prod.descricao descProduto,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 1
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) planoProduto,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 9
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) familia,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 8
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) velocidade,
+		       (SELECT rap.descricao
+		          FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+		         WHERE id_atributo = 6
+		           AND ap.id_atributo_parametro = rap.id_atributo_parametro
+		           AND id_produto = rpp.id_produto) classificacao,
+			     (SELECT tp.descricao
+			        FROM sn_tipo_produto tp, sn_produto p
+			       WHERE tp.id_tipo_produto = p.id_tipo_produto
+			         AND p.id_produto = rpp.id_produto) tipoProduto,
+			     (SELECT tipp.descricao
+			        FROM sn_tipo_ponto tipp, sn_rel_ponto_produto_preco ppp
+			       WHERE tipp.id_tipo_ponto = ppp.id_tipo_ponto
+			         AND ppp.id_ponto = rpp.id_ponto
+			         AND ppp.id_prod_instalado = rpp.id_produto
+			         AND ppp.dt_fim = TO_DATE('30122049', 'DDMMYYYY')) tipoPonto,
+			     rpp.dt_ini dataInstalacaoProduto,
+				   DECODE(rpp.dt_fim, TO_DATE('30122049', 'DDMMYYYY'), 'ATIVO','INATIVO') situacaoInstalacaoProduto,         
+			     (SELECT ssn.descricao 
+			        FROM prod_jd.so_segmento_negocios ssn
+			       WHERE ssn.id_segmento_negocios = (SELECT carac.id_segmento_negocios
+			                                           FROM sn_caracteristica carac
+			                                          WHERE carac.id_caracteristica = prod.id_caracteristica)) linhaNegocio,
+				   (SELECT rap.descricao 
+				      FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+				     WHERE rap.id_atributo_parametro = ap.id_atributo_parametro
+				       AND ap.id_produto = rpp.id_produto
+				       AND rap.id_atributo = 4) faixaOcupacao,
+		  		 (SELECT rap.descricao 
+				      FROM sn_rel_atributos_parametro rap, sn_rel_atributos_produto ap
+				     WHERE rap.id_atributo_parametro = ap.id_atributo_parametro
+				       AND ap.id_produto = rpp.id_produto
+				       AND rap.id_atributo = 7)  comercializacao,
+		       (SELECT st.tm_serie 
+		          FROM prod_jd.so_terminal_natl2 st, prod_jd.so_tm_modelo_natl2 stm,
+		               prod_jd.so_tm_tipo_natl2 tptm, prod_jd.sn_ponto_historico sph
+		         WHERE prod.id_produto = rpp.id_produto 
+		           AND rpp.instalado = 1 
+		           AND rpp.id_ponto = sph.id_ponto 
+		           AND sph.tm_id = st.tm_id 
+		           AND tptm.tt_descricao = 'SMART CARD' 
+		           AND tptm.tt_id = stm.tt_id
+		           AND stm.tmod_id = st.tmod_id) codigoEnderecavel,    
+		       (SELECT stc.ds_tipo_carateristica
+		          FROM prod_jd.sn_tipo_caracteristica stc,
+		               prod_jd.sn_rel_tipo_carac_produto srtcp
+		         WHERE srtcp.id_tipo_caracteristica = stc.id_tipo_caracteristica
+		           AND srtcp.id_produto = prod.id_produto) tipoTecnologia   		           
+		  FROM sn_rel_ponto_produto rpp, 
+		       sn_produto prod,
+		       prod_jd.sn_caracteristica sc,
+		       prod_jd.sn_ponto_historico sph,
+		       prod_jd.so_terminal_natl2 st,
+		       prod_jd.so_tm_modelo_natl2 stm,
+		       prod_jd.so_tm_tipo_natl2 tptm
+		 WHERE prod.id_produto = rpp.id_produto
+		   AND rpp.num_contrato = :numContrato
+		   AND rpp.cid_contrato = :cidContrato
+		   AND rpp.instalado = 1
+		   AND prod.id_tipo_produto IN (1,2)
+		   AND rpp.dt_fim = DECODE(:statusProduto, 1, TO_DATE('30122049', 'DDMMYYYY'), 2, rpp.dt_fim)
+		   AND sc.id_caracteristica = prod.id_caracteristica
+		   AND sc.id_segmento_negocios = DECODE(NVL(:linhaNegocio,0), 1, 1, 2, 2, 3, 3, 4, 4, (SELECT carac.id_segmento_negocios
+		                                                                                         FROM sn_caracteristica carac
+		                                                                                        WHERE carac.id_caracteristica = prod.id_caracteristica))
+		   AND rpp.id_ponto = sph.id_ponto 
+		   AND sph.tm_id = st.tm_id 
+		   AND tptm.tt_descricao = 'SMART CARD' 
+		   AND tptm.tt_id = stm.tt_id
+		   AND stm.tmod_id = st.tmod_id   
+		   AND st.tm_serie = NVL(:codigoEnderecavel, (SELECT st.tm_serie 
+		                                                FROM prod_jd.so_terminal_natl2 st, prod_jd.so_tm_modelo_natl2 stm,
+		                                                     prod_jd.so_tm_tipo_natl2 tptm, prod_jd.sn_ponto_historico sph
+		                                               WHERE prod.id_produto = rpp.id_produto 
+		                                                 AND rpp.instalado = 1 
+		                                                 AND rpp.id_ponto = sph.id_ponto 
+		                                                 AND sph.tm_id = st.tm_id 
+		                                                 AND tptm.tt_descricao = 'SMART CARD' 
+		                                                 AND tptm.tt_id = stm.tt_id
+		                                                 AND stm.tmod_id = st.tmod_id))
+	]]>
+</sql-query>
+
+<sql-query name="verifyConvivenciaProduto">
+	<return-scalar column="retorno" type="java.lang.String"/>
+	<![CDATA[
+		SELECT retorno
+	  	  FROM (SELECT 1 retorno
+	              FROM SN_REL_PRODUTO_PRODUTO RPP
+	             WHERE RPP.ID_PRODUTO_PRINCIPAL = :idProdutoPrincipal
+	               AND RPP.ID_PRODUTO_ADICIONAL = :idProdutoAdicional
+	               AND RPP.CID_CONTRATO = :cidContrato
+	               AND RPP.ID_TIPO_CONTRATO = 1
+	     UNION ALL
+	            SELECT 1 retorno
+	              FROM SN_REL_PRODUTO_PRODUTO RPP
+	             WHERE RPP.ID_PRODUTO_PRINCIPAL = :idProdutoAdicional
+	               AND RPP.ID_PRODUTO_ADICIONAL = :idProdutoPrincipal
+	               AND RPP.CID_CONTRATO = :cidContrato
+	               AND RPP.ID_TIPO_CONTRATO = 1)
+	     WHERE ROWNUM = 1
+	]]>
+</sql-query>
+
+<sql-query name="verifyConvivenciaProdutoVirtua">
+	<return-scalar column="retorno" type="java.lang.String"/>
+	<![CDATA[
+		SELECT retorno
+          FROM (SELECT 1 retorno
+                  FROM sn_regra_vinculo_produto vinc
+                 WHERE vinc.id_produto_serv_avanc = :idProdutoAdicional
+                   AND vinc.id_segmento = (SELECT rap.id_atributo_parametro
+                                            FROM sn_rel_atributos_produto rap
+                                           WHERE id_produto = :idProdutoPrincipal
+                                             AND id_atributo_parametro = 11
+                                             AND ROWNUM < 2)
+                   AND vinc.dt_fim = TO_DATE('30122049', 'DDMMRRRR')
+     UNION ALL
+        SELECT 1 retorno
+          FROM sn_regra_vinculo_produto vinc
+         WHERE vinc.id_produto_serv_avanc = :idProdutoAdicional
+           AND vinc.id_produto = :idProdutoPrincipal
+           AND vinc.dt_fim = TO_DATE('30122049', 'DDMMRRRR'))
+  WHERE ROWNUM = 1
+	]]>
+</sql-query>

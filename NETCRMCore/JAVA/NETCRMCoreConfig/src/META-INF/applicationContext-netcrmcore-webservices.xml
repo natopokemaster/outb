@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  XML de configuracao de webservices, que sera utilizado pelo WebServiceFatory do framework.
+  o classpath deste arquivo deve ser informado ao WebServiceFatory, exemplo:
+  "META-INF/applicationContext-model-webservices.xml"
+  
+  Os properties do arquivos de configuracao de webservices estao externalizados
+  como lib em NETModelConfigLib
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+	
+	<!-- properties do arquivo de configuração de webservices  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		  <list>
+		    <value>classpath:META-INF/enviromentConfig.properties</value>
+		    <value>classpath:META-INF/webServicesConfig.properties</value>
+		  </list>
+		</property>
+	</bean>
+	
+	<!-- Configuração do Webservice para Atualizar Quantidade de Equipamentos na Controladora 
+	<bean id="Nome da interface que extende WebService"
+		class="br.com.netservicos.framework.service.webservice.WebServiceClient"
+		scope="prototype" >
+
+		<property name="bindingStub" value="nome completo da classe gerada pelo axis que extende org.apache.axis.client.Stub"/>
+		<property name="remoteInterface" value="nome completo da interface gerada pelo axis que extende do java.rmi.Remote"/>
+		<property name="serviceName" value="serviceName obtido do WSDL"/>
+		<property name="servicePort" ref="referenecia para o bean de port"/>
+		<property name="targetNamespace" value="target namespace obtido do WSDL"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="true"/>
+		<property name="applicationName" value="nome da aplicacao, que devera ser um dos relacionados no enum dentro do NetHeader.xsd" />
+		<property name="serviceVersion" value="versao do servico consumido" />
+		<property name="timeout" value="timeout de consumo de serviço" />
+	</bean>
+	
+	<bean id="AtualizarQuantidadeEquipamentosControladoraWebServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="nome do portType obtido do WSDL" />
+		<property name="endpointAddress" value="${referencia para propertie em webServicesConfig.properties que contem o endpoint do serviço}" />
+	</bean>
+	 -->
+
+
+	<bean id="IncluirRequisicaoInternaWebService"
+		class="br.com.netservicos.framework.service.webservice.WebServiceClient"
+		scope="prototype" >
+
+		<property name="bindingStub" value="br.com.netservicos.atendimento.requisicaointerna.ws.service.IncluirRequisicaoInternaV2_0ServiceStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.atendimento.registrocontato.ws.service.IncluirRegistroContatoV2_0Service"/>
+		<property name="serviceName" value="IncluirRequisicaoInternaV2_0Service"/>
+		<property name="servicePort" ref="IncluirRequisicaoInternaWebServicePort"/>
+		<property name="targetNamespace" value="http://br/com/netservicos/atendimento/evento/requisicaointerna"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="true"/>
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="2.0" />
+		<property name="timeout" value="30" />
+	</bean>
+	
+	<bean id="IncluirRequisicaoInternaWebServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="IncluirRequisicaoInternaV2_0SoapPort" />
+		<property name="endpointAddress" value="${requisicaointerna.endpoint}" />
+	</bean>
+	
+	
+	<bean id="IncluirRegistroContatoWebService"
+		class="br.com.netservicos.framework.service.webservice.WebServiceClient"
+		scope="prototype" >
+
+		<property name="bindingStub" value="br.com.netservicos.atendimento.registrocontato.ws.service.IncluirRegistroContatoV2_0ServiceStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.atendimento.registrocontato.ws.service.IncluirRegistroContatoV2_0Service"/>
+		<property name="serviceName" value="IncluirRegistroContatoV2_0Service"/>
+		<property name="servicePort" ref="IncluirRegistroContatoWebServicePort"/>
+		<property name="targetNamespace" value="http://br/com/netservicos/atendimento/evento/registrocontato"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="true"/>
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="2.0" />
+		<property name="timeout" value="30" />
+	</bean>
+	
+	<bean id="IncluirRegistroContatoWebServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="IncluirRegistroContatoV2_0SoapPort" />
+		<property name="endpointAddress" value="${registrocontato.endpoint}" />
+	</bean>	
+	
+    <!-- EXEMPLO DE CONFIGURACAO  -->
+	<bean id="AtualizarQuantidadeEquipamentosControladoraWebService"
+		class="br.com.netservicos.framework.service.webservice.WebServiceClient"
+		scope="prototype" >
+
+		<!-- <property name="bindingStub" value="br.com.netservicos.nethome.equipamento.ws.services.AtualizarEquipamentoControladoraSoap12Stub"/>
+		<property name="remoteInterface" value="br.com.netservicos.nethome.equipamento.ws.services.AtualizarEquipamentoControladoraSoap12"/>
+		-->
+		<property name="serviceName" value="AtualizarEquipamentoControladora"/>
+		<property name="servicePort" ref="AtualizarQuantidadeEquipamentosControladoraWebServicePort"/>
+		<property name="targetNamespace" value="http://www.openuri.org/"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="true"/>
+		<property name="applicationName" value="ATLAS" />
+		<property name="serviceVersion" value="1.0" />
+		<property name="timeout" value="30" />
+	</bean>
+	
+	<bean id="AtualizarQuantidadeEquipamentosControladoraWebServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="AtualizarEquipamentoControladoraSoap12" />
+		<property name="endpointAddress" value="${servico.endpoint}" />
+	</bean>
+		
+	 <!-- Configuração do webservice de WsgestordecisaoSoapWebService -->
+	<bean id="WsgestordecisaoSoapWebService" class="br.com.netservicos.framework.service.webservice.WebServiceClient" scope="prototype" >
+		<property name="bindingStub" value="br.com.netservicos.netvenda.axis2.ws.services.consultaserasa.WsgestordecisaoStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.netvenda.axis2.ws.services.consultaserasa.Wsgestordecisao"/>
+		<property name="serviceName" value="wsgestordecisao"/>
+		<property name="servicePort" ref="SerasaWebServicePort"/>
+		<property name="targetNamespace" value="http://www.netservicos.com.br/ConsultaSerasa/schema"/>
+		<property name="serverDomainSecure" value="true" />
+		<property name="identifyUserByDatabase" value="false" />
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="1.0" />
+	</bean>
+	<bean id="SerasaWebServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="wsgestordecisaoSoap" />
+		<property name="endpointAddress" value="${servico.consultaSerasa}" />
+	</bean>	
+	
+	
+	<!-- Configuração do webservice de Agenda  -->
+	<bean id="AgendaOSWebService" class="br.com.netservicos.framework.service.webservice.WebServiceClient" scope="prototype" >
+		<property name="bindingStub" value="br.com.netservicos.netvenda.axis2.ws.services.agenda.AgendaOSServiceStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.netvenda.axis2.ws.services.agenda.AgendaOSService"/>
+		<property name="serviceName" value="AgendaOSService" />
+		<property name="servicePort" ref="AgendaOSServicePort"/>
+		<property name="targetNamespace" value="http://www.netservicos.com.br/roteamento/agenda"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="false"/>
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="1.0" />
+	</bean>
+		
+	<bean id="AgendaOSServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="AgendaOSPort" />
+		<property name="endpointAddress" value="${ep.agendaOS}" />
+	</bean>	
+	
+	<!-- Configuração do webservice de ConsultarOrdensCamposcasadas -->
+	<bean id="OSCasadaWebService" class="br.com.netservicos.framework.service.webservice.WebServiceClient" scope="prototype">
+		<property name="bindingStub" value="br.com.netservicos.ws.OSCasadaServiceStub" />
+		<property name="remoteInterface" value="br.com.netservicos.ws.OSCasadaService" />
+		<property name="serviceName" value="OSCasadaService" />
+		<property name="servicePort" ref="OSCasadaPortType" />
+		<property name="targetNamespace" value="http://www.netservicos.com.br/roteamento/agenda" />
+		<property name="serverDomainSecure" value="true" />
+		<property name="identifyUserByDatabase" value="false" />
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="1.0" />
+	</bean>
+	<bean id="OSCasadaPortType"
+		class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="OSCasadaService" />
+		<property name="endpointAddress" value="${ep.oSCasada}" />
+	</bean>
+	
+	<bean id="BloqueioAgendaWebService"	class="br.com.netservicos.framework.service.webservice.WebServiceClient" scope="prototype" >
+		<property name="bindingStub" value="br.com.netservicos.netvenda.axis2.ws.services.bloqueioAgenda.BloqueioAgendaServiceStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.netvenda.axis2.ws.services.bloqueioAgenda.BloqueioAgendaService"/>
+		<property name="serviceName" value="BloqueioAgendaService" />
+		<property name="servicePort" ref="BloqueioAgendaServicePort"/>
+		<property name="targetNamespace" value="http://www.netservicos.com.br/roteamento/agenda"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="false"/>
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="1.0" />
+	</bean>
+		
+	<bean id="BloqueioAgendaServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="BloqueioAgendaPort" />
+		<property name="endpointAddress" value="${ep.bloqueioAgenda}" />
+	</bean>
+	
+	<!-- Configuração do webservice de ConsultarPeriodosWebService -->
+	<bean id="ConsultarPeriodosWebService" class="br.com.netservicos.framework.service.webservice.WebServiceClient" scope="prototype" >
+	
+		<property name="bindingStub" value="br.com.netservicos.netvenda.axis2.ws.services.disponibPeriodo.DisponibilidadePeriodoServiceStub"/>
+		<property name="remoteInterface" value="br.com.netservicos.netvenda.axis2.ws.services.disponibPeriodo.DisponibilidadePeriodoService"/>
+		<property name="serviceName" value="DisponibilidadePeriodoService" />
+		<property name="servicePort" ref="DisponibilidadePeriodoServicePort"/>
+		<property name="targetNamespace" value="http://www.netservicos.com.br/roteamento/agenda"/>
+		<property name="serverDomainSecure" value="true"/>
+		<property name="identifyUserByDatabase" value="false"/>
+		<property name="applicationName" value="OTHER" />
+		<property name="serviceVersion" value="1.0" />
+	</bean>
+		
+	<bean id="DisponibilidadePeriodoServicePort" class="br.com.netservicos.framework.service.webservice.WebServicePort">
+		<property name="portName" value="DisponibilidadePeriodoPort" />
+		<property name="endpointAddress" value="${ep.disponibilidadePeriodo}" />
+	</bean>	
+	
+</beans>

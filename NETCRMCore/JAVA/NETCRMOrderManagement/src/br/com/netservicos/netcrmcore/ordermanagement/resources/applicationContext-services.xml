@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+								http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd"
+								default-lazy-init="true">
+	
+	<!-- Start ExemploService 
+	<alias alias="SampleOrderManagementService" name="SampleOrderManagementEJB"/>
+	
+	<jee:remote-slsb id="SampleOrderManagementEJB" 
+		jndi-name="netcrmcore/ordermanagement/ejb/SampleOrderManagementEJB"
+		business-interface="br.com.netservicos.netcrmcore.ordermanagement.core.facade.SampleOrderManagementService" 
+		cache-home="true"
+		lookup-home-on-startup="false" 
+		resource-ref="false"
+		refresh-home-on-connect-failure="true"/>
+	End ExemploService -->
+	
+	<!-- Start SolicitacaoVendaService -->
+	<alias alias="SolicitacaoVendaService" name="SolicitacaoVendaEJB"/>
+	
+	<jee:remote-slsb id="SolicitacaoVendaEJB" 
+		jndi-name="netcrmcore/ordermanagement/ejb/SolicitacaoVendaEJB"
+		business-interface="br.com.netservicos.netcrmcore.ordermanagement.solicitacao.facade.SolicitacaoVendaService" 
+		cache-home="true"
+		lookup-home-on-startup="false" 
+		resource-ref="false"
+		refresh-home-on-connect-failure="true"/>
+	<!-- End SolicitacaoVendaService -->
+	
+</beans>

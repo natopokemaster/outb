@@ -1,0 +1,14 @@
+<sql-query name="procurarFormasEnvioPPVPadrao">
+	<return-scalar column="ID_FORMA_ENVIO" type="java.lang.Long"/>
+	<return-scalar column="NR_ORDEM" type="java.lang.Long"/>
+	<![CDATA[  
+		SELECT SREFE.ID_FORMA_ENVIO, SREFE.NR_ORDEM
+		  FROM PROD_JD.SN_REL_EVENTO_ENVIO_AVISO SREEA,
+		       PROD_JD.SN_REL_EVENTO_FORMA_ENVIO SREFE
+		 WHERE SREEA.ID_EVENTO_FORMA_ENVIO = SREFE.ID_EVENTO_FORMA_ENVIO
+		   AND SREEA.CID_CONTRATO = :cidContrato
+		   AND SREEA.TP_EVENTO    = :tpEvento
+		   AND SREEA.DT_FIM       = TO_DATE('30/12/2049', 'DD/MM/RRRR')
+		   
+	]]>
+</sql-query>

@@ -1,0 +1,103 @@
+<project name="Net Web Service Client" default="buildClient">
+	<description>
+			Build para gerar o Client de acesso aos serviços
+			da camada SOA
+		</description>
+
+	<property file="build.properties" />
+
+	<!-- path para o client do axis -->
+	<path id="axis2.classpath">
+		<fileset id="libs1" dir="lib" includes="${application.libs}" />
+		<fileset id="libs2" dir="../NETLib/runtime/netframework" includes="netFrameworkUtil.jar" />
+	</path>
+
+	<!-- realiza ltodos os passos produzindo um jar contendo os types e services -->
+	<target name="buildClient">
+		<antcall target="clean" />
+		<antcall target="generate" />
+		<antcall target="compile" />
+		<antcall target="jar" />
+	</target>
+
+	<!-- realiza limpeza dos diretorios criados -->
+	<target name="clean">
+		<delete dir="gen" />
+		<delete dir="build" />
+		<delete dir="dist" />
+		<mkdir dir="gen" />
+		<mkdir dir="build" />
+		<mkdir dir="dist" />
+	</target>
+
+	<!-- realiza geracao das classes em cima dos wsdl do serviços, utilziando axis -->
+	<target name="generate">
+
+		<taskdef name="for" classname="net.sf.antcontrib.logic.For" classpathref="axis2.classpath" />
+
+		<taskdef name="codegen" classname="org.apache.axis2.tool.ant.AntCodegenTask" classpathref="axis2.classpath" />
+
+
+		<for list="${wsdls}" param="wsdl">
+			<sequential>
+				<echo message="generating types and services classes for @{wsdl}" />
+				<codegen wsdlfilename="@{wsdl}" output="gen" packagename="${servicePkg}" testcase="false" unpackClasses="true" flattenFiles="true" databindingName="jaxbri" overWrite="true" namespaceToPackages="${nsp2pkgMapping}">
+				</codegen>
+			</sequential>
+		</for>
+
+		<antcall target="move">
+		</antcall>
+
+
+
+	</target>
+
+	<!-- compila as classes geradas -->
+	<target name="compile">
+		<echo message="Compila as classes geradas" />
+		<javac debug="true" destdir="build" srcdir="src" classpathref="axis2.classpath" verbose="true" />
+	</target>
+
+	<!-- empacota os jars de Equipamentos -->
+	<target name="jar">
+
+
+		<echo message="Empacota ${clientJarName}" />
+		<jar destfile="dist/${clientJarName}.jar" duplicate="preserve">
+			<fileset dir="build" />
+		</jar>
+		<jar destfile="dist/${clientJarName}_src.jar" duplicate="preserve">
+			<fileset dir="src" />
+		</jar>
+	</target>
+
+	<!-- publica os jars no NETLib -->
+	<target name="publish">
+
+		<echo message="Publica os Jars no NETLIb do projeto que consumirá os serviços" />
+		<mkdir dir="${publish.runtime}" />
+		<mkdir dir="${publish.source}" />
+		<copy todir="${publish.runtime}">
+			<fileset dir="dist" includes="${clientJarName}.jar" />
+		</copy>
+		<copy todir="${publish.source}">
+			<fileset dir="dist" includes="${clientJarName}_src.jar" />
+		</copy>
+
+	</target>
+
+	<target name="move">
+		<echo message="moving files to projetc source folder">
+		</echo>
+		<copy todir="${src}">
+			<fileset dir="gen" excludes="gen/src">
+			</fileset>
+			<fileset dir="gen/src" includes="">
+			</fileset>
+		</copy>
+		<delete dir="src/src">
+		</delete>
+	</target>
+</project>
+

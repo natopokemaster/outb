@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<context-param>
+		<description>
+			Configuracao de contexto da aplicacao (spring)
+		</description>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/applicationContext-netcrmcoreservices-web.xml,
+			/WEB-INF/applicationContext-netcrmcoreservices-authentication.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+			org.springframework.web.context.support.XmlWebApplicationContext
+		</param-value>
+	</context-param>
+
+	 <listener>
+		<listener-class>
+			br.com.netservicos.framework.web.BaseHttpSessionListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>netcrmcorews</web-resource-name>
+			<description>
+				Mapeamento de Acesso para o Sistema
+			</description>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ACESSO</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Unsecured resources</web-resource-name>
+			<description>
+				Mapeamento de Acesso para o Sistema
+			</description>
+			<url-pattern>/*?WSDL</url-pattern>
+			<url-pattern>/*?wsdl</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+
+
+	<!-- Define o modulo de logon -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>NETCRMCore Web Services</realm-name>
+	</login-config>
+
+
+	<!-- Mapping of the basic security role -->
+	<security-role>
+		<description>ACESSO A SISTEMA NETCRMCore</description>
+		<role-name>ACESSO</role-name>
+	</security-role>
+
+	<security-role>
+		<description>SOLICITAR_EXTENSAO_FONE role</description>
+		<role-name>SOLICITAR_EXTENSAO_FONE</role-name>
+	</security-role>
+	
+	<security-role>
+		<description>ALTERACAO_DADOS_CADASTRAIS_LIVRES role</description>
+		<role-name>ALTERACAO_DADOS_CADASTRAIS_LIVRES</role-name>
+	</security-role>
+
+	<security-role>
+		<description>ALTERACAO_DADOS_CADASTRAIS_RESTRITOS role</description>
+		<role-name>ALTERACAO_DADOS_CADASTRAIS_RESTRITOS</role-name>
+	</security-role>
+
+	<security-role>
+		<description>ALTERACAO_DADOS_CONTATO role</description>
+		<role-name>ALTERACAO_DADOS_CONTATO</role-name>
+	</security-role>
+
+	<security-role>
+		<description>INCLUIR_INTEGRACAO_MANIFESTACAO role</description>
+		<role-name>INCLUIR_INTEGRACAO_MANIFESTACAO</role-name>
+	</security-role>
+ 
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+
+
+</web-app>

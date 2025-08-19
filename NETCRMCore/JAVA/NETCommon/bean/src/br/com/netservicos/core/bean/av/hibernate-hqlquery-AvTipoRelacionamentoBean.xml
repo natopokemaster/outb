@@ -1,0 +1,6 @@
+<query name="procurarTipoRelacionamentoPorDescricao"><![CDATA[
+            FROM
+            	br.com.netservicos.core.bean.av.AvTipoRelacionamentoBean  as tipoRelacionamentoBean 
+            WHERE
+            	tipoRelacionamentoBean.dsTipoRelacionamento = :tipoRelacionamento.dsTipoRelacionamento 
+]]></query>

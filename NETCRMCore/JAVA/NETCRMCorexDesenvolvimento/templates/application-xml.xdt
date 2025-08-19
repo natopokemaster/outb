@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application id="NETCRMCore_Application"
+		xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+        version="1.4">
+
+	<display-name>NETCRMCore</display-name>
+
+	
+	<!-- Core modules declarations -->
+	<!-- 	
+	<module>
+		<ejb>NETCRMAtendimentoEJB.jar</ejb>
+	</module>
+	-->
+	<module>
+		<ejb>NETCRMGesComEJB.jar</ejb>
+	</module>
+	<module>
+		<ejb>NETCRMOMSEJB.jar</ejb>
+	</module>
+
+	<module>
+		<ejb>NETCRMVendaEJB.jar</ejb>
+	</module>
+
+	<module>
+		<ejb>NETCRMClienteEJB.jar</ejb>
+	</module>
+	<!--	
+	<module>
+		<ejb>NETCRMEventEJB.jar</ejb>
+	</module>
+	-->
+	<module>
+		<ejb>NETCRMOrderManagementEJB.jar</ejb>
+	</module>	
+	
+	<module>
+		<ejb>NETCRMProdutoEJB.jar</ejb>
+	</module>	
+	
+	<module>
+		<ejb>NETCRMProspectEJB.jar</ejb>
+	</module>	
+				
+	<module>
+		<ejb>NETCRMCoreGeralEJB.jar</ejb>
+	</module>
+			
+	<module>
+		<ejb>NETCRMEnderecoEJB.jar</ejb>
+	</module>
+	
+	<module>
+		<ejb>NETSMSUtilityServices.jar</ejb>
+	</module>
+
+	<module>
+		<ejb>netFrameworkEJB.jar</ejb>
+	</module>
+	
+	<module>
+		<ejb>NETFrameworkFileManagement.jar</ejb>
+	</module>
+
+	<!-- Security roles from EJBImpl files -->
+	<XDtEjbSec:forAllSecurityRoles>
+		<security-role>
+			<description><XDtEjbSec:securityRoleName /> role</description>
+			<role-name><XDtEjbSec:securityRoleName /></role-name>
+		</security-role>
+	</XDtEjbSec:forAllSecurityRoles>
+	
+	<!-- lista de roles que soa utilizadas nas paginas web -->
+	 <security-role>
+			<description>EXEMPLO_PERMISSAO role</description>
+			<role-name>EXEMPLO_PERMISSAO</role-name>
+	 </security-role>
+</application>

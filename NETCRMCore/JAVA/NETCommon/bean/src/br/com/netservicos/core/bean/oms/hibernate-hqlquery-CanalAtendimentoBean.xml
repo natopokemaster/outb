@@ -1,0 +1,5 @@
+<query name="procuraCanalPorDescricao"><![CDATA[
+	  from br.com.netservicos.core.bean.oms.CanalAtendimentoBean canalAtendimentoBean
+	 where canalAtendimentoBean.dsCanalAtendimento = :canalAtendimento.dsCanalAtendimento
+]]></query>
+

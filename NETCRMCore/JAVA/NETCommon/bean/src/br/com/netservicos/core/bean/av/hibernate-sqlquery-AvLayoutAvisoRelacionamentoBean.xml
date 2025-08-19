@@ -1,0 +1,14 @@
+<sql-query name="procurarLayoutAvisoParaLayoutAcordoComercial">
+	<return-scalar column="ID_LAYOUT_AVISO_RELACIONAMENTO" type="java.lang.Long"/>
+	<return-scalar column="NM_ARQUIVO" type="java.lang.String"/>
+	<![CDATA[  
+		SELECT LAYOUT.ID_LAYOUT_AVISO_RELACIONAMENTO, 
+			   LAYOUT.NM_ARQUIVO
+		  FROM PROD_JD.AV_LAYOUT_AVISO_RELACIONAMENTO LAYOUT
+		 WHERE LAYOUT.FC_TIPO_PESSOA = :tipoPessoa
+		   AND LAYOUT.FC_TIPO_CLIENTE = :tipoCliente
+		   AND LAYOUT.DT_INI <= :dhGeracao
+		   AND LAYOUT.DT_FIM > :dhGeracao
+	]]>
+</sql-query>
+

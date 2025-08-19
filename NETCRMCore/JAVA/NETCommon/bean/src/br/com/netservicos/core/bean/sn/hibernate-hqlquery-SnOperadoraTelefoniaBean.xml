@@ -1,0 +1,18 @@
+<sql-query name="lstOperadoraTelefoniaByDDD">
+       <return-scalar column="id_operadora_telefonia" 	type="java.lang.Integer" />
+       <return-scalar column="nm_operadora_telefonia"	type="java.lang.String" />
+       <return-scalar column="fc_produto_ebt" 			type="java.lang.String" />
+       <return-scalar column="nr_ddd" 					type="java.lang.Integer" />
+       <![CDATA[
+		SELECT optel.id_operadora_telefonia, 
+		       optel.nm_operadora_telefonia,
+		       optel.fc_produto_ebt,
+		       dddoptel.nr_ddd
+		FROM 
+		      prod_jd.sn_operadora_telefonia optel,
+		      prod_jd.sn_ddd_operadora_telefonia dddoptel
+		where
+		      optel.id_operadora_telefonia = dddoptel.id_operadora_telefonia and
+		      dddoptel.nr_ddd = :numeroDDD
+       ]]>
+</sql-query>

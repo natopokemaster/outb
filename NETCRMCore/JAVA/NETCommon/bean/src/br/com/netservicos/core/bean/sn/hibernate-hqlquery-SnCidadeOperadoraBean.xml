@@ -1,0 +1,13 @@
+<query name="lstSnCidadeOperadora"><![CDATA[
+       FROM
+            br.com.netservicos.core.bean.sn.SnCidadeOperadoraBean
+            cidadeOperadora 
+       WHERE cidadeOperadora.codOpeJde IS NOT NULL ORDER BY cidadeOperadora.ciNome 
+]]></query>
+
+<query name="procuraCidContratoPorCodOperadora"><![CDATA[
+       Select snCidadeOperadoraBean
+       FROM
+            br.com.netservicos.core.bean.sn.SnCidadeOperadoraBean snCidadeOperadoraBean 
+       WHERE snCidadeOperadoraBean.codOperadora = :cdOperadora 
+]]></query>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="br.com.netservicos.framework.web.authentication.authenticationResources"
+		class="br.com.netservicos.framework.web.authentication.SpringAuthenticationResources"
+		init-method="init">
+		
+		<property name="authenticatorDefault" ref="netframework.authenticator.context.default"/>
+	
+	</bean>
+	
+	<bean id="netframework.authenticator.context.default"
+		class="br.com.netservicos.framework.web.authentication.WebLogicAuthentication"
+		lazy-init="true">
+	</bean>
+	
+</beans>

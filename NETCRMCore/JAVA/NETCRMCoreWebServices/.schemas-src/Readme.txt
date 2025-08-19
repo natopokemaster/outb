@@ -1,0 +1,1 @@
+This folder is required for XML Schema based source generation.

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<import resource="classpath:META-INF/applicationContext-netcrmcore-common.xml"/>
+	
+	<bean id="br.com.netservicos.framework.util.loader.applicationResources"
+		class="br.com.netservicos.framework.util.loader.spring.SpringApplicationResources"
+		init-method="init">
+		<property name="name" value="NETCRM Core - Web Services" />
+		<property name="description" value="NETCRM Core Web Services Application" />
+		<property name="identifierApplication" value="CRMCOR"/>
+		<property name="identifierSystem" value="16"/>
+		
+		<!-- ########################################################################## -->
+		<!--                     Application Layers Configurations                      -->
+		<!-- ########################################################################## -->
+		<property name="layers">
+			<map>
+				<entry key="web" value-ref="webApplicationLayer" />
+			</map>
+		</property>
+		
+		<!-- ########################################################################## -->
+		<!--                     Business Delegate Configurations                       -->
+		<!-- ########################################################################## -->
+		<property name="delegate" ref="delegate" />
+		
+		<!-- ########################################################################## -->
+		<!--                        Log Manager Configurations                       -->
+		<!-- ########################################################################## -->
+		<property name="logManager" ref="logManager"/>
+	</bean>
+	
+	
+	<!-- Cria um array de dbservices 
+	BaseConstants.PROP_DB_SERVICES="net.persistencia.dbServices"
+	-->
+	<bean id="net.persistencia.dbServices" class="org.springframework.util.StringUtils" 
+			factory-method="sortStringArray">
+		<constructor-arg>
+			<list>
+				<value>NETCRMCORE_BASE_${base.brasil}</value>
+				<value>NETCRMCORE_BASE_${base.belo.horizonte}</value>
+				<value>NETCRMCORE_BASE_${base.interior.sao.paulo}</value>
+				<value>NETCRMCORE_BASE_${base.sao.paulo}</value>
+				<value>NETCRMCORE_BASE_${base.sorocaba}</value>
+				<value>NETCRMCORE_BASE_${base.sul}</value>
+				<value>NETCRMCORE_BASE_${base.vivax}</value>
+				<value>NETCRMCORE_BASE_${base.ctv}</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	
+	<!-- Map of the database services indicating if they are active or not -->
+	<bean id="net.persistencia.dbServices.ative" class="java.util.HashMap">
+		<constructor-arg type="java.util.Map">
+			<map>
+				
+				<entry key="NETCRMCORE_BASE_${base.brasil}" 				value-ref="base.brasil.active"/>
+				<entry key="NETCRMCORE_BASE_${base.belo.horizonte}" 		value-ref="base.belo.horizonte.active"/>
+				<entry key="NETCRMCORE_BASE_${base.interior.sao.paulo}" 	value-ref="base.interior.sao.paulo.active"/>
+				<entry key="NETCRMCORE_BASE_${base.sao.paulo}" 				value-ref="base.sao.paulo.active"/>
+				<entry key="NETCRMCORE_BASE_${base.sorocaba}" 				value-ref="base.sorocaba.active"/>
+				<entry key="NETCRMCORE_BASE_${base.sul}" 					value-ref="base.sul.active"/>
+				<entry key="NETCRMCORE_BASE_${base.vivax}" 					value-ref="base.vivax.active"/>
+				<entry key="NETCRMCORE_BASE_${base.ctv}" 					value-ref="base.ctv.active"/>
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<!--  Beans that represent the boolean's if the database services are active or not -->
+	
+	<bean id="base.brasil.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.brasil.active}"/>
+	</bean>	
+	
+	<bean id="base.belo.horizonte.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.belo.horizonte.active}"/>
+	</bean>
+
+	<bean id="base.interior.sao.paulo.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.interior.sao.paulo.active}"/>
+	</bean>
+	<bean id="base.sao.paulo.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.sao.paulo.active}"/>
+	</bean>
+	<bean id="base.sorocaba.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.sorocaba.active}"/>
+	</bean>
+	<bean id="base.sul.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.sul.active}"/>
+	</bean>
+	<bean id="base.vivax.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.vivax.active}"/>
+	</bean>
+	<bean id="base.ctv.active" class="java.lang.Boolean">
+		<constructor-arg type="java.lang.String" value="${base.ctv.active}"/>
+	</bean>	
+	
+	<bean id="net.persistencia.dbServices.descricao" class="java.util.HashMap">
+		<constructor-arg type="java.util.Map">
+			<map>
+				<entry key="NETCRMCORE_BASE_${base.brasil}" 				value="global.database.name.br"/>
+				<entry key="NETCRMCORE_BASE_${base.belo.horizonte}" 		value="global.database.name.bh"/>
+				<entry key="NETCRMCORE_BASE_${base.interior.sao.paulo}" 	value="global.database.name.isp"/>
+				<entry key="NETCRMCORE_BASE_${base.sao.paulo}" 				value="global.database.name.sp"/>
+				<entry key="NETCRMCORE_BASE_${base.sorocaba}" 				value="global.database.name.soc"/>
+				<entry key="NETCRMCORE_BASE_${base.sul}" 					value="global.database.name.sul"/>
+				<entry key="NETCRMCORE_BASE_${base.vivax}" 					value="global.database.name.viv"/>
+				<entry key="NETCRMCORE_BASE_${base.ctv}" 					 value="global.database.name.ctv"/>
+			</map>
+		</constructor-arg>
+	</bean>
+			
+	
+	<bean id="webApplicationLayer"
+		class="br.com.netservicos.framework.util.loader.ApplicationLayer"
+		lazy-init="true">
+		<property name="name" value="WEB Services Application Layer" />
+		<property name="loader" value="br.com.netservicos.framework.web.loader.WebLoader" />
+		<property name="contextInstance">
+			<bean class="br.com.netservicos.framework.util.context.SimpleContext">
+				<constructor-arg>
+					<map>
+						<entry key="net.persistencia.dbServices" 			value-ref="net.persistencia.dbServices"/>
+						<entry key="net.persistencia.dbServices.descricao" 	value-ref="net.persistencia.dbServices.descricao"/>
+						<entry key="jcaptchaService">
+							<bean class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService"/>
+						</entry>
+					</map>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

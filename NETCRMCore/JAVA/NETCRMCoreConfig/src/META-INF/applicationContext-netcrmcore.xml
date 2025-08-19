@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+	
+	<import resource="classpath:/META-INF/applicationContext-netcrmcore-common.xml"/>
+	
+	<bean id="br.com.netservicos.framework.util.loader.applicationResources"
+		class="br.com.netservicos.framework.util.loader.spring.SpringApplicationResources"
+		init-method="init">
+		<property name="name" value="PROJETO NETCRM BUSINESS CORE - ARQUITETURA DE SISTEMAS - CORE"/>
+		<property name="description" value="NETCRMCORE - APLICAÇÃO MODELO ARQUITETURA DE SISTEMAS"/>
+		<property name="identifierApplication" value="CRMCOR"/>
+		<property name="identifierSystem" value="16"/>
+		
+		<!-- ##########################################################################
+-->
+		<!--                     Application Layers Configurations                      -->
+		<!-- ##########################################################################
+-->
+		<property name="layers">
+			<map>
+				<entry key="core" value-ref="coreApplicationLayer"/>
+			</map>
+		</property>
+		
+		<!-- ##########################################################################
+-->
+		<!--                     Business Delegate Configurations                       -->
+		<!-- ##########################################################################
+-->
+		<property name="delegate" ref="delegate"/>
+		
+		<!-- ##########################################################################
+-->
+		<!--                     DAO Factory's Configurations                       -->
+		<!-- ##########################################################################
+-->			
+
+		<property name="daoFactory" ref="daoFactory"/>
+		
+		<!-- ##########################################################################
+-->
+		<!--                        Log Manager Configurations                       -->
+		<!-- ##########################################################################
+-->
+		  
+		<property name="logManager" ref="logManager"/>
+		
+	</bean>
+	
+	<!-- ##########################################################################
+-->
+	<!--                     DAO Factory's Configurations                       -->
+	<!-- ##########################################################################
+-->	
+	<alias alias="netframework.daofactory.name"  name="daofactory"/>
+
+	<bean id="daoFactory" class="br.com.netservicos.framework.core.dao.DAOFactory"
+			init-method="initialize" destroy-method="destroy">
+		
+		<property name="name" value="NETCRMCORE_DAO_FACTORY"/>
+		<property name="defaultDAO" value="hibernate"/>
+		<property name="daoTypes">
+			<map>
+				<entry key="hibernate" 	value="br.com.netservicos.netcrmcore.geral.dao.NETCRMCoreHibernateDAO"/>
+				<entry key="jdbc" 		value="br.com.netservicos.netcrmcore.geral.dao.NETCRMCoreJDBCDAO"/>
+			</map>
+		</property>
+		<property name="daoServices">
+			<map>
+				<entry key="hibernate" 	value-ref="daoService"/>
+				<entry key="jdbc" 		value-ref="daoService"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="userInfoAdapter" class="br.com.netservicos.framework.core.bean.DefaultCoreUserInfoAdapter">
+		<property name="identifierApplicationId" value="identifier.application.id"/>
+		<property name="identifierSystemId" value="identifier.system.id"/>
+	</bean>
+	
+	<bean id="daoService" class="java.util.HashMap">
+		<constructor-arg type="java.util.Map">
+			<map>
+				<entry key="NETCRMCORE_BASE_${base.belo.horizonte}" 		    value-ref="dbServiceBeloHorizonte"/>
+				<entry key="NETCRMCORE_BASE_${base.brasil}" 				    value-ref="dbServiceBrasil" />
+				<entry key="NETCRMCORE_BASE_${base.interior.sao.paulo}" 	    value-ref="dbServiceInteriorSaoPaulo" />
+				<entry key="NETCRMCORE_BASE_${base.sao.paulo}" 				value-ref="dbServiceSaoPaulo" />
+				<entry key="NETCRMCORE_BASE_${base.sorocaba}" 				value-ref="dbServiceSorocaba" />
+				<entry key="NETCRMCORE_BASE_${base.sul}" 					value-ref="dbServiceSul" />
+				<entry key="NETCRMCORE_BASE_${base.vivax}"					value-ref="dbServiceVivax" />
+				<entry key="NETCRMCORE_BASE_${base.oms}"							value-ref="dbServiceOMS" />
+				<entry key="NETCRMCORE_BASE_${base.ctv}" value-ref="dbServiceCTV" />
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<!-- Configurations of MODEL BASE SUL -->
+	<alias alias="NETCRMCORE_BASE_${base.sul}" name="dbServiceSul"/>
+	<bean id="dbServiceSul"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.sul}"/>
+		<property name="active" value="${base.sul.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SUL" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SUL" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_SUL_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_SUL_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Configurations of MODEL BASE BR (Brasil) -->
+	<alias alias="NETCRMCORE_BASE_${base.brasil}" name="dbServiceBrasil"/>
+	<bean id="dbServiceBrasil"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.brasil}"/>
+		<property name="active" value="${base.brasil.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_BR" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_BR" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_BR_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_BR_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Configurations of MODEL BASE ISP -->
+	<alias alias="NETCRMCORE_BASE_${base.interior.sao.paulo}" name="dbServiceInteriorSaoPaulo"/> 
+	<bean id="dbServiceInteriorSaoPaulo"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.interior.sao.paulo}"/>
+		<property name="active" value="${base.interior.sao.paulo.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_ISP" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_ISP" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_ISP_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_ISP_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Configurations of MODEL BASE SP (Sao Paulo) -->
+	<alias alias="NETCRMCORE_BASE_${base.sao.paulo}" name="dbServiceSaoPaulo"/>
+	<bean id="dbServiceSaoPaulo"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.sao.paulo}"/>
+		<property name="active" value="${base.sao.paulo.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SP" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SP" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_SP_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_SP_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Configurations of MODEL BASE BH (Belo Horizonte)-->
+	<alias alias="NETCRMCORE_BASE_${base.belo.horizonte}" name="dbServiceBeloHorizonte"/>
+	<bean id="dbServiceBeloHorizonte"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.belo.horizonte}"/>
+		<property name="active" value="${base.belo.horizonte.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_BH" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_BH" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_BH_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_BH_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!--Configurations of MODEL BASE SOC (Sorocaba)-->
+	<alias alias="NETCRMCORE_BASE_${base.sorocaba}" name="dbServiceSorocaba"/>
+	<bean id="dbServiceSorocaba"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.sorocaba}"/>
+		<property name="active" value="${base.sorocaba.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SOC" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_SOC" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_SOC_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_SOC_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>
+	
+	<!--Configurations of MODEL BASE VIVAX (VIVAX)-->
+	<alias alias="NETCRMCORE_BASE_${base.vivax}" name="dbServiceVivax"/>
+	<bean id="dbServiceVivax"
+		class="br.com.netservicos.framework.core.dao.DBService">
+		<property name="lazy" value="true"/>
+		<property name="name" value="NETCRMCORE_BASE_${base.vivax}"/>
+		<property name="active" value="${base.vivax.active}"/>
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_VIVAX" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_VIVAX" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_VIV_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_VIV_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+		</property>
+	</bean>	
+	
+	<alias alias="NETCRMCORE_BASE_${base.oms}" name="dbServiceOMS" /> 
+    <bean id="dbServiceOMS" class="br.com.netservicos.framework.core.dao.DBService">
+    	<property name="lazy" value="true" /> 
+  		<property name="name" value="NETCRMCORE_BASE_${base.oms}" /> 
+  		<property name="active" value="true" /> 
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource" 
+					value="jdbc/NETOMS_ONLINE" /> 
+  				<entry key="connection.datasource" 
+  					value="jdbc/NETOMS_ONLINE" /> 
+  				<entry key="hibernate.session_factory_name" 
+  					value="hibernate/NETOMS_OMS_SF" /> 
+  				<entry key="hibernate.cache.region_prefix" 
+  					value="NETCRMCORE_BASE_OMS_CACHE" /> 
+  				<entry key="hibernate.configuration.file" 
+  					value-ref="hibernateCFGResourceLoader" /> 
+  				<entry key="hibernate.cache.file" 
+  					value-ref="ehcacheResourceLoader" /> 
+  			</map>
+  		</property>
+  	</bean>
+	
+	<!--Configurations of MODEL BASE CTV (CLARO TV)-->	
+	<alias alias="NETCRMCORE_BASE_${base.ctv}" name="dbServiceCTV" /> 
+    <bean id="dbServiceCTV" class="br.com.netservicos.framework.core.dao.DBService">
+    	<property name="lazy" value="true" /> 
+  		<property name="name" value="NETCRMCORE_BASE_${base.ctv}" /> 
+  		<property name="active" value="true" /> 
+		<property name="properties">
+			<map>
+				<entry key="hibernate.connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_CTV" />
+				<entry key="connection.datasource"
+					value="jdbc/NETCRMCORE_ONLINE_CTV" />
+				<entry key="hibernate.session_factory_name"
+					value="hibernate/NETCRMCORE_CTV_SF" />
+				<entry key="hibernate.cache.region_prefix"
+					value="NETCRMCORE_BASE_CTV_CACHE" />
+				<entry key="hibernate.configuration.file"
+					value-ref="hibernateCFGResourceLoader" />
+				<entry key="hibernate.cache.file"
+					value-ref="ehcacheResourceLoader" />
+			</map>
+  		</property>
+  	</bean>
+	
+	<bean id="ehcacheResourceLoader"
+		class="br.com.netservicos.framework.util.loader.ResourceLoader">
+		<constructor-arg type="java.lang.String"
+			value="ehcache.xml" />
+	</bean>
+	
+	<bean id="hibernateCFGResourceLoader"
+		class="br.com.netservicos.framework.util.loader.ResourceLoader">
+		<constructor-arg type="java.lang.String"
+			value="hibernate.cfg.xml" />
+	</bean>
+	
+	<bean id="coreApplicationLayer"
+		class="br.com.netservicos.framework.util.loader.ApplicationLayer">
+		<property name="name" value="EJB Application Layer"/>
+		<property name="serverConfigInstance">
+			<bean class="br.com.netservicos.framework.core.loader.config.ConfigurableServerConfig">
+				<property name="transactionManagerJNDIName" value="javax.transaction.TransactionManager"/>
+				<property name="userTransactionJNDIName" value="javax.transaction.UserTransaction"/>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>
+
+
+
+

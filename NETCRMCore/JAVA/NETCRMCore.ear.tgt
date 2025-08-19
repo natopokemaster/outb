@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<OMTarget>
+    <Version>6.3</Version>
+    <Name>NETCRMCore.ear</Name>
+    <Project>NETCRMCore</Project>
+    <TargetDefinitionFile>NETCRMCore.ear.tgt</TargetDefinitionFile>
+    <OSPlatform>Java</OSPlatform>
+    <BuildType>NET Ant</BuildType>
+    <IntDirectory></IntDirectory>
+    <PhoneyTarget>false</PhoneyTarget>
+    <BuildTask>
+        <Name>Build</Name>
+        <OptionGroup>
+            <GroupName>Build Task Options</GroupName>
+            <Type>0</Type>
+            <Option>
+                <Flag>EditarXML</Flag>
+                <Parameter></Parameter>
+                <Description></Description>
+                <Type>26</Type>
+            </Option>
+            <Option>
+                <Flag>BuildDefault</Flag>
+                <Parameter>allear</Parameter>
+                <Description></Description>
+                <Type>378</Type>
+            </Option>
+        </OptionGroup>
+    </BuildTask>
+    <Dependency>
+        <Name>NETCRMCorexDesenvolvimento\build.xml</Name>
+        <Type>5</Type>
+        <ParentBuildTask>Build</ParentBuildTask>
+        <ParentOptionGroup>Build Task Options</ParentOptionGroup>
+        <Option>
+            <Flag>EditarXML</Flag>
+            <Parameter></Parameter>
+            <Description></Description>
+            <Type>26</Type>
+        </Option>
+    </Dependency>
+</OMTarget>

@@ -1,0 +1,268 @@
+<query name="procuraContratoPorNumContratoCodOperadora"><![CDATA[
+	  select snContratoBean
+	  from 	br.com.netservicos.core.bean.sn.SnContratoBean snContratoBean,
+	  		br.com.netservicos.core.bean.sn.SnCidadeOperadoraBean snCidadeOperadoraBean
+	 where 	snContratoBean.compositeKey.cidContrato = snCidadeOperadoraBean.cidContrato
+	 and 	snContratoBean.compositeKey.numContrato = :cdContrato
+	 and 	snCidadeOperadoraBean.codOperadora = :cdOperadora
+]]></query>
+
+<sql-query name="lstContratosByImovel">
+       <return-scalar column="codOperadora" 			type="java.lang.String" />
+       <return-scalar column="idStatus" 				type="java.lang.Integer" />
+       <return-scalar column="desc_status" 				type="java.lang.String" />
+       <return-scalar column="codHP"					type="java.lang.Long" />
+       <return-scalar column="codImovel"				type="java.lang.Long" />
+       <return-scalar column="cidContrato"				type="java.lang.String" />
+       <return-scalar column="idTipoContrato"			type="java.lang.Integer" />
+       <return-scalar column="desc_tipoContrato"		type="java.lang.String" />
+       <return-scalar column="descricao_modalidade"		type="java.lang.String" />
+       <return-scalar column="numContrato" 				type="java.lang.Long" />
+       <return-scalar column="idAssinante" 				type="java.lang.Long" />
+       <return-scalar column="nomeTitular" 				type="java.lang.String" />
+       <![CDATA[
+		SELECT operadora.cod_operadora as codOperadora,    
+       aux.id_status as idStatus,      
+       stat.descricao as desc_status,      
+       imov.cod_hp as codHP,
+       imov.cod_imovel as codImovel,       
+       cont.cid_contrato as cidContrato,       
+       cont.id_tipo_contrato as idTipoContrato,       
+       tpcont.descricao as desc_tipoContrato,       
+       (select modcolet.descricao        
+          from prod_jd.sn_modalidade_cobranca modcolet,               
+               prod_jd.sn_contrato_coletivo colet,               
+               prod_jd.sn_rel_contrato_mestre_filiado filiado        
+         where filiado.num_contrato_filiado = cont.num_contrato             
+           and filiado.cid_contrato = cont.cid_contrato            
+           and filiado.num_contrato_mestre = colet.num_contrato             
+           and filiado.cid_contrato = colet.cid_contrato              
+           and modcolet.id_modalidade_cobranca =              
+               colet.id_modalidade_cobranca              
+           and rownum < 2) descricao_modalidade,           
+       cont.num_contrato as numContrato,       
+       ass.id_assinante as idAssinante,       
+       ass.nome_titular as nomeTitular
+  FROM prod_jd.sn_tipo_contrato tpcont,       
+       prod_jd.sn_status_contrato stat,       
+       prod_jd.sn_rel_status_contrato_aux aux,      
+       prod_jd.sn_contrato cont,      
+       prod_jd.sn_assinante ass,       
+       ged.hp_imovel imov,       
+       prod_jd.sn_ender ende,
+       prod_jd.sn_cidade_operadora operadora
+ WHERE tpcont.id_tipo_contrato = cont.id_tipo_contrato      
+   and stat.id_status_contrato = aux.id_status     
+   and aux.dt_fim >= TO_DATE('30/12/2049', 'DD/MM/YYYY')      
+   and aux.cid_contrato = cont.cid_contrato      
+   and aux.num_contrato = cont.num_contrato      
+   and cont.id_assinante = ass.id_assinante     
+   and ass.id_ender_instalacao = ende.id_ender     
+   and ende.id_edificacao = imov.cod_hp   
+   and operadora.cid_contrato = cont.cid_contrato  
+   --and colet.cid_contrato = cont.cid_contrato     
+   --and colet.num_contrato = cont.num_contrato     
+   and imov.cod_imovel = :codigoImovel
+union
+SELECT operadora.cod_operadora as codOperadora,       
+       aux.id_status as idStatus,       
+       stat.descricao as desc_status,        
+       null as codHP,
+       imov.cod_imovel as codImovel,    
+       cont.cid_contrato as cidContrato,       
+       cont.id_tipo_contrato as idTipoContrato,       
+       tpcont.descricao as desc_tipoContrato,       
+       (select modcolet.descricao        
+          from prod_jd.sn_modalidade_cobranca modcolet,              
+               prod_jd.sn_contrato_coletivo colet        
+         where cont.num_contrato = colet.num_contrato              
+           and cont.cid_contrato = colet.cid_contrato             
+           and modcolet.id_modalidade_cobranca =             
+               colet.id_modalidade_cobranca) descricao_modalidade,          
+       cont.num_contrato as numContrato,      
+       ass.id_assinante as idAssinante,      
+       ass.nome_titular as nomeTitular
+  FROM prod_jd.sn_cidade_operadora operadora,       
+       prod_jd.sn_tipo_contrato tpcont,      
+       prod_jd.sn_status_contrato stat,      
+       prod_jd.sn_rel_status_contrato_aux aux,      
+       prod_jd.sn_contrato cont,      
+       prod_jd.sn_assinante ass,      
+       ged.imovel imov,       
+       prod_jd.sn_ender ende
+ WHERE tpcont.id_tipo_contrato = cont.id_tipo_contrato      
+   and stat.id_status_contrato = aux.id_status      
+   and aux.dt_fim >= TO_DATE('30/12/2049', 'DD/MM/YYYY')     
+   and aux.cid_contrato = cont.cid_contrato     
+   and aux.num_contrato = cont.num_contrato     
+   and cont.id_assinante = ass.id_assinante      
+   and ass.id_ender_instalacao = ende.id_ender      
+   and ende.id_edificacao = imov.cod_imovel     
+   and ende.id_edificacao = :codigoImovel   
+   and operadora.cid_contrato = cont.cid_contrato 
+   and cont.cid_contrato = operadora.cid_contrato
+       ]]>
+</sql-query>
+
+<sql-query name="lstDuplicidadeCpf">
+	<return-scalar column="NUM_CONTRATO"		type="long"/>	
+	<return-scalar column="NM_CIDADE"		    type="string"/>	
+	<return-scalar column="NM_ASSINANTE"		type="string"/>
+	<return-scalar column="ID_STATUS"		    type="integer"/>			
+	<![CDATA[
+	select /*+RULE */
+       ctr.num_contrato       AS NUM_CONTRATO, 
+       cop.ci_nome            AS NM_CIDADE,
+       ass.nome_titular       AS NM_ASSINANTE,
+       stc.id_status_contrato AS ID_STATUS
+  from sn_contrato ctr, sn_assinante ass, sn_rel_status_contrato_aux aux,
+       sn_status_contrato stc, SN_CIDADE_OPERADORA cop
+ where cop.cid_contrato = aux.cid_contrato
+   and ctr.num_contrato = aux.num_contrato
+   and ctr.cid_contrato = aux.cid_contrato
+   and ctr.id_assinante = ass.id_assinante
+   and aux.id_status    = stc.id_status_contrato
+   and aux.dt_fim       > SYSDATE
+   and ass.cpf          = :cpf
+	]]>
+</sql-query>
+
+<sql-query name="lstDuplicidadeCnpj">
+	<return-scalar column="NUM_CONTRATO"		type="long"/>	
+	<return-scalar column="NM_CIDADE"		    type="string"/>	
+	<return-scalar column="NM_ASSINANTE"		type="string"/>
+	<return-scalar column="ID_STATUS"		    type="integer"/>
+	<![CDATA[
+	select /*+RULE */
+       ctr.num_contrato       AS NUM_CONTRATO, 
+       cop.ci_nome            AS NM_CIDADE,
+       ass.nome_titular       AS NM_ASSINANTE,
+       stc.id_status_contrato AS ID_STATUS
+  from sn_contrato ctr, sn_assinante ass, sn_rel_status_contrato_aux aux,
+       sn_status_contrato stc, SN_CIDADE_OPERADORA cop
+ where cop.cid_contrato = aux.cid_contrato
+   and ctr.num_contrato = aux.num_contrato
+   and ctr.cid_contrato = aux.cid_contrato
+   and ctr.id_assinante = ass.id_assinante
+   and aux.id_status    = stc.id_status_contrato
+   and aux.dt_fim       > SYSDATE
+   and ass.cpf          = :cnpj
+	]]>
+</sql-query>
+
+<sql-query name="lstContratosByHP">
+       <return-scalar column="codOperadora" 			type="java.lang.String" />
+       <return-scalar column="idStatus" 				type="java.lang.Integer" />
+       <return-scalar column="desc_status" 				type="java.lang.String" />
+       <return-scalar column="codHP"					type="java.lang.Long" />
+       <return-scalar column="codImovel"				type="java.lang.Long" />
+       <return-scalar column="cidContrato"				type="java.lang.String" />
+       <return-scalar column="idTipoContrato"			type="java.lang.Integer" />
+       <return-scalar column="desc_tipoContrato"		type="java.lang.String" />
+       <return-scalar column="descricao_modalidade"		type="java.lang.String" />
+       <return-scalar column="numContrato" 				type="java.lang.Long" />
+       <return-scalar column="idAssinante" 				type="java.lang.Long" />
+       <return-scalar column="nomeTitular" 				type="java.lang.String" />
+       <![CDATA[
+		SELECT operadora.cod_operadora as codOperadora,    
+       aux.id_status as idStatus,      
+       stat.descricao as desc_status,      
+       imov.cod_hp as codHP,
+       imov.cod_imovel as codImovel,       
+       cont.cid_contrato as cidContrato,       
+       cont.id_tipo_contrato as idTipoContrato,       
+       tpcont.descricao as desc_tipoContrato,       
+       (select modcolet.descricao        
+          from prod_jd.sn_modalidade_cobranca modcolet,               
+               prod_jd.sn_contrato_coletivo colet,               
+               prod_jd.sn_rel_contrato_mestre_filiado filiado        
+         where filiado.num_contrato_filiado = cont.num_contrato             
+           and filiado.cid_contrato = cont.cid_contrato            
+           and filiado.num_contrato_mestre = colet.num_contrato             
+           and filiado.cid_contrato = colet.cid_contrato              
+           and modcolet.id_modalidade_cobranca =              
+               colet.id_modalidade_cobranca              
+           and rownum < 2) descricao_modalidade,           
+       cont.num_contrato as numContrato,       
+       ass.id_assinante as idAssinante,       
+       ass.nome_titular as nomeTitular
+  FROM prod_jd.sn_tipo_contrato tpcont,       
+       prod_jd.sn_status_contrato stat,       
+       prod_jd.sn_rel_status_contrato_aux aux,      
+       prod_jd.sn_contrato cont,      
+       prod_jd.sn_assinante ass,       
+       ged.hp_imovel imov,       
+       prod_jd.sn_ender ende,
+       prod_jd.sn_cidade_operadora operadora
+ WHERE tpcont.id_tipo_contrato = cont.id_tipo_contrato      
+   and stat.id_status_contrato = aux.id_status     
+   and aux.dt_fim >= TO_DATE('30/12/2049', 'DD/MM/YYYY')      
+   and aux.cid_contrato = cont.cid_contrato      
+   and aux.num_contrato = cont.num_contrato      
+   and cont.id_assinante = ass.id_assinante     
+   and ass.id_ender_instalacao = ende.id_ender     
+   and ende.id_edificacao = imov.cod_hp   
+   and operadora.cid_contrato = cont.cid_contrato  
+   --and colet.cid_contrato = cont.cid_contrato     
+   --and colet.num_contrato = cont.num_contrato     	
+   and imov.cod_imovel = :codigoImovel
+   and imov.cod_hp = :codigoHP
+union
+SELECT operadora.cod_operadora as codOperadora,       
+       aux.id_status as idStatus,       
+       stat.descricao as desc_status,        
+       null as codHP,
+       imov.cod_imovel as codImovel,    
+       cont.cid_contrato as cidContrato,       
+       cont.id_tipo_contrato as idTipoContrato,       
+       tpcont.descricao as desc_tipoContrato,       
+       (select modcolet.descricao        
+          from prod_jd.sn_modalidade_cobranca modcolet,              
+               prod_jd.sn_contrato_coletivo colet        
+         where cont.num_contrato = colet.num_contrato              
+           and cont.cid_contrato = colet.cid_contrato             
+           and modcolet.id_modalidade_cobranca =             
+               colet.id_modalidade_cobranca) descricao_modalidade,          
+       cont.num_contrato as numContrato,      
+       ass.id_assinante as idAssinante,      
+       ass.nome_titular as nomeTitular
+  FROM prod_jd.sn_cidade_operadora operadora,       
+       prod_jd.sn_tipo_contrato tpcont,      
+       prod_jd.sn_status_contrato stat,      
+       prod_jd.sn_rel_status_contrato_aux aux,      
+       prod_jd.sn_contrato cont,      
+       prod_jd.sn_assinante ass,      
+       ged.imovel imov,       
+       prod_jd.sn_ender ende
+ WHERE tpcont.id_tipo_contrato = cont.id_tipo_contrato      
+   and stat.id_status_contrato = aux.id_status      
+   and aux.dt_fim >= TO_DATE('30/12/2049', 'DD/MM/YYYY')     
+   and aux.cid_contrato = cont.cid_contrato     
+   and aux.num_contrato = cont.num_contrato     
+   and cont.id_assinante = ass.id_assinante      
+   and ass.id_ender_instalacao = ende.id_ender      
+   and ende.id_edificacao = imov.cod_imovel     
+   and ende.id_edificacao = :codigoImovel   
+   and operadora.cid_contrato = cont.cid_contrato 
+   and cont.cid_contrato = operadora.cid_contrato
+       ]]>
+</sql-query>
+
+<sql-query name="findBasesNETSMS">
+	<return-scalar column="NM_ALIAS" type="string"/>	
+	<![CDATA[
+	select distinct(NM_ALIAS) from sn_cidade_base
+	]]>
+</sql-query>     
+
+<sql-query name="lstAgendamento">	
+	<return-scalar column="idAgendamento"   type="java.lang.Integer"/>
+	<return-scalar column="idAreaDespacho"  type="string"/>	
+	<![CDATA[		   
+		    SELECT id_agendamento idAgendamento ,
+			       id_area_despacho idAreaDespacho
+			  FROM cp_proposta 
+			 WHERE id_proposta  = :idProposta
+			   AND id_cidade    = :cidContrato
+	]]>
+</sql-query> 

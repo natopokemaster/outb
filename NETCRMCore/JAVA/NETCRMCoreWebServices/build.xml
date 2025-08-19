@@ -1,0 +1,437 @@
+<project name="NETCRM Core - WebServices">
+    <description>
+    	Build file for the web services for Novo Atlas
+    </description>
+	
+	<!-- carrega as propriedades do projeto -->
+	<property file="build.properties" />
+	<!-- carrega as propriedades do servidor -->
+	<property file="server_config.properties" />
+
+	<!-- Define the weblogic classpath -->
+	<path id="weblogic.classpath">
+		  <fileset dir="${wl.home}/server/lib" >
+			<include name="weblogic.jar"/>
+		</fileset>
+	</path>
+	
+	
+	<path id="ant.classpath">
+			<fileset dir="${dir.netlib}/build/ant-contrib" >
+				<include name="ant-contrib.jar"/>
+			</fileset>
+		</path>
+	
+	<!-- Classpath of the project -->
+	<path id="classpath">
+		 <fileset dir="${dir.netlib}" includes="**/*.jar" /> 
+		 <fileset dir="${wl.home}/server/lib" >
+					<include name="weblogic.jar"/>
+					<include name="webservices.jar"/>
+					<include name="xbean.jar"/>
+		</fileset>
+		<fileset dir="${wl.home}/server/lib/schema" >
+					 <include name="weblogic-container-binding.jar"/>
+		 </fileset>
+		        
+		<pathelement location="../${project.geral}/build" />
+		<pathelement location="../NETCommon/build" />
+		<pathelement location="../NETCRMAtendimento/build" />
+		<pathelement location="../NETCRMProspect/build" />
+		<pathelement location="../NETCRMOMS/build" />
+		<pathelement location="../NETCRMVenda/build" />
+		<pathelement location="../NETCRMCliente/build" />
+		<pathelement location="../NETCRMEvent/build" />
+		<pathelement location="../NETCRMProduto/build" />
+		<pathelement location="../NETCRMOrderManagement/build" />
+		<pathelement location="../NETCRMEndereco/build" />
+		<pathelement location="../NETCRMGesCom/build" />
+		
+		 <!--
+		 Inluir referencias aos /build dos modulos EJB acessados
+		 pelas implementações dos webservices
+		 Exemplo:
+		 <pathelement location="../NETFatura/build" />
+		 -->
+	</path>		
+	
+	
+	<!-- JWS of the project -->
+	<path id="jwssourcepath">
+		<pathelement location="${dir.schemas.gensrc}" />
+		<pathelement location="${dir.src}" />
+	</path>		
+	
+	<!-- bibliotecas inseridas no ear e nos manifests -->
+	<fileset id="libs" dir="${dir.netlib}" includes="${appplication.libs}" />
+	<!--fileset id="libs.properties" dir="../${core.config.lib.project}/dist" includes="${filename.properties.jar}" /-->
+	
+
+    <!-- ================================= 
+          target: publish    [invoca generateWebServices, e jar.web]          
+         ================================= -->
+    <target name="publish" description="--> Builds the distribution for Novo Atlas - Web Services">
+    	<antcall target="init"/>
+    	
+    	<!-- task usada para percorrer todos projetos -->
+		<taskdef name="for"
+		         classname="net.sf.antcontrib.logic.For"
+		         classpathref="ant.classpath" />
+
+
+		<!-- task usada para concatenar todas entradass do manifest -->
+		<taskdef name="var"
+		         classname="net.sf.antcontrib.property.Variable"
+		         classpathref="ant.classpath" />
+    	
+		<!-- converte os arquivos de lib em string para usar no manifest -->
+		<pathconvert property="manifest" pathsep=" ">
+			<path>
+				<fileset refid="libs" />
+				<!--fileset refid="libs.properties" /-->
+			</path>
+			<mapper>
+				<flattenmapper />
+			</mapper>	
+		</pathconvert>    	
+    	<var name="manifest" value="${manifest}"/>
+    	
+		<!-- Iterate the core projects and copy the client and common jar's to the ear -->
+		<for list="${core.projects}" param="project">
+			<sequential>
+				<!-- <copy flatten="true" todir="${dir.ear}/${filename.war}/WEB-INF/lib"> -->
+				<copy flatten="true" todir="${dir.ear}">
+					<fileset dir="../@{project}/dist/jars">
+						<include name="@{project}Common.jar"/>
+						<include name="@{project}Client.jar"/>
+					</fileset>
+				</copy>
+				
+				<var name="manifest" value="${manifest} @{project}Common.jar @{project}Client.jar"/>
+			</sequential>
+    	</for>     
+    	
+    
+    	<copy flatten="true" todir="${dir.ear}">
+    		<fileset refid="libs" />
+    	</copy>  
+    	
+    	<antcall target="jndiresolver" />
+    	
+    	<echo level="info">Generating the Web Services for ${filename.war}</echo>
+    	<antcall target="generateWebServices"/>
+    	
+    	<echo level="info">Creating the web jar file</echo>
+    	<antcall target="jar.web"/>
+
+    	<echo level="info">Copying the web application configuration files for ${filename.ear}</echo>
+    	<copy todir="${dir.ear}/${filename.war}">
+    		<fileset dir="${dir.gen}/${filename.war}" >
+    			<exclude name="WEB-INF/classes/**"/>
+    			<exclude name="**/*.java"/>
+    			<exclude name="WEB-INF/weblogic.xml"/>
+    		</fileset>
+        	<!-- Copy the web configuration files -->
+    		<fileset dir="${dir.web}">
+    			<include name="**/*"/>
+    			<exclude name="**/web.xml"/>
+    			<include name="WEB-INF/weblogic.xml"/>
+    		</fileset>
+    	</copy>
+    	
+    	<mkdir dir="${dir.ear}/${filename.war}/META-INF/"/>
+    	<echo message="${manifest}" />
+        <manifest file="${dir.ear}/${filename.war}/META-INF/MANIFEST.MF">
+    			<attribute name="Class-Path" value="${manifest}" />
+   		</manifest>
+
+    	<echo level="info">Copying the application configuration files for ${filename.ear}</echo>
+    	<copy todir="${dir.ear}/META-INF" >
+    		<fileset dir="${dir.config}">
+    			<include name="application.xml"/>
+    			<include name="weblogic-application.xml"/>
+    		</fileset>
+    	</copy>
+    </target>
+    
+    	<!-- efetua troca de jndi dos ejb para que não haja conflito nas aplicações em
+    			     produção que compartilhem o mesmo dominio -->	
+    			<target name="jndiresolver">
+    				
+    				
+    						<echo message="Resolving JNDI - framework libs" />
+    						
+    						<taskdef name="netjndiresolver" 
+    						         classname="br.com.netservicos.framework.buildvalidator.task.NETFrameworkJNDIResolver"
+    						         classpathref="classpath" />
+    				
+    						<mkdir dir="${dir.jndilibs.file}"/>	
+    						
+    						<netjndiresolver destdir="${dir.jndilibs.file}" 	
+    										 inputjarnetframeworkutil="${dir.project.path}/NETLib/runtime/netframework/netFrameworkUtil.jar"
+    						                 applicationName="${application.name}" />
+    						
+    						<!-- copia os libs com jndis refatorados para dentro da estrutura do projeto -->
+    					 	<echo level="info">Updating jars afrer JNDI resolve procedure</echo>
+    						<copy flatten="true" todir="${dir.ear}">
+    								<fileset dir="${dir.jndilibs.file}" />
+    						</copy>
+    					 	<echo message="JNDI resolver ok proceeed publishing......" />
+    				
+    			</target>
+	
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init">
+		<mkdir dir="${dir.ear}"/>
+    	<mkdir dir="${dir.build}"/>
+    	<mkdir dir="${dir.gen}"/> 
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean">
+    	<delete defaultexcludes="true" includeEmptyDirs="true" failonerror="false">
+			<fileset dir="${dir.gen}">
+				<include name="**/*"/>
+				<exclude name=".cvsignore"/>
+			</fileset>
+    		<fileset dir="${dir.build}">
+    						<include name="**/*"/>
+    						<exclude name=".cvsignore"/>
+    		</fileset>
+    		<fileset dir="${dir.ear}">
+				<include name="**/*"/>
+			</fileset>
+		</delete>
+    </target>
+
+	
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: jar.web                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="jar.web" description="--> Creates the WebServices JAR File">
+
+    	<copy todir="${dir.build}" overwrite="true">
+     		<fileset dir="${dir.src}">
+    			<include name="**/*.properties"/>
+    			<include name="**/*.xml"/>
+       		</fileset>    		
+    	</copy>
+    	
+    	<taskdef name="if"
+    			         classname="net.sf.antcontrib.logic.IfTask"
+    			         classpathref="ant.classpath" />
+    	    	
+    	<mkdir dir="${dir.ear}/${filename.war}/WEB-INF/lib"/>
+    	<mkdir dir="${dir.gen}/${filename.war}/WEB-INF/classes"/>
+    	<jar destfile="${dir.ear}/${filename.war}/WEB-INF/lib/${filename.jar}">
+    		<!-- Copy the classes files -->
+			<fileset dir="${dir.build}">
+				<include name="**/*"/>
+				<exclude name="**/*JWS.class"/>
+			</fileset>
+    		<!-- Copy the web services -->
+    		<fileset dir="${dir.gen}/${filename.war}/WEB-INF/classes"/>
+    		
+    		<manifest>
+    			<attribute name="Class-Path" value="${manifest}" />
+    		</manifest>
+    	</jar>
+    	
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: generateWebServices                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="generateWebServices">
+    	<record name="build.log" 
+    	    loglevel="info" append="false"/>
+    	<!-- WebLogic task to generate the web service files 
+    	     Reference: http://download.oracle.com/docs/cd/E13222_01/wls/docs92/webserv/anttasks.html#wp1069899 -->
+    	<taskdef name="jwsc"
+            classname="weblogic.wsee.tools.anttasks.JwscTask" classpathref="weblogic.classpath"/>
+
+    	<mkdir dir="${dir.gen}"/>
+    	
+    	<echo message="Generating the web service files......" />
+        <jwsc 	classpathref="classpath"
+        	    sourcepathref="jwssourcepath"
+          		destdir="${dir.gen}" 
+        		keepgenerated="no"
+        		verbose="no"
+        		source="1.5"
+        		debug="true"
+        	    includeAntRuntime="yes"
+        	    includeJavaRuntime="yes"
+        	    failonerror="yes"
+        	    destEncoding="ISO-8859-1"
+        		srcdir="${dir.src}">
+
+            <module name="${filename.war}" 
+            		explode="true" 
+            		contextpath="${application.context.root}" >
+            	
+            	<jwsfileset srcdir="${dir.src}">
+                 	<include name="**/*JWS.java" />
+               	</jwsfileset>
+				
+            	<descriptor file="web/WEB-INF/web.xml" />
+            </module>        	
+        </jwsc>
+    </target>
+
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy">
+		<taskdef name="wldeploy"
+		         classname="weblogic.ant.taskdefs.management.WLDeploy"
+		         classpathref="weblogic.classpath" />
+		
+		<echo message="Deploying application......" />		
+		<wldeploy action="deploy"
+		          name="${wl.nome.application}"
+		          source="${dir.ear}"
+		          user="${wl.user}"
+		          password="${wl.pass}"
+		          adminurl="${wl.admin.url}"
+		          targets="${wl.server}" />
+	</target>	
+	
+	<!-- ================================= 
+          target: undeploy              
+         ================================= -->
+	<target name="undeploy">
+		<taskdef name="wldeploy"
+		         classname="weblogic.ant.taskdefs.management.WLDeploy"
+		         classpathref="weblogic.classpath" />
+		
+		<echo message="UnDeploying application......" />
+		<wldeploy action="undeploy"
+		          name="${wl.nome.application}"
+		          user="${wl.user}"
+		          password="${wl.pass}"
+		          adminurl="${wl.admin.url}"
+		          targets="${wl.server}" />
+	</target>
+
+	<!-- ================================= 
+          target: redeploy              
+         ================================= -->	
+	<target name="redeploy">
+		<taskdef name="wldeploy"
+		         classname="weblogic.ant.taskdefs.management.WLDeploy"
+		         classpathref="weblogic.classpath" />
+		
+		<echo message="ReDeploying application......" />
+		<wldeploy action="redeploy"
+		          name="${wl.nome.application}"
+		          user="${wl.user}"
+		          password="${wl.pass}"
+		          adminurl="${wl.admin.url}"
+		          targets="${wl.server}" />
+	</target>	
+	
+	
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+    <target name="compile" description="--> Compiles the aplication" depends="genSchemaTypesSrc">
+    	<echo message="Compiling schema generated source files......" />
+		<javac 	destdir="${dir.build}"
+		       	srcdir="${dir.schemas.gensrc}"
+		       	classpathref="classpath"
+				source="1.5"
+				target="1.5"
+				debug="true"/>
+    	
+    	<echo message="Compiling application source schema files......" />	
+		<javac 	destdir="${dir.build}"
+		       	srcdir="${dir.src}"
+		       	classpathref="classpath"
+				source="1.5"
+				target="1.5"
+				debug="true"/>
+    </target>
+
+	<!-- ================================= 
+          target: generate schemas types
+         ================================= -->
+    <target name="genSchemaTypesSrc" description="--> Compiles the aplication schemas">
+
+    	<taskdef name="if"
+		         classname="net.sf.antcontrib.logic.IfTask"
+		         classpathref="ant.classpath" />
+    	
+    	<!-- Task do JAXB para geração das classes referentes ao schemas 
+    	     Referencia: http://java.sun.com/webservices/docs/2.0/jaxb/xjcTask.html -->    	
+    	<taskdef name="xjc" 
+    		classname="com.sun.tools.xjc.XJCTask"
+    		classpathref="classpath"/>
+   	
+		    	<echo message="Generating source files from XML Schemas......" />
+		    	<xjc target="2.0" destdir="${dir.schemas.gensrc}" readonly="no" extension="yes" source="2.0">    	  
+		   	      <schema dir="${dir.schemas}" includes="**/*.xsd" excludes="**/debug.xsd"/>
+		          <produces dir="${dir.schemas.gensrc}" includes="**/*.java" />
+		    		<!-- <arg value="-nv" /> -->    		
+		    	</xjc>
+    </target>	
+	
+	<!-- ================================= 
+          target: ear              
+         ================================= -->	
+	<target name="ear">
+	
+		<mkdir dir="${dir.dist}"/>
+				
+		<delete>
+			<fileset dir="${dir.dist}">
+				<include name="${filename.ear}"/>
+			</fileset>
+		</delete>
+		
+		<zip destfile="${dir.dist}/${filename.war}" basedir="${dir.ear}/${filename.war}"/>
+		
+		<delete dir="${dir.ear}/${filename.war}"/>
+		
+		<move todir="${dir.ear}">
+			<fileset dir="${dir.dist}">
+				<include name="${filename.war}"/>
+			</fileset>
+		</move>
+		
+		<zip destfile="${dir.dist}/${filename.ear}" basedir="${dir.ear}"/>
+
+		
+	</target>
+	
+	<!-- ================================= 
+	          target: all - realiza os passos da construcao e realiza deploy no weblogic              
+	         ================================= -->	
+	<target name="all">
+	   <sequential>	
+		  <antcall target="publish" />
+		  <antcall target="deploy" />
+	   </sequential>	
+	</target>
+	
+	<!-- ================================= 
+	          target:allear - realiza os passos da construcao e gera um .ear com a aplicação              
+	         ================================= -->	
+	<target name="allear">
+		<sequential>	
+			<antcall target="init" />
+			 <antcall target="clean" />
+			 <antcall target="publish" />
+			 <antcall target="ear" />
+	   </sequential>	
+	</target>
+
+	
+</project>

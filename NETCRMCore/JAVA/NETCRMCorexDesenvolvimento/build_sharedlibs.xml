@@ -1,0 +1,153 @@
+<project name="NETCRM - Shared Libs">
+
+
+  	<description>
+	Este projeto possui o objetivo de dar suporte a desenvolvimento nos projetos 
+	da NETSERVICOS
+    </description>
+
+	<!-- carrega as propriedades do projeto -->
+	<property file="build.properties" />
+	<!-- carrega as propriedades do servidor -->
+	<property file="server_config.properties" />
+	<!-- carrega as propriedades do sharedlibs -->
+	<property file="sharedlibs.properties" />
+
+	<!-- path para definição de tarefas -->
+	<path id="classpath">
+		<fileset dir="../NETLib" includes="**/*.jar" />
+		<pathelement location="../${common.project}/build" />
+	</path>
+	
+	<path id="classpath.weblogic">
+		<fileset dir="${wl.home}/server/lib" includes="*weblogic.jar" />	
+	</path>
+
+    <target name="deploySharedLibs">
+		<pathconvert property="bibliotecas" pathsep="," >
+			<path>
+				 <fileset dir="../NETlib/runtime" includes="**/*.jar" >
+				  <exclude name="**/NET*.jar" />
+				 <exclude name="**/net*.jar" />
+				</fileset>
+			
+			</path>
+		</pathconvert>
+		
+		    <taskdef name="wldeploy"
+					     classname="weblogic.ant.taskdefs.management.WLDeploy"
+					     classpathref="classpath.weblogic" />
+    	
+    	    <taskdef name="for"
+					         classname="net.sf.antcontrib.logic.For"
+					         classpathref="classpath" />
+			
+			 <for list="${bibliotecas}" param="lib">
+			   <sequential>
+			      <echo message="deploying @{lib}"/>
+			    <wldeploy action="deploy"
+		          source="@{lib}"
+			      library="true"
+		          user="${wl.user}"
+		          password="${wl.pass}"
+		          adminurl="${wl.admin.url}"
+		          targets="${wl.server}" />
+				</sequential>
+				</for>
+	</target>
+      
+	<target name="deployFrameworkLibs">
+		
+	    <taskdef name="wldeploy"
+				     classname="weblogic.ant.taskdefs.management.WLDeploy"
+				     classpathref="classpath.weblogic" />
+		
+			<pathconvert property="framework" pathsep="," >
+				<path>
+					 <fileset dir="../NETlib/runtime/netframework" >
+								 	 <include name="NETFrameworkUtility.jar" />
+								 	 <include name="NETFrameworkUtilityWeblogic.jar" />
+								 	 <include name="NETFrameworkTransport.jar" />
+								 	 <include name="NETFrameworkHibernate.jar" />
+					 	             <include name="NETFrameworkExceptionHandling.jar" />
+					 	
+						 </fileset>
+				</path>
+			</pathconvert>
+				
+				
+			<taskdef name="for"
+						         classname="net.sf.antcontrib.logic.For"
+						         classpathref="classpath" />
+					
+		         <for list="${framework}" param="lib">
+					   <sequential>
+					         <echo message="deploying framework @{lib}"/>
+					    <wldeploy action="deploy"
+				          source="@{lib}"
+					      library="true"
+				          user="${wl.user}"
+				          password="${wl.pass}"
+				          adminurl="${wl.admin.url}"
+				          targets="${wl.server}" />
+						</sequential>
+					</for>
+				
+	</target>
+	
+	
+	<target name="undeploySharedLibs">
+				
+	    <taskdef name="wldeploy"
+				     classname="weblogic.ant.taskdefs.management.WLDeploy"
+				     classpathref="classpath.weblogic" />
+						
+			<taskdef name="for"
+						         classname="net.sf.antcontrib.logic.For"
+						         classpathref="classpath" />
+				
+				 <for list="${shared.libs}" param="lib">
+				   <sequential>
+				      <echo message="undeploying @{lib}"/>
+				   	<wldeploy action="undeploy"
+			          name="@{lib}"
+					  allversions="true"	
+				      library="true"
+					  failonerror="false"
+			          user="${wl.user}"
+			          password="${wl.pass}"
+			          adminurl="${wl.admin.url}"
+			          targets="${wl.server}" />
+					</sequential>
+				 	</for>
+		</target>
+	      
+		<target name="undeployFrameworkLibs">
+				
+		    <taskdef name="wldeploy"
+					     classname="weblogic.ant.taskdefs.management.WLDeploy"
+					     classpathref="classpath.weblogic" />
+			
+				<taskdef name="for"
+							         classname="net.sf.antcontrib.logic.For"
+							         classpathref="classpath" />
+						
+			         <for list="${shared.libs.fwk}" param="lib">
+						   <sequential>
+						         <echo message="deploying @{lib}"/>
+						    <wldeploy action="undeploy"
+					          name="@{lib}"
+						      library="true"
+							  allversions="true"
+							  failonerror="false"
+					          user="${wl.user}"
+					          password="${wl.pass}"
+					          adminurl="${wl.admin.url}"
+					          targets="${wl.server}" />
+							</sequential>
+						</for>
+					
+		</target>
+	
+	
+</project>

@@ -1,0 +1,7 @@
+<sql-query name="getIdRelPontoExtensao">
+	<return-scalar column="id_extensao" type="java.lang.Long" />
+	<![CDATA[
+		SELECT sqsn_rel_ponto_extensao.nextval as id_extensao FROM dual		  
+	]]>
+</sql-query>
+

@@ -1,0 +1,22 @@
+<query name="SnCidadeBase.list.all.operadoras"><![CDATA[
+            FROM
+            	br.com.netservicos.core.bean.sn.SnCidadeBaseBean  as cidadeBase 
+            ORDER BY
+            	cidadeBase.ciNome
+]]></query>
+
+<query name="SnCidadeBase.list.all.operadoras.by.aliases"><![CDATA[
+            FROM
+            	br.com.netservicos.core.bean.sn.SnCidadeBaseBean  as cidadeBase
+            WHERE 
+            	 cidadeBase.nmAlias IN (:baseAliases)
+            ORDER BY
+            	cidadeBase.ciNome
+]]></query>
+
+<query name="lstSnCidadeBaseByParams"><![CDATA[
+       SELECT cidadeBase.codOperadora , cidadeBase.ciNome
+   	   FROM	br.com.netservicos.core.bean.sn.SnCidadeBaseBean cidadeBase 
+       WHERE ((:ciEstado IS NULL) OR (UPPER(cidadeBase.ciEstado) like UPPER('%' || :ciEstado || '%')))
+       ORDER BY cidadeBase.ciNome
+]]></query>

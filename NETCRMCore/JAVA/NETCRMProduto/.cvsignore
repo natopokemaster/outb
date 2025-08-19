@@ -1,0 +1,8 @@
+bin
+dist
+gen
+build
+.settings
+*.class
+.externalToolBuilders
+server_config.properties

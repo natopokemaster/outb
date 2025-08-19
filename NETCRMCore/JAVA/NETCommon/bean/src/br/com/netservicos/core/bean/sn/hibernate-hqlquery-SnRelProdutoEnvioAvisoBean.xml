@@ -1,0 +1,6 @@
+<query name="lstSnRelProdutoEnvioAvisoBeanByIdProdutoAndCidContrato"><![CDATA[
+      FROM br.com.netservicos.core.bean.sn.SnRelProdutoEnvioAvisoBean snRelProdutoEnvioAvisoBean
+     WHERE snRelProdutoEnvioAvisoBean.idProduto = :idProduto 
+       AND snRelProdutoEnvioAvisoBean.cidContrato = :cidContrato
+       AND snRelProdutoEnvioAvisoBean.dtFim = to_date('30/12/2049','dd/MM/yyyy')  
+]]></query>

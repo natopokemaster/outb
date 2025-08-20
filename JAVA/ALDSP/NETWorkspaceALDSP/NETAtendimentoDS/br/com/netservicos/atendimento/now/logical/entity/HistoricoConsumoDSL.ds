@@ -1,0 +1,227 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="com:ComprasType" xmlns:x="urn:annotations.ld.bea.com" xmlns:com="http://www.netservicos.com.br/ComprasType">
+    <creationDate>2011-09-20T12:21:11</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+
+import schema namespace snt1="ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP" at "ld:br/com/netservicos/atendimento/now/physical/netsms/table/schemas/SnTVODConsumidoDSP.xsd";
+
+declare namespace par= "ld:br/com/netservicos/atendimento/now/logical/entity/ParametroDSL";
+
+declare namespace snc= "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace snh= "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnHistoricoConsumoVODDSP";
+
+declare namespace snt= "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP";
+
+
+import schema namespace com="http://www.netservicos.com.br/ComprasType" at "ld:br/com/netservicos/atendimento/now/schemas/ComprasType.xsd";
+
+import schema namespace para="http://www.netservicos.com.br/Parametro/schemas" at "ld:br/com/netservicos/atendimento/now/schemas/Parametro.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/now/logical/entity/HistoricoConsumoDSL";
+
+                             
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscaCompra($parametrosListarCompra as element()) as element()* {
+    
+       
+                let $TVOD := "T-VOD"
+                let $DATA := "yyyy-MM-dd"
+                let $T := "T"
+                let $HORA := "HH:mm:ss"
+                let $NOME_PARAMETRO := "MAX_DIAS_HIST_NOW"  
+                let $VAZIO := ""
+                let $NA := 0
+                let $D := "D"
+                let $P := "P"
+                let $UMA_PAGINA := 1
+                
+return
+             let $listaCompra :=             
+           
+             
+             if(empty($parametrosListarCompra/com:dtInicioCompra) 
+                 and empty($parametrosListarCompra/com:dtTerminoCompra)
+                 and empty($parametrosListarCompra/com:dtInicioExibicao)
+                 and empty($parametrosListarCompra/com:dtTerminoExibicao)) then    
+                 
+                let $dataCompra := par:buscarParametroPorNomeECidade($NOME_PARAMETRO,$parametrosListarCompra/com:cidadeContrato)
+                let $dias := xs:int($dataCompra/para:valorParametro)      
+                           
+                let $dtInicioLocal  :=  xs:date(fn:current-date() - xdt:dayTimeDuration(fn:concat($P, fn:concat($dias,$D))))
+                let $dtTerminoLocal :=  xs:date(fn:current-dateTime())
+             
+              
+                    for $SnTVODConsumidoDSP in snt:SnTVODConsumidoDSP()
+	                where $SnTVODConsumidoDSP/NUM_CONTRATO = $parametrosListarCompra/com:numeroContrato               
+	                where $SnTVODConsumidoDSP/DH_COMPRA ge  xs:dateTime($dtInicioLocal)
+	                where $SnTVODConsumidoDSP/DH_COMPRA le  xs:dateTime($dtTerminoLocal)
+	                for   $SnCidadeOperadoraDSP in snc:SnCidadeOperadoraDSP()
+	                where $SnCidadeOperadoraDSP/CID_CONTRATO = $parametrosListarCompra/com:cidadeContrato
+	                where $SnTVODConsumidoDSP/COD_OPERADORA = $SnCidadeOperadoraDSP/COD_OPERADORA
+	                order by $SnTVODConsumidoDSP/DH_COMPRA	  
+	              	for $SnHistoricoConsumoVODDSP in snh:SnHistoricoConsumoVODDSP()	
+	                where $SnHistoricoConsumoVODDSP/ID_TVOD_CONSUMIDO = $SnTVODConsumidoDSP/ID_TVOD_CONSUMIDO
+					where $SnHistoricoConsumoVODDSP/ENTITLEMENT_ID = $SnTVODConsumidoDSP/ENTITLEMENT_ID
+					where $SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO ge xs:dateTime($dtInicioLocal)
+				    where $SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO le xs:dateTime($dtTerminoLocal)
+					   
+			 
+        
+              return
+              <com:compra>
+                    <com:smartCard?>{fn:data($SnTVODConsumidoDSP/CD_ENDERECAVEL)}</com:smartCard>
+                    <com:produtoNow?>{fn:data($TVOD)}</com:produtoNow>
+                    <com:filme?>{fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)}</com:filme>
+                    <com:dataCompra?>{fn:data($SnTVODConsumidoDSP/DH_COMPRA)}</com:dataCompra>
+                    <com:dtTerminoCompra?>{fn:data($SnHistoricoConsumoVODDSP/DH_EXIBICAO)}</com:dtTerminoCompra>
+                    <com:dtInicioExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO)}</com:dtInicioExibicao>
+                    <com:dtTerminoExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_FIM_JANELA_EXIBICAO)}</com:dtTerminoExibicao>
+                    <com:oferta?>{fn:data($SnTVODConsumidoDSP/DS_OFERTA)}</com:oferta>
+                    <com:preco?>{fn:data($SnTVODConsumidoDSP/VL_LISTA)}</com:preco>
+                    <com:precoFinal?>{fn:data($SnTVODConsumidoDSP/VLR_COMPRA)}</com:precoFinal>                               
+                    <com:numeroPaginaAtual?>
+                        {
+                          if(fn:data($parametrosListarCompra/com:resultadoPaginado) and
+                          not(empty(fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)))) then 
+                               fn:data($parametrosListarCompra/com:numeroPagina)
+                          else
+                             fn:data($UMA_PAGINA)
+                        }
+                    </com:numeroPaginaAtual>                      
+                    <com:quantidadeTotalPagina?>{fn:data($parametrosListarCompra/com:tamanhoPagina)}</com:quantidadeTotalPagina>
+                   <com:flagAdulto>{fn:data($SnTVODConsumidoDSP/FL_ADULTO)}</com:flagAdulto>
+                </com:compra>
+                   
+               
+              else if (empty($parametrosListarCompra/com:dtInicioExibicao)
+                 and empty($parametrosListarCompra/com:dtTerminoExibicao)) then      
+               
+                for $SnTVODConsumidoDSP in snt:SnTVODConsumidoDSP()
+                where $SnTVODConsumidoDSP/NUM_CONTRATO = $parametrosListarCompra/com:numeroContrato
+                where  fn-bea:date-from-dateTime($SnTVODConsumidoDSP/DH_COMPRA)  ge  $parametrosListarCompra/com:dtInicioCompra
+                where  fn-bea:date-from-dateTime($SnTVODConsumidoDSP/DH_COMPRA) le   $parametrosListarCompra/com:dtTerminoCompra
+                for $SnCidadeOperadoraDSP in snc:SnCidadeOperadoraDSP()
+                where $SnCidadeOperadoraDSP/CID_CONTRATO = $parametrosListarCompra/com:cidadeContrato
+				where  $SnCidadeOperadoraDSP/COD_OPERADORA = $SnTVODConsumidoDSP/COD_OPERADORA 
+                order by $SnTVODConsumidoDSP/DH_COMPRA	  
+           		for $SnHistoricoConsumoVODDSP in snh:SnHistoricoConsumoVODDSP()		
+				where $SnTVODConsumidoDSP/ID_TVOD_CONSUMIDO = $SnHistoricoConsumoVODDSP/ID_TVOD_CONSUMIDO
+				where $SnHistoricoConsumoVODDSP/ENTITLEMENT_ID = $SnTVODConsumidoDSP/ENTITLEMENT_ID
+		           
+           
+            return
+                <com:compra>
+                    <com:smartCard?>{fn:data($SnTVODConsumidoDSP/CD_ENDERECAVEL)}</com:smartCard>
+                    <com:produtoNow?>{fn:data($TVOD)}</com:produtoNow>
+                    <com:filme?>{fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)}</com:filme>
+                    <com:dataCompra?>{fn:data($SnTVODConsumidoDSP/DH_COMPRA)}</com:dataCompra>
+                    <com:dtTerminoCompra?>{fn:data($SnHistoricoConsumoVODDSP/DH_EXIBICAO)}</com:dtTerminoCompra>
+                    <com:dtInicioExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO)}</com:dtInicioExibicao>
+                    <com:dtTerminoExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_FIM_JANELA_EXIBICAO)}</com:dtTerminoExibicao>
+                    <com:oferta?>{fn:data($SnTVODConsumidoDSP/DS_OFERTA)}</com:oferta>
+                    <com:preco?>{fn:data($SnTVODConsumidoDSP/VL_LISTA)}</com:preco>
+                    <com:precoFinal?>{fn:data($SnTVODConsumidoDSP/VLR_COMPRA)}</com:precoFinal>
+                    <com:numeroPaginaAtual?>
+                        {
+                          if(fn:data($parametrosListarCompra/com:resultadoPaginado) and
+                          not(empty(fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)))) then 
+                               fn:data($parametrosListarCompra/com:numeroPagina)
+                          else
+                             fn:data($UMA_PAGINA)
+                        }
+                    </com:numeroPaginaAtual>     
+                    <com:quantidadeTotalPagina?>{fn:data($parametrosListarCompra/com:tamanhoPagina)}</com:quantidadeTotalPagina>
+                    <com:flagAdulto>{fn:data($SnTVODConsumidoDSP/FL_ADULTO)}</com:flagAdulto>
+                </com:compra>
+                
+             else
+                for $SnTVODConsumidoDSP in snt:SnTVODConsumidoDSP()
+                where $SnTVODConsumidoDSP/NUM_CONTRATO = $parametrosListarCompra/com:numeroContrato
+                for $SnCidadeOperadoraDSP in snc:SnCidadeOperadoraDSP()
+				where $SnCidadeOperadoraDSP/CID_CONTRATO = $parametrosListarCompra/com:cidadeContrato				
+			    where $SnCidadeOperadoraDSP/COD_OPERADORA = $SnTVODConsumidoDSP/COD_OPERADORA
+                order by $SnTVODConsumidoDSP/DH_COMPRA	 				
+            	for $SnHistoricoConsumoVODDSP in snh:SnHistoricoConsumoVODDSP()	
+				where $SnTVODConsumidoDSP/ID_TVOD_CONSUMIDO = $SnHistoricoConsumoVODDSP/ID_TVOD_CONSUMIDO   
+				where $SnHistoricoConsumoVODDSP/ENTITLEMENT_ID = $SnTVODConsumidoDSP/ENTITLEMENT_ID
+			    where  fn-bea:date-from-dateTime($SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO) ge $parametrosListarCompra/com:dtInicioExibicao
+				where  fn-bea:date-from-dateTime($SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO) le $parametrosListarCompra/com:dtTerminoExibicao
+			
+              
+           
+            return
+                <com:compra>
+                    <com:smartCard?>{fn:data($SnTVODConsumidoDSP/CD_ENDERECAVEL)}</com:smartCard>
+                    <com:produtoNow?>{fn:data($TVOD)}</com:produtoNow>
+                    <com:filme?>{fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)}</com:filme>
+                    <com:dataCompra?>{fn:data($SnTVODConsumidoDSP/DH_COMPRA)}</com:dataCompra>
+                    <com:dtTerminoCompra?>{fn:data($SnHistoricoConsumoVODDSP/DH_EXIBICAO)}</com:dtTerminoCompra>
+                    <com:dtInicioExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_INI_JANELA_EXIBICAO)}</com:dtInicioExibicao>
+                    <com:dtTerminoExibicao?>{fn:data($SnHistoricoConsumoVODDSP/DH_FIM_JANELA_EXIBICAO)}</com:dtTerminoExibicao>
+                    <com:oferta?>{fn:data($SnTVODConsumidoDSP/DS_OFERTA)}</com:oferta>
+                    <com:preco?>{fn:data($SnTVODConsumidoDSP/VL_LISTA)}</com:preco>
+                    <com:precoFinal?>{fn:data($SnTVODConsumidoDSP/VLR_COMPRA)}</com:precoFinal>
+                    <com:numeroPaginaAtual?>
+                        {
+                          if(fn:data($parametrosListarCompra/com:resultadoPaginado) and
+                          not(empty(fn:data($SnTVODConsumidoDSP/NM_CONTEUDO)))) then 
+                               fn:data($parametrosListarCompra/com:numeroPagina)
+                          else
+                             fn:data($UMA_PAGINA)
+                        }
+                    </com:numeroPaginaAtual>     
+                    <com:quantidadeTotalPagina?>{fn:data($parametrosListarCompra/com:tamanhoPagina)}</com:quantidadeTotalPagina>
+                    <com:flagAdulto>{fn:data($SnTVODConsumidoDSP/FL_ADULTO)}</com:flagAdulto>
+                </com:compra>
+               
+                     
+                return
+                      $listaCompra
+                                                                
+						
+          
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:listarCompra($parametrosListarCompra as element(com:ParametrosListarCompraType)) as element(com:ComprasType){
+    
+    
+     let $listaCompra := tns:buscaCompra($parametrosListarCompra)  
+    
+    return
+    <com:ComprasType>
+        {                       
+                                    if($parametrosListarCompra/com:resultadoPaginado eq fn:false()) then
+                                        $listaCompra             
+								    else if(fn:empty($parametrosListarCompra/com:numeroPagina)
+									    and $parametrosListarCompra/com:resultadoPaginado eq fn:true()
+									) then 
+								     	subsequence($listaCompra, 1 ,$parametrosListarCompra/com:tamanhoPagina)
+									else               
+										subsequence($listaCompra, 
+										((($parametrosListarCompra/com:numeroPagina * $parametrosListarCompra/com:tamanhoPagina) - ($parametrosListarCompra/com:tamanhoPagina)) + 1)  ,
+										($parametrosListarCompra/com:tamanhoPagina))
+										 
+                
+      
+             
+        }
+        <com:totalRegistros?>{fn:data(count($listaCompra))}</com:totalRegistros>
+    </com:ComprasType>
+
+};
+
+
+
+
+
+
+
+

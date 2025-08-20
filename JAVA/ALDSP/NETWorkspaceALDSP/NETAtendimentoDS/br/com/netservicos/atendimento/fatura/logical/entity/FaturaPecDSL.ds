@@ -1,0 +1,36 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="urn:Faturas" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="ld:br/com/netservicos/atendimento/fatura/logical/entity/FaturaPecDSL">
+    <creationDate>2015-05-08T16:20:26</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+declare namespace tns="ld:br/com/netservicos/atendimento/fatura/logical/entity/FaturaPecDSL";
+
+import schema namespace ns="ld:br/com/netservicos/atendimento/fatura/logical/entity/FaturaPecDSL" at "ld:br/com/netservicos/atendimento/fatura/schemas/FaturaPEC.xsd";
+import schema namespace t2="ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/FATURA" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/schemas/FaturaDSP.xsd";
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/PrListarBoletosAberto";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:listarFaturasEmAberto($numeroContrato as xs:long, $identificacaoCidade as xs:string) as element(ns:Faturas)*{
+    <tns:Faturas>
+        {
+         	for $fatura in f1:ListarBoletosAbertosDSP($numeroContrato, $identificacaoCidade)
+			return 
+			        
+	            <tns:Fatura>
+	                <tns:numeroDocumento?>{data($fatura/NUMERO_DOCUMENTO)}</tns:numeroDocumento>
+	                <tns:nomeCliente?>{data($fatura/NOME_CLIENTE)}</tns:nomeCliente>
+	                <tns:numContrato?>{data($fatura/NUM_CONTRATO)}</tns:numContrato>
+	                <tns:cidContrato?>{data($fatura/CID_CONTRATO)}</tns:cidContrato>
+	                <tns:dataVencimento?>{data($fatura/DATA_VENCIMENTO)}</tns:dataVencimento>
+	                <tns:codigoBarras?>{data($fatura/CODIGO_BARRAS)}</tns:codigoBarras>
+	                <tns:valorDocumento?>{data($fatura/VALOR_DOCUMENTO)}</tns:valorDocumento>
+	            </tns:Fatura>
+        }
+    </tns:Faturas>
+
+};
+

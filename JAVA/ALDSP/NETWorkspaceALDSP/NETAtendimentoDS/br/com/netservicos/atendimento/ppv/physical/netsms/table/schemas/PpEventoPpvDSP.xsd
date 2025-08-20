@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpEventoPpvDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PpEventoPpvDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_EVENTO_PPV" type="xs:integer"/>
+            <xs:element name="ID_CATEGORIA" type="xs:integer"/>
+            <xs:element name="ID_TIPO_PPV" type="xs:integer"/>
+            <xs:element name="NOME_EVENTO_PPV" type="xs:string"/>
+            <xs:element name="DESCRICAO" type="xs:string"/>
+            <xs:element name="DATA_INICIO" type="xs:dateTime"/>
+            <xs:element name="HORA_INICIO" type="xs:dateTime"/>
+            <xs:element name="ID_DISTRIBUIDORA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_ESTUDIO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_STATUS_EVENTO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="TAMANHO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="MODO_SCRAMBLE" type="xs:string" minOccurs="0"/>
+            <xs:element name="TWOWAY" type="xs:string" minOccurs="0"/>
+            <xs:element name="BARKER1" type="xs:integer" minOccurs="0"/>
+            <xs:element name="BARKER2" type="xs:integer" minOccurs="0"/>
+            <xs:element name="TIPO_APRESENTACAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ORIGEM_CARGA" type="xs:string" minOccurs="0"/>
+            <xs:element name="TEMPO_TEASER_IPPV" type="xs:integer" minOccurs="0"/>
+            <xs:element name="BUY_WINDOW_IPPV" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="CANCELATION_WINDOW_IPPV" type="xs:dateTime" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

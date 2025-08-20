@@ -1,0 +1,62 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnSituacaoBoletoDSP" xmlns:t="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnSituacaoBoletoDSP">
+<creationDate>2010-03-31T18:14:32</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_SITUACAO_BOLETO" type="xs:integer">
+  <extension nativeXpath="ID_SITUACAO_BOLETO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DS_DESCRICAO" type="xs:string">
+  <extension nativeXpath="DS_DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="SG_SIGLA" type="xs:string">
+  <extension nativeXpath="SG_SIGLA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_SITUACAO_BOLETO" type="sns:SnSituacaoBoletoDSP_KEY" inferredSchema="true" xmlns:sns="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnSituacaoBoletoDSP"/>
+
+<relationshipTarget roleName="SnBoletoDSP" roleNumber="2" XDS="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="SnSituacaoBoletoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnSituacaoBoletoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnSituacaoBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnSituacaoBoletoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnSituacaoBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnSituacaoBoletoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_SITUACAO_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnSituacaoBoletoDSP() as schema-element(t4:SnSituacaoBoletoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_SITUACAO_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnSituacaoBoletoDSP($p as element(t4:SnSituacaoBoletoDSP)*)as schema-element(t4:SnSituacaoBoletoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_SITUACAO_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnSituacaoBoletoDSP($p as changed-element(t4:SnSituacaoBoletoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_SITUACAO_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnSituacaoBoletoDSP($p as element(t4:SnSituacaoBoletoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnBoletoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="SnBoletoDSP"/>::)
+
+   declare function f1:getSnBoletoDSP($pk as element(t4:SnSituacaoBoletoDSP)) as element(t1:SnBoletoDSP)*
+   {
+      for $fk in f2:SnBoletoDSP()
+      where $pk/ID_SITUACAO_BOLETO eq $fk/ID_SITUACAO_BOLETO
+      return $fk
+   };
+

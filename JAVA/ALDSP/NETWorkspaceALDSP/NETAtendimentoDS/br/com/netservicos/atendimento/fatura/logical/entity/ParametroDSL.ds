@@ -1,0 +1,35 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com"><creationDate>2010-06-11T16:08:55</creationDate></x:xfl> ::)
+
+
+declare namespace snc= "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace snp= "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnParametroDSP";
+
+import schema namespace sch="http://www.netservicos.com.br/Parametro/schemas" at "ld:br/com/netservicos/atendimento/fatura/schemas/Parametro.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/fatura/logical/entity/ParametroDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarParametroPorNomeECidade($nomeParametro as xs:string, $identificadorCidade as xs:string) as element(sch:Parametro)?{
+		
+		for $SnParametroDSP in snp:SnParametroDSP()
+		where $nomeParametro eq $SnParametroDSP/NOME_PARAMETRO
+		for $SnCidadeOperadoraDSP in snc:SnCidadeOperadoraDSP()
+		where $identificadorCidade eq $SnCidadeOperadoraDSP/CID_CONTRATO
+		where $SnParametroDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+return
+        <sch:Parametro>
+            <sch:nomeParametro?>{fn:data($SnParametroDSP/NOME_PARAMETRO)}</sch:nomeParametro>
+            <sch:valorParametro?>{fn:data($SnParametroDSP/VLR_PARAMETRO)}</sch:valorParametro>
+            <sch:descricao?>{fn:data($SnParametroDSP/DESCRICAO)}</sch:descricao>
+            <sch:instrucao?>{fn:data($SnParametroDSP/INSTRUCAO)}</sch:instrucao>
+            <sch:valorParametroString?>{fn:data($SnParametroDSP/VLR_PARAMETRO_STR)}</sch:valorParametroString>
+            <sch:processarMetre?>{fn:data($SnParametroDSP/PROCESSAR_MESTRE)}</sch:processarMetre>
+        </sch:Parametro>
+    
+
+};
+

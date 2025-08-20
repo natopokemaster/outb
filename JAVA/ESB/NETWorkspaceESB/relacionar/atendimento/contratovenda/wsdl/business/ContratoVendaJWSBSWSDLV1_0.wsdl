@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="ContratoVendaJWSServiceDefinitions" targetNamespace="http://br/com/netservicos/relacionar/atendimento/jws" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://br/com/netservicos/relacionar/atendimento/jws" xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <s0:types>
+    <schema targetNamespace="http://www.netservicos.com.br/DadoContatoTitular" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/DadoContatoTitular">
+      <complexType name="DadoContatoTitularType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="telefonesContato" type="tns:TelefonesContatoType"/>
+          <element maxOccurs="1" minOccurs="0" name="email" type="tns:EmailType"/>
+        </sequence>
+      </complexType>
+      <complexType name="TelefonesContatoType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="telefone" type="tns:TelefoneContatoType"/>
+        </sequence>
+      </complexType>
+      <complexType name="TelefoneContatoType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="dddTelefone">
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="3"/>
+                <pattern value="[0-9].*"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="numeroTelefone">
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="14"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="ramal">
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="4"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="tipoTelefone">
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="RESIDENCIAL"/>
+                <enumeration value="COMERCIAL"/>
+                <enumeration value="CELULAR"/>
+                <enumeration value="FAX"/>
+                <enumeration value="OUTROS"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <complexType name="EmailType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="enderecoEmail">
+            <simpleType>
+              <restriction base="string">
+                <pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*">
+						</pattern>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="tipoEmail" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="aceitaContato" type="boolean"/>
+        </sequence>
+      </complexType>
+      <element name="DadoContatoTitular" type="tns:DadoContatoTitularType"/>
+    </schema>
+    <schema targetNamespace="http://www.netservicos.com.br/DadoCadastralTitular" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/DadoCadastralTitular">
+      <complexType name="DadoCadastralTitularType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="nome" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="codigoSuframa" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="pessoa" type="tns:AbstractPessoaType"/>
+        </sequence>
+      </complexType>
+      <complexType abstract="true" name="AbstractPessoaType">
+	</complexType>
+      <complexType name="PessoaJuridicaType">
+        <complexContent>
+          <extension base="tns:AbstractPessoaType">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="CNPJ">
+                <simpleType>
+                  <restriction base="string">
+                    <pattern value="\d{14,15}"/>
+                    <maxLength value="15"/>
+                  </restriction>
+                </simpleType>
+              </element>
+              <element maxOccurs="1" minOccurs="0" name="InscricaoEstadual">
+                <simpleType>
+                  <restriction base="string">
+                    <maxLength value="14"/>
+                  </restriction>
+                </simpleType>
+              </element>
+              <element maxOccurs="1" minOccurs="0" name="orgaoExpedidor" type="string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="PessoaFisicaType">
+        <complexContent>
+          <extension base="tns:AbstractPessoaType">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="dataNascimento" type="date"/>
+              <element maxOccurs="1" minOccurs="0" name="CPF">
+                <simpleType>
+                  <restriction base="string">
+                    <pattern value="\d{10,11}"/>
+                    <maxLength value="11"/>
+                  </restriction>
+                </simpleType>
+              </element>
+              <element maxOccurs="1" minOccurs="0" name="RG">
+                <simpleType>
+                  <restriction base="string">
+                    <maxLength value="20"/>
+                  </restriction>
+                </simpleType>
+              </element>
+              <element maxOccurs="1" minOccurs="0" name="orgaoExpedidor" type="string"/>
+              <element maxOccurs="1" minOccurs="0" name="passaporte" type="string"/>
+              <element maxOccurs="1" minOccurs="0" name="flagEstrangeiro" type="boolean"/>
+              <element maxOccurs="1" minOccurs="0" name="nomePai" type="string"/>
+              <element maxOccurs="1" minOccurs="0" name="nomeMae" type="string"/>
+              <element maxOccurs="1" minOccurs="0" name="sexo" nillable="true">
+                <annotation>
+                  <documentation>
+								Sexo do cliente Masculino, Feminino e Indefinido
+								no caso de cliente pessoa juridica
+							</documentation>
+                </annotation>
+                <simpleType>
+                  <restriction base="string">
+                    <enumeration value="MASCULINO"/>
+                    <enumeration value="FEMININO"/>
+                    <enumeration value="NAO SE APLICA"/>
+                  </restriction>
+                </simpleType>
+              </element>
+              <element maxOccurs="1" minOccurs="0" name="identificacaoEstadoCivil" type="long"/>
+              <element maxOccurs="1" minOccurs="0" name="identificacaoProfissao" type="long"/>
+              <element maxOccurs="1" minOccurs="0" name="identificacaoEscolaridade" type="long"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <element name="DadoCadastralTitular" type="tns:DadoCadastralTitularType"/>
+    </schema>
+    <schema targetNamespace="http://www.netservicos.com.br/RegistroContato" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/RegistroContato">
+      <complexType name="RegistroContatoType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="nomeContato" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="telefoneContato">
+            <complexType>
+              <sequence>
+                <element maxOccurs="1" minOccurs="1" name="dddTelefone">
+                  <simpleType>
+                    <restriction base="string">
+                      <maxLength value="3"/>
+                      <pattern value="[0-9].*"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+                <element maxOccurs="1" minOccurs="1" name="numeroTelefone">
+                  <simpleType>
+                    <restriction base="string">
+                      <maxLength value="14"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="observacao" type="string"/>
+        </sequence>
+      </complexType>
+      <element name="registroContato" type="tns:RegistroContatoType"/>
+    </schema>
+    <schema targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento" xmlns:tns="http://www.netservicos.com.br/v2/NetHeader">
+      <element name="NetHeader" type="tns:Header">
+        <annotation>
+          <documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Header">
+        <annotation>
+          <documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="aplicacao">
+            <annotation>
+              <documentation>
+						Aplicação que esta consumindo o serviço
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="NETSMS"/>
+                <enumeration value="NETSALES"/>
+                <enumeration value="PORTAL NET"/>
+                <enumeration value="URA"/>
+                <enumeration value="MODULO COBRANCA"/>
+                <enumeration value="ATLAS"/>
+                <enumeration value="RETENCAO REVERSAO"/>
+                <enumeration value="COMISSIONAMENTO"/>
+                <enumeration value="WORKASSURE"/>
+                <enumeration value="EMBRATEL"/>
+                <enumeration value="ACTIVIA"/>
+                <enumeration value="DECODER DIGITAL"/>
+                <enumeration value="NETADMIN"/>
+                <enumeration value="WLI_EVENT"/>
+                <enumeration value="OTHER"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="funcionalidade">
+            <annotation>
+              <documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="versaoServico" type="string">
+            <annotation>
+              <documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="token">
+            <annotation>
+              <documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="atendimento" type="tns:Atendimento">
+            <annotation>
+              <documentation>
+						Atendimento de cliente.
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="username" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Atendimento">
+        <annotation>
+          <documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamada deveria preencher os
+				valores desde entidade.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element name="numeroProtocolo" type="string">
+            <annotation>
+              <documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+            </annotation>
+          </element>
+          <element name="numeroChamada" type="string">
+            <annotation>
+              <documentation>
+						Numero de chamanda de atendimento
+					</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema targetNamespace="http://www.netservicos.com.br/IdentificadorContrato" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/IdentificadorContrato">
+      <complexType name="IdentificadorContratoType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="NumeroContrato">
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="CodigoOperadora">
+            <simpleType>
+              <restriction base="string">
+                <length value="3"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="IdentificacaoCidade">
+            <simpleType>
+              <restriction base="string">
+                <length value="5"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <element name="IdentificadorContrato" type="tns:IdentificadorContratoType"/>
+    </schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://br/com/netservicos/relacionar/atendimento/jws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.netservicos.com.br/DadoContatoTitular"/>
+      <xs:import namespace="http://www.netservicos.com.br/RegistroContato"/>
+      <xs:import namespace="http://www.netservicos.com.br/IdentificadorContrato"/>
+      <xs:import namespace="http://www.netservicos.com.br/DadoCadastralTitular"/>
+      <xs:element name="alterarDadoCadastralTitular">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="iden:IdentificadorContrato" xmlns:iden="http://www.netservicos.com.br/IdentificadorContrato"/>
+            <xs:element ref="dad:DadoCadastralTitular" xmlns:dad="http://www.netservicos.com.br/DadoCadastralTitular"/>
+            <xs:element ref="reg:registroContato" xmlns:reg="http://www.netservicos.com.br/RegistroContato"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alterarDadoCadastralTitularResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validarDadoContatoTitular">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="iden:IdentificadorContrato" xmlns:iden="http://www.netservicos.com.br/IdentificadorContrato"/>
+            <xs:element ref="dad:DadoContatoTitular" xmlns:dad="http://www.netservicos.com.br/DadoContatoTitular"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validarDadoContatoTitularResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alterarDadoContatoTitular">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="iden:IdentificadorContrato" xmlns:iden="http://www.netservicos.com.br/IdentificadorContrato"/>
+            <xs:element ref="dad:DadoContatoTitular" xmlns:dad="http://www.netservicos.com.br/DadoContatoTitular"/>
+            <xs:element ref="reg:registroContato" xmlns:reg="http://www.netservicos.com.br/RegistroContato"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alterarDadoContatoTitularResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validarDadoCadastralTitular">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="iden:IdentificadorContrato" xmlns:iden="http://www.netservicos.com.br/IdentificadorContrato"/>
+            <xs:element ref="dad:DadoCadastralTitular" xmlns:dad="http://www.netservicos.com.br/DadoCadastralTitular"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validarDadoCadastralTitularResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+  </s0:types>
+  <s0:message name="alterarDadoCadastralTitular">
+    <s0:part element="s1:alterarDadoCadastralTitular" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netHeader"/>
+  </s0:message>
+  <s0:message name="alterarDadoCadastralTitularResponse">
+    <s0:part element="s1:alterarDadoCadastralTitularResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="validarDadoContatoTitular">
+    <s0:part element="s1:validarDadoContatoTitular" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netHeader"/>
+  </s0:message>
+  <s0:message name="validarDadoContatoTitularResponse">
+    <s0:part element="s1:validarDadoContatoTitularResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="alterarDadoContatoTitular">
+    <s0:part element="s1:alterarDadoContatoTitular" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netHeader"/>
+  </s0:message>
+  <s0:message name="alterarDadoContatoTitularResponse">
+    <s0:part element="s1:alterarDadoContatoTitularResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="validarDadoCadastralTitular">
+    <s0:part element="s1:validarDadoCadastralTitular" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netHeader"/>
+  </s0:message>
+  <s0:message name="validarDadoCadastralTitularResponse">
+    <s0:part element="s1:validarDadoCadastralTitularResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="ContratoVendaJWS">
+    <s0:operation name="alterarDadoCadastralTitular" parameterOrder="parameters netHeader">
+      <s0:input message="s1:alterarDadoCadastralTitular"/>
+      <s0:output message="s1:alterarDadoCadastralTitularResponse"/>
+    </s0:operation>
+    <s0:operation name="validarDadoContatoTitular" parameterOrder="parameters netHeader">
+      <s0:input message="s1:validarDadoContatoTitular"/>
+      <s0:output message="s1:validarDadoContatoTitularResponse"/>
+    </s0:operation>
+    <s0:operation name="alterarDadoContatoTitular" parameterOrder="parameters netHeader">
+      <s0:input message="s1:alterarDadoContatoTitular"/>
+      <s0:output message="s1:alterarDadoContatoTitularResponse"/>
+    </s0:operation>
+    <s0:operation name="validarDadoCadastralTitular" parameterOrder="parameters netHeader">
+      <s0:input message="s1:validarDadoCadastralTitular"/>
+      <s0:output message="s1:validarDadoCadastralTitularResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="ContratoVendaJWSServiceSoapBinding" type="s1:ContratoVendaJWS">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="alterarDadoCadastralTitular">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:alterarDadoCadastralTitular" part="netHeader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="validarDadoContatoTitular">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:validarDadoContatoTitular" part="netHeader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="alterarDadoContatoTitular">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:alterarDadoContatoTitular" part="netHeader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="validarDadoCadastralTitular">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:validarDadoCadastralTitular" part="netHeader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="ContratoVendaJWSService">
+    <s0:port binding="s1:ContratoVendaJWSServiceSoapBinding" name="ContratoVendaJWSSoapPort">
+      <s3:address location="http://localhost:7001/NETAtendimentoWLIWeb/ContratoVendaJWS"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

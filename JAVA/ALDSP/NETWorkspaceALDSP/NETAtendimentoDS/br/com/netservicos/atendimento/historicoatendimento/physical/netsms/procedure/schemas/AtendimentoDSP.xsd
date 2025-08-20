@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/historicoatendimento/physical/netsms/procedure/ATENDIMENTO" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdt="http://www.w3.org/2004/07/xpath-datatypes" xmlns:tns="ld:br/com/netservicos/atendimento/historicoatendimento/physical/netsms/procedure/ATENDIMENTO">
+  <xs:element name="ATENDIMENTO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ORDEM" type="xs:int" minOccurs="0"/>
+        <xs:element name="ID_CHAMADA" type="xs:string" minOccurs="0"/>
+        <xs:element name="ID_PROTOCOLO" type="xs:string" minOccurs="0"/>
+        <xs:element name="ACAO" type="xs:string" minOccurs="0"/>
+        <xs:element name="NUMERO" type="xs:long" minOccurs="0"/>
+        <xs:element name="TIPO_OCORRENCIA" type="xs:string" minOccurs="0"/>
+        <xs:element name="TIPO" type="xs:string" minOccurs="0"/>
+        <xs:element name="DATA_ABERTURA" type="xs:dateTime" minOccurs="0"/>
+        <xs:element name="DATA_FECHAMENTO" type="xs:dateTime" minOccurs="0"/>
+        <xs:element name="SITUACAO" type="xs:string" minOccurs="0"/>
+        <xs:element name="CLASSIFICACAO" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

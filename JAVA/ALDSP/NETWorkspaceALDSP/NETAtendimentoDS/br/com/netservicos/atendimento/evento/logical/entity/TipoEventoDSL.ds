@@ -1,0 +1,36 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:tiposEvento" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="http://www.netservicos.com.br/Evento/schemas"><creationDate>2010-04-12T11:34:16</creationDate><userDefinedView/></x:xds> ::)
+
+import schema namespace ns1="http://www.netservicos.com.br/Evento/schemas" at "ld:br/com/netservicos/atendimento/evento/schemas/Evento.xsd";
+
+declare namespace eventoOcorrencia="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP";
+
+declare namespace relEventoOcorOperadora="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP";
+
+declare namespace tipoOcorrencia="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/evento/logical/entity/TipoEventoDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarPorEvento($identificadorEvento as xs:int, $identificadorCidade as xs:string) as element(ns1:tiposEvento) {
+    <ns1:tiposEvento>
+	{
+		for $eventoOcorrencia in eventoOcorrencia:SnEventoOcorrenciaDSP()
+		where $eventoOcorrencia/ID_EVENTO_OCORRENCIA eq $identificadorEvento
+		for $relEventoOcorOperadora in relEventoOcorOperadora:SnRelEventoOcorOperadoraDSP()
+		where $relEventoOcorOperadora/ID_EVENTO_OCORRENCIA eq $eventoOcorrencia/ID_EVENTO_OCORRENCIA
+		where $relEventoOcorOperadora/CID_CONTRATO eq $identificadorCidade
+		for $tipoOcorrencia in tipoOcorrencia:SnTipoOcorrenciaDSP()
+		where $tipoOcorrencia/ID_TIPO_OCORRENCIA eq $relEventoOcorOperadora/ID_TIPO_OCORRENCIA
+		return
+            <ns1:tipoEvento>
+        		<ns1:Identificador?>{ fn:data($relEventoOcorOperadora/ID_TIPO_OCORRENCIA) }</ns1:Identificador>
+        	<ns1:Descricao?>{ fn:data($tipoOcorrencia/DESCRICAO) }</ns1:Descricao>
+            </ns1:tipoEvento>
+	}
+    </ns1:tiposEvento>
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)

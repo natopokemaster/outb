@@ -1,0 +1,140 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnProdutoDSP" xmlns:t="ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP">
+<creationDate>2012-06-29T17:54:44</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DEMONSTRACAO" type="xs:integer">
+  <extension nativeXpath="DEMONSTRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DESCRICAO_ABREV" type="xs:string">
+  <extension nativeXpath="DESCRICAO_ABREV" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="8" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="RECORRENTE" type="xs:integer">
+  <extension nativeXpath="RECORRENTE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COBRAVEL" type="xs:integer">
+  <extension nativeXpath="COBRAVEL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="PRE_PAGO" type="xs:integer">
+  <extension nativeXpath="PRE_PAGO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="INTERNET" type="xs:integer">
+  <extension nativeXpath="INTERNET" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_TIPO_PRODUTO_IVA" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_PRODUTO_IVA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="AREA_CODIFICADA" type="xs:integer">
+  <extension nativeXpath="AREA_CODIFICADA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="PRODUTO_VIRTUA" type="xs:integer">
+  <extension nativeXpath="PRODUTO_VIRTUA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="PRODUTO_COLETIVO" type="xs:integer">
+  <extension nativeXpath="PRODUTO_COLETIVO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="MAX_US" type="xs:integer">
+  <extension nativeXpath="MAX_US" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="MIN_US" type="xs:integer">
+  <extension nativeXpath="MIN_US" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="MAX_DS" type="xs:integer">
+  <extension nativeXpath="MAX_DS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="MIN_DS" type="xs:integer">
+  <extension nativeXpath="MIN_DS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="IP_FIXO" type="xs:integer">
+  <extension nativeXpath="IP_FIXO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="QTD_IP_EXTRA" type="xs:integer">
+  <extension nativeXpath="QTD_IP_EXTRA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="PROVEDOR" type="xs:integer">
+  <extension nativeXpath="PROVEDOR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="FRANQUIA" type="xs:integer">
+  <extension nativeXpath="FRANQUIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="FORMA_AQUISICAO" type="xs:integer">
+  <extension nativeXpath="FORMA_AQUISICAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_CARACTERISTICA" type="xs:integer">
+  <extension nativeXpath="ID_CARACTERISTICA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PRODUTO_CONTAB" type="xs:integer">
+  <extension nativeXpath="ID_PRODUTO_CONTAB" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO_BOLETO" type="xs:string">
+  <extension nativeXpath="DESCRICAO_BOLETO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="34" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PORTFOLIO" type="xs:integer">
+  <extension nativeXpath="ID_PORTFOLIO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_PRODUTO" type="snp:SnProdutoDSP_KEY" inferredSchema="true" xmlns:snp="ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP" at "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/schemas/SnProdutoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP" at "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/schemas/SnProdutoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnProdutoDSP() as schema-element(t1:SnProdutoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnProdutoDSP($p as element(t1:SnProdutoDSP)*)as schema-element(t1:SnProdutoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnProdutoDSP($p as changed-element(t1:SnProdutoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnProdutoDSP($p as element(t1:SnProdutoDSP)*) as empty()  external;
+

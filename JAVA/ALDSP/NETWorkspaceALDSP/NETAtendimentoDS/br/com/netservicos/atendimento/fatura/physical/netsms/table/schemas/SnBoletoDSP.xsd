@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnBoletoDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_BOLETO" type="xs:long"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="CID_CONTRATO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ID_BOLETO_ORIGEM" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_SITUACAO_BOLETO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_LOCAL_PGTO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_TIPO_PGTO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_TIPO_BOLETO" type="xs:integer"/>
+            <xs:element name="ID_CRITERIO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_TIPO_COBRANCA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CC" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CC_CONVENIO_BOLETO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CC_CONVENIO_DCC" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CARTAO_CREDITO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CARTAO_CREDITO_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DT_DOCUMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_VENCIMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_PAGAMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_CANCELAMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_BAIXA" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_PRIMEIRA_EMISSAO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="CC_NOSSO_NUMERO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_NUM_DOCUMENTO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_NUM_CONTROLE" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_CODIGO_BARRA" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_LINHA_DIGITAVEL" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_USR_CANCELAMENTO" type="xs:string" minOccurs="0"/>
+            <xs:element name="VL_DOCUMENTO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_PAGAMENTO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="NR_TRANSACAO_CARTAO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="FC_BOLETO_CONSOLIDADO" type="xs:string" minOccurs="0"/>
+            <xs:element name="FC_PGTO_ESPECIAL" type="xs:string" minOccurs="0"/>
+            <xs:element name="ST_CNAB" type="xs:string" minOccurs="0"/>
+            <xs:element name="ST_CONTESTADO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ST_IMPRESSO" type="xs:string"/>
+            <xs:element name="ID_FORMA_ENVIO_FATURA" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

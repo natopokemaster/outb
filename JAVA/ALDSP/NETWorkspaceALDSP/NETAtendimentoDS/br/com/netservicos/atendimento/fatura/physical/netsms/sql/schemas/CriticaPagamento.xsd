@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	targetNamespace="ld:br/com/netservicos/atendimento/fatura/physical/netsms/sql/CriticaPagamentoDSP"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="CriticaPagamento">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="codigoCritica" type="xs:long"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="mensagemCritica" type="xs:string"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="dataCritica" type="xs:date"
+					minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/Evento/schemas"
+	xmlns:tns="http://www.netservicos.com.br/Evento/schemas"
+	elementFormDefault="qualified">
+	
+	<element name="tiposEvento" type="tns:TiposEvento"/>
+	
+	<complexType name="TiposEvento">
+		<sequence>
+			<element name="tipoEvento" type="tns:TipoEvento"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="TipoEvento">
+		<sequence>
+			<element name="Identificador" type="long"
+				minOccurs="0" maxOccurs="1" />
+			<element name="Descricao" type="string"
+				minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+</schema>

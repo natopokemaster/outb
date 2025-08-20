@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnOperadoraTelefoniaDSP" xmlns:t="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnOperadoraTelefoniaDSP">
+<creationDate>2010-05-18T16:29:08</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_OPERADORA_TELEFONIA" type="xs:integer">
+  <extension nativeXpath="ID_OPERADORA_TELEFONIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NM_OPERADORA_TELEFONIA" type="xs:string">
+  <extension nativeXpath="NM_OPERADORA_TELEFONIA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="80" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="FC_PRODUTO_EBT" type="xs:string">
+  <extension nativeXpath="FC_PRODUTO_EBT" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_OPERADORA_TELEFONIA" type="snop:SnOperadoraTelefoniaDSP_KEY" inferredSchema="true" xmlns:snop="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnOperadoraTelefoniaDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnOperadoraTelefoniaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnOperadoraTelefoniaDSP" at "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/schemas/SnOperadoraTelefoniaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnOperadoraTelefoniaDSP" at "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/schemas/SnOperadoraTelefoniaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_OPERADORA_TELEFONIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnOperadoraTelefoniaDSP() as schema-element(t1:SnOperadoraTelefoniaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_OPERADORA_TELEFONIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnOperadoraTelefoniaDSP($p as element(t1:SnOperadoraTelefoniaDSP)*)as schema-element(t1:SnOperadoraTelefoniaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_OPERADORA_TELEFONIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnOperadoraTelefoniaDSP($p as changed-element(t1:SnOperadoraTelefoniaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_OPERADORA_TELEFONIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnOperadoraTelefoniaDSP($p as element(t1:SnOperadoraTelefoniaDSP)*) as empty()  external;
+

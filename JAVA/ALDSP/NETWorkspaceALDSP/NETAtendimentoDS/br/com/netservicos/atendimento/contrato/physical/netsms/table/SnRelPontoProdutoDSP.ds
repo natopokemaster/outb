@@ -1,0 +1,101 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelPontoProdutoDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelPontoProdutoDSP">
+<creationDate>2014-01-17T14:18:19</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PONTO" type="xs:integer">
+  <extension nativeXpath="ID_PONTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_INI" type="xs:dateTime">
+  <extension nativeXpath="DT_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_FIM" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="INSTALADO" type="xs:integer">
+  <extension nativeXpath="INSTALADO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_ALTERACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_ALTERACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CONSOL_CBR" type="xs:integer">
+  <extension nativeXpath="CONSOL_CBR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CONSOL_VENDAS" type="xs:integer">
+  <extension nativeXpath="CONSOL_VENDAS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_OC" type="xs:integer">
+  <extension nativeXpath="COD_OC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_OS" type="xs:string">
+  <extension nativeXpath="COD_OS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_FIM_DEMO" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM_DEMO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_DEMONSTRACAO" type="xs:integer">
+  <extension nativeXpath="ID_DEMONSTRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_TIPO_CONTRATACAO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_CONTRATACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="EXPLICITO" type="xs:integer">
+  <extension nativeXpath="EXPLICITO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_PONTO_PRODUTO" type="snr:SnRelPontoProdutoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelPontoProdutoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelPontoProdutoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelPontoProdutoDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelPontoProdutoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelPontoProdutoDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelPontoProdutoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelPontoProdutoDSP() as schema-element(t4:SnRelPontoProdutoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelPontoProdutoDSP($p as element(t4:SnRelPontoProdutoDSP)*)as schema-element(t4:SnRelPontoProdutoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelPontoProdutoDSP($p as changed-element(t4:SnRelPontoProdutoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelPontoProdutoDSP($p as element(t4:SnRelPontoProdutoDSP)*) as empty()  external;
+

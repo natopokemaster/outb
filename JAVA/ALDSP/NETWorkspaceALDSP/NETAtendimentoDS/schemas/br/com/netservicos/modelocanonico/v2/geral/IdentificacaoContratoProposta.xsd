@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:identContratoProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta" xmlns:Q1="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta" xmlns:Q2="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato">
+
+    <import schemaLocation="IdentificacaoContrato.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"></import>
+    <import schemaLocation="IdentificacaoProposta.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"></import>
+    <complexType name="IdentificacaoContratoPropostaType">
+        <choice>
+    		<element name="IdentificacaoProposta" type="Q1:IdentificacaoPropostaType" minOccurs="0" maxOccurs="1">
+    		</element>
+    		<element name="IdentificacaoContrato" type="Q2:IdentificacaoContratoType" minOccurs="0" maxOccurs="1"></element>
+    	</choice>
+    </complexType>
+
+    <element name="IdentificacaoContratoProposta" type="identContratoProposta:IdentificacaoContratoPropostaType"></element>
+</schema>

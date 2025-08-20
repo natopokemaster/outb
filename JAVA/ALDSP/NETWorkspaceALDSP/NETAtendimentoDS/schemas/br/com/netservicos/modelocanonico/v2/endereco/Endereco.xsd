@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/endereco" 
+		xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:endereco="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+		elementFormDefault="qualified">
+	
+    <annotation>
+    	<documentation>
+    		Entidade responsavel por representar um Endereco
+    	</documentation>
+	</annotation>
+	
+	<complexType name="Endereco">
+        <sequence>
+        	<element name="identificadorEndereco" maxOccurs="1"
+        		minOccurs="0" nillable="true">
+        		<annotation>
+        			<documentation>
+        				Identificador do endereco
+        			</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="long"></restriction>
+        		</simpleType>
+        	</element>
+        	<element name="pais" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>Pais do endereco</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string"></restriction>
+        		</simpleType>
+        	</element>
+        	<element name="UF" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>Sigla do estado</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string">
+        				<maxLength value="2"></maxLength>
+        				<enumeration value="AC"></enumeration>
+        				<enumeration value="AL"></enumeration>
+        				<enumeration value="AM"></enumeration>
+        				<enumeration value="AP"></enumeration>
+        				<enumeration value="BA"></enumeration>
+        				<enumeration value="CE"></enumeration>
+        				<enumeration value="DF"></enumeration>
+        				<enumeration value="ES"></enumeration>
+        				<enumeration value="GO"></enumeration>
+        				<enumeration value="MA"></enumeration>
+        				<enumeration value="MG"></enumeration>
+        				<enumeration value="MS"></enumeration>
+        				<enumeration value="MT"></enumeration>
+        				<enumeration value="PA"></enumeration>
+        				<enumeration value="PB"></enumeration>
+        				<enumeration value="PE"></enumeration>
+        				<enumeration value="PI"></enumeration>
+        				<enumeration value="PR"></enumeration>
+        				<enumeration value="RJ"></enumeration>
+        				<enumeration value="RN"></enumeration>
+        				<enumeration value="RO"></enumeration>
+        				<enumeration value="RR"></enumeration>
+        				<enumeration value="RS"></enumeration>
+        				<enumeration value="SC"></enumeration>
+        				<enumeration value="SE"></enumeration>
+        				<enumeration value="SP"></enumeration>
+        				<enumeration value="TO"></enumeration>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="idCidade" type="long" minOccurs="0"
+        		maxOccurs="1">
+        	</element>
+        	<element name="cidade" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>Cidade</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string">
+        				<maxLength value="60"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="CEP" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>
+        				Cep associado ao endereco
+        			</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string"></restriction>
+        		</simpleType>
+        	</element>
+        	<element name="bairro" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>Bairro</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string">
+        				<maxLength value="60"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="tipoLogradouro" type="string" maxOccurs="1"
+        		minOccurs="0" nillable="true">
+        		<annotation>
+        			<documentation>
+        				Tipo de logradouro. Ex: Avenida, Praca, etc.
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="idLogradouro" type="long" minOccurs="0"
+        		maxOccurs="1">
+        	</element>
+        	<element name="logradouro" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>
+        				logradouro. Ex: R. verbo divino, Av. Santo Amaro
+        			</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string">
+        				<maxLength value="100"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="numeroEndereco" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>Numero do endereco</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string"></restriction>
+        		</simpleType>
+        	</element>
+        	<element name="complemento" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>
+        				Complemento do endereco. Ex: Ap. 103 Bl. A
+        			</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string">
+        				<maxLength value="120"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="referencia" maxOccurs="1" minOccurs="0"
+        		nillable="true">
+        		<annotation>
+        			<documentation>
+        				Referencia do endereco. Ex: proximo a NET.
+        			</documentation>
+        		</annotation>
+        		<simpleType>
+        			<restriction base="string"></restriction>
+        		</simpleType>
+        	</element>
+        	<element name="higienizado" type="boolean" minOccurs="0"
+        		maxOccurs="1">
+        	</element>
+        	<element name="CaixaPostal" type="string" minOccurs="0" maxOccurs="1"></element>
+        	<element name="tituloLogradouro" type="string" minOccurs="0" maxOccurs="1"></element>
+        	<element name="identificadorBairro" type="long" minOccurs="0" maxOccurs="1"></element>
+        	<element name="tituloPatente" type="string" minOccurs="0" maxOccurs="1"></element>
+        	<element name="preposicao" type="string" minOccurs="0" maxOccurs="1"></element>
+        </sequence>
+	</complexType>
+
+	<complexType name="Enderecos">
+        <annotation>
+        	<documentation>Entidade responsavel por representar um conjunto de Enderecos</documentation>
+        </annotation>
+        <sequence>
+			<element name="endereco" type="endereco:Endereco" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+
+	<element name="Endereco" type="endereco:Endereco"></element>
+</schema>

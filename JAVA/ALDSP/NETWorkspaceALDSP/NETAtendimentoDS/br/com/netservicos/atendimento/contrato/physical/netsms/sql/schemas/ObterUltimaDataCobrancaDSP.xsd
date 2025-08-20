@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/ObterUltimaDataCobrancaDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="ObterUltimaDataCobrancaDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="DT_VENCTO" type="xs:dateTime"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer"/>
+            <xs:element name="CID_CONTRATO" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

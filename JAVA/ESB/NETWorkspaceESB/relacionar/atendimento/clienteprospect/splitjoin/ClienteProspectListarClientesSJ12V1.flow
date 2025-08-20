@@ -1,0 +1,179 @@
+<bpel:process name="ClienteProspectListarClientesSJ12V1" targetNamespace="http://www.example.com/flow/relacionar/atendimento/clienteprospect/splitjoin/ClienteProspectListarClientesSJ12V1" bea:name="ClienteProspectListarClientesSJ12V1" xmlns:tns="http://www.example.com/flow/relacionar/atendimento/clienteprospect/splitjoin/ClienteProspectListarClientesSJ12V1" xmlns:bind="http://www.netservicos.com.br/ClienteProspectSJ/" xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:rescon="http://www.bea.com/alsb/flow/resources/config" xmlns:bea="http://www.bea.com/bpel/ui/extensions" xmlns:ext="http://www.bea.com/bpel/extensions" xmlns:expr="http://www.bea.com/wli/sb/stages/config" xmlns:trf="http://www.bea.com/wli/sb/stages/transform/config" xmlns:ns1="http://www.netservicos.com.br/ClienteProspectDSL/" xmlns:cli="http://www.netservicos.com.br/modelocanonico/v2/cliente" xmlns:ns0="http://www.netservicos.com.br/MessageUtil" xmlns:log="http://www.netservicos.com.br/modelocanonico/v2/logging" xmlns:sch="http://netservicos.com.br/core/schema">
+	
+	<bpel:partnerLinks>
+		<bpel:partnerLink name="ClienteProspectListarClientesSJ12V1" partnerLinkType="tns:ClienteProspectListarClientesSJ12V1" myRole="ClienteProspectListarClientesSJ12V1">
+		</bpel:partnerLink>
+		<bpel:partnerLink name="ClienteProspectDSLProxy12V1" partnerLinkType="tns:ClienteProspectDSLProxy12V1_plnkType" partnerRole="ClienteProspectDSLProxy12V1_PartnerRole">
+		</bpel:partnerLink>
+	<bpel:partnerLink name="MessageUtil12V1"
+		partnerLinkType="tns:MessageUtil12V1_plnkType"
+		partnerRole="MessageUtil12V1_PartnerRole">
+	</bpel:partnerLink></bpel:partnerLinks>
+
+	<bpel:variables>
+		<bpel:variable name="request" messageType="bind:listarClientesSJRequest">
+		</bpel:variable>
+		<bpel:variable name="response" messageType="bind:listarClientesSJResponse">
+		</bpel:variable>
+	<bpel:variable name="basesErro" type="bind:BasesErroType"></bpel:variable></bpel:variables>
+
+	<bpel:sequence>
+		<bpel:receive partnerLink="ClienteProspectListarClientesSJ12V1" operation="listarClientes" variable="request" createInstance="yes">
+			<rescon:receiveInfo>
+				<rescon:wsdl ref="relacionar/atendimento/clienteprospect/wsdl/proxy/ClienteProspectSJWSDLV1_0" binding="bind:ClienteProspectSJBinding"/>
+			</rescon:receiveInfo>
+		</bpel:receive>
+		<bpel:assign>
+			<bpel:extensionAssignOperation>
+				<trf:insert varName="response.listarClientesResponse">
+					<trf:expr>
+						<expr:xqueryText>&lt;bind:clientesProspect/></expr:xqueryText>
+					</trf:expr>
+					<trf:where>last-child</trf:where>
+					<trf:location>
+						<expr:xpathText>.</expr:xpathText>
+					</trf:location>
+				</trf:insert>
+			</bpel:extensionAssignOperation>
+			<bpel:extensionAssignOperation>
+				<trf:insert varName="response.listarClientesResponse">
+					<trf:expr>
+						<expr:xqueryText>&lt;bind:mensagens/&gt;</expr:xqueryText>
+					</trf:expr>
+					<trf:where>last-child</trf:where>
+					<trf:location>
+						<expr:xpathText>.</expr:xpathText>
+					</trf:location>
+				</trf:insert>
+			</bpel:extensionAssignOperation>
+			<bpel:extensionAssignOperation>
+				<trf:insert varName="basesErro">
+					
+					<trf:where>first-child</trf:where>
+					<trf:location>
+						<expr:xpathText>.</expr:xpathText>
+					</trf:location>
+				<trf:expr>
+					<expr:xqueryText>&lt;bind:basesPesquisa/&gt;</expr:xqueryText></trf:expr></trf:insert>
+			</bpel:extensionAssignOperation></bpel:assign>
+		<bpel:forEach parallel="yes" counterName="cont">
+			<bpel:startCounterValue>1</bpel:startCounterValue>
+			<bpel:finalCounterValue>count($request.listarClientesRequest/bind:basesPesquisa/bind:aliasDatabase)</bpel:finalCounterValue>
+			<bpel:scope>
+				<bpel:variables>
+					<bpel:variable name="listarClientesDSLRequest" messageType="ns1:listarClientesDSLRequest">
+					</bpel:variable>
+					<bpel:variable name="listarClientesDSLResponse" messageType="ns1:listarClientesDSLResponse">
+					</bpel:variable>
+				</bpel:variables>
+				<bpel:faultHandlers>
+					<bpel:catchAll>
+						<bpel:sequence>
+							<bpel:empty></bpel:empty>
+						<bpel:assign>
+							<bpel:extensionAssignOperation>
+								<trf:insert varName="basesErro">
+									<trf:expr>
+										
+									<expr:xqueryTransform>
+										<expr:resource ref="relacionar/atendimento/clienteprospect/transformation/xquery/BasesErroXQuery"></expr:resource>
+										
+										
+										<expr:param name="itemDatabase">
+											<expr:path>$cont</expr:path></expr:param>
+										<expr:param name="parametrosListarClientes1">
+											<expr:path>$request.listarClientesRequest</expr:path></expr:param></expr:xqueryTransform></trf:expr>
+									<trf:where>last-child</trf:where>
+									<trf:location>
+										<expr:xpathText>./bind:basesPesquisa</expr:xpathText>
+									</trf:location>
+								</trf:insert>
+							</bpel:extensionAssignOperation></bpel:assign></bpel:sequence>
+					</bpel:catchAll></bpel:faultHandlers>
+				<bpel:sequence>
+					
+					<bpel:assign>
+						<bpel:extensionAssignOperation>
+							<trf:assign varName="listarClientesDSLRequest.listarClientesRequest">
+								<trf:expr>
+									<expr:xqueryTransform>
+										<expr:resource ref="relacionar/atendimento/clienteprospect/transformation/xquery/ListarClientesSplitJoinEmProxyDSL">
+										</expr:resource>
+										
+										
+									<expr:param name="itemDatabase">
+										<expr:path>$cont</expr:path></expr:param>
+									<expr:param name="parametrosListarClientes1">
+										<expr:path>$request.listarClientesRequest</expr:path></expr:param></expr:xqueryTransform>
+								</trf:expr>
+							</trf:assign>
+						</bpel:extensionAssignOperation></bpel:assign>
+					<bpel:invoke operation="listarClientes" partnerLink="ClienteProspectDSLProxy12V1" inputVariable="listarClientesDSLRequest" outputVariable="listarClientesDSLResponse">
+						<rescon:invokeInfo>
+							<rescon:service isProxy="true" ref="relacionar/atendimento/clienteprospect/proxyservice/ClienteProspectDSLProxy12V1">
+							</rescon:service>
+						</rescon:invokeInfo>
+					</bpel:invoke>
+				<bpel:assign>
+					<bpel:extensionAssignOperation>
+						<trf:insert
+							varName="response.listarClientesResponse">
+							<trf:expr>
+								<expr:xqueryText>$listarClientesDSLResponse.listarClientesResponse/ns1:clientesProspect/node()</expr:xqueryText>
+							</trf:expr>
+							<trf:where>last-child</trf:where>
+							<trf:location>
+								<expr:xpathText>./bind:clientesProspect</expr:xpathText>
+							</trf:location>
+						</trf:insert>
+					</bpel:extensionAssignOperation></bpel:assign></bpel:sequence>
+			</bpel:scope>
+		</bpel:forEach>
+		<bpel:forEach parallel="no" counterName="contBaseErro">
+			<bpel:startCounterValue>1</bpel:startCounterValue>
+			<bpel:finalCounterValue>count($basesErro/bind:basesPesquisa/bind:aliasDatabase)</bpel:finalCounterValue>
+			<bpel:scope>
+				<bpel:variables>
+					<bpel:variable messageType="ns0:MessageUtilRequest"
+						name="getFormatedMessageRequest"></bpel:variable>
+					<bpel:variable messageType="ns0:MessageUtilResponse"
+						name="getFormatedMessageResponse"></bpel:variable></bpel:variables>
+				<bpel:sequence>
+					<bpel:assign>
+						<bpel:extensionAssignOperation>
+							<trf:assign
+								varName="getFormatedMessageRequest.MessageUtilRequest">
+								<trf:expr>
+									<expr:xqueryText>&lt;ns0:logMessage&gt;
+	&lt;ns0:messageCode&gt;ESB-ATEND-0011&lt;/ns0:messageCode&gt;
+	&lt;ns0:messageParameters&gt;
+		&lt;log:value&gt;{fn:data($basesErro/bind:basesPesquisa/bind:aliasDatabase[xs:int(fn:data($contBaseErro))])}&lt;/log:value&gt;
+	&lt;/ns0:messageParameters&gt;
+	&lt;ns0:macroProcesso&gt;RELACIONAR&lt;/ns0:macroProcesso&gt;
+	&lt;ns0:processo&gt;atendimento&lt;/ns0:processo&gt;
+&lt;/ns0:logMessage&gt;</expr:xqueryText></trf:expr></trf:assign></bpel:extensionAssignOperation></bpel:assign>
+					<bpel:invoke operation="getFormatedMessage"
+						partnerLink="MessageUtil12V1"
+						outputVariable="getFormatedMessageResponse"
+						inputVariable="getFormatedMessageRequest">
+						<rescon:invokeInfo>
+							<rescon:service isProxy="true"
+								ref="general/NETLog/proxyservice/MessageUtil12V1"></rescon:service></rescon:invokeInfo></bpel:invoke>
+					<bpel:assign>
+						<bpel:extensionAssignOperation>
+							<trf:insert
+								varName="response.listarClientesResponse">
+								<trf:expr>
+									<expr:xqueryText>&lt;bind:mensagem&gt;
+	&lt;bind:codigo&gt;{fn:data($getFormatedMessageResponse.MessageUtilResponse/sch:Message/sch:ID_MSG)}&lt;/bind:codigo&gt;
+	&lt;bind:descricao&gt;{fn:data($getFormatedMessageResponse.MessageUtilResponse/sch:Message/sch:MENSAGEM_USUARIO)}&lt;/bind:descricao&gt;
+&lt;/bind:mensagem&gt;</expr:xqueryText></trf:expr>
+								<trf:where>first-child</trf:where>
+								<trf:location>
+									<expr:xpathText>./bind:mensagens</expr:xpathText></trf:location></trf:insert></bpel:extensionAssignOperation></bpel:assign></bpel:sequence></bpel:scope></bpel:forEach>
+		
+		
+		<bpel:reply partnerLink="ClienteProspectListarClientesSJ12V1" operation="listarClientes" variable="response">
+		</bpel:reply>
+	</bpel:sequence>
+</bpel:process>

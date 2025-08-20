@@ -1,0 +1,68 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelStatusContratoAuxDSP" xmlns:t="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP">
+<creationDate>2012-05-15T11:06:47</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_STATUS" type="xs:integer">
+  <extension nativeXpath="ID_STATUS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_INI" type="xs:dateTime">
+  <extension nativeXpath="DT_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_FIM" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_ALTERACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_ALTERACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_OS" type="xs:string">
+  <extension nativeXpath="COD_OS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="HORA_STATUS_INI" type="xs:dateTime">
+  <extension nativeXpath="HORA_STATUS_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_STATUS_CONTRATO_AUX" type="snr:SnRelStatusContratoAuxDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP";
+
+import schema namespace t7 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelStatusContratoAuxDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelStatusContratoAuxDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_REL_STATUS_CONTRATO_AUX" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelStatusContratoAuxDSP() as schema-element(t7:SnRelStatusContratoAuxDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_REL_STATUS_CONTRATO_AUX" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelStatusContratoAuxDSP($p as element(t7:SnRelStatusContratoAuxDSP)*)as schema-element(t7:SnRelStatusContratoAuxDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_REL_STATUS_CONTRATO_AUX" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelStatusContratoAuxDSP($p as changed-element(t7:SnRelStatusContratoAuxDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_REL_STATUS_CONTRATO_AUX" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelStatusContratoAuxDSP($p as element(t7:SnRelStatusContratoAuxDSP)*) as empty()  external;
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/equipamento/physical/MOD_EQUIP_TIPO_ENDER" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="MOD_EQUIP_TIPO_ENDER_KEY">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_MOD_EQUIP_TIPO_ENDER" type="xs:integer"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

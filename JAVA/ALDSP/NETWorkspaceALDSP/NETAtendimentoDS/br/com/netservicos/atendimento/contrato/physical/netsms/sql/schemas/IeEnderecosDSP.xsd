@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/IeEnderecosDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="IeEnderecosDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="SE_ID_EDIFICACAO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="COD_IMOVEL" type="xs:double" minOccurs="0"/>
+            <xs:element name="NODE" type="xs:string" minOccurs="0"/>
+            <xs:element name="CELULA" type="xs:string" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:element name="StatusOcorrencia">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idStatus" type="xs:integer"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+</xs:schema>

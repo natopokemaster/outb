@@ -1,0 +1,212 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnCobrancaNotaFiscalDSP" xmlns:t="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP">
+<creationDate>2010-06-02T11:39:12</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_COBRANCA_NOTA_FISCAL" type="xs:integer">
+  <extension nativeXpath="ID_COBRANCA_NOTA_FISCAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_COBRANCA" type="xs:integer">
+  <extension nativeXpath="ID_COBRANCA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_COBRANCA_PARCEIRO" type="xs:integer">
+  <extension nativeXpath="ID_COBRANCA_PARCEIRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PARCEIRO" type="xs:integer">
+  <extension nativeXpath="ID_PARCEIRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="NR_NOTA_FISCAL" type="xs:integer">
+  <extension nativeXpath="NR_NOTA_FISCAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_NUMERO" type="xs:string">
+  <extension nativeXpath="CC_NUMERO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_NUMERO_OPER" type="xs:string">
+  <extension nativeXpath="CC_NUMERO_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_MODELO_NOTA_FISCAL" type="xs:string">
+  <extension nativeXpath="CC_MODELO_NOTA_FISCAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="5" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_SERIE_NOTA_FISCAL" type="xs:string">
+  <extension nativeXpath="CC_SERIE_NOTA_FISCAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="3" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_SUB_SERIE_NOTA_FISCAL" type="xs:string">
+  <extension nativeXpath="CC_SUB_SERIE_NOTA_FISCAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_HASH_CODE" type="xs:string">
+  <extension nativeXpath="CC_HASH_CODE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_ANO_MES_REF" type="xs:string">
+  <extension nativeXpath="CC_ANO_MES_REF" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_ANO_MES_EMISSAO" type="xs:string">
+  <extension nativeXpath="CC_ANO_MES_EMISSAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_CPF_CNPJ" type="xs:string">
+  <extension nativeXpath="CC_CPF_CNPJ" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_NOME_RAZAO_SOCIAL" type="xs:string">
+  <extension nativeXpath="CC_NOME_RAZAO_SOCIAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="100" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_INSCRICAO_ESTADUAL" type="xs:string">
+  <extension nativeXpath="CC_INSCRICAO_ESTADUAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_COD_CFOP" type="xs:string">
+  <extension nativeXpath="CC_COD_CFOP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="4" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_INSCRICAO_MINICIPAL" type="xs:string">
+  <extension nativeXpath="CC_INSCRICAO_MINICIPAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_LOGRADOURO" type="xs:string">
+  <extension nativeXpath="CC_LOGRADOURO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="500" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_CIDADE" type="xs:string">
+  <extension nativeXpath="CC_CIDADE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_ESTADO" type="xs:string">
+  <extension nativeXpath="CC_ESTADO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_CEP" type="xs:string">
+  <extension nativeXpath="CC_CEP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_CEP_OPER" type="xs:string">
+  <extension nativeXpath="CC_CEP_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_LOGRADOURO_OPER" type="xs:string">
+  <extension nativeXpath="CC_LOGRADOURO_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="500" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_CIDADE_OPER" type="xs:string">
+  <extension nativeXpath="CC_CIDADE_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_BAIRRO_OPER" type="xs:string">
+  <extension nativeXpath="CC_BAIRRO_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_ESTADO_OPER" type="xs:string">
+  <extension nativeXpath="CC_ESTADO_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_RAZAO_SOCIAL_OPER" type="xs:string">
+  <extension nativeXpath="CC_RAZAO_SOCIAL_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="100" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_CNPJ_OPER" type="xs:string">
+  <extension nativeXpath="CC_CNPJ_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_INSCRICAO_ESTADUAL_OPER" type="xs:string">
+  <extension nativeXpath="CC_INSCRICAO_ESTADUAL_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_INSCRICAO_MUNICIPAL_OPER" type="xs:string">
+  <extension nativeXpath="CC_INSCRICAO_MUNICIPAL_OPER" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_CODIGO_SEFAZ" type="xs:string">
+  <extension nativeXpath="CC_CODIGO_SEFAZ" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="4" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_TIPO_UTILIZACAO" type="xs:string">
+  <extension nativeXpath="CC_TIPO_UTILIZACAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="4" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_COMPLEMENTO" type="xs:string">
+  <extension nativeXpath="CC_COMPLEMENTO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="500" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CC_BAIRRO" type="xs:string">
+  <extension nativeXpath="CC_BAIRRO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="100" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CC_TELEFONE" type="xs:string">
+  <extension nativeXpath="CC_TELEFONE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="FC_SITUACAO_DCTO" type="xs:string">
+  <extension nativeXpath="FC_SITUACAO_DCTO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_EMISSAO" type="xs:dateTime">
+  <extension nativeXpath="DT_EMISSAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="VL_DESCONTO" type="xs:decimal">
+  <extension nativeXpath="VL_DESCONTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="2"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="VL_ACRESCIMO" type="xs:decimal">
+  <extension nativeXpath="VL_ACRESCIMO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="2"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="VL_TOTAL" type="xs:decimal">
+  <extension nativeXpath="VL_TOTAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="2"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CD_NODE" type="xs:string">
+  <extension nativeXpath="CD_NODE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_COBRANCA_NOTA_FISCAL" type="snc:SnCobrancaNotaFiscalDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnCobrancaNotaFiscalDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnCobrancaNotaFiscalDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_COBRANCA_NOTA_FISCAL" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnCobrancaNotaFiscalDSP() as schema-element(t1:SnCobrancaNotaFiscalDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_COBRANCA_NOTA_FISCAL" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnCobrancaNotaFiscalDSP($p as element(t1:SnCobrancaNotaFiscalDSP)*)as schema-element(t1:SnCobrancaNotaFiscalDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_COBRANCA_NOTA_FISCAL" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnCobrancaNotaFiscalDSP($p as changed-element(t1:SnCobrancaNotaFiscalDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_COBRANCA_NOTA_FISCAL" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnCobrancaNotaFiscalDSP($p as element(t1:SnCobrancaNotaFiscalDSP)*) as empty()  external;
+

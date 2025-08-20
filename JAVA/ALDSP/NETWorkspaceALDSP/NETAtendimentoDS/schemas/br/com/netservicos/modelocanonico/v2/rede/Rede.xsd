@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/rede"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:rede="http://www.netservicos.com.br/modelocanonico/v2/rede"
+	xmlns:pref="http://www.netservicos.com.br/modelocanonico/v2/equipamento"
+	xmlns:endereco="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+	elementFormDefault="qualified"
+	xmlns:produto="http://www.netservicos.com.br/modelocanonico/v2/produto">
+
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/equipamento"
+		schemaLocation="../equipamento/Equipamento.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+		schemaLocation="../endereco/Endereco.xsd">
+	</import>
+
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/produto"
+		schemaLocation="../produto/ProdutoServico.xsd">
+	</import>
+	<complexType name="Instalacao" abstract="true">
+		<annotation>
+			<documentation>
+				Qualquer local onde a NET possui instalação de algum
+				equipamento para prover serviços.
+
+				Exemplo: Head End, Data Center e Domicilio (Sala,
+				Quartos, Cozinha e etc.)
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="Identificador" type="long" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="situacao" type="string" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="equipamentos" type="pref:Equipamento"
+				minOccurs="0" maxOccurs="unbounded">
+			</element>
+			<element name="areaComum" type="boolean" minOccurs="0"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="LocalDomicilio">
+		<annotation>
+			<documentation>
+				Localização dentro do domícilio
+
+				Pode ser do seguinte tipo:
+
+				SALA COZINHA QUARTO CASAL QUARTO FILHOS ESCRITORIO
+				BANHEIRO PISCINA SALAO DE FESTAS OUTROS
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="rede:Instalacao">
+				<sequence>
+					<element name="identificadorTipo" type="long"
+						minOccurs="0" maxOccurs="1">
+					</element>
+					<element name="tipo" minOccurs="0" maxOccurs="1"
+						type="string" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Domicilio">
+		<annotation>
+			<documentation>
+				Domicilio o qual o Cliente NET ocupa. O Domicilio deve
+				ser mapeado para enriquecer o detalhamento de
+				informações sobre as instalações: Sala, Quarto 1, Quarto
+				2, Cozinha e etc.
+
+				Exemplo: “Domicilio do Cliente 1” contem uma (1) Sala,
+				três (3) quartos e uma (1) cozinha.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="descricao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="numero" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="tipoDomicilio" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="quantidadePontosTV" type="int" minOccurs="0"
+				maxOccurs="1" />
+			<element name="quantidadeComodos" type="int" minOccurs="0"
+				maxOccurs="1" />
+			<element name="quantidadeInstalacoes" type="int"
+				minOccurs="0" maxOccurs="1" />
+			<element name="situacaoSolicitacao" type="boolean"
+				minOccurs="0" maxOccurs="1" />
+			<element name="dataSituacaoSolicitacao" type="dateTime"
+				minOccurs="0" maxOccurs="1" />
+			<element name="disponibilidades"
+				type="rede:DisponibilidadeLinhaNegocio" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="locais" type="rede:LocalDomicilio"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="HeadEnd">
+		<annotation>
+			<documentation>
+				Instalação física das Controladoras e outros
+				equipamentos relacionados.
+
+				Exemplo: HeadEnd da Zona Sul de São Paulo, possui duas
+				(2) Controladora.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="rede:Instalacao"></extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Node">
+            <complexContent>
+                  <extension base="pref:Equipamento">
+                        <sequence>
+                             <element name="identificador" type="string" minOccurs="0"
+                                   maxOccurs="1" />
+                             <element name="ativado" type="boolean" minOccurs="0"
+                                   maxOccurs="1" />
+                             <element name="retornoAtivo" type="boolean"
+                                   minOccurs="0" maxOccurs="1" />
+                             <element name="codificado" type="boolean"
+                                   minOccurs="0" maxOccurs="1" />
+                             <element name="disponibilidades" minOccurs="0"
+                                   maxOccurs="1">
+                                   <complexType>
+                                         <sequence>
+                                               <element name="disponibilidade"
+                                                     type="rede:DisponibilidadeServico" minOccurs="0" maxOccurs="unbounded">
+                                               </element>
+                                         </sequence>
+                                   </complexType>
+                             </element>
+                        </sequence>
+                  </extension>
+            </complexContent>
+      </complexType>
+
+	<complexType name="DisponibilidadeLinhaNegocio">
+		<sequence>
+			<element name="situacaoTecnica" type="string" minOccurs="0"
+				maxOccurs="1" >
+				<annotation>
+					<documentation>Indicador da disponibilidade tecnida da linha de negocio. Ex: OK(0)/NOK(1)</documentation></annotation></element>
+			<element name="situacaoComercial" type="string"
+				minOccurs="0" maxOccurs="1" >
+				<annotation>
+					<documentation>Indicador da disponibilidade comercial da linha de negocio. Ex: OK(0)/NOK(1)</documentation></annotation></element>
+			<element name="linhaNegocio" type="produto:LinhaNegocio"
+				minOccurs="0" maxOccurs="1" />
+			<element name="observacaoSituacaoTecnica" type="string" minOccurs="0"
+				maxOccurs="1" >
+				<annotation>
+					<documentation>Texto de observacao detalhando o status de disponibilidade tecnica. Ex: OK, Endereco em analise, Endereco rejeitado, Endereco com HP (ja) instalado, Endereco bloqueado pela engenharia, Endereco fora de area, MDU sem backbone / Sem sinal digital, MDU em disponibilizacao, MDU interrompido, Instalacao nao disponivel, A Instalar, HP sem paytv instalado (nao tratado mais), HP sem paytv instalado (nao tratado mais), SINAL DIGITAL NAO ATIVADO, em disponibilizacao</documentation>
+				</annotation></element>
+			<element name="observacaoSituacaoComercial" type="string"
+				minOccurs="0" maxOccurs="1" >
+				<annotation>
+					<documentation>Texto de observacao detalhando o status de disponibilidade comercial. Ex: venda liberada, venda NAO liberada</documentation></annotation></element>				
+		</sequence>
+	</complexType>
+
+	<complexType name="Edificacao">
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"
+				maxOccurs="1" />
+			<element name="descricao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="quantidadeDomiciliosPrevista" type="int"
+				minOccurs="0" maxOccurs="1" />
+			<element name="quantidadeDomiciliosRealizados" type="int"
+				minOccurs="0" maxOccurs="1" />
+			<element name="quantidadeInstalacoesPrevista" type="int"
+				minOccurs="0" maxOccurs="1" />
+			<element name="quantidadeInstalacoesRealizados" type="int"
+				minOccurs="0" maxOccurs="1" />
+			<element name="node" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="tipoEdificacao" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="tipoCabeamento" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="endereco" type="endereco:Endereco"
+				minOccurs="0" maxOccurs="1" />
+			<element name="domicilios" type="rede:Domicilio"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<element name="edificacoes" type="rede:Edificacoes"></element>
+
+    <complexType name="Edificacoes">
+    	<sequence>
+    		<element name="edificacoes" type="rede:Edificacao"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    </complexType>
+
+	<complexType name="LocaisDomicilio">
+		<sequence>
+			<element name="LocalDomicilio" type="rede:LocalDomicilio"
+				minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<element name="LocaisDomicilio" type="rede:LocaisDomicilio"></element>    
+	<complexType name="DisponibilidadeServico">
+		<annotation>
+			<documentation>
+				Elemento que representa as ocorrencias de
+				disponibilidade de servicos no NODE. Nesta entidade sao
+				listados todos os servicos providos pela NET e a
+				situacao de sua disponibilidade no NODE em questao.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="situacaoTecnica" type="boolean" minOccurs="0" maxOccurs="1"></element>
+			<element name="observacaoSituacaoTecnica" type="string" minOccurs="0" maxOccurs="1"></element>
+			<element name="servico" type="rede:Servico" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Servico">
+		<annotation>
+			<documentation>
+				Entidade que representa os servicos disponibilizados
+				pela NET aos seus clientes atraves da rede. Ex: 1-TV A
+				CABO, 2- VIRTUA, 3-TV DIGITAL, 4 -VOIP, 5-VOD
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0" maxOccurs="1"></element>
+			<element name="descricao" type="string" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<element name="Node" type="rede:Node"></element>
+
+</schema>

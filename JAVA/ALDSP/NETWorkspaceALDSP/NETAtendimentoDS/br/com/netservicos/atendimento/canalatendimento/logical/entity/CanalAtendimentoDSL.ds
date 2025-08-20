@@ -1,0 +1,28 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="sch:CanalAtendimento" xmlns:x="urn:annotations.ld.bea.com" xmlns:sch="http://www.netservicos.com.br/CanalAtendimento/schemas/">
+    <creationDate>2010-03-23T11:27:37</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+
+declare namespace snc= "ld:br/com/netservicos/atendimento/canalatendimento/physical/netsms/table/SnCanalComunicacaoDSP";
+
+import schema namespace ns="http://www.netservicos.com.br/CanalAtendimento/schemas/" at "ld:br/com/netservicos/atendimento/canalatendimento/schemas/CanalAtendimento.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/canalatendimento/logical/entity/CanalAtendimentoDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarPorID($identificadorCanalAtendimento as xs:long) as element(ns:CanalAtendimento)?{
+for $SnCanalComunicacaoDSP in snc:SnCanalComunicacaoDSP()
+where $identificadorCanalAtendimento eq $SnCanalComunicacaoDSP/ID_CANAL_COMUNICACAO
+return
+        <ns:CanalAtendimento>
+            <ns:identificadorCanalAtendimento?>{fn:data($SnCanalComunicacaoDSP/ID_CANAL_COMUNICACAO)}</ns:identificadorCanalAtendimento>
+            <ns:descricao?>{fn:data($SnCanalComunicacaoDSP/DESCRICAO)}</ns:descricao>
+        </ns:CanalAtendimento>
+    
+
+};
+

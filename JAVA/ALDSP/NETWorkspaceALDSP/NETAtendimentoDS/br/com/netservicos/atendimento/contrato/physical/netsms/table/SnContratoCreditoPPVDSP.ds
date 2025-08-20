@@ -1,0 +1,61 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnContratoCreditoPPVDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnContratoCreditoPPVDSP">
+<creationDate>2014-07-30T09:59:50</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_PAGAMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_INI" type="xs:dateTime">
+  <extension nativeXpath="DT_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_FIM" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CREDITO" type="xs:decimal">
+  <extension nativeXpath="CREDITO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="2"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="USR_LIM" type="xs:string">
+  <extension nativeXpath="USR_LIM" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_CONTRATO_CREDITO_PPV" type="snc:SnContratoCreditoPPVDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnContratoCreditoPPVDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnContratoCreditoPPVDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnContratoCreditoPPVDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnContratoCreditoPPVDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnContratoCreditoPPVDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnContratoCreditoPPVDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_CONTRATO_CREDITO_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnContratoCreditoPPVDSP() as schema-element(t2:SnContratoCreditoPPVDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_CONTRATO_CREDITO_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnContratoCreditoPPVDSP($p as element(t2:SnContratoCreditoPPVDSP)*)as schema-element(t2:SnContratoCreditoPPVDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_CONTRATO_CREDITO_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnContratoCreditoPPVDSP($p as changed-element(t2:SnContratoCreditoPPVDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_CONTRATO_CREDITO_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnContratoCreditoPPVDSP($p as element(t2:SnContratoCreditoPPVDSP)*) as empty()  external;
+

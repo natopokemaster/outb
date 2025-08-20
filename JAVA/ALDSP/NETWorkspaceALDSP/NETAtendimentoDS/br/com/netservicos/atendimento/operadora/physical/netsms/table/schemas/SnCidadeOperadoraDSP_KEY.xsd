@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnCidadeOperadoraDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnCidadeOperadoraDSP_KEY">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="CID_CONTRATO" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

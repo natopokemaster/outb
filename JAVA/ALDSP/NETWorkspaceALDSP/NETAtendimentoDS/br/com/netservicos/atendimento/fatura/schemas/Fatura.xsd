@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/Fatura/schemas/"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:fatura="http://www.netservicos.com.br/Fatura/schemas/">
+
+	<complexType name="FaturaType">
+		<sequence>
+			<element name="identificadorFatura" type="long"	minOccurs="0" maxOccurs="1" />
+			
+			<element name="valorFatura" type="float" minOccurs="0"	maxOccurs="1" />
+			
+			<element name="dataVencimento" type="date" minOccurs="0" maxOccurs="1" />
+			
+			<element name="dataCancelamento" type="date" minOccurs="0" maxOccurs="1" />
+			
+			<element name="dataPagamento" type="date" minOccurs="0" maxOccurs="1" />
+			
+			<element name="dataDocumento" type="date" minOccurs="0" maxOccurs="1" />
+			
+			<element name="flagEmpresaCobranca" type="boolean" minOccurs="0" maxOccurs="1" />
+			
+			<element name="flagPagavel" type="boolean" minOccurs="0" maxOccurs="1" />
+			
+			<element name="SituacaoFatura" type="fatura:SituacaoFaturaType" minOccurs="0" maxOccurs="1" />
+			
+			<element name="NotasFiscais" type="fatura:NotasFiscaisType" minOccurs="0" maxOccurs="1" />
+			
+			<element name="FormaPagamentoEnum" maxOccurs="1" minOccurs="0">				
+				<simpleType>
+					<restriction base="string">						
+						<enumeration value="1"/>
+						<enumeration value="2"/>
+						<enumeration value="3"/>
+						<enumeration value="4"/>
+						<enumeration value="5"/>
+					</restriction>
+				</simpleType>
+
+			</element>
+			
+			<element name="codigoBarras" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="linhaDigitavel" type="string" minOccurs="0" maxOccurs="1" />
+
+			<element name="criticaPagamento"
+				type="fatura:CriticaPagamentoType" minOccurs="0" maxOccurs="1">
+			</element>	
+			
+		</sequence>
+	</complexType>
+
+	<complexType name="SituacaoFaturaType">
+		<sequence>
+			<element name="identificador" type="long" minOccurs="0"	maxOccurs="1" />
+			<element name="descricao" type="string" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="NotasFiscaisType">
+		<sequence>
+			<element name="numeroNotaFiscal" type="string" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="FaturasType">
+		<sequence>
+			<element name="Fatura" type="fatura:FaturaType"	minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="CriticaPagamentoType">
+		<sequence>
+			<element name="codigoCritica" type="long"
+				minOccurs="0" maxOccurs="1" />
+			<element name="mensagemCritica" type="string"
+				minOccurs="0" maxOccurs="1" />
+			<element name="dataCritica" type="date"
+				minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>	
+
+	<element name="Faturas" type="fatura:FaturasType"></element>
+
+</schema>

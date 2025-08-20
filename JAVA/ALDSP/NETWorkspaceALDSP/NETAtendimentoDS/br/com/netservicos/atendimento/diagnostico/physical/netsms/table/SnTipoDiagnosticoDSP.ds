@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnTipoDiagnosticoDSP" xmlns:t="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP">
+<creationDate>2012-05-30T15:32:02</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_TIPO_DIAGNOSTICO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_DIAGNOSTICO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CD_DIAGNOSTICO_URA" type="xs:integer">
+  <extension nativeXpath="CD_DIAGNOSTICO_URA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DS_TIPO_DIAGNOSTICO" type="xs:string">
+  <extension nativeXpath="DS_TIPO_DIAGNOSTICO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="60" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_TIPO_DIAGNOSTICO" type="snt:SnTipoDiagnosticoDSP_KEY" inferredSchema="true" xmlns:snt="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnTipoDiagnosticoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnTipoDiagnosticoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_TIPO_DIAGNOSTICO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnTipoDiagnosticoDSP() as schema-element(t2:SnTipoDiagnosticoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_TIPO_DIAGNOSTICO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnTipoDiagnosticoDSP($p as element(t2:SnTipoDiagnosticoDSP)*)as schema-element(t2:SnTipoDiagnosticoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_TIPO_DIAGNOSTICO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnTipoDiagnosticoDSP($p as changed-element(t2:SnTipoDiagnosticoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_TIPO_DIAGNOSTICO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnTipoDiagnosticoDSP($p as element(t2:SnTipoDiagnosticoDSP)*) as empty()  external;
+

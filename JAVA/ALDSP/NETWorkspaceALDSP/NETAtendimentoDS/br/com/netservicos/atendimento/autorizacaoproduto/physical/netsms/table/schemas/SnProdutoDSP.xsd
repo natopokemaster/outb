@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnProdutoDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_PRODUTO" type="xs:integer"/>
+            <xs:element name="DESCRICAO" type="xs:string"/>
+            <xs:element name="ID_TIPO_PRODUTO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DEMONSTRACAO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DESCRICAO_ABREV" type="xs:string" minOccurs="0"/>
+            <xs:element name="RECORRENTE" type="xs:integer" minOccurs="0"/>
+            <xs:element name="COBRAVEL" type="xs:integer" minOccurs="0"/>
+            <xs:element name="PRE_PAGO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="INTERNET" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_TIPO_PRODUTO_IVA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="AREA_CODIFICADA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="PRODUTO_VIRTUA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="PRODUTO_COLETIVO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="MAX_US" type="xs:integer" minOccurs="0"/>
+            <xs:element name="MIN_US" type="xs:integer" minOccurs="0"/>
+            <xs:element name="MAX_DS" type="xs:integer" minOccurs="0"/>
+            <xs:element name="MIN_DS" type="xs:integer" minOccurs="0"/>
+            <xs:element name="IP_FIXO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="QTD_IP_EXTRA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="PROVEDOR" type="xs:integer" minOccurs="0"/>
+            <xs:element name="FRANQUIA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="FORMA_AQUISICAO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CARACTERISTICA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_PRODUTO_CONTAB" type="xs:integer"/>
+            <xs:element name="DESCRICAO_BOLETO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ID_PORTFOLIO" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

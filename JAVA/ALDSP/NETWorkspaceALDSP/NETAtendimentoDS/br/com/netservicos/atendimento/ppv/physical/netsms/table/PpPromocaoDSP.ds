@@ -1,0 +1,78 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpPromocaoDSP" xmlns:t="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP">
+<creationDate>2016-08-23T16:15:35</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_PROMOCAO" type="xs:integer">
+  <extension nativeXpath="ID_PROMOCAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NOME_PROMOCAO" type="xs:string">
+  <extension nativeXpath="NOME_PROMOCAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_PROMOCAO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_PROMOCAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2000" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="PUBLICO_ALVO" type="xs:string">
+  <extension nativeXpath="PUBLICO_ALVO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="MSG_CONTRATO" type="xs:string">
+  <extension nativeXpath="MSG_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="100" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_TIPO_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PRM_PK" type="ppp:PpPromocaoDSP_KEY" inferredSchema="true" xmlns:ppp="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP"/>
+
+<relationshipTarget roleName="SnTipoVendaDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/SnTipoVendaDSP.ds" opposite="PpPromocaoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP";
+
+import schema namespace t6 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpPromocaoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpPromocaoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="PP_PROMOCAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpPromocaoDSP() as schema-element(t6:PpPromocaoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="PP_PROMOCAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpPromocaoDSP($p as element(t6:PpPromocaoDSP)*)as schema-element(t6:PpPromocaoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="PP_PROMOCAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpPromocaoDSP($p as changed-element(t6:PpPromocaoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="PP_PROMOCAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpPromocaoDSP($p as element(t6:PpPromocaoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/SnTipoVendaDSP";
+
+import schema namespace t12 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/SnTipoVendaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/SnTipoVendaDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="SnTipoVendaDSP"/>::)
+
+   declare function f1:getSnTipoVendaDSP($fk as element(t6:PpPromocaoDSP)) as element(t12:SnTipoVendaDSP)*
+   {
+      for $pk in f2:SnTipoVendaDSP()
+      where $pk/ID_TIPO_VENDA eq $fk/ID_TIPO_VENDA
+      return $pk
+   };
+

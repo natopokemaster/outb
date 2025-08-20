@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://www.netservicos.com.br/Compra" 
+	elementFormDefault="qualified" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:compra="http://www.netservicos.com.br/Compra"
+	xmlns:paginacao="http://www.netservicos.com.br/modelocanonico/v2/paginacao">
+
+	<xsd:import schemaLocation="Paginacao.xsd" 
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/paginacao"/>
+	
+	<xsd:element name="listarCompras" type="compra:ListarComprasType" />
+
+	<xsd:element name="listarCompraResponse" type="compra:ListarCompraResponseType" />
+	
+	<xsd:complexType name="ListarComprasType">
+		<xsd:sequence>
+			<xsd:element name="numeroContrato" type="xsd:long" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="identificacaoCidade" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="dtInicioCompra" type="xsd:date" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="dtTerminoCompra" type="xsd:date" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="resultadoPaginado"  type="xsd:boolean" maxOccurs="1"  minOccurs="1"/>
+			<xsd:element name="paginacao" type="paginacao:Paginacao" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListarCompraResponseType">
+		<xsd:sequence>
+			<xsd:element name="eventosPPVContrato" type="compra:EventosPPVContratoType" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="paginacao" type="paginacao:Paginacao" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="EventosPPVContratoType">
+		<xsd:sequence>
+			<xsd:element name="eventoPPVContrato" type="compra:EventoPPVContratoType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="EventoPPVContratoType">
+		<xsd:sequence>
+			<xsd:element name="contratoDeVenda" type="compra:ContratoDeVendaType" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="eventoPPV" type="compra:EventoPPVType" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ContratoDeVendaType">
+		<xsd:sequence>
+			<xsd:element name="numeroContrato" type="xsd:long" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="identificacaoCidade" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="tipoVenda" type="compra:TipoVendaType" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="dataVenda" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="canalVenda" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="statusVenda" type="compra:StatusVendaType" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TipoVendaType">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="StatusVendaType">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="descricao" type="xsd:string" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="EventoPPVType">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="nome" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="preco" type="xsd:double" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="categoriaPPV" type="compra:CategoriaPPVType" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="tipoPPV" type="compra:TipoPPVType" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CategoriaPPVType">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TipoPPVType">
+		<xsd:sequence>
+			<xsd:element name="identificador" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="descricao" type="xsd:string" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

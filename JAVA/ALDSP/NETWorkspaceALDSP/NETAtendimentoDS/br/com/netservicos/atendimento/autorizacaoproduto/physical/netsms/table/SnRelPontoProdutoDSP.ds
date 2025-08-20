@@ -1,0 +1,129 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelPontoProdutoDSP" xmlns:t="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP">
+<creationDate>2012-05-15T11:06:47</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PONTO" type="xs:integer">
+  <extension nativeXpath="ID_PONTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_INI" type="xs:dateTime">
+  <extension nativeXpath="DT_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_FIM" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="INSTALADO" type="xs:integer">
+  <extension nativeXpath="INSTALADO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_ALTERACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_ALTERACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CONSOL_CBR" type="xs:integer">
+  <extension nativeXpath="CONSOL_CBR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CONSOL_VENDAS" type="xs:integer">
+  <extension nativeXpath="CONSOL_VENDAS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_OC" type="xs:integer">
+  <extension nativeXpath="COD_OC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_OS" type="xs:string">
+  <extension nativeXpath="COD_OS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_FIM_DEMO" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM_DEMO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_DEMONSTRACAO" type="xs:integer">
+  <extension nativeXpath="ID_DEMONSTRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_TIPO_CONTRATACAO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_CONTRATACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="EXPLICITO" type="xs:integer">
+  <extension nativeXpath="EXPLICITO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_PONTO_PRODUTO" type="snr:SnRelPontoProdutoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP"/>
+
+<relationshipTarget roleName="SnContratoDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnContratoDSP.ds" opposite="SnRelPontoProdutoDSP"/>
+<relationshipTarget roleName="SnProdutoDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP.ds" opposite="SnRelPontoProdutoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP";
+
+import schema namespace t6 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelPontoProdutoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelPontoProdutoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelPontoProdutoDSP() as schema-element(t6:SnRelPontoProdutoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelPontoProdutoDSP($p as element(t6:SnRelPontoProdutoDSP)*)as schema-element(t6:SnRelPontoProdutoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelPontoProdutoDSP($p as changed-element(t6:SnRelPontoProdutoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_REL_PONTO_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelPontoProdutoDSP($p as element(t6:SnRelPontoProdutoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnContratoDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnContratoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnContratoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="navigate" roleName="SnContratoDSP"/>::)
+
+   declare function f1:getSnContratoDSP($fk as element(t6:SnRelPontoProdutoDSP)) as element(t2:SnContratoDSP)*
+   {
+      for $pk in f2:SnContratoDSP()
+      where $pk/NUM_CONTRATO eq $fk/NUM_CONTRATO
+         and $pk/CID_CONTRATO eq $fk/CID_CONTRATO
+      return $pk
+   };
+
+declare namespace f3="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnProdutoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="navigate" roleName="SnProdutoDSP"/>::)
+
+   declare function f1:getSnProdutoDSP($fk as element(t6:SnRelPontoProdutoDSP)) as element(t3:SnProdutoDSP)*
+   {
+      for $pk in f3:SnProdutoDSP()
+      where $pk/ID_PRODUTO eq $fk/ID_PRODUTO
+      return $pk
+   };
+

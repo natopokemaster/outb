@@ -1,0 +1,62 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelAtributosProdutoDSP" xmlns:t="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP">
+<creationDate>2012-05-15T11:06:47</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_ATRIBUTO_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_ATRIBUTO_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_ATRIBUTO_PARAMETRO" type="xs:integer">
+  <extension nativeXpath="ID_ATRIBUTO_PARAMETRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PRODUTO" type="xs:integer">
+  <extension nativeXpath="ID_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="SYS_C0010634" type="snr:SnRelAtributosProdutoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP"/>
+
+<relationshipTarget roleName="SnProdutoDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP.ds" opposite="SnRelAtributosProdutoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelAtributosProdutoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelAtributosProdutoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_REL_ATRIBUTOS_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelAtributosProdutoDSP() as schema-element(t4:SnRelAtributosProdutoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_REL_ATRIBUTOS_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelAtributosProdutoDSP($p as element(t4:SnRelAtributosProdutoDSP)*)as schema-element(t4:SnRelAtributosProdutoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_REL_ATRIBUTOS_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelAtributosProdutoDSP($p as changed-element(t4:SnRelAtributosProdutoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_REL_ATRIBUTOS_PRODUTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelAtributosProdutoDSP($p as element(t4:SnRelAtributosProdutoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnProdutoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="navigate" roleName="SnProdutoDSP"/>::)
+
+   declare function f1:getSnProdutoDSP($fk as element(t4:SnRelAtributosProdutoDSP)) as element(t3:SnProdutoDSP)*
+   {
+      for $pk in f2:SnProdutoDSP()
+      where $pk/ID_PRODUTO eq $fk/ID_PRODUTO
+      return $pk
+   };
+

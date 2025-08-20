@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaParceiroDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnCobrancaParceiroDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_COBRANCA_PARCEIRO" type="xs:integer"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="CID_CONTRATO" type="xs:string" minOccurs="0"/>
+            <xs:element name="TIPO_COBRANCA" type="xs:integer"/>
+            <xs:element name="VLR_TOTAL" type="xs:decimal"/>
+            <xs:element name="DT_VENCTO" type="xs:dateTime"/>
+            <xs:element name="USR_EMISSAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="DT_PGTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="VLR_PAGO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VLR_CORRIGIDO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="ID_SIT_COBRANCA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="LOCAL_PGTO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DT_BAIXA" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="USR_BAIXA" type="xs:string" minOccurs="0"/>
+            <xs:element name="VLR_FLOATING" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="DT_GERACAO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="ID_GERACAO_COBRANCA_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="REEMITIR_BOLETO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="VLR_CONTABIL" type="xs:decimal"/>
+            <xs:element name="DT_EMISSAO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="PRE_PAGO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="NUM_NOTA_FISCAL" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DT_NOTA_FISCAL" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_VENCTO_2VIA" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="ID_PARCEIRO" type="xs:integer"/>
+            <xs:element name="VL_FUST" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_FUNTEL" type="xs:decimal" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

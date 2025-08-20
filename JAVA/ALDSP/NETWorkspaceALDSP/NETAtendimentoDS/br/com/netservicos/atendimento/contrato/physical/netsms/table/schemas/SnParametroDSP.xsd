@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnParametroDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnParametroDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_EMPRESA" type="xs:string"/>
+            <xs:element name="NOME_PARAMETRO" type="xs:string"/>
+            <xs:element name="VLR_PARAMETRO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="DESCRICAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="INSTRUCAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="VLR_PARAMETRO_STR" type="xs:string" minOccurs="0"/>
+            <xs:element name="PROCESSAR_MESTRE" type="xs:integer"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

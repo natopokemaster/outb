@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/CanalAtendimento/schemas/"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:canal="http://www.netservicos.com.br/CanalAtendimento/schemas/">
+
+	<complexType name="CanalAtendimentoType">
+		<sequence>
+			<element name="identificadorCanalAtendimento" type="long"	minOccurs="0" maxOccurs="1" />
+			
+			<element name="descricao" type="string" minOccurs="0"	maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<element name="CanalAtendimento" type="canal:CanalAtendimentoType"></element>
+
+</schema>

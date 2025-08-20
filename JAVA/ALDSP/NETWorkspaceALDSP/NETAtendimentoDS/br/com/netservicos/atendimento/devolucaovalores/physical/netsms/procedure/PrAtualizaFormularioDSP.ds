@@ -1,0 +1,37 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com">
+<creationDate>2015-09-09T23:28:49</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+</x:xfl>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/devolucaovalores/physical/netsms/procedure/PrAtualizaFormularioDSP";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="library" isPrimary="false" nativeName="PR_ATUALIZA_FORMULARIO" nativeLevel2Container="PROD_JD" nativeLevel3Container="PKG_DEVOLUCAO_VALORES" style="storedProcedure">
+   <nonCacheable/>
+   <params xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdt="http://www.w3.org/2004/07/xpath-datatypes" >
+      <param name="PCPF" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PNOME_COMPLETO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PID_BANCO" kind="in" xqueryType="xs:decimal" nativeTypeCode="3" nativeType="NUMBER"/>
+      <param name="PAGENCIA" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PCONTA" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PDIGITO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PID_MOTIVO_REEMBOLSO" kind="in" xqueryType="xs:decimal" nativeTypeCode="3" nativeType="NUMBER"/>
+      <param name="PFL_DOBRO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PFL_REEMISSAO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PDDD_01" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PTEL_01" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PDDD_02" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PTEL_02" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PDDD_CEL" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PTEL_CEL" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PE_MAIL" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="POBS" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PRET" kind="out" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PCHAMADA" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="PPROTOCOLO" kind="in" xqueryType="xs:integer" nativeTypeCode="3" nativeType="NUMBER"/>      
+   </params>
+   </f:function>::)
+
+   declare function f1:PR_ATUALIZA_FORMULARIO($PCPF as xs:string, $PNOME_COMPLETO as xs:string?, $PID_BANCO as xs:decimal?, $PAGENCIA as xs:string?, $PCONTA as xs:string?, $PDIGITO as xs:string?, $PID_MOTIVO_REEMBOLSO as xs:decimal?, $PFL_DOBRO as xs:string?, $PFL_REEMISSAO as xs:string?, $PDDD_01 as xs:string?, $PTEL_01 as xs:string?, $PDDD_02 as xs:string?, $PTEL_02 as xs:string?, $PDDD_CEL as xs:string?, $PTEL_CEL as xs:string?, $PE_MAIL as xs:string?, $POBS as xs:string?, $PCHAMADA as xs:string?, $PPROTOCOLO as xs:integer?) as xs:string external;
+

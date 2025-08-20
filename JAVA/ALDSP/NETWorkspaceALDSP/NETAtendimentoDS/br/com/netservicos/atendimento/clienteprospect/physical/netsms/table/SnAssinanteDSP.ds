@@ -1,0 +1,187 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnAssinanteDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP">
+    <creationDate>2009-11-19T17:54:23</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="ID_ASSINANTE" type="xs:integer">
+        <extension nativeXpath="ID_ASSINANTE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NOME_TITULAR" type="xs:string">
+        <extension nativeXpath="NOME_TITULAR" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_ENDER_INSTALACAO" type="xs:integer">
+        <extension nativeXpath="ID_ENDER_INSTALACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="8" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_ENDER_REVISTA" type="xs:integer">
+        <extension nativeXpath="ID_ENDER_REVISTA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="8" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_ENDER_COBRANCA" type="xs:integer">
+        <extension nativeXpath="ID_ENDER_COBRANCA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="8" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CPF" type="xs:string">
+        <extension nativeXpath="CPF" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NUM_RG" type="xs:string">
+        <extension nativeXpath="NUM_RG" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_ORGAO_EXPEDIDOR" type="xs:integer">
+        <extension nativeXpath="ID_ORGAO_EXPEDIDOR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_PROFISSAO" type="xs:integer">
+        <extension nativeXpath="ID_PROFISSAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DT_NASCIMENTO" type="xs:dateTime">
+        <extension nativeXpath="DT_NASCIMENTO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="TEL_RES" type="xs:string">
+        <extension nativeXpath="TEL_RES" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="TEL_COM" type="xs:string">
+        <extension nativeXpath="TEL_COM" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="RAMAL" type="xs:string">
+        <extension nativeXpath="RAMAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="5" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FAX" type="xs:string">
+        <extension nativeXpath="FAX" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_TIPO_PESSOA" type="xs:integer">
+        <extension nativeXpath="ID_TIPO_PESSOA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="INDICADO_POR" type="xs:integer">
+        <extension nativeXpath="INDICADO_POR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="QTD_BONUS" type="xs:integer">
+        <extension nativeXpath="QTD_BONUS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_SEXO" type="xs:integer">
+        <extension nativeXpath="ID_SEXO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_ESTADO_CIVIL" type="xs:integer">
+        <extension nativeXpath="ID_ESTADO_CIVIL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="SPC" type="xs:integer">
+        <extension nativeXpath="SPC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="E_MAIL" type="xs:string">
+        <extension nativeXpath="E_MAIL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="TEL_OUTROS" type="xs:string">
+        <extension nativeXpath="TEL_OUTROS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="100" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ESTRANGEIRO" type="xs:integer">
+        <extension nativeXpath="ESTRANGEIRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="E_MAIL_DEFAULT" type="xs:integer">
+        <extension nativeXpath="E_MAIL_DEFAULT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_ESCOLARIDADE" type="xs:integer">
+        <extension nativeXpath="ID_ESCOLARIDADE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NOME_MAE" type="xs:string">
+        <extension nativeXpath="NOME_MAE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NOME_PAI" type="xs:string">
+        <extension nativeXpath="NOME_PAI" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CC_TEL_CEL" type="xs:string">
+        <extension nativeXpath="CC_TEL_CEL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CD_SUFRAMA" type="xs:string">
+        <extension nativeXpath="CD_SUFRAMA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="14" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <key name="PKSN_ASSINANTE" type="snas:SnAssinanteDSP_KEY" inferredSchema="true" xmlns:snas="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP"/>
+</x:xds>::)
+
+declare namespace sne1= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP";
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnAssinanteDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnAssinanteDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_ASSINANTE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnAssinanteDSP() as schema-element(t2:SnAssinanteDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_ASSINANTE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnAssinanteDSP($p as element(t2:SnAssinanteDSP)*)as schema-element(t2:SnAssinanteDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_ASSINANTE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnAssinanteDSP($p as changed-element(t2:SnAssinanteDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_ASSINANTE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnAssinanteDSP($p as element(t2:SnAssinanteDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEstadoCivilDSP";
+
+import schema namespace t7 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEstadoCivilDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnEstadoCivilDSP.xsd";
+
+   
+
+declare namespace f3="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP";
+
+import schema namespace t8 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnOrgaoExpedidorDSP.xsd";
+
+   
+
+declare namespace f4="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnProfissaoDSP";
+
+import schema namespace t9 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnProfissaoDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnProfissaoDSP.xsd";
+
+   
+
+declare namespace f5="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnSexoDSP";
+
+import schema namespace t11 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnSexoDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnSexoDSP.xsd";
+
+   
+
+declare namespace f6="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoDSP.xsd";
+
+   
+
+import schema namespace sne="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnEscolaridadeDSP.xsd";
+
+
+
+

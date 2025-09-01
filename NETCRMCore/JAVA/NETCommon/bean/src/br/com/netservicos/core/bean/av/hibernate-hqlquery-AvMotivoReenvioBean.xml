@@ -1,5 +1,0 @@
-<query name="procurarMotivoReenvioPorDescricao"><![CDATA[
-            FROM br.com.netservicos.core.bean.av.AvMotivoReenvioBean  as motivoReenvio 
-           WHERE motivoReenvio.dsMotivoReenvio = :motivo
-             AND motivoReenvio.fcAtivo = 'S'
-]]></query>

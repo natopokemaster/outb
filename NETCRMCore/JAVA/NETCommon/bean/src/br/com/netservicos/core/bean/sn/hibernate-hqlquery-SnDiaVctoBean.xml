@@ -1,5 +1,0 @@
-<query name="lstIdDiaVencimento"><![CDATA[
-	SELECT diaVcto.idDiaVcto
-      FROM br.com.netservicos.core.bean.sn.SnDiaVctoBean diaVcto
-     WHERE diaVcto.dia = :diaVencimento 
-]]></query>

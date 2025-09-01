@@ -1,4 +1,0 @@
-<query name="lstPropostaAssinante"><![CDATA[
-      	FROM br.com.netservicos.core.bean.cp.CpPropostaAssinanteBean proposta
-      	WHERE proposta.idPropostaAssinante = :numeroContratoAvaliacao
-]]></query>

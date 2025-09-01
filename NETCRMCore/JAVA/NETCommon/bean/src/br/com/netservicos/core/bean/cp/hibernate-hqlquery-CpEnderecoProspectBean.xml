@@ -1,5 +1,0 @@
-<query name="lstEnderecoCobrancaProspect"><![CDATA[
-      FROM br.com.netservicos.core.bean.cp.CpEnderecoProspectBean endereco
-     WHERE endereco.prospect.idProspect = :idProspect
-       AND endereco.tipoEndereco.idTipoEndereco = 2
-]]></query>

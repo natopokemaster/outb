@@ -1,5 +1,0 @@
-<query name="lstProdutoHDMax"><![CDATA[
-      FROM br.com.netservicos.core.bean.sn.SnRelTipoCaracProdutoBean tipoCaracProduto
-     WHERE tipoCaracProduto.composite.idTipoCaracteristica = 2 
-       AND tipoCaracProduto.composite.idProduto = :idProduto 
-]]></query>

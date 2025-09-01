@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:tns="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:ns1="http://www.claro.com.br/EBO/Claro/v1"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="qualified"
+	version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+		<![CDATA[
+
+	ATENCAO: Arquivo gerado automaticamente, as alteracoes realizada diretamente neste arquivo serao perdidas.
+	Ferramenta: GeraSoa-v4.5.1
+	Especificacao de servico: ConsultarPlanoPrecoAssinante v-1.6.2
+
+		]]>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import namespace="http://www.claro.com.br/EBO/Claro/v1" schemaLocation="ConsultarPlanoPrecoAssinanteNSv1.xsd" />
+
+	<xsd:element name="ConsultarPlanoPrecoAssinanteRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="assinante" type="ns1:ConsultarPlanoPrecoAssinantev1_AssinanteType" minOccurs="0" maxOccurs="1" />
+				<xsd:element name="meta-informacao" type="ns1:ConsultarPlanoPrecoAssinantev1_MetaInfType" minOccurs="1" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="ConsultarPlanoPrecoAssinanteResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="plano-preco" type="ns1:ConsultarPlanoPrecoAssinantev1_PlanoPrecoType" minOccurs="1" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AssinanteNaoEncontradoFault" type="ns1:AssinanteNaoEncontradoFaultType" /> 
+	<xsd:element name="PlanoPrecoNaoEncontradoFault" type="ns1:PlanoPrecoNaoEncontradoFaultType" /> 
+	<xsd:element name="ParametroInvalidoFault" type="ns1:ParametroInvalidoFaultType" /> 
+	<xsd:element name="TechnicalFault" type="ns1:TechnicalFaultType" /> 
+
+</xsd:schema>

@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.claro.com.br/EBO/Claro/v1" xmlns:tns="http://www.claro.com.br/EBO/Claro/v1"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="qualified" version="1.0">
+
+	<xsd:complexType name="MetaConsumidorServicoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa informações de rastreabilidade de um consumidor de serviço. 
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="nome" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Identificação, nome ou código da aplicação/sistema e/ou módulo
+						consumidor do serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="operacao" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Identificação, nome ou código da operação realizada na
+						aplicação/sistema e/ou módulo consumidor do serviço.
+						
+						ATENÇÃO: a operação é a operação realizada no consumidor
+						do serviço, não no serviço, exemplo: no caso de um portlet
+						de recarga de pré-pago, por exemplo, chamando um serviço
+						para geração do protocolo de atendimento para o usuário, 
+						a operação deveria ser: "RECARGA", e não "GERACAO DE PROTOCOLO"
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="bpid" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						BPID (Business Process ID) - Código de identificação da transação realizada na
+						aplicação/sistema e/ou módulo consumidor do serviço para fins 
+						de correlação.
+						
+						ATENÇÃO: a transação de correlação é a transação realizada
+						no consumidor, não no serviço, exemplo: no caso de um portlet
+						de recarga de pré-pago, por exemplo, chamando um serviço
+						para geração do protocolo de atendimento para o usuário, 
+						a id da transação de correlação, deveria ser o id da operação
+						iniciada pelo portlet e utilizada tanto no serviço de 
+						solicitação de recarga como no de geração de protocolo de
+						atendimento.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="endereco" type="xsd:string" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Endereço, IP ou nome da estação ou servidor que 
+						originou a chamada ao serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="usuario-id" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do usuário autenticado na
+						aplicação/sistema e/ou módulo consumidor do serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="data-hora" type="xsd:dateTime"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data e hora em que o serviço foi solicitado pela
+						aplicação/sistema e/ou módulo consumidor do serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="canal-id" type="string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Identificação, nome ou código do canal da aplicação/sistema 
+						e/ou módulo consumidor do serviço. Pode assumir valores de 
+						canais de atendimento, vendas e interação em geral, como por 
+						exemplo:
+						
+							SITE - para portlets e aplicações do site Claro e Minha Claro
+							URA - para as uras de atendimento, promoções, recarga etc
+							VENDAS - para sistemas/aplicações de vendas
+							ATENDIMENTO - para sistemas/aplicações de call center de atendimento
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfMetaConsumidorServicoType">
+		<xsd:sequence>
+			<xsd:element name="consumidor" type="tns:MetaConsumidorServicoType"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="MetaProvedorServicoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa informações de rastreabilidade de um provedor de
+				serviço. 
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="nome" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome do serviço chamado.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="versao-interface" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Versão de interface do serviço, ou seja, versão da especificação de assinatura do serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="versao-implementacao" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Versão de implementação do serviço, ou seja versão do binário do serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="plataforma" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Identificação da plataforma sobre a qual o serviço foi implementado,
+						ou seja, nome, produto, versão, etc utilizada pela implementação do 
+						serviço, por exemplo: OSB-11g, Oracle BPEL-11g, SAP-PI 6.5, 
+						Claro SOA Framework 3.26.10, etc 
+                    ]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nivel" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nível do serviço chamado na arquitetura de serviços que pode ser:
+							ESB - Serviço corporativo exposto no BUS de Serviço Corporativo
+							FLOW - Fluxo de controle de serviço implementado no BUS de Serviços Corporativos
+							BPEL - Fluxo de controle de serviço implementado no BPEL de Serviços de Negócio
+							FACHADA - Serviço implementado por uma fachada de exposição de serviços de um sistema,
+							          que adote o framework de exposição de serviços da Claro
+							PROVEDOR - Serviço exposto por um sistema, plataforma ou parceiro da Claro que 
+							           não adote o framework de exposição de serviços da Claro
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="inicio" type="xsd:dateTime" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data e hora de início de execução do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="termino" type="xsd:dateTime"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data e hora de término de execução do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="situacao" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Resultado da execução do serviço, pode assumir os
+						seguintes valores:
+						
+						SUCESSO - caso tenha terminado com sucesso
+						ERRO - caso tenha terminado com algum erro de execução
+						FALHA - caso tenha ocorrido alguma falha que impediu a execução do serviço
+						
+						ATENÇÃO: a diferença entre ERRO e FALHA é que na primeira
+						o serviço chegou a ser executado e ocorreu algum problema na
+						execução do serviço, no caso da FALHA, o serviço não chegou a ser
+						executado, devido, por exemplo a uma indisponibilidade ou 
+						timeout
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="resultado" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Representa o retorno obtido do serviço, caso o
+						serviço retorne os dados esperados, deve assumir o
+						valor 'OK', caso termine com alguma sinalização
+						de negócio (fault de negócio) ou de falha (fault
+						técnica), deve assumir o nome da falha
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pilha-rastreamento" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Pilha de rastreamento/execução (Stack Trace) referente
+						ao momento eque ocorreu a falha 
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="url" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						End-Point do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="url-real" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						End-Point real utilizada para processamento do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="msg-entrada" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Conteúdo da mensagem de entrada do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="msg-saida" type="xsd:string"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Conteúdo da mensagem de saída do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dependencias" type="tns:ArrayOfMetaProvedorServicoType"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de serviços dos quais o serviço é dependente, 
+						ou seja relação dos serviços que o serviço é
+						consumidor
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfMetaProvedorServicoType">
+		<xsd:sequence>
+			<xsd:element name="provedor" type="tns:MetaProvedorServicoType"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="MetaTraceType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa informações de rastreabilidade utilizada para 
+				identificar os serviços, dados, tempos e dependências
+				de uma requisição de chamada de um serviço. 
+				
+				Esta informações são úteis na identificação de problemas. 
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="indicador-rastreabilidade" type="xsd:boolean"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Indicador que sinaliza se a funcionalidade de rastreabilidade 
+						dos componentes de um serviço estão habilitadas ou não.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="nivel-rastreabilidade" type="xsd:int"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						O nível de rastreabilidade especifica o nível de detalhamento das
+						informações desejadas, o valor assumido por este campo apresenta 
+						um mapa de valores conforme a seguir:
+					
+						O valor da unidade [1-3], representa o nível de rastreabilidade desejada, 
+						que pode ser:
+							1 - Nível Básico (baixo): contempla quais componentes foram invocados e 
+							                          os tempos de resposta de cada um deles
+							2 - Nível Intermediário (médio): contempla as mesmas informações do
+							                                 nível 1 e as mensagens de entrada e
+							                                 saída apenas do serviço corporativo
+							3 - Nível Detalhado (alto): contempla as mesmas informações do nível 2
+							                            e as mensagens de entrada e saída de cada 
+							                            componente
+							                            
+						O valor da dezena [1X,2X,3X], representa o nível de detalhamento de stack
+						trace desejado, que pode ser:
+							0X - Nenhum: não é gerado nenhum detalhamento de pilha de execução
+							1X - Nível Técnico (baixo): gerado detalhamento de pilha de execução
+							                           apenas para problemas técnicos
+							2X - Nível Técnico e Negócio (alto): gerado detalhamento de pilha de
+							                           execução tanto para problemas técnicos como
+							                           para problemas de negócio
+						
+						O valor da centena [0XX,1XX,2XX,3XX,4XX,5XX], representa o nível de log
+						a ser utilizado pelos provedores de serviço em seus mecanismos de log,
+						que pode ser:
+							0XX - Nenhum: não é gerado nenhum log para o processamento dessa requisição
+							1XX - Nível INFO 1: gerado log informativo de nível 1, ou seja informações
+							                    de componentes chamados
+							2XX - Nível INFO 2: gerado log informativo de nível 2, ou seja informações
+							                    de componentes e subcomponentes chamados
+							3XX - Nível INFO 3: gerado log informativo de nível 3, ou seja informações
+							                    de componentes e subcomponentes com detalhamento de
+							                    mensagens de entrada e saída
+							4XX - Nível DEBUG: gerado log com conteúdo de debug
+							5XX - NÍvel TRACE: gerado log completo com conteúdo de trace de execução
+							
+						Exemplos:
+							012 - Gera informações de mensagens de entrada e saída do serviço comporativo,
+							      com tempos de execução do serviço corporativo e subserviços, e em caso 
+							      de falha técnica recupera a pilha de execução da falha técnica
+							313 - Gera informações completas de mensagens de entrada e saída do serviço 
+							      comporativo e subserviços, além dos tempos de execução, e em caso 
+							      de falha técnica recupera a pilha de execução da falha técnica, solicita
+							      também que seja gerado log de nível INFO 3 em todos os componentes 
+							      envolvidos na execução da requisição
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="tid" type="xsd:string" minOccurs="0"
+				maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						TID (SOA Transaction ID) - Código de identificação da transação na camada SOA.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="consumidor" type="tns:MetaConsumidorServicoType"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Informações do consumidor do serviço
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="provedor" type="tns:MetaProvedorServicoType"
+				minOccurs="0" maxOccurs="1" nillable="true">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Informações do provedor do serviço consumido
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfTraceType">
+		<xsd:sequence>
+			<xsd:element name="trace" type="tns:MetaTraceType"
+				minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="meta-trace" type="tns:MetaTraceType"/>
+
+</xsd:schema>

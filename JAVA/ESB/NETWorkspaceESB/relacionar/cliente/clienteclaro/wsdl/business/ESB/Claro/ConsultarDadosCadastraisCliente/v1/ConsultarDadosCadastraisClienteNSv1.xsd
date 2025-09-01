@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.claro.com.br/EBO/Claro/v1"
+		xmlns:tns="http://www.claro.com.br/EBO/Claro/v1"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		elementFormDefault="qualified" attributeFormDefault="qualified"
+		version="1.0">
+
+	<xsd:include schemaLocation="../../../../EBO/Claro/v1/ClienteNaoEncontradoFaultEBOv1.xsd" />
+	<xsd:include schemaLocation="../../../../EBO/Claro/v1/ParametroInvalidoFaultEBOv1.xsd" />
+	<xsd:include schemaLocation="../../../../EBO/Claro/v1/TechnicalFaultEBOv1.xsd" />
+
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_DadosSocioEconomicosPJType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa um conjunto de informações
+				sócio-econômicas
+				de uma pessoa jurídica.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="tipo-pessoa-juridica" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TipoPessoaJuridicaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Tipo de pessoa jurídica, se EMPRESA_PRIVADA -
+						Empresa Privada,
+						GOVERNO - Governo ou COOPERATIVA - Cooperativa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="condicao-fiscal-especial-empresa-privada" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialEmpresaPrivadaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sinalizações de condição fiscal especial
+						aplicada apenas para Empresas Privadas.
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="condicao-fiscal-especial-empresa-publica" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialEmpresaPublicaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sinalizações de condição fiscal especial
+						aplicada apenas para Empresas Públicas.
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_RgType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Registro Geral (RG) - é o documento nacional de
+				identificação civil no Brasil. é conhecido popularmente
+				por cédula de identidade, carteira de identidade ou
+				simplesmente RG .
+
+				Sua emissão é de responsabilidade dos governos
+				estaduais, entretanto a cédula de identidade tem
+				validade em todo território nacional.
+				
+				Exemplo de RG: 123.456.789-0
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="numero" nillable="true" type="xsd:string"/><xsd:element maxOccurs="1" minOccurs="0" name="orgao-emissor" nillable="true" type="xsd:string"/><xsd:element maxOccurs="1" minOccurs="0" name="uf" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_UfType"/><xsd:element maxOccurs="1" minOccurs="0" name="data-emissao" nillable="true" type="xsd:date"/></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_CpfType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Cadastro de Pessoas Físicas (CPF) - é o registro de um
+				cidadão na Receita Federal brasileira no qual devem
+				estar todos os contribuintes (pessoas físicas
+				brasileiras ou estrangeiras com negócios no Brasil). O
+				CPF armazena informações fornecidas pelo próprio
+				contribuinte e por outros sistemas da Receita Federal.
+				
+				Exemplo de CPF: 22233344405
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{0,11}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<simpleType name="ConsultarDadosCadastraisClientev1_TipoOcupacaoType">
+		<annotation>
+			<documentation>
+				<![CDATA[
+				Forma pela qual uma pessoa recebe seus rendimentos, que pode ser:
+				
+				EMPRESARIO -
+				
+				ASSALARIADO  -
+				
+				COMERCIANTE -
+				
+				APOSENTADO -
+				
+				PROFISSIONAL_LIBERAL -
+				
+				ESTUDANTE -
+				
+				DONA_DE_CASA -
+				
+				FUNCIONARIO_PUBLICO -
+				
+				AUTONOMO -
+				
+				MILITAR - 
+				
+				NAO_INFORMADO - 
+				
+							
+				Exemplo de Tipo de Ocupação: ASSALARIADO
+				]]>
+			</documentation>
+		</annotation>
+		<restriction base="xsd:string">
+			<xsd:enumeration value="EMPRESARIO"/>
+			<xsd:enumeration value="ASSALARIADO"/>
+			<xsd:enumeration value="COMERCIANTE"/>
+			<xsd:enumeration value="APOSENTADO"/>
+			<xsd:enumeration value="PROFISSIONAL_LIBERAL"/>
+			<xsd:enumeration value="ESTUDANTE"/>
+			<xsd:enumeration value="DONA_DE_CASA"/>
+			<xsd:enumeration value="FUNCIONARIO_PUBLICO"/>
+			<xsd:enumeration value="AUTONOMO"/>
+			<xsd:enumeration value="MILITAR"/>
+			<xsd:enumeration value="NAO_INFORMADO"/>
+		</restriction>
+	</simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_AssinanteType">
+
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa um assinante do serviço de telefonia.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="mobile-assinante-id" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do assinante no sistema
+						de billing (Mobile).
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_DadosCadastraisPFType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa os dados cadastrais de uma pessoa
+				física.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="nome" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_NomePessoaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome da pessoa.
+						SPED: Obrigatório, tamanho máximo
+						100 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="data-nascimento" nillable="true" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data de nascimento da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="nome-mae" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_NomePessoaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome da mãe da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="sexo" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_SexoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sexo da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element default="BRASILEIRA" maxOccurs="1" minOccurs="0" name="nacionalidade" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nacionalidade da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="cpf" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CpfType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						CPF da pessoa, tanto para brasileiros como
+						estrangeiros. Cadastro Pessoa Física, código
+						utilizado no Brasil para identificar de forma
+						única pessoas físicas.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="rg" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_RgType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Documento de identificação da pessoa, apenas
+						para brasileiros.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="passaporte" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Identificação do passaporte da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="passaporte-pais-id" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do país conforme
+						definido pelo banco central.
+						SPED: Obrigatório para estrangeiros,
+						tamanho máximo 5 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="rne" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_RneType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Documento de RNE (Registro Nacional de
+						Estrageiros) da pessoa, apenas para o caso de
+						estrangeiros.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="contatos" type="tns:ConsultarDadosCadastraisClientev1_ArrayOfContatoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de contatos da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_TelefoneType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Número de Telefone, corresponde a um número de telefone
+				incluindo o código de área (DDD).
+				
+				A restrição aplicada a esse type significa que devem existir 
+				entre 9 ou 16 caracteres que tenham valor entre 0 e 9 
+				(neste caso pode começar com 0 por causa de números 0800, por exemplo).
+				
+				Exemplo de Telefone: 1194157781
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{9,16}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<simpleType name="ConsultarDadosCadastraisClientev1_TipoPessoaFisicaType">
+		<annotation>
+			<documentation>
+				<![CDATA[
+				Corresponde ao tipo de pessoa física, que pode ser:
+
+				PESSOA_FISICA - Pessoas físicas em geral, caso não seja nenhum dos demais
+
+				INDIO - Indio
+				
+				PRODUTOR_RURAL - Produtor Rural
+				
+				MEMBRO_EMBAIXADA - Membro de Embaixada
+				
+				ESTRANGEIRO - Estrangeiro
+
+				Exemplo de Tipo de Pessoa Física: PESSOA_FISICA
+				]]>
+			</documentation>
+		</annotation>
+		<restriction base="xsd:string">
+			<enumeration value="PESSOA_FISICA"/>
+			<enumeration value="INDIO"/>
+			<enumeration value="PRODUTOR_RURAL"/>
+			<enumeration value="MEMBRO_EMBAIXADA"/>
+			<enumeration value="ESTRANGEIRO"/>
+		</restriction>
+	</simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_EnderecoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa as informações que compõem um endereço.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="prefixo" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TipoEnderecoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Prefixo do logradouro.
+						SPED: Obrigatório quando não for caixa postal
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="logradouro" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome do logradouro.
+						SPED: Obrigatório quando não
+						for caixa postal, tamanho máximo 60 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="numero" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Número do logradouro.
+						SPED: Obrigatório quando
+						não for caixa postal, tamanho máximo 10 caracteres,
+						quando logradouro não possuir número, utilizar texto "Sem Número"
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="complemento" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Informações complementares do logradouro.
+						SPED:
+						Opcional, tamanho máximo 60 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="bairro" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Bairro onde se localiza o endereço.
+						SPED:
+						Obrigatório quando não for caixa postal, tamanho máximo 60 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="caixa-postal" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Número da caixa-postal do endereço. Devem ser
+						preenchidos a caixa-postal,
+						a cidade, UF e cep.
+						SPED: Obrigatório
+						quando for caixa postal, tamanho máximo 8 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="cidade" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Cidade em que se localiza o endereço.
+						SPED: Obrigatório, tamanho máximo 50 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="uf" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_UfType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sigla da Unidade da Federeção em que se localiza
+						o endereço.
+						SPED: Obrigatório, tamanho máximo 2 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="cep" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CepType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						CEP do endereço.
+						SPED: Obrigatório, tamanho máximo 8 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<simpleType name="ConsultarDadosCadastraisClientev1_TipoPessoaJuridicaType">
+		<annotation>
+			<documentation>
+				<![CDATA[
+				Corresponde ao tipo de pessoa jurídica, que pode ser:
+
+				EMPRESA_PRIVADA - Empresa Privada, ou seja, empresa de capital privado
+				
+				GOVERNO - Governo, ou seja, empresa pertencente ou controlada 
+				          pelos órgãos governamentais
+				
+				COOPERATIVA - Cooperativa, ou seja, pessoas que se unem com fim de 
+				              prestar atividade econômica (entre outras) e detém 
+				              propriedade coletiva
+
+				Exemplo de Tipo de Pessoa Jurídica: EMPRESA_PRIVADA
+				]]>
+			</documentation>
+		</annotation>
+		<restriction base="xsd:string">
+			<enumeration value="EMPRESA_PRIVADA"/>
+			<enumeration value="GOVERNO"/>
+			<enumeration value="COOPERATIVA"/>
+		</restriction>
+	</simpleType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_SexoType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Corresponde ao gênero do indivíduo que pode ser:
+
+				M - Masculino
+
+				F - Feminino
+				
+				NAO_INFORMADO - utilizado apenas quando o campo for mandatorio 
+				e não se obteve a informação
+				
+				Exemplo de Sexo: M
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="M"/>
+			<xsd:enumeration value="F"/>
+			<xsd:enumeration value="NAO_INFORMADO"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialMembroEmbaixadaType">
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="indicador-isencao" nillable="true" type="xsd:boolean"/></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialEmpresaPublicaType">
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="indicador-retencao" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-imunidade" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-isencao" nillable="true" type="xsd:boolean"/></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_EmailType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				E-mail (Eletronic Mail) - é um método que permite
+				compor, enviar e receber mensagens através de sistemas
+				eletrônicos de comunicação. O termo e-mail é aplicado
+				tanto aos sistemas que utilizam a Internet e são
+				baseados no protocolo SMTP, como aqueles sistemas
+				conhecidos como intranets, que permitem a troca de
+				mensagens dentro de uma empresa ou organização e são,
+				normalmente, baseados em protocolos proprietários.
+				
+				Exemplo de e-mail: glauco.bordin@claro.com.br
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\w+([\-+._]\w*)*@\w+([\-.]\w+)*\.\w+([\-.]\w+)*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_CepType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Código de Endereçamento Postal (CEP) ou Código Postal -
+				é um código desenvolvido pelas administrações postais, e
+				criado no sentido de facilitar o encaminhamento e a
+				entrega das correspondências. Cada administração postal
+				é livre de criar o código que melhor se adapte à
+				realidade postal e administrativa do seu país.
+
+				O sistema de código postal brasileiro, o CEP (Código de
+				Endereçamento Postal), foi criado em 1972, com cinco
+				dígitos. Em 1992, com o aumento do volume de
+				correspondência, passou ao formato 00000-000, dividido
+				em dois grupos, sendo o primeiro de 5 dígitos e o
+				segundo de 3, separados por um hífen. A única empresa
+				que atua em todos os municípios do país é a empresa
+				estatal Correios.
+
+				Exemplo de endereçamento: 05425902
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{0,8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ContatoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa as informações de um contato, sob duas óticas distintas:
+				
+				1 - Contato no sentido de ser a pessoa cadastrada no sistema de CRM antes que ela se
+				torne um cliente. Um exemplo de contato é o prospect. Dentre os atributos do contato
+				estão o seu ID no sistema CRM (acrm-contato-id) e seus dados cadastrais de pessoa
+				física (dados-cadastrais-pf). Ex:
+				a) contato/acrm-contato-id
+				
+				2 - Contato no sentido de ser o meio de se contatar alguém, onde esse alguém pode ser
+				o próprio contato (pessoa) ou um cliente (entidade ClienteType). O contato como meio
+				se de contatar alguem é normalmente um atributo dos dados cadastrais. Ex:
+				a) cliente/dados-cadastrais-pf/contatos/contato/telefone
+				b) contato/dados-cadastrais-pf/contatos/contato/email. Aqui observamos a primeira parte 
+				(contato/dados-cadastrais-pf) referente ao contato como sendo a pessoa, e a segunda parte
+				(contatos/contato/email) referente ao contato como sendo o meio de contatar a pessoa.
+				  
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="nome" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_NomePessoaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Este elemento é relevante para o contato no sentido de ser o meio de se contatar uma pessoa.
+						
+						Nome da pessoa para entrar em contato, ou seja, a pessoa que representa a pessoa alvo.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="telefone" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TelefoneType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Este elemento é relevante para o contato no sentido de ser o meio de se contatar uma pessoa.
+
+						Número do telefone da pessoa de contato.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="ramal" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Este elemento é relevante para o contato no sentido de ser o meio de se contatar uma pessoa.
+
+						Ramal da pessoa de contato.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="email" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_EmailType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Este elemento é relevante para o contato no sentido de ser o meio de se contatar uma pessoa.
+
+						E-mail da pessoa de contato.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ClienteType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa um cliente contratante de serviço de
+				telefonia.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element default="PF" maxOccurs="1" minOccurs="0" name="tipo-pessoa" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TipoPessoaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Corresponde ao tipo de pessoa, se PF - pessoa
+						física ou PJ - Pessoa Jurídica.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="dados-cadastrais-pf" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_DadosCadastraisPFType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Dados cadastrais do cliente, apenas para
+						clientes Pessoa Física.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="dados-socio-economicos-pf" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_DadosSocioEconomicosPFType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Dados sócio econômicos do cliente, apenas para
+						cliente Pessoa Física.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="dados-cadastrais-pj" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_DadosCadastraisPJType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Dados cadastrais do cliente, apenas para Pessoa
+						Jurídica.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="dados-socio-economicos-pj" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_DadosSocioEconomicosPJType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Dados Sócio-Econômicos do cliente, apenas para
+						Pessoa Jurídica.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="endereco-residencial" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_EnderecoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Endereço residencial do cliente.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="endereco-comercial" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_EnderecoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Endereço comercial do cliente.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="accounts" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_ArrayOfAccountType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de contas de cobrança do cliente.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="senha-atendimento" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Senha de identificação do cliente junto à
+						central de atendimento.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="contratos" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_ArrayOfContratoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista dos contratos do cliente
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="crm-cliente-id" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do cliente no CRM.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="mobile-cliente-id" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do cliente no sistema de
+						billing (Mobile).
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="mobile-cliente-tipo" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do tipo de cliente no
+						sistema de billing (Mobile).
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="mobile-cliente-subtipo" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do subtipo de cliente no
+						sistema de billing (Mobile).
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_AccountType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa a conta-corrente de um cliente junto à
+				Claro.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="mobile-ban" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação da account no módulo de
+						cobrança do sistema de pós-pago.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_TipoEnderecoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Corresponde aos tipo de de endereço possíveis, segundo cadastro 
+				dos correios:
+				
+				AEROPORTO
+				ALAMEDA
+				AREA
+				AVENIDA
+				CAMPO
+				CHACARA
+				COLONIA
+				CONDOMINIO
+				CONJUNTO
+				DISTRITO
+				ESPLANADA
+				ESTACAO
+				ESTRADA
+				FAVELA
+				FAZENDA
+				FEIRA
+				JARDIM
+				LADEIRA
+				LAGO
+				LAGOA
+				LARGO
+				LOTEAMENTO
+				MORRO
+				NUCLEO
+				PARQUE
+				PASSARELA
+				PATIO
+				PRACA
+				QUADRA
+				RECANTO
+				RESIDENCIAL
+				RODOVIA
+				RUA
+				SETOR
+				SITIO
+				TRAVESSA
+				TRECHO
+				TREVO
+				VALE
+				VEREDA
+				VIA
+				VIADUTO
+				VIELA
+				VILA
+				OUTROS
+				
+				Exemplo de Tipo de Endereço: RUA
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ArrayOfContatoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa uma lista de pessoas de contato.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="unbounded" minOccurs="0" name="contato" type="tns:ConsultarDadosCadastraisClientev1_ContatoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de contatos.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_DadosSocioEconomicosPFType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa um conjunto de informações
+				sócio-econômicas
+				de uma pessoa física.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="estado-civil" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_EstadoCivilType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Estado civil da pessoa física.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="ocupacao" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TipoOcupacaoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Forma pela qual uma pessoa recebe seus
+						rendimentos
+						Exemplo: EMPRESARIO, COMERCIANTE, ASSALARIADO
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="grau-instrucao" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nível de escolaridade da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="empregador" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome do empregador, caso a pessoa seja
+						assalariado.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="cargo" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Cargo exercido pela pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="data-admissao" nillable="true" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data de admissão da pessoa no emprego atual.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="faixa-salarial" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Faixa salarial da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="tipo-pessoa-fisica" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_TipoPessoaFisicaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Tipo de pessoa física, se PESSOA_FISICA -
+						Pessoas Físicas em geral, INDIO - para índios, PRODUTOR_RURAL -
+						produtores rurais, ESTRANGEIRO - para estrangeiros e
+						MEMBRO_EMBAIXADA - para membros de embaixadas.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="indicador-contribuinte" nillable="true" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Indica se o cliente pessoa física é contribuinte
+						(IRPF)
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="quantidade-dependentes" nillable="true" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Número de dependentes (IRPF) declarados pela
+						pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="indicador-contribuinte-fome-zero" nillable="true" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Indica se a pessoa física é contribuinte do
+						programa fome zero e
+						faz jus aos benefícios estabelecidos pela
+						regulamentação.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="indicador-contribuinte-fundo-pobreza" nillable="true" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Indica se a pessoa física é contribuinte do
+						programa fundo de pobreza
+						e faz jus aos benefícios estabelecidos
+						pela regulamentação.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="indicador-casa-propria" nillable="true" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sinalização para indicar se a pessoa possui casa
+						própria ou não.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="condicao-fiscal-especial-membro-embaixada" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialMembroEmbaixadaType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Sinalizações de condição fiscal especial
+						aplicada apenas a membros de embaixada.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_CondicaoFiscalEspecialEmpresaPrivadaType">
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="indicador-micro-empresa" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-empresa-pequeno-porte" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-simples-federal" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-regime-especial" nillable="true" type="xsd:boolean"/><xsd:element maxOccurs="1" minOccurs="0" name="indicador-liminar" nillable="true" type="xsd:boolean"/></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_CnpjType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Cadastro Nacional da Pessoa Jurídica (CNPJ) - é um
+				número único que identifica uma pessoa jurídica junto à
+				Receita Federal brasileira (órgão do Ministério da
+				Fazenda), necessário para que a pessoa jurídica tenha
+				capacidade de fazer contratos e processar ou ser
+				processada. O CNPJ veio substituir o CGC, Cadastro Geral
+				de Contribuintes.
+
+				Um número típico de CNPJ tem o formato:
+				03.847.655/0001-98 onde os oito primeiros números formam
+				a "raiz" - que identifica a empresa, os quatro seguintes
+				formam o "sufixo" que identifica uma unidade de atuação
+				de empresa, ou seja, um endereço de atividade da pessoa
+				jurídica, e os dois últimos formam o "dígito
+				verificador" que é resultado de uma equação com os doze
+				números anteriores. Deste modo, o número acima
+				exemplificado identifica a matriz da empresa.
+				
+				Exemplo de CNPJ: 40432544000147
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{0,15}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ArrayOfAccountType">
+		<xsd:sequence><xsd:element maxOccurs="unbounded" minOccurs="0" name="account" type="tns:ConsultarDadosCadastraisClientev1_AccountType">
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ArrayOfContratoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa uma lista de contratos.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="unbounded" minOccurs="0" name="contrato" type="tns:ConsultarDadosCadastraisClientev1_ContratoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de contratos.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_MetaInfType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa informações referentes à aplicação que
+				gerou
+				a solicitação para o serviço. esta informações são úteis
+				na
+				identificação de problemas e são utilizadas para
+				rastreamento de
+				segurança.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="1" name="codigo-aplicacao-origem" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação da aplicação de origem.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="1" name="codigo-operacao-origem" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação da operação realizada na
+						aplicação de origem.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="1" name="correlacao-id-origem" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação da transação na
+						aplicação de origem.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="1" name="endereco-aplicacao-origem" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Endereço de origem da transação. Em geral contém
+						o IP ou nome da máquina ge gerou a solicitação
+						para o serviço.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="1" name="usuario-id-origem" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código de identificação do usuário autenticado
+						na aplicação de origem.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="data-hora-origem" nillable="true" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Data e hora em que o serviço foi solicitado pela
+						aplicação de origem.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="canal-id-origem" nillable="true" type="string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Código do canal de interação com o cliente (da aplicação) 
+						em que a aplicação que originou a requisição funciona;
+						pode assumir valores de canais de atendimento, 
+						vendas e interação em geral, como por exemplo:
+						
+						SITE, URA, LOJAONLINE, TOTEM, RCV, etc. 
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_DadosCadastraisPJType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa os dados cadastrais de uma pessoa
+				jurídica.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="razao-social" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome da razão social da pessoa jurídica.
+						SPED: Obrigatório, tamanho máximo 100 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="nome-fantasia" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Nome de fantasia da pessoa jurídica.
+						SPED: Obrigatório, tamanho máximo 100 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="cnpj" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_CnpjType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						CNPJ da pessoa jurídica. Cadastro Nacional de Pessoa Jurídica, 
+						código utilizado para identificar de forma única empresas, 
+						seja matriz ou filial no Brasil.
+						SPED: Obrigatório
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="inscricao-estadual" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Número da inscrição estadual da pessoa jurídica, 
+						junto à Secretaria da Fazenda do Estado onde a 
+						empresa está constituída.
+						SPED: Obrigatório, tamanho máximo 16 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="inscricao-municipal" nillable="true" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Número da inscrição municipal da pessoa
+						jurídica.
+						SPED: Obrigatório, tamanho máximo 14 caracteres
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element><xsd:element maxOccurs="1" minOccurs="0" name="contatos" type="tns:ConsultarDadosCadastraisClientev1_ArrayOfContatoType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de contatos da pessoa.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<simpleType name="ConsultarDadosCadastraisClientev1_TipoPessoaType">
+		<annotation>
+			<documentation>
+				<![CDATA[
+				Corresponde ao tipo de pessoa, que pode ser:
+
+				PF - Pessoa Física 
+
+				PJ - Pessoa Jurídica
+				
+				Exemplo de Tipo de Pessoa: PF
+				]]>
+			</documentation>
+		</annotation>
+		<restriction base="xsd:string">
+			<enumeration value="PF"/>
+			<enumeration value="PJ"/>
+		</restriction>
+	</simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ContratoType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa um contrato de serviço realizado por um
+				cliente de telefonia.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="assinantes" nillable="false" type="tns:ConsultarDadosCadastraisClientev1_ArrayOfAssinanteType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de assinantes relacionados a este
+						contrato.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_NomePessoaType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Nome de Pessoa corresponde ao nome de uma pessoa, que
+				deve ser composto por pelo menos duas palavras.
+				
+				Exemplo de Nome de Pessoa: José da Silva
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_RneType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Registro Nacional de Estrangeiros (RNE) - é o documento nacional 
+				que atesta a identidade de indivíduos não brasileiros com 
+				residência temporária ou permanente no território da federação. 
+				
+				Também conhecido pela sua sigla, RNE, este documento pessoal foi 
+				durante muitas décadas conhecido como modelo 19. 
+				Aos cidadãos portugueses amparados pelo Estatuto de Igualdade 
+				emite-se uma cédula de identidade igual à dos cidadãos 
+				brasileiros.
+				
+				Hoje o registro dos estrangeiros e a emissão dos respectivos 
+				documentos de identificação são de responsabilidade da 
+				Polícia Federal.
+				
+				Exemplo de RNE: V.201.675-B
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" name="numero" nillable="true" type="xsd:string"/><xsd:element maxOccurs="1" minOccurs="0" name="orgao-emissor" nillable="true" type="xsd:string"/><xsd:element maxOccurs="1" minOccurs="0" name="uf" nillable="true" type="tns:ConsultarDadosCadastraisClientev1_UfType"/><xsd:element maxOccurs="1" minOccurs="0" name="data-emissao" nillable="true" type="xsd:date"/></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_EstadoCivilType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Estado Civil - é a situação de uma pessoa em relação ao
+				matrimônio ou à sociedade conjugal.
+
+				De acordo com as leis brasileiras, os possíveis estados
+				civis são:
+
+				SOLTEIRO(A) - quem nunca se casou ou que teve o
+				casamento anulado
+
+				CASADO(A) - quem contraiu matrimônio, independente do
+				regime de bens adotado
+
+				SEPARADO(A) judicialmente - quem não vive mais com o
+				cônjuge (vive em separação física dele), mas que ainda
+				não obteve o divórcio
+
+				DIVORCIADO(A) - após a homologação do divórcio pela
+				justiça
+
+				VIúVO(A) - pessoa cujo cônjuge faleceu
+
+				UNIãO ESTáVEL - condição de convivência considerada como
+				entidade familiar não registrada (como o casamento),
+				onde são exigidos o atendimento de quatro requisitos
+				fundamentais: que a convivência seja duradoura, seja
+				pública, seja contínua, e que a união tenha o objetivo
+				de constituir família (Lei 9.278/96).
+				
+				NãO INFORMADO - usar para os sistemas em que este atributo é obrigaório
+				e não se possue a informação.
+				
+				Exemplo de Estado Civil: SOLTEIRO
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SOLTEIRO"/>
+			<xsd:enumeration value="CASADO"/>
+			<xsd:enumeration value="SEPARADO"/>
+			<xsd:enumeration value="DIVORCIADO"/>
+			<xsd:enumeration value="VIUVO"/>
+			<xsd:enumeration value="UNIAO_ESTAVEL"/>
+			<xsd:enumeration value="NAO_INFORMADO"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+<xsd:complexType name="ConsultarDadosCadastraisClientev1_ArrayOfAssinanteType">
+		<xsd:annotation>
+			<xsd:documentation>
+			<![CDATA[
+				Representa uma lista de assinantes de serviço de
+				telefonia.
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence><xsd:element maxOccurs="unbounded" minOccurs="0" name="assinante" type="tns:ConsultarDadosCadastraisClientev1_AssinanteType">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[
+						Lista de assinantes de telefonia.
+					]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element></xsd:sequence>
+	</xsd:complexType>
+<xsd:simpleType name="ConsultarDadosCadastraisClientev1_UfType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+				Unidade da Federação (UF) - é o nome atribuído a cada um
+				dos 26 estados brasileiros e ao Distrito Federal.
+
+				AC - Acre
+
+				AL - Alagoas
+
+				AM - Amazonas
+
+				AP - Amapá
+
+				BA - Bahia
+
+				CE - Ceará
+
+				DF - Distrito Federal
+
+				ES - Espírito Santo
+
+				GO - Goiás
+
+				MA - Maranhão
+
+				MG - Minas Gerais
+
+				MS - Mato Grosso do Sul
+
+				MT - Mato Grosso
+
+				PA - Pará
+
+				PB - Paraíba
+
+				PE - Pernambuco
+
+				PI - Piauí
+
+				PR - Paraná
+
+				RJ - Rio de Janeiro
+
+				RN - Rio Grande do Norte
+
+				RO - Rondônia
+
+				RR - Roraima
+
+				RS - Rio Grande do Sul
+
+				SC - Santa Catarina
+
+				SE - Sergipe
+
+				SP - São Paulo
+
+				TO - Tocantins
+				
+				Exemplo de UF: SP 
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AC"/>
+			<xsd:enumeration value="AL"/>
+			<xsd:enumeration value="AP"/>
+			<xsd:enumeration value="AM"/>
+			<xsd:enumeration value="BA"/>
+			<xsd:enumeration value="CE"/>
+			<xsd:enumeration value="ES"/>
+			<xsd:enumeration value="GO"/>
+			<xsd:enumeration value="MA"/>
+			<xsd:enumeration value="MT"/>
+			<xsd:enumeration value="MS"/>
+			<xsd:enumeration value="MG"/>
+			<xsd:enumeration value="PA"/>
+			<xsd:enumeration value="PB"/>
+			<xsd:enumeration value="PR"/>
+			<xsd:enumeration value="PE"/>
+			<xsd:enumeration value="PI"/>
+			<xsd:enumeration value="RJ"/>
+			<xsd:enumeration value="RN"/>
+			<xsd:enumeration value="RS"/>
+			<xsd:enumeration value="RO"/>
+			<xsd:enumeration value="RR"/>
+			<xsd:enumeration value="SC"/>
+			<xsd:enumeration value="SP"/>
+			<xsd:enumeration value="SE"/>
+			<xsd:enumeration value="TO"/>
+			<xsd:enumeration value="DF"/>
+		</xsd:restriction>
+	</xsd:simpleType></xsd:schema>

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: consumption-netsms-serviceusagesbroadbands-v1-service-account
-imagePullSecrets:
-  - name: harbor #secret para conexão com o Harbor

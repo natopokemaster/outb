@@ -1,0 +1,1703 @@
+Received: from IA0PR01MB8280.prod.exchangelabs.com (2603:10b6:208:48f::21) by
+ PH7PR01MB7606.prod.exchangelabs.com with HTTPS; Mon, 6 Jan 2025 21:12:46
+ +0000
+Received: from IA0PR01MB8588.prod.exchangelabs.com (2603:10b6:208:486::13) by
+ IA0PR01MB8280.prod.exchangelabs.com (2603:10b6:208:48f::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8335.9; Mon, 6 Jan 2025 21:12:45 +0000
+Received: from IA0PR01MB8588.prod.exchangelabs.com
+ ([fe80::6c0a:b509:930f:c8d0]) by IA0PR01MB8588.prod.exchangelabs.com
+ ([fe80::6c0a:b509:930f:c8d0%3]) with mapi id 15.20.8335.010; Mon, 6 Jan 2025
+ 21:12:44 +0000
+From: "JOIOSO, GABRIEL EDUARDO" <g.eduardojoioso2@dxc.com>
+To: "RUGNO CARRARA, BEATRIZ ELIZA" <b.rugnoferreira@dxc.com>
+Subject:
+	=?Windows-1252?Q?ENC:_24-0961-_CLARO_-_Moderniza=E7=E3o_ControleFranquias?=
+ =?Windows-1252?Q?12V1?=
+Thread-Topic:
+	=?Windows-1252?Q?24-0961-_CLARO_-_Moderniza=E7=E3o_ControleFranquias12V1?=
+Thread-Index: AQHbVW0nN+18IqkpGk+IiVO8lmHFh7MKVJoA
+Date: Mon, 6 Jan 2025 21:12:44 +0000
+Message-ID:
+	<IA0PR01MB858807CCC8E5D16FCE39EF31C2102@IA0PR01MB8588.prod.exchangelabs.com>
+References:
+	<BY3PR01MB67082A0F5B9ECB89301D4832FF469@BY3PR01MB6708.prod.exchangelabs.com>
+ <BY3PR01MB6708AEF0F65D782646799FB2FF022@BY3PR01MB6708.prod.exchangelabs.com>
+ <PH7PR01MB80252C781E15BFA1484F44A787022@PH7PR01MB8025.prod.exchangelabs.com>
+ <PH7PR01MB80257B8A8129F48089C275F187022@PH7PR01MB8025.prod.exchangelabs.com>
+In-Reply-To:
+	<PH7PR01MB80257B8A8129F48089C275F187022@PH7PR01MB8025.prod.exchangelabs.com>
+Accept-Language: pt-BR, en-US
+Content-Language: pt-BR
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 04
+X-MS-Exchange-Organization-AuthSource: IA0PR01MB8588.prod.exchangelabs.com
+X-MS-Has-Attach: yes
+X-MS-Exchange-Organization-Network-Message-Id:
+	e7111861-9b81-4b2e-25be-08dd2e96dd22
+X-MS-Exchange-Organization-SCL: 1
+X-MS-TNEF-Correlator:
+X-MS-Exchange-Organization-RecordReviewCfmType: 0
+msip_labels:
+x-ms-publictraffictype: Email
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=dxc.com;
+x-forefront-antispam-report:
+	CIP:255.255.255.255;CTRY:;LANG:pt;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR01MB8588.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(8096899003)(41050700001);DIR:INT;
+x-ms-office365-filtering-correlation-id: e7111861-9b81-4b2e-25be-08dd2e96dd22
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|8096899003|41050700001;
+x-ms-traffictypediagnostic:
+	IA0PR01MB8588:EE_|IA0PR01MB8280:EE_|PH7PR01MB7606:EE_
+x-ms-exchange-crosstenant-network-message-id:
+	e7111861-9b81-4b2e-25be-08dd2e96dd22
+x-ms-exchange-crosstenant-originalarrivaltime: 06 Jan 2025 21:12:44.6112 (UTC)
+x-ms-exchange-crosstenant-fromentityheader: Hosted
+x-ms-exchange-crosstenant-id: 93f33571-550f-43cf-b09f-cd331338d086
+x-ms-exchange-crosstenant-mailboxtype: HOSTED
+x-ms-exchange-crosstenant-userprincipalname:
+	6rYwVuTqCmMhg79dZZfi1t6QNIK104LPKFkn1UpEbXkY+35jOGcs3Fo2RFvcvaLxbpTQWSoKm3kYKZzolBMiYgMNk46xqBnzgToFlQcbAQs=
+x-ms-exchange-transport-crosstenantheadersstamped: IA0PR01MB8280
+x-ms-exchange-transport-endtoendlatency: 00:00:01.9474799
+x-ms-exchange-processed-by-bccfoldering: 15.20.8335.007
+x-ms-exchange-crosstenant-authas: Internal
+x-ms-exchange-crosstenant-authsource: IA0PR01MB8588.prod.exchangelabs.com
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003)(1420198);
+X-Microsoft-Antispam-Message-Info:
+	RIp3BQxulukJYOW2jncI5vhTstsKaglWBDwkZivPXFbyG5VYj5S+8sQPrwFgYZ3fCgiGQyPP4b8tjJ0Q/HnGbe7K85fDtRAAS+JNXsI4m8Vy4HvmNQwilarEj6lU/xunewrAnUE8Iy4BddZgonOzyexgp4rTVsAdCigXT2Jqm2dEIPn+UTMkHmssePLvoaN1w28IEHrnXduh/qkMAOvBTIzUcfVVcwnDeCSpd1pmQWhbScEe+LlYuFibjH2KAeKXSYfyEgvNlL8mntBUBlDYU6PUeuv12BOUsKQmfGm8vYrusFErud6yVwn8OEmd0L1oA5NjY+434r7B80lgNLnBR+d6J9/kJWpv/OabK3hkyvhpjbnNBGEm2HArMKppBRtMu/i1uHliGBSRJInTnS8TWHfqX5wYHUIZw7M22JRb4VmfQ3pu1LDv7qGkYrMnMFZlxUor8MoRif/M0nzB3zfkpWT6QcPxDkmF3rhmAys7pHBO7OB6nc6W1L/VHmpqShnznjJL8TkV3IKr6dNTWouvI2Doon5vsOY0+hvXM+qDUaI3UqTeJ+VJIT8DR0qOIQIQ6hHOR2Ru0n5xNnr2+PsazBbzZLWCfc+9e1B9BhRAfl8AhiBDp5LYH9iGDni0rJr5CQXWsIfvkRO6JZ9F8Mn0uWZDsU1yn8HuvJ56SJ20E7dK53AuMa/D6IhEgopifJeZHJgZ/RWAD9I9N51hpslpSVTFKRBz676iBSmENh8km/J0ex3MZ7PPOoPa6YRsZkCfMBCIo3Svr+SO5O4y1P+enRp+Iz2FjZFZYSzwROoeemE0nG3qj+/0M9IWKCOsw0WC
+Content-Type: multipart/related;
+	boundary="_004_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_";
+	type="multipart/alternative"
+MIME-Version: 1.0
+
+--_004_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_
+Content-Type: multipart/alternative;
+	boundary="_000_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_"
+
+--_000_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+
+Att,
+
+
+Gabriel Joioso
+
+Analista / Desenvolvedor de Integra=E7=E3o
+OIC Certified
+
+SOA - TOA - APIs - Microsservi=E7os
+DXC Technology
+
+
+g.eduardojoioso2@dxc.com
+
+
+DXC.com<https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Fwww.dxc.com%2F&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b=
+2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C63871794766=
+7266837%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCI=
+sIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DMeYw=
+ysiX3P8KybfbxjM9FhJ1FAXbxYwiSstqwQHJDnE%3D&reserved=3D0> | Twitter<https://=
+nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Ftwitter.com%2Fd=
+xctechnology&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b2e2=
+5be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C63871794766730=
+0721%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIl=
+AiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DTFTPady=
+XEi%2BEAG5iT9NsAtmeUsIhctwbQUVR2zUk70Y%3D&reserved=3D0> | Facebook<https://=
+nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.facebook.co=
+m%2FDXCTechnology%2F&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619=
+b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C638717=
+947667315874%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMD=
+AwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=
+=3DtxPPRU8LMg2dfvcIObW7XD28Nl2N%2B2x6OngkKwg6ezM%3D&reserved=3D0> | LinkedI=
+n<https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.l=
+inkedin.com%2Fcompany%2Fdxctechnology%2F&data=3D05%7C02%7Cb.rugnoferreira%4=
+0dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d=
+086%7C0%7C0%7C638717947667329033%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOn=
+RydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%=
+7C0%7C%7C%7C&sdata=3DXNj1vsad5UM05Gf3idv9iuWPvF59HM3EuPdzHFdP6gM%3D&reserve=
+d=3D0>
+
+[cid:de91722f-e5ce-4ee6-a938-1e243d5b3081]
+________________________________
+De: Alves, Edna <edna.alves@dxc.com>
+Enviado: segunda-feira, 23 de dezembro de 2024 16:02
+Para: MESSIAS DE BARROS JUNIOR, MANOEL <manoel.barros@dxc.com>; CLAROBR-AMS=
+-DBAPERFORMANCE <clarobr-ams-dbaperformance@dxc.com>
+Cc: CLAROBR-SOA-TOA <clarobr-soa-toa@dxc.com>
+Assunto: RE: 24-0961- CLARO - Moderniza=E7=E3o ControleFranquias12V1
+
+
+Boa tarde.
+
+
+
+Parecer Analise
+
+Ticket: 24-00961
+
+Tipo de solicita=E7=E3o: Analise de Queries Pr=E9-produ=E7=E3o
+
+Abertura: 23.12.2024 16:56
+
+Atualiza=E7=E3o: 23.12.2024 17:01
+
+Status: FINALIZADO
+
+
+
+Resumo da solicita=E7=E3o:
+
+2 queries neste Parecer
+
+2 queries recebidas para analise neste Ticket
+
+
+
+2 queries APROVADAs
+
+
+
+Descricao: CLARO - Moderniza=E7=E3o ControleFranquias12V1
+
+Observa=E7=F5es: Demanda: consumption-netsms-serviceusagesbroadbands-v1_rel=
+ease-1.0.0-sit3
+
+Job: N=E3o se aplica
+
+Objetivo:   Moderniza=E7=E3o do servi=E7o ControleFranquias12V1 para o Micr=
+osservi=E7o consumption-netsms-serviceusagesbroadbands-v1 pelo projeto Mode=
+rniza=E7=E3o SOA MCE.
+
+Hor=E1rio exec:  Hor=E1rio Comercial
+
+Qntde de execs:  < 120 mil/dia
+
+Base de produ=E7=E3o: 8 bases CLARO - ATLP
+
+
+
+Query: 1.1
+Status: APROVADA
+
+SELECT CID_CONTRATO AS CITYID
+
+            FROM PROD_JD.SN_CIDADE_BASE C2
+
+            WHERE ('409' =3D C2.COD_OPERADORA)
+
+
+
+Query: 2.1
+Status: APROVADA
+
+SELECT
+
+                OPERACAO.CD_OPERACAO_NETSMS AS CID_CONTRATO,
+
+                LOCAL.CD_CONTRATO_NETSMS AS NUM_CONTRATO
+
+FROM NETHOME.ENDERECAVEL,
+
+                NETHOME.EQUIPAMENTO,
+
+                NETHOME.OPERACAO,
+
+                NETHOME.LOCAL
+
+WHERE ENDERECAVEL.ID_EQUIPAMENTO =3D EQUIPAMENTO.ID_EQUIPAMENTO
+
+  AND EQUIPAMENTO.ID_OPERACAO =3D OPERACAO.ID_OPERACAO
+
+  AND EQUIPAMENTO.ID_LOCAL =3D LOCAL.ID_LOCAL
+
+  AND ENDERECAVEL.CD_ENDERECAVEL  =3D 'C85D381C8488'
+
+
+
+
+
+Att.
+
+
+
+
+
+
+
+Edna Gobbi Alves
+Data Engineer Claro Brasil
+
+Fone:  +55 (16) 3508 5711
+
+DXC Technology
+
+
+
+From: Alves, Edna <edna.alves@dxc.com>
+Sent: Monday, December 23, 2024 15:53
+To: MESSIAS DE BARROS JUNIOR, MANOEL <manoel.barros@dxc.com>; CLAROBR-AMS-D=
+BAPERFORMANCE <clarobr-ams-dbaperformance@dxc.com>
+Cc: CLAROBR-SOA-TOA <clarobr-soa-toa@dxc.com>
+Subject: 24-0961- CLARO - Moderniza=E7=E3o ControleFranquias12V1
+
+
+
+Boa tarde.
+
+
+
+Nao damos suporte a base MEDIATION.
+
+
+
+N=E3o temos acesso.
+
+
+
+
+
+Att.
+
+
+
+Edna Gobbi Alves
+Data Engineer Claro Brasil
+
+Fone:  +55 (16) 3508 5711
+
+DXC Technology
+
+
+
+From: MESSIAS DE BARROS JUNIOR, MANOEL <manoel.barros@dxc.com<mailto:manoel=
+.barros@dxc.com>>
+Sent: Monday, December 23, 2024 15:19
+To: CLAROBR-AMS-DBAPERFORMANCE <clarobr-ams-dbaperformance@dxc.com<mailto:c=
+larobr-ams-dbaperformance@dxc.com>>
+Cc: CLAROBR-SOA-TOA <clarobr-soa-toa@dxc.com<mailto:clarobr-soa-toa@dxc.com=
+>>
+Subject: An=E1lise de Performance - Moderniza=E7=E3o ControleFranquias12V1
+
+
+
+Boa tarde,
+
+
+
+Poderiam, por gentileza, realizar a an=E1lise das 5 queries abaixo:
+
+
+
+Demanda: consumption-netsms-serviceusagesbroadbands-v1_release-1.0.0-sit3
+
+Job: N=E3o se aplica
+
+Username: PROD_JD, NETMED e NETHOME
+
+
+
+Objetivo/Funcionalidade:
+
+Moderniza=E7=E3o do servi=E7o ControleFranquias12V1 para o Microsservi=E7o =
+consumption-netsms-serviceusagesbroadbands-v1 pelo projeto Moderniza=E7=E3o=
+ SOA MCE.
+
+O Microsservi=E7o modernizado retorna os dados sobre o consumo da franquia =
+do cliente.
+
+
+
+Hor=E1rio exec:  Hor=E1rio Comercial
+
+Qntde de execs:  < 120 mil/dia
+
+Base de produ=E7=E3o: ISP, ATLAS e MEDIATION
+
+Base analise: ISP, ATLAS e MEDIATION
+
+
+
+-- QUERY 1 (executar na ISP):
+
+
+
+SELECT CID_CONTRATO AS CITYID
+
+            FROM PROD_JD.SN_CIDADE_BASE C2
+
+            WHERE ('409' =3D C2.COD_OPERADORA)
+
+
+
+
+
+-- QUERY 2 (executar na MEDIATION):
+
+
+
+SELECT MAX(t2."ID_PONTO") AS c18
+
+            FROM (
+
+              SELECT 'C85D381C8488' AS c1,
+
+                     t1."CD_ENDERECAVEL",
+
+                     t1."CID_CONTRATO",
+
+                     t1."DH_DESPENALIZACAO",
+
+                     t1."DH_PENALIZACAO",
+
+                     t1."DT_CONSUMO",
+
+                     t1."ID_PONTO",
+
+                     t1."ID_PRODUTO",
+
+                     t1."NM_ALIAS",
+
+                     t1."NUM_CONTRATO",
+
+                     t1."VL_BONUS",
+
+                     t1."VL_FRANQUIA_ACUMULADA",
+
+                     t1."VL_FRANQUIA_ADICIONAL",
+
+                     t1."VL_FRANQUIA_ADIC_ACUM_ADQ",
+
+                     t1."VL_FRANQUIA_CONSUMIDA",
+
+                     t1."VL_FRANQUIA_CONTRATO",
+
+                     t1."VL_FRANQUIA_REFERENCIA"
+
+              FROM NETMED.HISTORICO_CONSUMO t1
+
+              WHERE ('C85D381C8488' =3D t1."CD_ENDERECAVEL")
+
+                AND ('232304613' =3D t1."NUM_CONTRATO")
+
+                AND ('05409' =3D t1."CID_CONTRATO")
+
+            ) t2
+
+            GROUP BY t2.c1
+
+
+
+-- QUERY 3 (executar na MEDIATION):
+
+
+
+SELECT
+
+                TO_CHAR(t1."DT_CONSUMO", 'MM-YYYY') AS MES_ANO,
+
+                MAX(t1."DT_CONSUMO") AS DATA_MAXIMA_CONSUMO,
+
+                ROUND(MAX(t1."VL_FRANQUIA_ACUMULADA"), 2) AS CONSUMO_TOTAL,
+
+                ROUND(MAX(t1."VL_FRANQUIA_ADIC_ACUM_ADQ"), 2) AS FRANQUIA_A=
+DICIONAL_ADQUIRIDA,
+
+                ROUND(
+
+                    (MAX(t1."VL_FRANQUIA_CONTRATO") + MAX(t1."VL_FRANQUIA_A=
+DIC_ACUM_ADQ") + MAX(t1."VL_BONUS"))
+
+                    - MAX(t1."VL_FRANQUIA_ACUMULADA"), 2
+
+                    ) AS SALDO_TOTAL,
+
+                ROUND(
+
+                    (MAX(t1."VL_FRANQUIA_ACUMULADA") /
+
+                    (MAX(t1."VL_FRANQUIA_CONTRATO") + MAX(t1."VL_FRANQUIA_A=
+DIC_ACUM_ADQ") + MAX(t1."VL_BONUS")))* 100, 2
+
+                ) AS PERCENTUAL_UTILIZADO,
+
+                MAX(t1."VL_FRANQUIA_CONTRATO") AS FRANQUIA_CONTRATADA
+
+            FROM
+
+                NETMED.HISTORICO_CONSUMO t1
+
+            WHERE
+
+                ('05409' =3D t1."CID_CONTRATO")
+
+                AND ('232304613' =3D t1."NUM_CONTRATO")
+
+                AND ('7311482' =3D t1."ID_PONTO")
+
+                AND (TO_DATE('20/10/2024', 'DD/MM/YYYY') <=3D t1."DT_CONSUM=
+O")
+
+                AND (TO_DATE('20/11/2024', 'DD/MM/YYYY') >=3D t1."DT_CONSUM=
+O")
+
+            GROUP BY
+
+                TO_CHAR(t1."DT_CONSUMO", 'MM-YYYY')
+
+            ORDER BY
+
+                MES_ANO
+
+
+
+-- QUERY 4 (executar na MEDIATION):
+
+
+
+SELECT CONSUMO.CID_CONTRATO,
+
+               CONSUMO.DT_CONSUMO,
+
+               CONSUMO.ID_PONTO,
+
+               CONSUMO.NUM_CONTRATO,
+
+               CONSUMO.VL_BONUS,
+
+               CONSUMO.VL_FRANQUIA_ACUMULADA,
+
+               CONSUMO.VL_FRANQUIA_ADICIONAL,
+
+               CONSUMO.VL_FRANQUIA_ADIC_ACUM_ADQ,
+
+               CONSUMO.VL_FRANQUIA_CONSUMIDA,
+
+               CONSUMO.VL_FRANQUIA_CONTRATO,
+
+               CONSUMO.CD_ENDERECAVEL,
+
+               PENALIZACAO.FC_PENALIZA_NOTIFICA,
+
+               PENALIZACAO.PC_FAIXA_PENALIZA_NOTIFICA
+
+          FROM NETMED.HISTORICO_CONSUMO CONSUMO
+
+          LEFT OUTER JOIN (SELECT NOTIFICA_PENALIZA.CID_CONTRATO           =
+          AS CID_CONTRATO,
+
+                                  NOTIFICA_PENALIZA.DH_NOTIFICA_PENALIZA   =
+          AS DH_NOTIFICA_PENALIZA,
+
+                                  NOTIFICA_PENALIZA.FC_PENALIZA_NOTIFICA   =
+          AS FC_PENALIZA_NOTIFICA,
+
+                                  NOTIFICA_PENALIZA.ID_PONTO               =
+          AS ID_PONTO,
+
+                                  NOTIFICA_PENALIZA.NUM_CONTRATO           =
+          AS NUM_CONTRATO,
+
+                                  FAIXA_NOTIFICA_PENALIZA.PC_FAIXA_PENALIZA=
+_NOTIFICA AS PC_FAIXA_PENALIZA_NOTIFICA
+
+                             FROM NETMED.NOTIFICA_PENALIZA NOTIFICA_PENALIZ=
+A
+
+                             JOIN NETMED.FAIXA_PENALIZA_NOTIFICA FAIXA_NOTI=
+FICA_PENALIZA
+
+                               ON ((NOTIFICA_PENALIZA.ID_FAIXA_PENALIZA_NOT=
+IFICA =3D
+
+                                  FAIXA_NOTIFICA_PENALIZA.ID_FAIXA_PENALIZA=
+_NOTIFICA) AND
+
+                                  (NOTIFICA_PENALIZA.CID_CONTRATO =3D
+
+                                  FAIXA_NOTIFICA_PENALIZA.CID_CONTRATO))
+
+                            WHERE ((('05409' =3D NOTIFICA_PENALIZA.CID_CONT=
+RATO) AND
+
+                                  ('232304613' =3D NOTIFICA_PENALIZA.NUM_CO=
+NTRATO)) AND
+
+                                  ('05409' =3D FAIXA_NOTIFICA_PENALIZA.CID_=
+CONTRATO))) PENALIZACAO
+
+            ON ((CONSUMO.ID_PONTO =3D PENALIZACAO.ID_PONTO) AND
+
+               (TRUNC(CONSUMO.DT_CONSUMO) =3D
+
+               TRUNC(PENALIZACAO.DH_NOTIFICA_PENALIZA)) AND
+
+               (CONSUMO.CID_CONTRATO =3D PENALIZACAO.CID_CONTRATO) AND
+
+               (CONSUMO.NUM_CONTRATO =3D PENALIZACAO.NUM_CONTRATO))
+
+         WHERE (('232304613' =3D CONSUMO.NUM_CONTRATO) AND
+
+               ('05409' =3D CONSUMO.CID_CONTRATO) AND
+
+               (CONSUMO.DT_CONSUMO >=3D TO_DATE('20/10/2024', 'DD/MM/YYYY')=
+) AND
+
+               (CONSUMO.DT_CONSUMO <=3D TO_DATE('20/11/2024', 'DD/MM/YYYY')=
+) AND
+
+               ('7311482' =3D CONSUMO.ID_PONTO))
+
+         ORDER BY CONSUMO.NUM_CONTRATO ASC,
+
+                  CONSUMO.CID_CONTRATO ASC,
+
+                  CONSUMO.ID_PONTO     ASC,
+
+                  CONSUMO.DT_CONSUMO   ASC
+
+
+
+
+
+-- QUERY 5 (executar na ATLAS):
+
+
+
+SELECT
+
+                OPERACAO.CD_OPERACAO_NETSMS AS CID_CONTRATO,
+
+                LOCAL.CD_CONTRATO_NETSMS AS NUM_CONTRATO
+
+FROM NETHOME.ENDERECAVEL,
+
+                NETHOME.EQUIPAMENTO,
+
+                NETHOME.OPERACAO,
+
+                NETHOME.LOCAL
+
+WHERE ENDERECAVEL.ID_EQUIPAMENTO =3D EQUIPAMENTO.ID_EQUIPAMENTO
+
+  AND EQUIPAMENTO.ID_OPERACAO =3D OPERACAO.ID_OPERACAO
+
+  AND EQUIPAMENTO.ID_LOCAL =3D LOCAL.ID_LOCAL
+
+  AND 'C85D381C8488' =3D ENDERECAVEL.CD_ENDERECAVEL
+
+
+
+
+
+Atenciosamente
+
+
+
+
+
+At.te
+
+Manoel Barros
+Analista de Integra=E7=E3o
+
+SOA =96 TOA =96 APIs - Microsservi=E7os
+DXC Technology
+
+T +55 11 3181-2793
+
+manoel.barros@<mailto:shortname@dxc.com>dxc.com<mailto:manoel.barros@dxc.co=
+m>
+
+
+
+DXC.com<https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Fwww.dxc.com%2F&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b=
+2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C63871794766=
+7341705%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCI=
+sIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3D%2B2=
+Idiz%2BewwxoGRtZm39uWlluRgM1j2%2FsNZdJyzjT0jc%3D&reserved=3D0> | Twitter<ht=
+tps://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Ftwitter.c=
+om%2Fdxctechnology&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b8=
+14b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C63871794=
+7667355093%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAw=
+MCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3Du=
+H%2BpNISPxsBVJ4fwjaOo6IxjFbo8V%2F7JjQsbVIdVXR0%3D&reserved=3D0> | Facebook<=
+https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.fac=
+ebook.com%2FDXCTechnology%2F&data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce=
+71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%=
+7C638717947667367831%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOi=
+IwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C=
+&sdata=3DuvfHyUFupz3%2Ftft97qOzn0qN%2F642URwps%2Fd050L%2FDVo%3D&reserved=3D=
+0> | LinkedIn<https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3=
+A%2F%2Fwww.linkedin.com%2Fcompany%2Fdxctechnology%2F&data=3D05%7C02%7Cb.rug=
+noferreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb=
+09fcd331338d086%7C0%7C0%7C638717947667380494%7CUnknown%7CTWFpbGZsb3d8eyJFbX=
+B0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUI=
+joyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DlQt3Bg7%2BBlj5VCQ9sTRY1iaiVw4Lc8LYa6g2836Q=
+89g%3D&reserved=3D0>
+
+
+
+
+
+
+
+--_000_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof">
+<p style=3D"background-color: rgb(255, 255, 255); margin: 0cm;"><span style=
+=3D"font-family: Arial, Helvetica, sans-serif; font-size: 11pt; color: rgb(=
+0, 0, 0);">Att,</span></p>
+<p style=3D"text-align: left; background-color: rgb(255, 255, 255); margin:=
+ 0cm;"><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; f=
+ont-size: 12pt; color: rgb(0, 0, 0);"><br>
+</span></p>
+<p style=3D"text-align: left; margin: 0cm;"><span style=3D"font-family: Ari=
+al, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);"><b>Gabriel Joioso</b=
+></span></p>
+<p style=3D"text-align: left; margin: 0cm;"><span style=3D"font-family: Ari=
+al, sans-serif; font-size: 10pt; color: rgb(0, 0, 0);">Analista / Desenvolv=
+edor de Integra=E7=E3o<br>
+OIC Certified&nbsp;</span></p>
+<div><span style=3D"font-family: Arial, sans-serif; font-size: 10pt; color:=
+ rgb(0, 0, 0);">SOA - TOA - APIs - Microsservi=E7os</span><span style=3D"fo=
+nt-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helveti=
+ca, sans-serif; font-size: 10pt; color: rgb(0, 0, 0);"><br>
+</span><span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontS=
+ervice, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(95, 36,=
+ 159);">DXC Technology</span><span style=3D"font-family: Aptos, Aptos_Embed=
+dedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 10=
+pt; color: rgb(95, 36, 159);"><br>
+</span><span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontS=
+ervice, Calibri, Helvetica, sans-serif; font-size: 10pt; color: rgb(112, 48=
+, 160);"><br>
+</span></div>
+<p style=3D"text-align: left; margin: 0cm;"><span style=3D"font-family: Ari=
+al, sans-serif; font-size: 11pt; color: rgb(0, 0, 0); background-color: rgb=
+(255, 255, 255);">g.eduardojoioso2@dxc.com</span><span style=3D"font-family=
+: Arial, sans-serif; font-size: 10pt; color: rgb(0, 0, 0); background-color=
+: rgb(255, 255, 255);"><br>
+<br>
+</span></p>
+<p style=3D"text-align: left; margin: 0cm;"><span style=3D"font-family: Ari=
+al, sans-serif; font-size: 10pt; color: rgb(0, 0, 0);"><a href=3D"https://n=
+am12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.dxc.com%2F&a=
+mp;data=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b2e25be08dd2e9=
+6dd22%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C638717947667266837%7CUnk=
+nown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4z=
+MiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DMeYwysiX3P8Ky=
+bfbxjM9FhJ1FAXbxYwiSstqwQHJDnE%3D&amp;reserved=3D0" originalsrc=3D"https://=
+www.dxc.com/" shash=3D"kv3JQsCK+w2iKBEjzlPaxj2MGxlhHHpFn+D/p8LE8YSe0Ucpuaaj=
+/B/9q1EyxGxdfgZdYh8m14exTSfq1yzVkNqpsMVCrk/a4FeSwAuAwY2WT3I4I4vGFIdCq1wY42j=
+YFtBjE08znD2uAiUSYrL7BACbu6EZ4r3IqGUir9J166Y=3D" style=3D"margin: 0px;">DXC=
+.com</a>&nbsp;|
+<a href=3D"https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Ftwitter.com%2Fdxctechnology&amp;data=3D05%7C02%7Cb.rugnoferreira%40dxc.=
+com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd331338d086%7=
+C0%7C0%7C638717947667300721%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWU=
+sIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7=
+C%7C%7C&amp;sdata=3DTFTPadyXEi%2BEAG5iT9NsAtmeUsIhctwbQUVR2zUk70Y%3D&amp;re=
+served=3D0" originalsrc=3D"https://twitter.com/dxctechnology" shash=3D"gFEH=
+UOJTIJkGX4bLjnuCzCbmy5KLx9L3qVyrfcfWRBKXvcPjEKsrSOLrG4PSFdKulCxbvsYiaDyuvbj=
+YVujdpOluRTz/QfTDPNhuVkn7fnmaJ146x4j+8g+T9LRBsUJIIRI2Px3wbeY2ayiB1Y5mkA++40=
+liqsvxDMzz5IF6IuU=3D" style=3D"margin: 0px;">
+Twitter</a>&nbsp;| <a href=3D"https://nam12.safelinks.protection.outlook.co=
+m/?url=3Dhttps%3A%2F%2Fwww.facebook.com%2FDXCTechnology%2F&amp;data=3D05%7C=
+02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f3357=
+1550f43cfb09fcd331338d086%7C0%7C0%7C638717947667315874%7CUnknown%7CTWFpbGZs=
+b3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWF=
+pbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DtxPPRU8LMg2dfvcIObW7XD28Nl2N=
+%2B2x6OngkKwg6ezM%3D&amp;reserved=3D0" originalsrc=3D"https://www.facebook.=
+com/DXCTechnology/" shash=3D"mLJc7YKx0GEwIFaUJXtncPylqMlTC39iZ+bwG/Y3UfNrLQ=
+IcGB9TkMSQ70MkXqtviln2PhjIjsQpUSClMchAiSdSSD/6ye3agbDZXtg6yIdUWWBq9yzJ9v534=
+b61xgczrfmE4hsE1uPmiW2tai1ArrgiluogAfSYohCEOt0oCYY=3D" style=3D"margin: 0px=
+;">
+Facebook</a>&nbsp;| <a href=3D"https://nam12.safelinks.protection.outlook.c=
+om/?url=3Dhttps%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fdxctechnology%2F&amp;d=
+ata=3D05%7C02%7Cb.rugnoferreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd2=
+2%7C93f33571550f43cfb09fcd331338d086%7C0%7C0%7C638717947667329033%7CUnknown=
+%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIs=
+IkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DXNj1vsad5UM05Gf3i=
+dv9iuWPvF59HM3EuPdzHFdP6gM%3D&amp;reserved=3D0" originalsrc=3D"https://www.=
+linkedin.com/company/dxctechnology/" shash=3D"gQwMmL1Xc8bXRmIkwZevDwJgBsNNE=
+KxXzlqs7cnB9fjvUuUJx5sGyQ2HGBX7+mLxK9hzEgZq+MPGbuUX/yWI3Ym8/bATeR0avfl3pPBU=
+SFtUEa0zQctSdl5oMsg4i4fv3ZXH8C1kMFV2Ln80HHd3kYVbNPnPB2YPyIbYDjfK3XY=3D" sty=
+le=3D"margin: 0px;">
+LinkedIn</a></span></p>
+<div style=3D"text-align: left; margin: 0px; font-family: Calibri, Arial, H=
+elvetica, sans-serif; font-size: 10pt; color: rgb(0, 0, 0);">
+<img width=3D"90" height=3D"80" style=3D"width: 90px; height: 80px; max-wid=
+th: 800px; margin: 0px;" data-outlook-trace=3D"F:1|T:1" src=3D"cid:de91722f=
+-e5ce-4ee6-a938-1e243d5b3081"></div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>De:</b> Alves, Edna &lt;edna.al=
+ves@dxc.com&gt;<br>
+<b>Enviado:</b> segunda-feira, 23 de dezembro de 2024 16:02<br>
+<b>Para:</b> MESSIAS DE BARROS JUNIOR, MANOEL &lt;manoel.barros@dxc.com&gt;=
+; CLAROBR-AMS-DBAPERFORMANCE &lt;clarobr-ams-dbaperformance@dxc.com&gt;<br>
+<b>Cc:</b> CLAROBR-SOA-TOA &lt;clarobr-soa-toa@dxc.com&gt;<br>
+<b>Assunto:</b> RE: 24-0961- CLARO - Moderniza=E7=E3o ControleFranquias12V1=
+</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:inherit}
+@font-face
+	{font-family:"Helvetica Neue"}
+@font-face
+	{font-family:Menlo}
+@font-face
+	{font-family:ArialMT}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline}
+span.x_EmailStyle20
+	{font-family:"Calibri",sans-serif;
+	color:#385623}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
+reak-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">Bo=
+a tarde.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-right:0in; margin-bottom:7.5pt; ma=
+rgin-left:0in; background:white">
+<span lang=3D"PT-BR" style=3D"font-size:18.0pt; font-family:inherit; color:=
+#333333">Parecer Analise</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Ticket:&nbsp;</span></b><span lang=3D"PT-BR" style=3D"font-size:10.=
+5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">24-00961</span>=
+</p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Tipo de solicita=E7=E3o:&nbsp;</span></b><span lang=3D"PT-BR" style=
+=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333=
+">Analise
+ de Queries Pr=E9-produ=E7=E3o</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Abertura:&nbsp;</span></b><span lang=3D"PT-BR" style=3D"font-size:1=
+0.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">23.12.2024
+ 16:56</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Atualiza=E7=E3o:&nbsp;</span></b><span lang=3D"PT-BR" style=3D"font=
+-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">23.12.=
+2024
+ 17:01</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Status:&nbsp;</span></b><span lang=3D"PT-BR" style=3D"font-size:10.=
+5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">FINALIZADO</spa=
+n></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">Resumo da solicita=E7=E3o:</span></b><span lang=3D"PT-BR" style=3D"=
+font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333"></=
+span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">2 queries neste Parecer</span></b><span lang=3D"PT-BR" style=3D"fon=
+t-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333"></spa=
+n></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#=
+333333">2 queries recebidas para analise neste Ticket</span></b><span lang=
+=3D"PT-BR" style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot=
+;; color:#333333"></span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:10.5pt; fo=
+nt-family:&quot;Helvetica Neue&quot;; color:#333333"><br>
+<br>
+</span><span lang=3D"PT-BR"></span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span lang=3D"PT-BR"=
+ style=3D"font-size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:l=
+imegreen">2 queries APROVADAs</span></b><span lang=3D"PT-BR" style=3D"font-=
+size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333"></span>=
+</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<div style=3D"border:solid #CCCCCC 1.0pt; padding:7.0pt 7.0pt 7.0pt 7.0pt; =
+background:whitesmoke">
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<b><span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color=
+:#333333">Descricao:
+</span></b><span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menl=
+o; color:#333333">CLARO - Moderniza=E7=E3o ControleFranquias12V1</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<b><span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color=
+:#333333">Observa=E7=F5es:
+</span></b><span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menl=
+o; color:#333333">Demanda: consumption-netsms-serviceusagesbroadbands-v1_re=
+lease-1.0.0-sit3
+</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">Job: N=E3o se aplica</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">Objetivo:&nbsp;&nbsp; Moderniza=E7=E3o do servi=E7o ControleFranquia=
+s12V1 para o Microsservi=E7o consumption-netsms-serviceusagesbroadbands-v1 =
+pelo projeto Moderniza=E7=E3o SOA MCE.
+</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">Hor=E1rio exec:&nbsp; Hor=E1rio Comercial</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">Qntde de execs:&nbsp; &lt; 120 mil/dia</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">Base de produ=E7=E3o: 8 bases CLARO - ATLP</span></p>
+</div>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:10.5pt; fo=
+nt-family:&quot;Helvetica Neue&quot;; color:#333333"><br>
+<br>
+</span></p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span style=3D"font-=
+size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">Query:&=
+nbsp;</span></b><span style=3D"font-size:10.5pt; font-family:&quot;Helvetic=
+a Neue&quot;; color:#333333">1.1<br>
+<b>Status:&nbsp;</b></span><span style=3D"font-size:10.5pt; font-family:&qu=
+ot;Helvetica Neue&quot;; color:green">APROVADA</span><span style=3D"font-si=
+ze:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333"></span></=
+p>
+<div style=3D"border:solid #CCCCCC 1.0pt; padding:7.0pt 7.0pt 7.0pt 7.0pt; =
+background:whitesmoke">
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">SELECT C=
+ID_CONTRATO AS CITYID</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM PROD_JD.SN_=
+CIDADE_BASE C2</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE ('409' =3D=
+ C2.COD_OPERADORA)</span></p>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"background:white"><b><span style=3D"font-=
+size:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333">Query:&=
+nbsp;</span></b><span style=3D"font-size:10.5pt; font-family:&quot;Helvetic=
+a Neue&quot;; color:#333333">2.1<br>
+<b>Status:&nbsp;</b></span><span style=3D"font-size:10.5pt; font-family:&qu=
+ot;Helvetica Neue&quot;; color:green">APROVADA</span><span style=3D"font-si=
+ze:10.5pt; font-family:&quot;Helvetica Neue&quot;; color:#333333"></span></=
+p>
+<div style=3D"border:solid #CCCCCC 1.0pt; padding:7.0pt 7.0pt 7.0pt 7.0pt; =
+background:whitesmoke">
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">SELECT</=
+span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; OPERACAO.CD_OPERACAO_NETSMS AS CID_CONTRATO,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; </span>
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">LOCAL.CD_CONTRATO_NETSMS AS NUM_CONTRATO</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">FROM NETHOME.ENDERECAVEL,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; NETHOME.EQUIPAMENTO,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; NETHOME.OPERACAO,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; NETHOME.LOCAL</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">WHERE ENDERECAVEL.ID_EQUIPAMENTO =3D EQUIPAMENTO.ID_EQUIPAMENTO</spa=
+n></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">&nbsp; AND EQUIPAMENTO.ID_OPERACAO =3D OPERACAO.ID_OPERACAO</span></=
+p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span lang=3D"PT-BR" style=3D"font-size:10.0pt; font-family:Menlo; color:#3=
+33333">&nbsp; </span>
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">AND EQUI=
+PAMENTO.ID_LOCAL =3D LOCAL.ID_LOCAL</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:7.5pt; background:whitesmok=
+e; word-break:break-all; border:none; padding:0in">
+<span style=3D"font-size:10.0pt; font-family:Menlo; color:#333333">&nbsp; A=
+ND ENDERECAVEL.CD_ENDERECAVEL&nbsp; =3D 'C85D381C8488'</span></p>
+</div>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">At=
+t.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<div>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR" style=3D"font-family:&quot=
+;Arial&quot;,sans-serif; color:black">Edna Gobbi Alves</span></b><span lang=
+=3D"PT-BR" style=3D"font-family:&quot;Arial&quot;,sans-serif; color:black">=
+<br>
+Data Engineer Claro Brasil</span><span lang=3D"PT-BR" style=3D"color:#1F4E7=
+9"> </span>
+<span lang=3D"PT-BR" style=3D"color:#385623"></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot=
+;Arial&quot;,sans-serif; color:black">Fone:&nbsp; +55 (16) 3508 5711</span>=
+<span style=3D"color:#385623"></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-family:&quot;Arial&quot;,sans-=
+serif; color:#7030A0">DXC Technology</span><span style=3D"color:#385623"></=
+span></p>
+</div>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Alves, Edna &lt;edna.alves@dxc.com&gt=
+; <br>
+<b>Sent:</b> Monday, December 23, 2024 15:53<br>
+<b>To:</b> MESSIAS DE BARROS JUNIOR, MANOEL &lt;manoel.barros@dxc.com&gt;; =
+CLAROBR-AMS-DBAPERFORMANCE &lt;clarobr-ams-dbaperformance@dxc.com&gt;<br>
+<b>Cc:</b> CLAROBR-SOA-TOA &lt;clarobr-soa-toa@dxc.com&gt;<br>
+<b>Subject:</b> 24-0961- CLARO - Moderniza=E7=E3o ControleFranquias12V1</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">Bo=
+a tarde.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">Nao damos suporte a base MEDIATION.</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">N=E3o temos acesso.</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">Att.</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-size:12.0pt; co=
+lor:#385623">&nbsp;</span></p>
+<div>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR" style=3D"font-family:&quot=
+;Arial&quot;,sans-serif; color:black">Edna Gobbi Alves</span></b><span lang=
+=3D"PT-BR" style=3D"font-family:&quot;Arial&quot;,sans-serif; color:black">=
+<br>
+Data Engineer Claro Brasil</span><span lang=3D"PT-BR" style=3D"color:#1F4E7=
+9"> </span>
+<span lang=3D"PT-BR" style=3D"color:#385623"></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot=
+;Arial&quot;,sans-serif; color:black">Fone:&nbsp; +55 (16) 3508 5711</span>=
+<span style=3D"color:#385623"></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-family:&quot;Arial&quot;,sans-=
+serif; color:#7030A0">DXC Technology</span><span style=3D"color:#385623"></=
+span></p>
+</div>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:#385623">&n=
+bsp;</span></p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> MESSIAS DE BARROS JUNIOR, MANOEL &lt;=
+<a href=3D"mailto:manoel.barros@dxc.com">manoel.barros@dxc.com</a>&gt;
+<br>
+<b>Sent:</b> Monday, December 23, 2024 15:19<br>
+<b>To:</b> CLAROBR-AMS-DBAPERFORMANCE &lt;<a href=3D"mailto:clarobr-ams-dba=
+performance@dxc.com">clarobr-ams-dbaperformance@dxc.com</a>&gt;<br>
+<b>Cc:</b> CLAROBR-SOA-TOA &lt;<a href=3D"mailto:clarobr-soa-toa@dxc.com">c=
+larobr-soa-toa@dxc.com</a>&gt;<br>
+<b>Subject:</b> An=E1lise de Performance - Moderniza=E7=E3o ControleFranqui=
+as12V1</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">Boa tarde,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">Poderiam, por gentileza, real=
+izar a an=E1lise das 5 queries abaixo:</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Demanda: </span></b><span =
+lang=3D"PT-BR">consumption-netsms-serviceusagesbroadbands-v1_release-1.0.0-=
+sit3<b>
+</b></span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Job: </span></b><span lang=
+=3D"PT-BR">N=E3o se aplica</span></p>
+<p class=3D"x_MsoNormal"><b>Username: </b>PROD_JD, NETMED e NETHOME</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Objetivo/Funcionalidade: <=
+/span></b></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">Moderniza=E7=E3o do servi=E7o=
+ ControleFranquias12V1 para o Microsservi=E7o consumption-netsms-serviceusa=
+gesbroadbands-v1 pelo projeto Moderniza=E7=E3o SOA MCE.
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">O Microsservi=E7o modernizado=
+ retorna os dados sobre o consumo da franquia do cliente.</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Hor=E1rio exec:&nbsp; </sp=
+an></b><span lang=3D"PT-BR">Hor=E1rio Comercial</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Qntde de execs:&nbsp; </sp=
+an></b><span lang=3D"PT-BR">&lt; 120 mil/dia</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Base de produ=E7=E3o: </sp=
+an></b><span lang=3D"PT-BR">ISP, ATLAS e MEDIATION</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR">Base analise: </span></b><=
+span lang=3D"PT-BR">ISP, ATLAS e MEDIATION</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">-- QUERY 1 (executar na ISP):=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">SELECT CID_CONTRATO AS CITYID=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM PROD_JD.SN_CIDADE_BASE C2</span>=
+</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE ('409' =3D C2.COD_OPERADORA)</s=
+pan></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">-- QUERY 2 (executar na MEDIA=
+TION):</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; </span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">SELECT MAX(t2.&quot;ID_PONTO&=
+quot;) AS c18</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>FROM (</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; SELECT 'C85D381C8488' AS c1,</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <spa=
+n lang=3D"PT-BR">t1.&quot;CD_ENDERECAVEL&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;CID_CONTRATO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;DH_DESPENALIZACAO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;DH_PENALIZACAO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;DT_CONSUMO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;ID_PONTO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;ID_PRODUTO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;NM_ALIAS&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;NUM_CONTRATO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_BONUS&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_ACUMULADA&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_ADICIONAL&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_ADIC_ACUM_ADQ&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_CONSUMIDA&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_CONTRATO&quot;,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; t1.&quot;VL_FRANQUIA_REFERENCIA&quot;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM NETMED.HISTORICO_CON=
+SUMO t1</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>WHERE ('C85D381C84=
+88' =3D t1.&quot;CD_ENDERECAVEL&quot;)</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ('232304613' =3D t1.&quot;NUM_=
+CONTRATO&quot;)</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ('05409' =3D t1.&quot;CID_CONT=
+RATO&quot;)</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; ) t2</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; GROUP BY t2.c1</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; </p>
+<p class=3D"x_MsoNormal">-- QUERY 3 (executar na MEDIATION):</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">SELECT</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TO_CHAR(t1.&q=
+uot;DT_CONSUMO&quot;, 'MM-YYYY') AS MES_ANO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAX(t1.&quot;=
+DT_CONSUMO&quot;) AS DATA_MAXIMA_CONSUMO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ROUND(MAX(t1.=
+&quot;VL_FRANQUIA_ACUMULADA&quot;), 2) AS CONSUMO_TOTAL,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ROUND(MAX(t1.=
+&quot;VL_FRANQUIA_ADIC_ACUM_ADQ&quot;), 2) AS FRANQUIA_ADICIONAL_ADQUIRIDA,=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ROUND(</span>=
+</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (MAX(t1.&quot;VL_FRANQUIA_CONTRATO&quot;) + MAX(t1.&quot;VL_FRAN=
+QUIA_ADIC_ACUM_ADQ&quot;) + MAX(t1.&quot;VL_BONUS&quot;))</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; - MAX(t1.&quot;VL_FRANQUIA_ACUMULADA&quot;), 2</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ) AS SALDO_TOTAL,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ROUND(</span>=
+</p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (MAX(t1.&quot;VL_FRANQUIA_ACUMULADA&quot;) /</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (MAX(t1.&quot;VL_FRANQUIA_CONTRATO&quot;) + MAX(t1.&quot;VL_FRAN=
+QUIA_ADIC_ACUM_ADQ&quot;) + MAX(t1.&quot;VL_BONUS&quot;)))* 100, 2</span></=
+p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) AS PERCENTU=
+AL_UTILIZADO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAX(t1.&quot;=
+VL_FRANQUIA_CONTRATO&quot;) AS FRANQUIA_CONTRATADA</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NETMED.HISTOR=
+ICO_CONSUMO t1</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ('05409' =3D =
+t1.&quot;CID_CONTRATO&quot;)</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ('2323046=
+13' =3D t1.&quot;NUM_CONTRATO&quot;)</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND ('7311482=
+' =3D t1.&quot;ID_PONTO&quot;)</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>AND (T=
+O_DATE('20/10/2024', 'DD/MM/YYYY') &lt;=3D t1.&quot;DT_CONSUMO&quot;)</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND (TO_DATE('20/11/2024', 'DD/MM/=
+YYYY') &gt;=3D t1.&quot;DT_CONSUMO&quot;)</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; GROUP BY</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TO_CHAR(t1.&quot;DT_CONSUMO&quot;,=
+ 'MM-YYYY')</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; <span lang=3D"PT-BR">ORDER BY</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MES_ANO</span=
+></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">-- QUERY 4 (executar na MEDIA=
+TION):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">SELECT CONSUMO.CID_CONTRATO,<=
+/span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.DT_CONSUMO,=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.ID_PONTO,</=
+span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.NUM_CONTRAT=
+O,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_BONUS,</=
+span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_FRANQUIA=
+_ACUMULADA,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_FRANQUIA=
+_ADICIONAL,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_FRANQUIA=
+_ADIC_ACUM_ADQ,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_FRANQUIA=
+_CONSUMIDA,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.VL_FRANQUIA=
+_CONTRATO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CONSUMO.CD_ENDERECA=
+VEL,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PENALIZACAO.FC_PENA=
+LIZA_NOTIFICA,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PENALIZACAO.PC_FAIX=
+A_PENALIZA_NOTIFICA</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; FROM NETMED.HISTORICO_CONSUMO CONSUMO</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; </span>LEFT OUTER JOIN (SELECT NOTIFICA_PENALIZA.=
+CID_CONTRATO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AS CID_CONTRATO,<=
+/p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <=
+span lang=3D"PT-BR">NOTIFICA_PENALIZA.DH_NOTIFICA_PENALIZA&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AS DH_NOTIFICA_PENA=
+LIZA,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; NOTIFICA_PENALIZA.FC_PENALIZA_NOTIFICA&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AS FC_PENALIZA_NOTI=
+FICA,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; NOTIFICA_PENALIZA.ID_PONTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AS ID_PONTO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; NOTIFICA_PENALIZA.NUM_CONTRATO&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; AS NUM_CONTRATO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; FAIXA_NOTIFICA_PENALIZA.PC_FAIXA_PENALIZA_NOTIFICA AS P=
+C_FAIXA_PENALIZA_NOTIFICA</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM NETME=
+D.NOTIFICA_PENALIZA NOTIFICA_PENALIZA</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JOIN NETME=
+D.FAIXA_PENALIZA_NOTIFICA FAIXA_NOTIFICA_PENALIZA</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; ON ((NOTIFICA_PENALIZA.ID_FAIXA_PENALIZA_NOTIFICA =3D</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; FAIXA_NOTIFICA_PENALIZA.ID_FAIXA_PENALIZA_NOTIFICA) AND=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; (NOTIFICA_PENALIZA.CID_CONTRATO =3D</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; FAIXA_NOTIFICA_PENALIZA.CID_CONTRATO))</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE ((('05409'=
+ =3D NOTIFICA_PENALIZA.CID_CONTRATO) AND</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ('232304613' =3D NOTIFICA_PENALIZA.NUM_CONTRATO)) AND</=
+span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ('05409' =3D FAIXA_NOTIFICA_PENALIZA.CID_CONTRATO))) PE=
+NALIZACAO</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ON ((CONSUMO.ID_PONTO =3D PENALIZACAO=
+.ID_PONTO) AND</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (TRUNC(CONSUMO.DT_C=
+ONSUMO) =3D</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUNC(PENALIZACAO.D=
+H_NOTIFICA_PENALIZA)) AND</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (CONSUMO.CID_CONTRA=
+TO =3D PENALIZACAO.CID_CONTRATO) AND</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (CONSUMO.NUM_CONTRA=
+TO =3D PENALIZACAO.NUM_CONTRATO))</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; </span>WHERE (('232304613' =3D CONSUMO.NUM_CONTRATO) AN=
+D</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ('05409' =3D CONSUMO.CID_CONTRATO) AND</=
+p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (CONSUMO.DT_CONSUMO &gt;=3D TO_DATE('20/=
+10/2024', 'DD/MM/YYYY')) AND</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (CONSUMO.DT_CONSUMO &lt;=3D TO_DATE('20/=
+11/2024', 'DD/MM/YYYY')) AND</p>
+<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang=3D"PT-BR">('7311482' =3D CONS=
+UMO.ID_PONTO))</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ORDER BY CONSUMO.NUM_CONTRATO ASC,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C=
+ONSUMO.CID_CONTRATO ASC,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C=
+ONSUMO.ID_PONTO&nbsp;&nbsp;&nbsp;&nbsp; ASC,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C=
+ONSUMO.DT_CONSUMO&nbsp;&nbsp; ASC</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">-- QUERY 5 (executar na ATLAS=
+):</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">SELECT</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPERACAO.CD_O=
+PERACAO_NETSMS AS CID_CONTRATO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOCAL.CD_CONT=
+RATO_NETSMS AS NUM_CONTRATO</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">FROM NETHOME.ENDERECAVEL,</sp=
+an></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NETHOME.EQUIP=
+AMENTO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NETHOME.OPERA=
+CAO,</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NETHOME.LOCAL=
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">WHERE ENDERECAVEL.ID_EQUIPAME=
+NTO =3D EQUIPAMENTO.ID_EQUIPAMENTO</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp; AND EQUIPAMENTO.ID_OPE=
+RACAO =3D OPERACAO.ID_OPERACAO</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp; </span>AND EQUIPAMENTO=
+.ID_LOCAL =3D LOCAL.ID_LOCAL</p>
+<p class=3D"x_MsoNormal">&nbsp; <span lang=3D"PT-BR">AND 'C85D381C8488' =3D=
+ ENDERECAVEL.CD_ENDERECAVEL</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">Atenciosamente</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<div>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"PT-BR=
+" style=3D"">At.te</span></p>
+<p class=3D"x_MsoNormal"><b><span lang=3D"PT-BR" style=3D"font-family:&quot=
+;Arial&quot;,sans-serif; color:black">Manoel Barros</span></b><span lang=3D=
+"PT-BR" style=3D"font-family:&quot;Arial&quot;,sans-serif"><br>
+Analista de Integra=E7=E3o</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR" style=3D"font-family:&quot;Ar=
+ial&quot;,sans-serif">SOA =96 TOA =96 APIs - Microsservi=E7os<br>
+<span style=3D"color:#5F249F">DXC Technology</span><span style=3D"color:#70=
+30A0"></span></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-family:ArialMT; color:black">T=
+ +55 11 3181-2793</span></p>
+<p class=3D"x_MsoNormal"><u><span style=3D"font-family:&quot;Arial&quot;,sa=
+ns-serif; color:black">manoel.barros<a href=3D"mailto:shortname@dxc.com"><s=
+pan style=3D"color:black">@</span></a><a href=3D"mailto:manoel.barros@dxc.c=
+om"><span style=3D"color:black">dxc.com</span></a></span></u></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><u><span style=3D"font-family:&quot;Arial&quot;,sa=
+ns-serif; color:black"><a href=3D"https://nam12.safelinks.protection.outloo=
+k.com/?url=3Dhttps%3A%2F%2Fwww.dxc.com%2F&amp;data=3D05%7C02%7Cb.rugnoferre=
+ira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fcd33=
+1338d086%7C0%7C0%7C638717947667341705%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hc=
+GkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3=
+D%3D%7C0%7C%7C%7C&amp;sdata=3D%2B2Idiz%2BewwxoGRtZm39uWlluRgM1j2%2FsNZdJyzj=
+T0jc%3D&amp;reserved=3D0" originalsrc=3D"https://www.dxc.com/" shash=3D"ouO=
+wgMzomlQBoiyoztt/XX1ynOTtvT8ud0TQr/Fk5s7Vm0Olw19r79n3Q1NITKUm149uiZijEbECO5=
+c33c078RK7ZRzWVF9vEdBmUEmmR3/OsMNwAeWpGCfpj2f21OtnUeCzOr2ya4Ahps8/WGQTpgLAu=
+JPXKlghJvwESMUmpbg=3D" originalsrc=3D"https://www.dxc.com/" shash=3D"KuQWlS=
+Znz/aS3haeZapUsJRq5psWZSrVfwaT1wE6tdKW6Tf2QJODh+fyFPUTZtRrMjQClO6Xso5/K3gqB=
+g+Fy48nQ2101iHdbvRSIS+t1XbCeqHeuIXl6ZImk9ZGcbxEASA+0IL7t5/Yi+6jCstDmkxHAcc4=
+QRSj7I4elpgl2Fw=3D"><span style=3D"color:black">DXC.com</span></a></span></=
+u><span style=3D"font-family:&quot;Arial&quot;,sans-serif; color:black">&nb=
+sp;|&nbsp;<u><a href=3D"https://nam12.safelinks.protection.outlook.com/?url=
+=3Dhttps%3A%2F%2Ftwitter.com%2Fdxctechnology&amp;data=3D05%7C02%7Cb.rugnofe=
+rreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09fc=
+d331338d086%7C0%7C0%7C638717947667355093%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU=
+1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyf=
+Q%3D%3D%7C0%7C%7C%7C&amp;sdata=3DuH%2BpNISPxsBVJ4fwjaOo6IxjFbo8V%2F7JjQsbVI=
+dVXR0%3D&amp;reserved=3D0" originalsrc=3D"https://twitter.com/dxctechnology=
+" shash=3D"hOIaNLiK5UDVrg25FHB7GFC6GF8PuuPaXiD8OWkchKKe4MiKagWw+uKqsmc0rLmQ=
+QnIJBH4nG4jQKQ+J/k9wCSGwdgiofghTgfNCcmfLFWuROnNTIVSNsqgrfPo5klTVLFkfXrsvKim=
+E6YXJTjHtSeO7x9QOHTyARG+5KvdbkuE=3D" originalsrc=3D"https://twitter.com/dxc=
+technology" shash=3D"BQZ7fO0yEHzAtpfupAuiQ4WpTkILKz+EVktXNxDUuoaKKjRPkg5oW6=
+whUM+nTAJePL9Hw5Dp3s4mnMAKzcW1mMYac82JWuavB2s7oIRGifFd+FkLOG6oS5Mo5gfvAP6/Y=
+LnOb+xJjCnm8k+fu11E+c15P2EPoKe8HbQlEsUlzVo=3D"><span style=3D"color:black">=
+Twitter</span></a></u>
+ | <u><a href=3D"https://nam12.safelinks.protection.outlook.com/?url=3Dhttp=
+s%3A%2F%2Fwww.facebook.com%2FDXCTechnology%2F&amp;data=3D05%7C02%7Cb.rugnof=
+erreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f43cfb09f=
+cd331338d086%7C0%7C0%7C638717947667367831%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0e=
+U1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoy=
+fQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DuvfHyUFupz3%2Ftft97qOzn0qN%2F642URwps%2Fd=
+050L%2FDVo%3D&amp;reserved=3D0" originalsrc=3D"https://www.facebook.com/DXC=
+Technology/" shash=3D"xFklLiolz1luhfm0CodiyM0cbg2WvXRdCI8oTSVRnGydkjLwW94Fj=
+gr7gXKYCemBlHwHZMFRuH/6VJNC5ol3FTJ/OkiJdzGN5irurRYGMHMhwC471uPeMhhT+gyL0ivK=
+j2ErzV65rIu9HcrYfKDd/hDEeHGyOgB4B5EXHXfv1nY=3D" originalsrc=3D"https://www.=
+facebook.com/DXCTechnology/" shash=3D"u4tklmAWMjUPKhJizBpbsFiNqsKKgjVJOH+6C=
+JD3tGsBNndanl3omqqDT+CniQ4PwRIUgNfM/r1P3qIwczP5nMZHEmh+m9Qui1ReeDkLbn0Nf3Y6=
+ubHr77E9GuJHikmeiv1a80xIhIVuzBKplOhOPmtl7iVcdpxI/P3KWmAtgvU=3D"><span style=
+=3D"color:black">Facebook</span></a></u>&nbsp;|
+<u><a href=3D"https://nam12.safelinks.protection.outlook.com/?url=3Dhttps%3=
+A%2F%2Fwww.linkedin.com%2Fcompany%2Fdxctechnology%2F&amp;data=3D05%7C02%7Cb=
+.rugnoferreira%40dxc.com%7Ce71118619b814b2e25be08dd2e96dd22%7C93f33571550f4=
+3cfb09fcd331338d086%7C0%7C0%7C638717947667380494%7CUnknown%7CTWFpbGZsb3d8ey=
+JFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsI=
+ldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DlQt3Bg7%2BBlj5VCQ9sTRY1iaiVw4Lc8LY=
+a6g2836Q89g%3D&amp;reserved=3D0" originalsrc=3D"https://www.linkedin.com/co=
+mpany/dxctechnology/" shash=3D"Z+PQg21lF0siR8Q7vfP9AdJXk7gXsK0iUQvyewrLLWE1=
+rtUep1bM9Dy6eycASovzTjZEHERAH8m43R0NyN+7NFUOlDTAurR5KBVaEqf09xmGbQkTVkESN6J=
+rhXBK1Ydp6pLmwy/DXOFYXToNyuv8y7x+1vjVU0NTa1M0cgyt01U=3D" originalsrc=3D"htt=
+ps://www.linkedin.com/company/dxctechnology/" shash=3D"setHalzZ636ysgAGsJvX=
+LGniBy92TkWH7pO+ylCZZY3lr2C7m26epabeVmA01awVoZmD9/IHoCRapWhfB2t3vEg2E17ipLf=
+eBOBK0jOWRpYpUN+cDQtiaqWluWbqwLb3PffPUQuxxWYpOnnf9b9AiApDOYgoegFz1S41TmnmTS=
+c=3D"><span style=3D"color:black">LinkedIn</span></a></u></span><span style=
+=3D""></span></p>
+</div>
+<p class=3D"x_MsoNormal"><span lang=3D"PT-BR">&nbsp;</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<br>
+</div>
+<br>
+</body>
+</html>
+
+--_000_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_--
+
+--_004_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_
+Content-Type: image/png; name="Outlook-j0rq5pt2.png"
+Content-Description: Outlook-j0rq5pt2.png
+Content-Disposition: inline; filename="Outlook-j0rq5pt2.png"; size=5151;
+	creation-date="Mon, 06 Jan 2025 21:12:44 GMT";
+	modification-date="Mon, 06 Jan 2025 21:12:46 GMT"
+Content-ID: <de91722f-e5ce-4ee6-a938-1e243d5b3081>
+Content-Transfer-Encoding: base64
+
+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
+/gAAAABJRU5ErkJggg==
+
+--_004_IA0PR01MB858807CCC8E5D16FCE39EF31C2102IA0PR01MB8588prod_--

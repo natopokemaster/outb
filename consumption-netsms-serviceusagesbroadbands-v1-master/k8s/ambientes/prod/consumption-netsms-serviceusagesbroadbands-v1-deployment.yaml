@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumption-netsms-serviceusagesbroadbands-v1-deployment
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: consumption-netsms-serviceusagesbroadbands-v1-container
+          resources: # QoS Guaranteed limit e request iguais
+            limits:
+              cpu: 200m       # Limite de CPU (vCPU)
+              memory: 200Mi   # Limite de memória
+            requests:
+              cpu: 200m       # Solicitação de CPU
+              memory: 200Mi   # Solicitação de memória
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            successThreshold: 1
+            failureThreshold: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            successThreshold: 1
+            failureThreshold: 7
+            periodSeconds: 10
+            timeoutSeconds: 10

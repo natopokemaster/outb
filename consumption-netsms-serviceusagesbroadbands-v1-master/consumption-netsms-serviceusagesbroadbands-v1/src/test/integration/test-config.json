@@ -1,0 +1,6 @@
+{
+    "parameters": {
+        "domain": "consumption-netsms-serviceusagebroadbands.dev.lpa.k8s.corp.clarobr",
+        "protocol": "http"
+    }
+}

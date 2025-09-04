@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: consumption-netsms-serviceusagesbroadbands-v1-service-monitor
+  labels:
+    prometheus: consumption-netsms-serviceusagesbroadbands-v1-cluster-ip
+    # release deve ter o mesmo nome utilizado na instalação do prometheus através do helm.
+    release: monitoring # Ambiente Claro #Ambiente AWS = claro-prometheus
+spec:
+  selector:
+    matchLabels:
+      prometheus: consumption-netsms-serviceusagesbroadbands-v1-cluster-ip
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 10s

@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: consumption-netsms-serviceusagesbroadbands-v1
+  env: lpa-hom01
+  owner: consumption-netsms-serviceusagesbroadbands-v1
+commonAnnotations:
+  author: "Z294026"
+  email: "filipe.lima.terceiros2@claro.com.br"
+  company: "Claro BR"
+  revision: "f00b3217"
+  version: ""
+images:
+  - name: harbor.prod.lpa.k8s.corp.clarobr/modernizacao-soa/consumption-netsms-serviceusagesbroadbands-v1-img
+    newName: ""
+    newTag: "f00b3217"
+bases:
+  - ../../base
+resources:
+  #substituir o nome dos arquivos abaixo pelo nome dos arquivos na pasta
+  - consumption-netsms-serviceusagesbroadbands-v1-config-map.yaml
+  - consumption-netsms-serviceusagesbroadbands-v1-secret.yaml
+  - consumption-netsms-serviceusagesbroadbands-v1-ingress.yaml
+  - consumption-netsms-serviceusagesbroadbands-v1-hpa.yaml
+patchesStrategicMerge:
+  - consumption-netsms-serviceusagesbroadbands-v1-deployment.yaml

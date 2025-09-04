@@ -1,0 +1,44 @@
+variables:
+  PROJECT_NAME: "consumption-netsms-serviceusagesbroadbands-v1" #Nome do microserviço
+  SIDECAR: "false"           #Caso não utilize sidecar setar para false
+  #SIDECAR_PROJECT: #Nome do Sidecar (caso não use essa varável é ignorada)
+  
+  #VARIÁVEIS DE GMUD
+  CRITICIDADE: "ALTA" #BAIXA  / MEDIA  / ALTA
+  NOVA_CORRETIVA: "NOVA" #NOVA / CORRETIVA
+  INDISPONIBILIDADE: "NAO" #SIM / NAO
+  DEPENDENCIAS: "NAO" #SIM / NAO
+  CAPACITY: "SIM"            #SIM / NAO
+  
+  #VARIÁVEIS DE DEPLOY
+  NEXUS_REPO: "ClaroBrasil" #REPOSITÓRIO DO NEXUS QUE ARMAZENARÁ O ARTEFATO (DEFAULT: CLARO BRASIL)
+  HARBOR_REPO: "modernizacao-soa" #REPOSITÓRIO DO HARBOR QUE ARMAZENARÁ A IMGAEM DOCKER (ESPECIFÍCO DE CADA PROJETO)
+  RANCHER_NAMESPACE: "customer" #NAMESPACE ONDE SERÁ REALIZADO O DEPLOY (ESPECIFÍCO DE CADA PROJETO)
+  AMBIENTE: "LAPA" #CAMPINAS / LAPA
+  
+  #URL PARA O SCAN DO DAST
+  DAST_URL_DEV: "http://consumption-netsms-serviceusagesbroadbands-v1.dev.lpa.k8s.corp.clarobr"     #URL DE AMBIENTE DEV
+  DAST_URL_QA: "http://consumption-netsms-serviceusagesbroadbands-v1-sit3.hom.lpa.k8s.corp.clarobr" #URL DE AMBIENTE HOM
+  DAST_URL_PROD: "http://consumption-netsms-serviceusagesbroadbands-v1.prod.lpa.k8s.corp.clarobr"   #URL DE AMBIENTE PROD
+  
+  #APROVADORES (ESPECIFICOS POR PROJETO)
+  APPROV_TEST: "Z253092,Z194397,Z253093"
+  EMAIL_TEST: "g.eduardojoioso2@dxc.com,manoel.barros@dxc.com,v.magalhaessiqueira2@dxc.com"
+
+  APPROV_PO: "F162496"
+  EMAIL_PO: "brunno.davi@claro.com.br"
+
+  JDK_VERSION: "21"
+  DB_PERFORMANCE: "true"
+  DEPLOY_WITH_ARGOCD: "true"
+  
+
+default:
+  tags:
+    - lapa
+
+  #REALIZA A IMPORTAÇÃO DO YML DO GRAALVM PARA PROSSEGUIR COM A PIPELINE
+include:
+  - project: 'Gestao_Fontes/pipelinegitrunner'
+    ref: 'master'
+    file: 'graalvm.yml'

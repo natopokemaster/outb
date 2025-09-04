@@ -1,0 +1,611 @@
+{
+	"info": {
+		"_postman_id": "b395ee3c-24ba-4883-85c5-94364f7028ef",
+		"name": "Modernizacao - ControleFranquias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25169892"
+	},
+	"item": [
+		{
+			"name": "consumption-netsms-serviceusagesbroadbands-v1",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-QueryString",
+						"value": "customerContractId=48757573&operatorCode=013&addressableCode=000E5CDDDE92&startDate=2012-02-16",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/consumption/v1/netsms/serviceusages/broadbands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consumption",
+						"v1",
+						"netsms",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEVELOP - consumption-netsms-serviceusagesbroadbands-v1.dev.lpa.k8s.corp.clarobr",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "MS_CONSERUSABR",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "APP_MS_CONSERUSABR",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-QueryString",
+						"value": "customerContractId&operatorCode=013&addressableCode=000E5CDDDE92&startDate=2012-02-16&endDate=2013-01-30&detailed=false",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://consumption-netsms-serviceusagesbroadbands-v1.dev.lpa.k8s.corp.clarobr/consumption/v1/netsms/serviceusages/broadbands",
+					"protocol": "https",
+					"host": [
+						"consumption-netsms-serviceusagesbroadbands-v1",
+						"dev",
+						"lpa",
+						"k8s",
+						"corp",
+						"clarobr"
+					],
+					"path": [
+						"consumption",
+						"v1",
+						"netsms",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIT3 - consumption-netsms-serviceusagesbroadbands-v1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "MS_CONSERUSABR",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "APP_MS_CONSERUSABR",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-QueryString",
+						"value": "customerContractId=295300&cityId=013&addressableCode=000E5CDDDE92&startDate=2012-02-16&endDate=2013-01-30&detailed=true",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://consumption-netsms-serviceusagesbroadbands-v1-sit3.hom.lpa.k8s.corp.clarobr/consumption/v1/netsms/serviceusages/broadbands",
+					"protocol": "https",
+					"host": [
+						"consumption-netsms-serviceusagesbroadbands-v1-sit3",
+						"hom",
+						"lpa",
+						"k8s",
+						"corp",
+						"clarobr"
+					],
+					"path": [
+						"consumption",
+						"v1",
+						"netsms",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIT3 Smartcard - consumption-netsms-serviceusagesbroadbands-v1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "MS_CONSERUSABR",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "APP_MS_CONSERUSABR",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-QueryString",
+						"value": "smartCardNumber=942CB322FFB4&addressableCode=000E5CDDDE92&startDate=2000-04-01&endDate=2024-08-01&detailed=true",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://consumption-netsms-serviceusagesbroadbands-v1-sit3.hom.lpa.k8s.corp.clarobr/consumption/v1/netsms/serviceusages/broadbands",
+					"protocol": "https",
+					"host": [
+						"consumption-netsms-serviceusagesbroadbands-v1-sit3",
+						"hom",
+						"lpa",
+						"k8s",
+						"corp",
+						"clarobr"
+					],
+					"path": [
+						"consumption",
+						"v1",
+						"netsms",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API LAB - residential/v1/serviceusages/broadbands",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "6wMw2FdN93YulviFAtxoUekKMZ3w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-querystring",
+						"value": "customerContractId=295300&cityId=25666&addressableCode=000E5CDDDE92&startDate=2012-02-16&endDate=2013-01-30&detailed=true",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://lab.apigw.claro.com.br/residential/v1/serviceusages/broadbands",
+					"protocol": "http",
+					"host": [
+						"lab",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API TEST - residential/v1/serviceusages/broadbands",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SDZr6Zw9gfa4GcS6MBbJb7Te747r",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-querystring",
+						"value": "cityId=25666&addressableCode=000E5CDDDE92&startDate=2012-02-16&endDate=2013-01-30&detailed=true",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://test03.apigw.claro.com.br/residential/v1/serviceusages/broadbands",
+					"protocol": "http",
+					"host": [
+						"test03",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API LAB SmartCard - residential/v1/serviceusages/broadbands",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "DXmFcYPoU1yIlKex9aSzfGneNWZD",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-querystring",
+						"value": "smartCardNumber=000A73F42D85&addressableCode=000A73F42D85&startDate=2000-02-16&endDate=2024-01-28&detailed=false",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://lab.apigw.claro.com.br/residential/v1/serviceusages/broadbands",
+					"protocol": "http",
+					"host": [
+						"lab",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API SIT3 Detalhado - residential/v1/serviceusages/broadbands",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "LQuLGjj387udLasRnZNCzfFxiWiD",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:con=\"http://www.netservicos.com.br/ControleFranquias/\" xmlns:iden=\"http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato\" xmlns:net=\"http://www.netservicos.com.br/v2/NetHeader\">\r\n    <soap:Header/>\r\n    <soap:Body>\r\n        <con:parametrosListarDetalhado>\r\n            <con:identificacaoContrato>\r\n                <iden:Contrato>\r\n                    <iden:NumeroContrato>295300</iden:NumeroContrato>\r\n                    <iden:CodigoOperadora>013</iden:CodigoOperadora>\r\n                </iden:Contrato>\r\n            </con:identificacaoContrato>\r\n            <con:cdEnderecavel>000E5CDDDE92</con:cdEnderecavel>\r\n            <con:dataInicio>2000-09-10</con:dataInicio>\r\n            <con:dataFim>2024-09-24</con:dataFim>\r\n        </con:parametrosListarDetalhado>\r\n    </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test03.apigw.claro.com.br/residential/v1/serviceusages/broadbands/legacies",
+					"protocol": "http",
+					"host": [
+						"test03",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands",
+						"legacies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API SIT3 Detalhado SmartCard - residential/v1/serviceusages/broadbands",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "LQuLGjj387udLasRnZNCzfFxiWiD",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:con=\"http://www.netservicos.com.br/ControleFranquias/\" xmlns:iden=\"http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato\" xmlns:net=\"http://www.netservicos.com.br/v2/NetHeader\">\r\n    <soap:Header/>\r\n    <soap:Body>\r\n        <con:parametrosListarDetalhado>\r\n            <con:identificacaoContrato>\r\n                <iden:SmartCard>942CB322FFB4</iden:SmartCard>\r\n            </con:identificacaoContrato>\r\n            <con:cdEnderecavel>000E5CDDDE92</con:cdEnderecavel>\r\n            <con:dataInicio>2000-09-10</con:dataInicio>\r\n            <con:dataFim>2024-09-24</con:dataFim>\r\n        </con:parametrosListarDetalhado>\r\n    </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test03.apigw.claro.com.br/residential/v1/serviceusages/broadbands/legacies",
+					"protocol": "http",
+					"host": [
+						"test03",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands",
+						"legacies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API SIT3 Consolidado - residential/v1/serviceusages/broadbands Copy 2",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "qXi6TdiRcdrS9Flq09AmGpXrUJqY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:con=\"http://www.netservicos.com.br/ControleFranquias/\" xmlns:iden=\"http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato\" xmlns:net=\"http://www.netservicos.com.br/v2/NetHeader\">\r\n   <soap:Header/>\r\n   <soap:Body>\r\n      <con:parametrosListarConsolidado>\r\n         <con:identificacaoContrato>\r\n            <iden:Contrato>\r\n               <iden:NumeroContrato>295300</iden:NumeroContrato>\r\n               <iden:CodigoOperadora>013</iden:CodigoOperadora>\r\n            </iden:Contrato>\r\n         </con:identificacaoContrato>\r\n         <con:cdEnderecavel>000E5CDDDE92</con:cdEnderecavel>\r\n         <con:mesInicio>2012-02-16</con:mesInicio>\r\n         <con:mesFim>2013-01-30</con:mesFim>\r\n      </con:parametrosListarConsolidado>\r\n   </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://lab.apigw.claro.com.br/residential/v1/serviceusages/broadbands/legacies",
+					"protocol": "http",
+					"host": [
+						"lab",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands",
+						"legacies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API SIT3 Consolidado Smartcard - residential/v1/serviceusages/broadbands",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "qXi6TdiRcdrS9Flq09AmGpXrUJqY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:con=\"http://www.netservicos.com.br/ControleFranquias/\" xmlns:iden=\"http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato\" xmlns:net=\"http://www.netservicos.com.br/v2/NetHeader\">\r\n   <soap:Header/>\r\n   <soap:Body>\r\n      <con:parametrosListarConsolidado>\r\n         <con:identificacaoContrato>\r\n            <iden:SmartCard>000A73F42D85</iden:SmartCard>\r\n         </con:identificacaoContrato>\r\n         <con:cdEnderecavel>000A73F42D85</con:cdEnderecavel>\r\n         <con:mesInicio>2000-02-16</con:mesInicio>\r\n         <con:mesFim>2024-01-30</con:mesFim>\r\n      </con:parametrosListarConsolidado>\r\n   </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://lab.apigw.claro.com.br/residential/v1/serviceusages/broadbands/legacies",
+					"protocol": "http",
+					"host": [
+						"lab",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"residential",
+						"v1",
+						"serviceusages",
+						"broadbands",
+						"legacies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/oauth2/v1/token ok Copy",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "GICLjaLowVRueQO7",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "9Scz9oJplqAA71CAfcPQsCc8VkBCEju8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic NjJYaEl0elM2MUEzYUd2cEJTb1JNd1BsZUZEaHlHTk46UUhmT2U1emVVMnhNU3JEcQ==",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dXR1Z1ZiOXVVQTFVTkJzdTZBajBxRGZzYVhPQWRsMVk6dmlQYWI2dWRRcFgwamVZRg==",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "grant_type=client_credentials",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://test03.apigw.claro.com.br/oauth2/v1/token?grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"test03",
+						"apigw",
+						"claro",
+						"com",
+						"br"
+					],
+					"path": [
+						"oauth2",
+						"v1",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

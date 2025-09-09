@@ -1,0 +1,8 @@
+{
+    "parameters": {
+        "domain": "contract-prospect-service-sit4.hom.lpa.k8s.corp.clarobr",
+        "protocol": "https",
+        "port":  "443",
+        "basepath": "/"
+    }
+}

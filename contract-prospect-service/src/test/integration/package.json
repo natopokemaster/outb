@@ -1,0 +1,27 @@
+{
+  "name": "integration",
+  "version": "1.0.0",
+  "description": " Teste Automatizado com Cucumber",
+  "main": "index.js",
+  "scripts": {
+    "test": ".\\node_modules\\.bin\\cucumber-js .\\features\\api_get.feature"
+  },
+  "author": "Alan Ricardo",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^8.0.0-rc.1",
+    "apickli": "^3.0.0",
+    "crypto-js": "^4.1.1",
+    "jsonpath": "^1.1.1",
+    "multiple-cucumber-html-reporter": "^1.18.0",
+    "prettyjson": "^1.2.1"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^8.2.1",
+    "apickli": "^3.0.0",
+    "crypto-js": "^4.1.1",
+    "jsonpath": "^1.1.1",
+    "multiple-cucumber-html-reporter": "^1.18.0",
+    "prettyjson": "^1.2.1"
+  }
+}

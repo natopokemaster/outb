@@ -1,8 +1,0 @@
-{
-    "parameters": {
-        "domain": "consumption-netsms-serviceusagebroadbands.hom.lpa.k8s.corp.clarobr",
-        "protocol": "https",
-        "port":  "443",
-        "basepath": ""
-    }
-}

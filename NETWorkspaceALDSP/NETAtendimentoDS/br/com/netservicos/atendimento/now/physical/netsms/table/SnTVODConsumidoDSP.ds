@@ -1,0 +1,116 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnTVODConsumidoDSP" xmlns:t="ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP">
+<creationDate>2011-09-28T10:49:46</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_TVOD_CONSUMIDO" type="xs:integer">
+  <extension nativeXpath="ID_TVOD_CONSUMIDO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DH_IMPORTACAO" type="xs:dateTime">
+  <extension nativeXpath="DH_IMPORTACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NM_ARQUIVO_IMPORTADO" type="xs:string">
+  <extension nativeXpath="NM_ARQUIVO_IMPORTADO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="FC_CONTESTADO" type="xs:string">
+  <extension nativeXpath="FC_CONTESTADO" nativeTypeCode="1" nativeType="CHAR" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_ITEM_EXTRATO" type="xs:integer">
+  <extension nativeXpath="ID_ITEM_EXTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="NM_CONTEUDO" type="xs:string">
+  <extension nativeXpath="NM_CONTEUDO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="200" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_STATUS_EVENTO" type="xs:integer">
+  <extension nativeXpath="ID_STATUS_EVENTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_OPERADORA" type="xs:string">
+  <extension nativeXpath="COD_OPERADORA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="3" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CD_ENDERECAVEL" type="xs:string">
+  <extension nativeXpath="CD_ENDERECAVEL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="VLR_COMPRA" type="xs:decimal">
+  <extension nativeXpath="VLR_COMPRA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="2"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="FL_ADULTO" type="xs:string">
+  <extension nativeXpath="FL_ADULTO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_COMPRA" type="xs:string">
+  <extension nativeXpath="ID_COMPRA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DH_COMPRA" type="xs:dateTime">
+  <extension nativeXpath="DH_COMPRA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="MSG_ERRO" type="xs:string">
+  <extension nativeXpath="MSG_ERRO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DH_INCLUSAO" type="xs:dateTime">
+  <extension nativeXpath="DH_INCLUSAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ENTITLEMENT_ID" type="xs:string">
+  <extension nativeXpath="ENTITLEMENT_ID" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="200" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="VL_LISTA" type="xs:decimal">
+  <extension nativeXpath="VL_LISTA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="2"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DS_OFERTA" type="xs:string">
+  <extension nativeXpath="DS_OFERTA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="200" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DS_CANAL_COMPRA" type="xs:string">
+  <extension nativeXpath="DS_CANAL_COMPRA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="200" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_TVOD_CONSUMIDO" type="snt:SnTVODConsumidoDSP_KEY" inferredSchema="true" xmlns:snt="ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP" at "ld:br/com/netservicos/atendimento/now/physical/netsms/table/schemas/SnTVODConsumidoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnTVODConsumidoDSP" at "ld:br/com/netservicos/atendimento/now/physical/netsms/table/schemas/SnTVODConsumidoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_TVOD_CONSUMIDO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnTVODConsumidoDSP() as schema-element(t1:SnTVODConsumidoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_TVOD_CONSUMIDO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnTVODConsumidoDSP($p as element(t1:SnTVODConsumidoDSP)*)as schema-element(t1:SnTVODConsumidoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_TVOD_CONSUMIDO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnTVODConsumidoDSP($p as changed-element(t1:SnTVODConsumidoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_TVOD_CONSUMIDO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnTVODConsumidoDSP($p as element(t1:SnTVODConsumidoDSP)*) as empty()  external;
+

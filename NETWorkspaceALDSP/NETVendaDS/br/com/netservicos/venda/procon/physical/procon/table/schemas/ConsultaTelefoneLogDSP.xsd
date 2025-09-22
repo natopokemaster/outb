@@ -1,0 +1,13 @@
+<xs:schema targetNamespace="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="ConsultaTelefoneLogDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_CONSULTA_TELEFONE_LOG" type="xs:double" minOccurs="0"/>
+            <xs:element name="NM_USUARIO" type="xs:string"/>
+            <xs:element name="DH_CONSULTA" type="xs:dateTime"/>
+            <xs:element name="NR_TELEFONE" type="xs:string"/>
+            <xs:element name="ST_BLOQUEIO" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

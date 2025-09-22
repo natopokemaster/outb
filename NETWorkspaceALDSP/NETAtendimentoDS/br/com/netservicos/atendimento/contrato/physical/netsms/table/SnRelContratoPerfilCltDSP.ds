@@ -1,0 +1,65 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelContratoPerfilCltDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelContratoPerfilCltDSP">
+<creationDate>2014-01-14T15:35:16</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_CONTRATO_PERFIL_CLT" type="xs:integer">
+  <extension nativeXpath="ID_CONTRATO_PERFIL_CLT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="12" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PERFIL_CLIENTE" type="xs:integer">
+  <extension nativeXpath="ID_PERFIL_CLIENTE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="5" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_INICIO_PERFIL" type="xs:dateTime">
+  <extension nativeXpath="DT_INICIO_PERFIL" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_FIM_OFERTA" type="xs:dateTime">
+  <extension nativeXpath="DT_FIM_OFERTA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="FN_INSTALADO" type="xs:integer">
+  <extension nativeXpath="FN_INSTALADO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PK_SN_CONTRATO_PERFIL_CLT" type="snr:SnRelContratoPerfilCltDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelContratoPerfilCltDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelContratoPerfilCltDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelContratoPerfilCltDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelContratoPerfilCltDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelContratoPerfilCltDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelContratoPerfilCltDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_REL_CONTRATO_PERFIL_CLT" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelContratoPerfilCltDSP() as schema-element(t3:SnRelContratoPerfilCltDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_REL_CONTRATO_PERFIL_CLT" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelContratoPerfilCltDSP($p as element(t3:SnRelContratoPerfilCltDSP)*)as schema-element(t3:SnRelContratoPerfilCltDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_REL_CONTRATO_PERFIL_CLT" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelContratoPerfilCltDSP($p as changed-element(t3:SnRelContratoPerfilCltDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_REL_CONTRATO_PERFIL_CLT" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelContratoPerfilCltDSP($p as element(t3:SnRelContratoPerfilCltDSP)*) as empty()  external;
+

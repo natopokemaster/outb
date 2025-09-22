@@ -1,0 +1,26 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com"><creationDate>2012-02-07T16:22:05</creationDate></x:xfl> ::)
+
+
+declare namespace tns="ld:br/com/netservicos/venda/eventoviasms/logical/entity/ParametrosMensagemPPVDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:getIdTipoMensagemFalha() as xs:integer{
+	return value 1;
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:getIdTipoMensagemSucesso() as xs:integer{
+	return value 2;
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:getMensagemFalhaPadrao() as xs:string{
+	return value "Nao foi possivel completar sua solicitacao. Compre pelo nosso site: www.netcombo.com.br";
+};
+
+

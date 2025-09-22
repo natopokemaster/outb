@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:request type="XML">
+        <con1:schema ref="general/auditoria/schema/AuditoriaQueue" element="auditoria" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">jms</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">jms://5.16.41.12:8001,5.16.41.12:8002,5.16.41.12:8003,5.16.41.13:8004,5.16.41.13:8005,5.16.41.13:8006/weblogic.jms.XAConnectionFactory/AuditoriaQueue</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><jms:is-queue xmlns:jms="http://www.bea.com/wli/sb/transports/jms">true</jms:is-queue><jms:is-secure xmlns:jms="http://www.bea.com/wli/sb/transports/jms">false</jms:is-secure><jms:inbound-properties xmlns:jms="http://www.bea.com/wli/sb/transports/jms"><jms:response-required>false</jms:response-required><jms:retry-count>12</jms:retry-count><jms:retry-interval>60000</jms:retry-interval><jms:XA-required>false</jms:XA-required></jms:inbound-properties><jms:request-encoding xmlns:jms="http://www.bea.com/wli/sb/transports/jms">UTF-8</jms:request-encoding></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-3273332261588148750--11f9683d.1250cbf3f33.-7fe1" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="request" name="Autidoria PipelinePair_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Executa a procedure de Auditoria">
+        <con:context><con1:varNsDecl namespace="http://www.netservicos.com.br/AuditoriaQueue" prefix="aud" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2455138644949257246-6071abb6.125076a6e9f.-7fff</con2:id><con1:logLevel>debug</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText></con1:expr><con1:message>Mensagem de auditoria retirada da fila</con1:message></con1:log>
+        <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7558628887058456721-3c71d064.125125f47c2.-8000</con2:id><con1:service xsi:type="ref:BusinessServiceRef" ref="general/auditoria/businessservice/AuditoriaDSLBS" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con1:operation>inserirRegistroAuditoria</con1:operation><con1:request><con1:body>$inserirRegistroAuditoriaRequest</con1:body></con1:request><con1:response><con1:body>inserirRegistroAuditoriaResponse</con1:body></con1:response><con1:requestTransform><con1:assign varName="inserirRegistroAuditoriaRequest"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7558628887058456721-3c71d064.125125f47c2.-7fff</con2:id><con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/auditoria/transformation/xquery/InserirRegistroAuditoriaXQuery"/><con2:param name="auditoria1"><con2:path>$body/aud:auditoria</con2:path></con2:param></con2:xqueryTransform></con1:expr></con1:assign><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-7558628887058456721-3c71d064.125125f47c2.-7ffe</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$inserirRegistroAuditoriaRequest</con3:xqueryText></con2:expr><con2:message>Request inserirRegistroAuditoria</con2:message></con2:log></con1:requestTransform><con1:responseTransform><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-7558628887058456721-3c71d064.125125f47c2.-7ffd</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$inserirRegistroAuditoriaResponse</con3:xqueryText></con2:expr><con2:message>Response inserirRegistroAuditoria</con2:message></con2:log></con1:responseTransform></con1:wsCallout></con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Autidoria PipelinePair_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:pipeline type="error" name="_onErrorHandler-3273332261588148750--11f9683d.1250cbf3f33.-7fe1" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Tratamento de Erro"><con:context>
+          <con1:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        <con1:userNsDecl namespace="http://netservicos.com.br/core/schema" prefix="sch" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/logging" prefix="log" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:userNsDecl namespace="http://www.netservicos.com.br/v2/NetHeader" prefix="net" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/Campanha/" prefix="cam" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context><con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3273332261588148750--11f9683d.1250cbf3f33.-7f61</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Erro no proxy AuditoriaQueueDispatch</con1:message>
+          </con1:log>
+          <con1:assign varName="exceptionClassification" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7507466032380167795--4d436345.1225bef58d7.-7fda</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"CLASSIFICATION_UNEXPECTED"</con2:xqueryText>
+                </con1:expr>
+              </con1:assign><con1:assign varName="mensagemErro" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-216236688586769256--1d598c2a.122e6ac4d3c.-7ff0</con2:id><con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/transformation/br.com.netservicos.geral.MessagesXQuery"/><con2:param name="messageCode"><con2:path>"ESB-GERAL-0026"</con2:path></con2:param></con2:xqueryTransform></con1:expr></con1:assign><con1:assign varName="errorCode" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-216236688586769256--1d598c2a.122e6ac4d3c.-7fee</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($mensagemErro/sch:Message/sch:ID_MSG)</con2:xqueryText></con1:expr></con1:assign><con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4791470537673017614-48453442.122657c85de.-8000</con2:id><con1:location><con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:errorCode</con2:xpathText></con1:location><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($mensagemErro/sch:Message/sch:ID_MSG)</con2:xqueryText></con1:expr></con1:replace><con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4791470537673017614-48453442.122657c85de.-7fff</con2:id><con1:location><con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:reason</con2:xpathText></con1:location><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($mensagemErro/sch:Message/sch:MENSAGEM_DETALHADA)</con2:xqueryText></con1:expr></con1:replace>
+        <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3273332261588148750--11f9683d.1250cbf3f33.-7f51</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:not(fn:empty($errorCode))</con2:xqueryText></con1:condition><con1:actions><con1:assign varName="errorInfo"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe9</con2:id><con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/NETLog/transformation/TransformarFaultEmErrorInfoXQuery"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param></con2:xqueryTransform></con1:expr></con1:assign><con1:replace varName="errorInfo" contents-only="true"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7507466032380167795--4d436345.1225bef58d7.-7fef</con2:id><con1:location><con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./exceptionClassification</con2:xpathText></con1:location><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$exceptionClassification</con2:xqueryText></con1:expr></con1:replace><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-7507466032380167795--4d436345.1225bef58d7.-7f28</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$errorInfo</con3:xqueryText></con2:expr><con2:message>Error Info</con2:message></con2:log><con1:wsCallout><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe4</con2:id><con1:service xsi:type="ref:ProxyRef" ref="general/NETLog/proxyservice/FormatLogMessage12" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con1:operation>formatLogMessage</con1:operation><con1:request><con1:body>$formatLogMessageRequest</con1:body></con1:request><con1:response><con1:body>formatLogMessageResponse</con1:body></con1:response><con1:requestTransform><con1:assign varName="formatLogMessageRequest"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe3</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<for:logMessage xmlns:log="http://www.netservicos.com.br/modelocanonico/v2/logging" xmlns:for="http://www.netservicos.com.br/FormatLogMessage">
+	<log:transactionId>{fn:data($header/net:NetHeader/token)}</log:transactionId>
+	<log:logType>ERROR</log:logType>
+	<log:messageCode>{$errorCode}</log:messageCode>
+	<log:messageParameters/>
+	<log:username>{fn:data($inbound/ctx:security/ctx:transportClient/ctx:username)}</log:username>
+	<log:timestamp>{fn:data(fn:current-dateTime())}</log:timestamp>
+	<log:errorInfo>
+		{$errorInfo/node()}
+	</log:errorInfo>
+	<log:macroProcesso>VENDER</log:macroProcesso>
+	<log:processo>venda</log:processo>
+	<log:consumidor>{
+		if ($header/net:NetHeader/aplicacao/node()) then
+			fn:data($header/net:NetHeader/aplicacao)
+		else
+			"NAO_INFORMADO"
+	}</log:consumidor>
+	<log:funcionalidade>{
+		if ($header/net:NetHeader/funcionalidade/node()) then
+			fn:data($header/net:NetHeader/funcionalidade)
+		else
+			"NAO_INFORMADO"
+	}</log:funcionalidade>
+</for:logMessage>]]></con2:xqueryText></con1:expr></con1:assign><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe2</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$formatLogMessageRequest</con3:xqueryText></con2:expr><con2:message>Request formatLogMessage</con2:message></con2:log></con1:requestTransform><con1:responseTransform><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe1</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$formatLogMessageResponse</con3:xqueryText></con2:expr><con2:message>Response formatLogMessage</con2:message></con2:log><con1:assign varName="transactionId"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-216236688586769256--1d598c2a.122e6ac4d3c.-7fe6</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($formatLogMessageResponse/log:transactionId)</con2:xqueryText></con1:expr></con1:assign></con1:responseTransform></con1:wsCallout><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fca</con3:id><con2:logLevel>error</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">fn:data($formatLogMessageResponse/log:message)</con3:xqueryText></con2:expr><con2:message>Erro no proxy AuditoriaQueueDispatch</con2:message></con2:log><con1:ifThenElse><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-216236688586769256--1d598c2a.122e6ac4d3c.-7fe8</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$header/net:NetHeader/node()</con2:xqueryText></con1:condition><con1:actions><con1:replace varName="token" contents-only="true"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-216236688586769256--1d598c2a.122e6ac4d3c.-7ffb</con2:id><con1:location><con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./net:NetHeader</con2:xpathText></con1:location><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$transactionId</con2:xqueryText></con1:expr></con1:replace></con1:actions></con1:case></con1:ifThenElse><con1:wsCallout><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fe0</con2:id><con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/Alert12" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con1:operation>alert</con1:operation><con1:request><con1:body>$alertRequest</con1:body></con1:request><con1:response><con1:body>alertResponse</con1:body></con1:response><con1:requestTransform><con1:assign varName="alertRequest"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fdf</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<aler1:alert xmlns:aler="http://www.netservicos.com.br/modelocanonico/v2/alert" xmlns:aler1="http://www.netservicos.com.br/Alert">
+    <aler:timestamp>{fn:data(fn:current-dateTime())}</aler:timestamp>
+    <aler:transactionId>{$transactionId}</aler:transactionId>
+    <aler:message>{fn:data($formatLogMessageResponse/log:message)}</aler:message>
+    <aler:serviceSeverityLevel>NIVEL1</aler:serviceSeverityLevel>
+    <aler:consumidor>{
+    	if ($header/net:NetHeader/aplicacao/node()) then
+	    	fn:data($header/net:NetHeader/aplicacao)
+	    else
+	    	"NAO_INFORMADO"
+	}</aler:consumidor>
+    <aler:macroProcesso>VENDER</aler:macroProcesso>
+    <aler:macroProcessoNivel>venda</aler:macroProcessoNivel>
+    <aler:macroProcessoSubNivel/>
+    <aler:exceptionClassification>{$exceptionClassification}</aler:exceptionClassification>
+</aler1:alert>]]></con2:xqueryText></con1:expr></con1:assign><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fde</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$alertRequest</con3:xqueryText></con2:expr><con2:message>Request alert</con2:message></con2:log></con1:requestTransform><con1:responseTransform><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8860640977320481364--55f97f54.122e128650e.-7fdd</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$alertResponse</con3:xqueryText></con2:expr><con2:message>Response alert</con2:message></con2:log></con1:responseTransform></con1:wsCallout></con1:actions></con1:case></con1:ifThenElse></con:actions></con:stage></con:pipeline><con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="Autidoria PipelinePair">
+        <con:request>Autidoria PipelinePair_request</con:request>
+        <con:response>Autidoria PipelinePair_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

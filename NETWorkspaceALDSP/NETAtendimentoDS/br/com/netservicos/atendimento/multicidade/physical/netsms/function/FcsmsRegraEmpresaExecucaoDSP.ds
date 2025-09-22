@@ -1,0 +1,22 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com">
+<creationDate>2015-09-09T23:28:49</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+
+</x:xfl>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/multicidade/physical/netsms/function/FcsmsRegraEmpresaExecucaoDSP";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="library" isPrimary="false" nativeName="FCSMS_REGRA_EMPRESA_EXECUCAO" nativeLevel2Container="PROD_JD" nativeLevel3Container="PGSMS_MODULO_MULTICIDADES" style="storedProcedure">
+   <nonCacheable/>
+   <params xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdt="http://www.w3.org/2004/07/xpath-datatypes" >
+   
+      <param name="RETURN_VALUE" kind="return" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="P_PARAMETRO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+      <param name="P_VALOR" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+   </params>
+   </f:function>::)
+
+   declare function f1:FCSMS_REGRA_EMPRESA_EXECUCAO($P_PARAMETRO as xs:string, $P_VALOR as xs:string) as xs:string external;
+

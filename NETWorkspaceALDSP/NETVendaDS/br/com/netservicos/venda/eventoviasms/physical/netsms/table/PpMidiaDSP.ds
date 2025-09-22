@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpMidiaDSP" xmlns:t="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP">
+<creationDate>2012-02-11T11:49:28</creationDate>
+<relationalDB name="VENDA_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.vender.VendaOnlineNETSMSBindingProvider"/>
+<field xpath="ID_MIDIA" type="xs:integer">
+  <extension nativeXpath="ID_MIDIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="VALIDO" type="xs:integer">
+  <extension nativeXpath="VALIDO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="MDI_PK" type="ppm:PpMidiaDSP_KEY" inferredSchema="true" xmlns:ppm="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpMidiaDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpMidiaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="PP_MIDIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpMidiaDSP() as schema-element(t2:PpMidiaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="PP_MIDIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpMidiaDSP($p as element(t2:PpMidiaDSP)*)as schema-element(t2:PpMidiaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="PP_MIDIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpMidiaDSP($p as changed-element(t2:PpMidiaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="PP_MIDIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpMidiaDSP($p as element(t2:PpMidiaDSP)*) as empty()  external;
+

@@ -1,0 +1,56 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:ConsultaTelefoneLogDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP">
+    <creationDate>2009-11-20T13:03:53</creationDate>
+    <relationalDB name="jdbc/PROCON_ONLINE" providerId="Oracle-9"/>
+    <field xpath="ID_CONSULTA_TELEFONE_LOG" type="xs:double">
+        <extension nativeXpath="ID_CONSULTA_TELEFONE_LOG" nativeTypeCode="3" nativeType="NUMBER" nativeSize="22" nativeFractionalDigits="null" nativeKey="true">
+            <autoNumber type="sequence" sequenceObjectName="NETLNP.SQ_CONSULTA_TELEFONE_LOG"/>
+        </extension>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NM_USUARIO" type="xs:string">
+        <extension nativeXpath="NM_USUARIO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DH_CONSULTA" type="xs:dateTime">
+        <extension nativeXpath="DH_CONSULTA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NR_TELEFONE" type="xs:string">
+        <extension nativeXpath="NR_TELEFONE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ST_BLOQUEIO" type="xs:string">
+        <extension nativeXpath="ST_BLOQUEIO" nativeTypeCode="1" nativeType="CHAR" nativeSize="1" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <key name="PK_CONSULTA_TELEFONE_LOG" type="con:ConsultaTelefoneLogDSP_KEY" inferredSchema="true" xmlns:con="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ConsultaTelefoneLogDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ConsultaTelefoneLogDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="CONSULTA_TELEFONE_LOG" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:ConsultaTelefoneLogDSP() as schema-element(t1:ConsultaTelefoneLogDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="CONSULTA_TELEFONE_LOG" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createConsultaTelefoneLogDSP($p as element(t1:ConsultaTelefoneLogDSP)*)as schema-element(t1:ConsultaTelefoneLogDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="CONSULTA_TELEFONE_LOG" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateConsultaTelefoneLogDSP($p as changed-element(t1:ConsultaTelefoneLogDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="CONSULTA_TELEFONE_LOG" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteConsultaTelefoneLogDSP($p as element(t1:ConsultaTelefoneLogDSP)*) as empty()  external;
+

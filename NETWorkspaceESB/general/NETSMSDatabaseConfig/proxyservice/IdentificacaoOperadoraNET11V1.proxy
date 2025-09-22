@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" isTracingEnabled="false" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="general/NETSMSDatabaseConfig/wsdl/proxy/IdentificacaoOperadoraNETWSDLV1_0"/>
+      <con:port>
+        <con:name>IdentificacaoOperadoraNETSOAP11</con:name>
+        <con:namespace>http://www.netservicos.com.br/IdentificacaoOperadoraNET/</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body">
+        <con:mapping operation="identificarOperadoraNET" value=""/>
+        <con:mapping operation="listarOperadorasNET" value=""/>
+      </con:selector>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/general/NETSMSDatabaseConfig/IdentificacaoOperadoraNET11V1</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-5050215510046966913--388d5ff8.122c7aa7921.-7fb8" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="error" name="_onErrorHandler-5050215510046966913--388d5ff8.122c7aa7921.-7fb8" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Tratamento de Erro">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-5050215510046966913--388d5ff8.122c7aa7921.-7fbb</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Erro</con1:message>
+          </con1:log>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-5050215510046966913--388d5ff8.122c7aa7921.-7fba</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:errorCode</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($fault/ctx:details/con1:ReceivedFaultDetail/con1:detail/ctx:fault/ctx:errorCode)</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-5050215510046966913--388d5ff8.122c7aa7921.-7fb9</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:reason</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($fault/ctx:details/con1:ReceivedFaultDetail/con1:detail/ctx:fault/ctx:reason)</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/FormatTransportHeaderResponseCodeXQTv1"/>
+                <con2:param name="body"><con2:path>$body</con2:path></con2:param>
+                <con2:param name="fault"><con2:path>$fault</con2:path></con2:param>
+              </con2:xqueryTransform>
+	        </con1:header>
+          </con1:transport-headers>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Identificar Operadora NET_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Chamada ao Proxy 12">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/empresa" prefix="emp" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/v2/NetHeader" prefix="net" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7ff6</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="general/NETSMSDatabaseConfig/proxyservice/IdentificacaoOperadoraNET12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <con1:operation>identificarOperadoraNET</con1:operation>
+            <con1:request>
+              <con1:body wrapped="true">$identificarOperadoraNETRequestBody</con1:body>
+              <con1:header>$identificarOperadoraNETRequestHeader</con1:header>
+            </con1:request>
+            <con1:response>
+              <con1:body wrapped="true">identificarOperadoraNETResponseBody</con1:body>
+              <con1:header>identificarOperadoraNETResponseHeader</con1:header>
+            </con1:response>
+            <con1:requestTransform>
+              <con1:assign varName="identificarOperadoraNETRequestBody">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff6</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Body>
+	{$body/iden:IdentificacaoOperadoraNET}
+&lt;/soap-env:Body></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:assign varName="identificarOperadoraNETRequestHeader">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff5</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Header>
+	{$header/net:NetHeader}
+&lt;/soap-env:Header></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff4</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETRequestBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request Body identificarOperadoraNET</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff3</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETRequestHeader</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request Header identificarOperadoraNET</con2:message>
+              </con2:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff2</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETResponseBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response Body identificarOperadoraNET</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4153836595675112583--68137224.122a7da6bdf.-7ff1</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETResponseHeader</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response Header identificarOperadoraNET</con2:message>
+              </con2:log>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Identificar Operadora NET_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Prepara Resposta ao Cliente">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/IdentificacaoOperadoraNET/" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fef</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Body>
+	{$identificarOperadoraNETResponseBody/iden:identificarOperadoraNETResponse}
+&lt;/soap-env:Body></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fee</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Header/></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fed</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/iden:identificarOperadoraNETResponse</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Resposta ao Cliente</con1:message>
+          </con1:log>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Listar Operadoras NET 11_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Chamada ao Proxy 12">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/v2/NetHeader" prefix="net" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/IdentificacaoOperadoraNET/" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fec</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="general/NETSMSDatabaseConfig/proxyservice/IdentificacaoOperadoraNET12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <con1:operation>listarOperadorasNET</con1:operation>
+            <con1:request>
+              <con1:body wrapped="true">$listarOperadorasNETRequestBody</con1:body>
+              <con1:header>$listarOperadorasNETRequestHeader</con1:header>
+            </con1:request>
+            <con1:response>
+              <con1:body wrapped="true">listarOperadorasNETResponseBody</con1:body>
+              <con1:header>listarOperadorasNETResponseHeader</con1:header>
+            </con1:response>
+            <con1:requestTransform>
+              <con1:assign varName="listarOperadorasNETRequestBody">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7feb</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Body>
+{$body/iden:listarOperadorasNETRequest}
+&lt;/soap-env:Body></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:assign varName="listarOperadorasNETRequestHeader">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fea</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Header>
+	{$header/net:NetHeader}
+&lt;/soap-env:Header></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe9</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$listarOperadorasNETRequestBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request Body listarOperadorasNETRequestBody</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe9</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$listarOperadorasNETRequestHeader</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Reques tHeader listarOperadorasNETRequestHeader</con2:message>
+              </con2:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe9</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$listarOperadorasNETResponseBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response Body listarOperadorasNETResponsetBody</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe9</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$listarOperadorasNETResponseBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response BodylistarOperadorasNETResponseBodyT</con2:message>
+              </con2:log>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Listar Operadoras NET 11_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Prepara Retorno ao Cliente">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/IdentificacaoOperadoraNET/" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe2</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$listarOperadorasNETResponseBody</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe1</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Header/></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fe0</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/iden:listarOperadorasNETResponse</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Resposta ao Cliente</con1:message>
+          </con1:log>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Default_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Chamada ao Proxy 12">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fdb</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="general/NETSMSDatabaseConfig/proxyservice/IdentificacaoOperadoraNET12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <con1:operation>identificarOperadoraNET</con1:operation>
+            <con1:request>
+              <con1:body wrapped="true">$identificarOperadoraNETRequestBody</con1:body>
+              <con1:header>$identificarOperadoraNETRequestHeader</con1:header>
+            </con1:request>
+            <con1:response>
+              <con1:body wrapped="true">identificarOperadoraNETResponseBody</con1:body>
+              <con1:header>identificarOperadoraNETResponseHeader</con1:header>
+            </con1:response>
+            <con1:requestTransform>
+              <con1:assign varName="identificarOperadoraNETRequestBody">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fda</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:assign varName="identificarOperadoraNETRequestBody">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd9</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$header</con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:transport-headers copy-all="true">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd7</con2:id>
+                <con1:header-set>outbound-request</con1:header-set>
+              </con1:transport-headers>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd8</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETRequestBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request identificarOperadoraNETRequestBody</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd6</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETRequestHeader</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request identificarOperadoraNETRequestHeader</con2:message>
+              </con2:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd5</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETResponseBody</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response body identificarOperadoraNET</con2:message>
+              </con2:log>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6791361284183215657-796a2ccc.1249d38130a.-7fd4</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$identificarOperadoraNETResponseHeader</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response Header identificarOperadoraNET</con2:message>
+              </con2:log>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Default_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:branch-node type="operation" name="BranchNode1">
+        <con:context/>
+        <con:branch-table>
+          <con:branch name="identificarOperadoraNET">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="Identificar Operadora NET11">
+                <con:request>Identificar Operadora NET_request</con:request>
+                <con:response>Identificar Operadora NET_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:branch name="listarOperadorasNET">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="Listar Operadoras NET 11">
+                <con:request>Listar Operadoras NET 11_request</con:request>
+                <con:response>Listar Operadoras NET 11_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:default-branch>
+            <con:flow>
+              <con:pipeline-node name="Default">
+                <con:request>Default_request</con:request>
+                <con:response>Default_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:default-branch>
+        </con:branch-table>
+      </con:branch-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

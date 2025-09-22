@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TransformaIdentificacaoContratoPropostaWSDL12V1"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:transContratoProposta="http://www.netservicos.com.br/TransformaIdentificacaoContratoProposta12V1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/TransformaIdentificacaoContratoProposta12V1" 
+	xmlns:netHeader="http://www.netservicos.com.br/v2/NetHeader" 
+	xmlns:idContratoProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.netservicos.com.br/TransformaIdentificacaoContratoProposta12V1">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContratoProposta"
+				schemaLocation="../../../../modelocanonicoV2/geral/IdentificacaoContratoProposta.xsd">
+			</xsd:import>
+    	
+			<xsd:element name="IdentificacaoContratoPropostaResponse" type="transContratoProposta:IdentificacaoContratoPropostaType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Elemento que representa a identificação do
+						Contrato ou Proposta para retorno do Serviço
+						TransformaIdentificacaoContratoProposta.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:complexType name="IdentificacaoContratoPropostaType">
+       			<xsd:sequence>
+   					<xsd:element name="IdentificacaoProposta" type="transContratoProposta:IdentificacaoPropostaType" minOccurs="0" maxOccurs="1" />
+   					<xsd:element name="IdentificacaoContrato" type="transContratoProposta:IdentificacaoContratoType" minOccurs="0" maxOccurs="1" />
+   				</xsd:sequence>
+   			</xsd:complexType>
+   			
+		<xsd:complexType name="PropostaType">
+		    <xsd:annotation>
+		    	<xsd:documentation>
+		    	    Entidade utilizada para localizar uma proposta de venda.
+		    	    Deve ser utilizado a combinacao de Numero da Proposta +
+		    		Codigo Operadora ou Numero da Proposta + Identificacao
+		    		Cidade
+		    	</xsd:documentation>
+		    </xsd:annotation>
+		    <xsd:sequence>
+				<xsd:element name="NumeroProposta" minOccurs="1"
+					maxOccurs="1">
+		            <xsd:annotation>
+		            	<xsd:documentation>
+		            		Número de identificação da proposta de venda.
+		            		Deve sempre ser utilizado em conjunto com
+		            		CodigoOperadora ou IdentificacaoCidade
+		            	</xsd:documentation>
+		            </xsd:annotation>
+		            <xsd:simpleType>
+		            	<xsd:restriction base="xsd:long">
+		            	</xsd:restriction>
+		            </xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="CodigoOperadora" minOccurs="1" maxOccurs="1">
+	                <xsd:annotation>
+	                	<xsd:documentation>
+	                		Código da Operadora onde a proposta de venda está
+	                		cadastrada, conforme cadastro no legado.
+	                	</xsd:documentation>
+	                </xsd:annotation>
+	                <xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="3"></xsd:length>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="IdentificacaoCidade" minOccurs="1"
+					maxOccurs="1">
+	                <xsd:annotation>
+	                	<xsd:documentation>
+	                		Identificação da Cidade onde a proposta de venda está
+	                		cadastrada, conforme cadastro no legado.
+	                	</xsd:documentation>
+	                </xsd:annotation>
+	                <xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="5"></xsd:length>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		
+		<xsd:complexType name="IdentificacaoPropostaType">
+		    <xsd:sequence>
+				<xsd:element name="Protocolo" type="xsd:string" minOccurs="0" maxOccurs="1">
+		            <xsd:annotation>
+		            	<xsd:documentation>
+		            		Atualmente as propostas de venda nao estao
+		            		gerando numero de protocolo, mas a ideia e no
+		            		futuro gerar o numero de protocolo tambem para
+		            		vendas.
+		            	</xsd:documentation>
+		            </xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Proposta" type="transContratoProposta:PropostaType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Elemento para identificacao de uma proposta de
+							venda.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AliasDatabase" type="xsd:string" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Álias da base de dados em que se
+							encontra o contrato. Ex: Usado para
+							definir o atributo j_identity_base no
+							header das requisições.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<xsd:complexType name="IdentificacaoContratoType">
+			<xsd:annotation>
+				<xsd:documentation>
+					Tipo para retorno da transformação de contrato.
+					Customizado para ser menos restritivo que o tipo
+					do modelo canônico, de forma a suportar as
+					necessidades deste serviços.
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:sequence>
+				<xsd:element name="SmartCard" type="transContratoProposta:SmartCardResponseType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Número do SmartCard ou Código do
+							Endereçavel do terminal.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Contrato" type="transContratoProposta:ContratoResponseType" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Tipo para representar identificador do
+							contrato. Que é formado pela combinação
+							de Número do Contrato e: - Código da
+							Operadora E Identificação da Cidade.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Protocolo" type="xsd:string" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Número de protocolo do atendimento do
+							Assinante.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="EnderecoMAC" type="xsd:string" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Endereço Físico de um Equipamento na
+							Rede.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AliasDatabase" type="xsd:string" minOccurs="0" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Álias da base de dados em que se
+							encontra o contrato. Ex: Usado para
+							definir o atributo j_identity_base no
+							header das requisições.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+
+		<xsd:simpleType name="SmartCardResponseType">
+			<xsd:annotation>
+				<xsd:documentation>
+					Número do SmartCard ou Código do Endereçavel do
+					terminal.
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+
+		<xsd:complexType name="ContratoResponseType">
+			<xsd:sequence>
+				<xsd:element name="NumeroContrato" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Número do contrato do assinante,
+							conforme cadastro no legado.
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:long"/>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="CodigoOperadora" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Código da Operadora onde o contrato está
+							cadastrado, conforme cadastro no legado.
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+
+							<xsd:length value="3"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="IdentificacaoCidade" minOccurs="1" maxOccurs="1">
+					<xsd:annotation>
+						<xsd:documentation>
+							Identificação da Cidade onde o contrato
+							está cadastrado, conforme cadastro no
+							legado.
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+
+							<xsd:length value="5"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+				
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="transformarIdentificacaoContratoPropostaRequest">
+		<wsdl:part element="netHeader:NetHeader"
+			name="transformarIdentificacaoContratoPropostaRequestHeader" />
+		<wsdl:part name="transformarIdentificacaoContratoPropostaRequest"
+			element="idContratoProposta:IdentificacaoContratoProposta">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="transformarIdentificacaoContratoPropostaResponse">
+		<wsdl:part element="netHeader:NetHeader"
+			name="transformarIdentificacaoContratoPropostaResponseHeader" />
+		<wsdl:part name="transformarIdentificacaoContratoPropostaResponse" element="transContratoProposta:IdentificacaoContratoPropostaResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType
+		name="TransformaIdentificacaoContratoPropostaPortType">
+		<wsdl:operation name="transformarIdentificacaoContratoProposta">
+			<wsdl:input message="transContratoProposta:transformarIdentificacaoContratoPropostaRequest" />
+			<wsdl:output message="transContratoProposta:transformarIdentificacaoContratoPropostaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding
+		name="TransformaIdentificacaoContratoPropostaBinding"
+		type="transContratoProposta:TransformaIdentificacaoContratoPropostaPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="transformarIdentificacaoContratoProposta">
+			<soap:operation
+				soapAction="http://www.netservicos.com.br/TransformaIdentificacaoContratoProposta12V1/transformarIdentificacaoContratoProposta" />
+			<wsdl:input>
+				<soap:header message="transContratoProposta:transformarIdentificacaoContratoPropostaRequest" part="transformarIdentificacaoContratoPropostaRequestHeader" use="literal"/>
+				<soap:body parts="transformarIdentificacaoContratoPropostaRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="transContratoProposta:transformarIdentificacaoContratoPropostaResponse" part="transformarIdentificacaoContratoPropostaResponseHeader" use="literal"/>
+				<soap:body parts="transformarIdentificacaoContratoPropostaResponse" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service
+		name="TransformaIdentificacaoContratoPropostaService">
+		<wsdl:port
+			binding="transContratoProposta:TransformaIdentificacaoContratoPropostaBinding"
+			name="TransformaIdentificacaoContratoPropostaPort">
+			<soap:address location="http://servbus:7001/general/TransformaIdentificacaoContratoProposta12V1" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,58 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpStatusVendaDSP" xmlns:t="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP">
+<creationDate>2016-08-23T16:15:35</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_STATUS_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_STATUS_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="STV_PK" type="pps:PpStatusVendaDSP_KEY" inferredSchema="true" xmlns:pps="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP"/>
+
+<relationshipTarget roleName="PpVendaPpvDSP" roleNumber="2" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="PpStatusVendaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP";
+
+import schema namespace t9 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpStatusVendaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpStatusVendaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="PP_STATUS_VENDA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpStatusVendaDSP() as schema-element(t9:PpStatusVendaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="PP_STATUS_VENDA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpStatusVendaDSP($p as element(t9:PpStatusVendaDSP)*)as schema-element(t9:PpStatusVendaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="PP_STATUS_VENDA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpStatusVendaDSP($p as changed-element(t9:PpStatusVendaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="PP_STATUS_VENDA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpStatusVendaDSP($p as element(t9:PpStatusVendaDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP";
+
+import schema namespace t11 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpVendaPpvDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="PpVendaPpvDSP"/>::)
+
+   declare function f1:getPpVendaPpvDSP($pk as element(t9:PpStatusVendaDSP)) as element(t11:PpVendaPpvDSP)*
+   {
+      for $fk in f2:PpVendaPpvDSP()
+      where $pk/ID_STATUS_VENDA eq $fk/ID_STATUS_VENDA
+      return $fk
+   };
+

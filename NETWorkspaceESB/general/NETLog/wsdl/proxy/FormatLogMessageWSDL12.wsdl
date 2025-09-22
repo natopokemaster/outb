@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Logging" targetNamespace="http://www.netservicos.com.br/FormatLogMessage" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:flogmsg="http://www.netservicos.com.br/FormatLogMessage" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:canlogging="http://www.netservicos.com.br/modelocanonico/v2/logging">
+	<wsdl:types>
+
+
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/FormatLogMessage">
+
+			<xsd:import schemaLocation="../../../../modelocanonicoV2/geral/Logging.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/logging">
+			</xsd:import>
+
+			<xsd:element name="logMessage" type="canlogging:LogMessage">
+			</xsd:element>
+
+			<xsd:element name="formatedLogMessage" type="canlogging:FormatedLogMessage">
+			</xsd:element>
+
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="formatLogMessageRequest">
+		<wsdl:part name="formatLogMessageRequest" element="flogmsg:logMessage"/>
+	</wsdl:message>
+	<wsdl:message name="formatLogMessageResponse">
+		<wsdl:part name="formatLogMessageResponse" element="flogmsg:formatedLogMessage"/>
+	</wsdl:message>
+
+	<wsdl:portType name="FormatLogMessage">
+		<wsdl:operation name="formatLogMessage">
+			<wsdl:input message="flogmsg:formatLogMessageRequest"/>
+			<wsdl:output message="flogmsg:formatLogMessageResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="FormatLogMessageSOAP" type="flogmsg:FormatLogMessage">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="formatLogMessage">
+			<soap:operation soapAction="http://www.netservicos.com.br/FormatLogMessage12/formatLogMessage"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FormatLogMessage">
+		<wsdl:port binding="flogmsg:FormatLogMessageSOAP" name="FormatLogMessageSOAP">
+			<soap:address location="http://servbus/general/FormatLogMessage12"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EnvioProtocoloWSDL12V1" 
+	targetNamespace="http://www.netservicos.com.br/EnvioProtocolo" 
+	xmlns:envioprotocolo="http://www.netservicos.com.br/EnvioProtocolo" 
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader" 
+	xmlns:identificacaoContrato="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" 
+	xmlns:identificacaoProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta">
+	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/EnvioProtocolo" attributeFormDefault="qualified" elementFormDefault="qualified">
+			<xsd:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+			
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd">
+			</xsd:import>
+			
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta" schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoProposta.xsd">
+			</xsd:import>
+			
+		
+			<xsd:element name="enviarSmsRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="reenvio" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+						<xsd:element name="identificacaoProposta" type="identificacaoProposta:IdentificacaoPropostaType" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="identificacaoContrato" type="identificacaoContrato:IdentificacaoContratoType" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="protocolo" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="enviarSmsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="enviarSmsRequest">
+		<wsdl:part name="request_header" element="netheader:NetHeader"/>
+		<wsdl:part element="envioprotocolo:enviarSmsRequest" name="enviarSmsRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="enviarSmsResponse">
+		<wsdl:part element="envioprotocolo:enviarSmsResponse" name="enviarSmsResponse"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="EnvioProtocoloPortType">
+		<wsdl:operation name="enviarSms">
+			<wsdl:input message="envioprotocolo:enviarSmsRequest"/>
+			<wsdl:output message="envioprotocolo:enviarSmsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="EnvioProtocoloBinding11" type="envioprotocolo:EnvioProtocoloPortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="enviarSms">
+			<soap11:operation soapAction="http://www.netservicos.com.br/EnvioProtocolo/enviarSms"/>
+			<wsdl:input>
+				<soap11:header message="envioprotocolo:enviarSmsRequest" use="literal" wsdl:required="true" part="request_header"/>
+				<soap11:body use="literal" parts="enviarSmsRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="enviarSmsResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:binding name="EnvioProtocoloBinding12" type="envioprotocolo:EnvioProtocoloPortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="enviarSms">
+			<soap12:operation soapAction="http://www.netservicos.com.br/EnvioProtocolo/enviarSms"/>
+			<wsdl:input>
+				<soap12:header message="envioprotocolo:enviarSmsRequest" use="literal" wsdl:required="true" part="request_header"/>
+				<soap12:body use="literal" parts="enviarSmsRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="enviarSmsResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="EnvioProtocoloService">
+		<wsdl:port binding="envioprotocolo:EnvioProtocoloBinding11" name="EnvioProtocoloPort11">
+			<soap11:address location="http://servbus/relacionar/atendimento/envioprotocolo/EnvioProtocolo11V1"/>
+		</wsdl:port>
+		<wsdl:port binding="envioprotocolo:EnvioProtocoloBinding12" name="EnvioProtocoloPort12">
+			<soap12:address location="http://servbus/relacionar/atendimento/envioprotocolo/EnvioProtocolo12V1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

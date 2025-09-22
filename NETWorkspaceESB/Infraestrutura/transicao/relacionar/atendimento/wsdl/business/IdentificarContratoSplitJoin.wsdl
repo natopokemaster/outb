@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="http://www.netservicos.com.br/IdentificarContratoSplitJoin/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="IdentificarContratoSplitJoin"
+	targetNamespace="http://www.netservicos.com.br/IdentificarContratoSplitJoin/">
+
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/IdentificarContratoSplitJoin/"
+			xmlns:Q1="http://www.netservicos.com.br/ContratoAssinante">
+			<xsd:import
+				schemaLocation="../../schema/ContratoAssinante.xsd"
+				namespace="http://www.netservicos.com.br/ContratoAssinante">
+			</xsd:import>
+
+			<xsd:element name="identificarContratosRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="cpf" type="xsd:string" />
+						<xsd:element name="telefone"
+							type="xsd:string">
+						</xsd:element>
+						<xsd:element name="bases"
+							type="tns:BasesAtivasType" minOccurs="0" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="identificarContratosResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="contratoAssinante"
+							type="Q1:ContratoAssinante" minOccurs="0"
+							maxOccurs="unbounded">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			<xsd:complexType name="BasesAtivasType">
+				<xsd:sequence>
+					<xsd:element name="baseAtiva" type="xsd:string"
+						minOccurs="1" maxOccurs="unbounded">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="identificarContratosRequest">
+		<wsdl:part element="tns:identificarContratosRequest"
+			name="identificarContratosRequest" />
+	</wsdl:message>
+	<wsdl:message name="identificarContratosResponse">
+		<wsdl:part element="tns:identificarContratosResponse"
+			name="identificarContratosResponse" />
+	</wsdl:message>
+
+	<wsdl:portType name="IdentificarContratoSplitJoin">
+		<wsdl:operation name="identificarContratos">
+			<wsdl:input message="tns:identificarContratosRequest" />
+			<wsdl:output message="tns:identificarContratosResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="IdentificarContratoSplitJoinSOAP11"
+		type="tns:IdentificarContratoSplitJoin">
+		<soap11:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="identificarContratos">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/identificarContratoSplitJoin/identificarContratos" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="identificarContratosRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="identificarContratosResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="IdentificarContratoSplitJoinSOAP12"
+		type="tns:IdentificarContratoSplitJoin">
+		<soap12:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="identificarContratos">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/identificarContratoSplitJoin/identificarContratos" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="identificarContratosRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="identificarContratosResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="IdentificarContratoSplitJoin">
+		<wsdl:port binding="tns:IdentificarContratoSplitJoinSOAP11"
+			name="IdentificarContratoSplitJoinSOAP11">
+			<soap11:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+		<wsdl:port binding="tns:IdentificarContratoSplitJoinSOAP12"
+			name="IdentificarContratoSplitJoinSOAP12">
+			<soap12:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

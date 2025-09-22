@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnCobrancaNotaFiscalDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnCobrancaNotaFiscalDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_COBRANCA_NOTA_FISCAL" type="xs:integer"/>
+            <xs:element name="ID_COBRANCA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_COBRANCA_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_PARCEIRO" type="xs:integer"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer"/>
+            <xs:element name="CID_CONTRATO" type="xs:string" minOccurs="0"/>
+            <xs:element name="NR_NOTA_FISCAL" type="xs:integer" minOccurs="0"/>
+            <xs:element name="CC_NUMERO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_NUMERO_OPER" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_MODELO_NOTA_FISCAL" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_SERIE_NOTA_FISCAL" type="xs:string"/>
+            <xs:element name="CC_SUB_SERIE_NOTA_FISCAL" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_HASH_CODE" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_ANO_MES_REF" type="xs:string"/>
+            <xs:element name="CC_ANO_MES_EMISSAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_CPF_CNPJ" type="xs:string"/>
+            <xs:element name="CC_NOME_RAZAO_SOCIAL" type="xs:string"/>
+            <xs:element name="CC_INSCRICAO_ESTADUAL" type="xs:string"/>
+            <xs:element name="CC_COD_CFOP" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_INSCRICAO_MINICIPAL" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_LOGRADOURO" type="xs:string"/>
+            <xs:element name="CC_CIDADE" type="xs:string"/>
+            <xs:element name="CC_ESTADO" type="xs:string"/>
+            <xs:element name="CC_CEP" type="xs:string"/>
+            <xs:element name="CC_CEP_OPER" type="xs:string"/>
+            <xs:element name="CC_LOGRADOURO_OPER" type="xs:string"/>
+            <xs:element name="CC_CIDADE_OPER" type="xs:string"/>
+            <xs:element name="CC_BAIRRO_OPER" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_ESTADO_OPER" type="xs:string"/>
+            <xs:element name="CC_RAZAO_SOCIAL_OPER" type="xs:string"/>
+            <xs:element name="CC_CNPJ_OPER" type="xs:string"/>
+            <xs:element name="CC_INSCRICAO_ESTADUAL_OPER" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_INSCRICAO_MUNICIPAL_OPER" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_CODIGO_SEFAZ" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_TIPO_UTILIZACAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_COMPLEMENTO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_BAIRRO" type="xs:string"/>
+            <xs:element name="CC_TELEFONE" type="xs:string" minOccurs="0"/>
+            <xs:element name="FC_SITUACAO_DCTO" type="xs:string"/>
+            <xs:element name="DT_EMISSAO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="VL_DESCONTO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_ACRESCIMO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_TOTAL" type="xs:decimal"/>
+            <xs:element name="CD_NODE" type="xs:string" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

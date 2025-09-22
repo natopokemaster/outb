@@ -1,0 +1,134 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnTelefoneVoipDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP">
+    <creationDate>2009-11-19T17:54:24</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="CID_CONTRATO" type="xs:string">
+        <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_CONTRATO" type="xs:integer">
+        <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_PONTO" type="xs:integer">
+        <extension nativeXpath="ID_PONTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="DDD_TELEFONE_VOIP" type="xs:string">
+        <extension nativeXpath="DDD_TELEFONE_VOIP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NUM_TELEFONE_VOIP" type="xs:string">
+        <extension nativeXpath="NUM_TELEFONE_VOIP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="8" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="FQDN" type="xs:string">
+        <extension nativeXpath="FQDN" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_PORTA" type="xs:integer">
+        <extension nativeXpath="NUM_PORTA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="DT_INI" type="xs:dateTime">
+        <extension nativeXpath="DT_INI" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DT_FIM" type="xs:dateTime">
+        <extension nativeXpath="DT_FIM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DT_ALTERACAO" type="xs:dateTime">
+        <extension nativeXpath="DT_ALTERACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_STATUS_TELEFONE_VOIP" type="xs:string">
+        <extension nativeXpath="ID_STATUS_TELEFONE_VOIP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="GOLDEN" type="xs:integer">
+        <extension nativeXpath="GOLDEN" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="TM_ID" type="xs:integer">
+        <extension nativeXpath="TM_ID" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_ESCOLHIDO" type="xs:integer">
+        <extension nativeXpath="ID_ESCOLHIDO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="PUBLICAR" type="xs:integer">
+        <extension nativeXpath="PUBLICAR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NOME_PUBLICACAO" type="xs:string">
+        <extension nativeXpath="NOME_PUBLICACAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_CONTRATO_AVALIACAO" type="xs:integer">
+        <extension nativeXpath="NUM_CONTRATO_AVALIACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_SISTEMA_EXTERNO" type="xs:integer">
+        <extension nativeXpath="ID_SISTEMA_EXTERNO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CID_CONTRATO_ORIGEM" type="xs:string">
+        <extension nativeXpath="CID_CONTRATO_ORIGEM" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_SOFTX" type="xs:integer">
+        <extension nativeXpath="ID_SOFTX" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FC_NUMERO_PORTADO" type="xs:string">
+        <extension nativeXpath="FC_NUMERO_PORTADO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FC_INTERCEPTADO" type="xs:string">
+        <extension nativeXpath="FC_INTERCEPTADO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <key name="SNTELVOIP_UK" type="snt:SnTelefoneVoipDSP_KEY" inferredSchema="true" xmlns:snt="ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP";
+
+import schema namespace t12 = "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP" at "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/schemas/SnTelefoneVoipDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP" at "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/schemas/SnTelefoneVoipDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_TELEFONE_VOIP" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnTelefoneVoipDSP() as schema-element(t12:SnTelefoneVoipDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_TELEFONE_VOIP" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnTelefoneVoipDSP($p as element(t12:SnTelefoneVoipDSP)*)as schema-element(t12:SnTelefoneVoipDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_TELEFONE_VOIP" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnTelefoneVoipDSP($p as changed-element(t12:SnTelefoneVoipDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_TELEFONE_VOIP" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnTelefoneVoipDSP($p as element(t12:SnTelefoneVoipDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnCidadeOperadoraDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnCidadeOperadoraDSP" at "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/schemas/SnCidadeOperadoraDSP.xsd";
+
+   
+
+declare namespace f3="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoDSP.xsd";
+
+   
+

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="IncluirRequisicaoInternaV2_0ServiceDefinitions" 
+  targetNamespace="http://br/com/netservicos/atendimento/evento/requisicaointerna" 
+  xmlns="" 
+  xmlns:s0="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:s1="http://br/com/netservicos/atendimento/evento/requisicaointerna" 
+  xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" 
+  xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" 
+      elementFormDefault="qualified" 
+      targetNamespace="http://br/com/netservicos/atendimento/evento/requisicaointerna" 
+      xmlns:s0="http://schemas.xmlsoap.org/wsdl/" 
+      xmlns:s1="http://br/com/netservicos/atendimento/evento/requisicaointerna" 
+      xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" 
+      xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/" 
+      xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      xmlns:even="http://www.netservicos.com.br/modelocanonico/v2/evento"
+      xmlns:iden="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato">
+      <xs:import namespace="http://www.netservicos.com.br/modelocanonico/v2/evento" schemaLocation="../../../../../modelocanonicoV2/evento/Evento.xsd"/> 
+      <xs:import namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd"/>
+      <xs:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd"/>
+      <xs:element name="incluirRequisicaoInterna">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="even:OrdemInterna" xmlns:even="http://www.netservicos.com.br/modelocanonico/v2/evento"/>
+            <xs:element ref="iden:IdentificacaoContrato" xmlns:iden="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="incluirRequisicaoInternaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="even:OrdemInterna" xmlns:even="http://www.netservicos.com.br/modelocanonico/v2/evento"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://br/com/netservicos/atendimento/evento/requisicaointerna" xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+  </s0:types>
+  <s0:message name="incluirRequisicaoInterna">
+    <s0:part element="s1:incluirRequisicaoInterna" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netheader"/>
+  </s0:message>
+  <s0:message name="incluirRequisicaoInternaResponse">
+    <s0:part element="s1:incluirRequisicaoInternaResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="IncluirRequisicaoInternaV2_0">
+    <s0:operation name="incluirRequisicaoInterna" parameterOrder="parameters netheader">
+      <s0:input message="s1:incluirRequisicaoInterna"/>
+      <s0:output message="s1:incluirRequisicaoInternaResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="IncluirRequisicaoInternaV2_0ServiceSoapBinding" type="s1:IncluirRequisicaoInternaV2_0">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="incluirRequisicaoInterna">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:incluirRequisicaoInterna" part="netheader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="IncluirRequisicaoInternaV2_0Service">
+    <s0:port binding="s1:IncluirRequisicaoInternaV2_0ServiceSoapBinding" name="IncluirRequisicaoInternaV2_0SoapPort">
+      <s3:address location="http://5.8.110.148:7001/NETAtendimentoWLIWeb/br/com/netservicos/atendimento/jws/IncluirRequisicaoInternaJWSV2_0"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

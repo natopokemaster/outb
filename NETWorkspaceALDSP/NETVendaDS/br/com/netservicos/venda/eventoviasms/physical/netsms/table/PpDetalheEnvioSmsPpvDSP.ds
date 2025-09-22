@@ -1,0 +1,82 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpDetalheEnvioSmsPpvDSP" xmlns:t="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP">
+<creationDate>2012-02-07T12:01:19</creationDate>
+<relationalDB name="VENDA_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.vender.VendaOnlineNETSMSBindingProvider"/>
+<field xpath="ID_DETALHE_ENVIO_SMS_PPV" type="xs:integer">
+  <extension nativeXpath="ID_DETALHE_ENVIO_SMS_PPV" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_ORIGEM" type="xs:integer">
+  <extension nativeXpath="ID_ORIGEM" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PACOTE_PPV" type="xs:integer">
+  <extension nativeXpath="ID_PACOTE_PPV" nativeTypeCode="3" nativeType="NUMBER" nativeSize="12" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PROMOCAO" type="xs:integer">
+  <extension nativeXpath="ID_PROMOCAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PLANO_PGTO" type="xs:integer">
+  <extension nativeXpath="ID_PLANO_PGTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_MIDIA" type="xs:integer">
+  <extension nativeXpath="ID_MIDIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_CAMPANHA" type="xs:integer">
+  <extension nativeXpath="ID_CAMPANHA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_DETALHE_ENVIO_SMS_PPV" type="ppd:PpDetalheEnvioSmsPpvDSP_KEY" inferredSchema="true" xmlns:ppd="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP"/>
+
+<relationshipTarget roleName="SnConfiguracaoEnvioSmsDSP" roleNumber="2" XDS="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnConfiguracaoEnvioSmsDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="PpDetalheEnvioSmsPpvDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpDetalheEnvioSmsPpvDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpDetalheEnvioSmsPpvDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="PP_DETALHE_ENVIO_SMS_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpDetalheEnvioSmsPpvDSP() as schema-element(t1:PpDetalheEnvioSmsPpvDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="PP_DETALHE_ENVIO_SMS_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpDetalheEnvioSmsPpvDSP($p as element(t1:PpDetalheEnvioSmsPpvDSP)*)as schema-element(t1:PpDetalheEnvioSmsPpvDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="PP_DETALHE_ENVIO_SMS_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpDetalheEnvioSmsPpvDSP($p as changed-element(t1:PpDetalheEnvioSmsPpvDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="PP_DETALHE_ENVIO_SMS_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpDetalheEnvioSmsPpvDSP($p as element(t1:PpDetalheEnvioSmsPpvDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnConfiguracaoEnvioSmsDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnConfiguracaoEnvioSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnConfiguracaoEnvioSmsDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="navigate" roleName="SnConfiguracaoEnvioSmsDSP"/>::)
+
+   declare function f1:getSnConfiguracaoEnvioSmsDSP($pk as element(t1:PpDetalheEnvioSmsPpvDSP)) as element(t2:SnConfiguracaoEnvioSmsDSP)*
+   {
+      for $fk in f2:SnConfiguracaoEnvioSmsDSP()
+      where $pk/ID_DETALHE_ENVIO_SMS_PPV eq $fk/ID_DETALHE_ENVIO_SMS_PPV
+      return $fk
+   };
+

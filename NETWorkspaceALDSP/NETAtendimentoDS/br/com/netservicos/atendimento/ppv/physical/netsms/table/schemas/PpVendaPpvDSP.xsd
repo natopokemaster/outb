@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PpVendaPpvDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_VENDA" type="xs:integer"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="CID_CONTRATO" type="xs:string" minOccurs="0"/>
+            <xs:element name="TM_ID" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_ANTECEDENCIA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_STATUS_VENDA" type="xs:integer"/>
+            <xs:element name="ID_TIPO_VENDA" type="xs:integer"/>
+            <xs:element name="ID_CAMPANHA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_MIDIA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_PACOTE_PPV" type="xs:integer"/>
+            <xs:element name="ID_PROMOCAO" type="xs:integer"/>
+            <xs:element name="ID_PLANO_PGTO" type="xs:integer"/>
+            <xs:element name="DATA_COMPRA" type="xs:dateTime"/>
+            <xs:element name="HORA_COMPRA" type="xs:dateTime"/>
+            <xs:element name="PRECO_COBRADO" type="xs:decimal"/>
+            <xs:element name="ID_VENDEDOR" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_REPORT" type="xs:integer" minOccurs="0"/>
+            <xs:element name="USR_RESP" type="xs:string"/>
+            <xs:element name="DATA_EXPORT" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DATA_VENDA" type="xs:dateTime" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

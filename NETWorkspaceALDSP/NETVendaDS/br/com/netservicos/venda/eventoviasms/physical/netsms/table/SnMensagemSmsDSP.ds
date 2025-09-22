@@ -1,0 +1,56 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnMensagemSmsDSP" xmlns:t="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP">
+<creationDate>2012-02-07T12:01:19</creationDate>
+<relationalDB name="VENDA_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.vender.VendaOnlineNETSMSBindingProvider"/>
+<field xpath="ID_MENSAGEM" type="xs:integer">
+  <extension nativeXpath="ID_MENSAGEM" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DS_MENSAGEM" type="xs:string">
+  <extension nativeXpath="DS_MENSAGEM" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="160" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CD_MENSAGEM_SMS" type="xs:string">
+  <extension nativeXpath="CD_MENSAGEM_SMS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_MENSAGEM" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_MENSAGEM" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_MENSAGEM_SMS" type="snm:SnMensagemSmsDSP_KEY" inferredSchema="true" xmlns:snm="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP";
+
+import schema namespace t5 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnMensagemSmsDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnMensagemSmsDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_MENSAGEM_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnMensagemSmsDSP() as schema-element(t5:SnMensagemSmsDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_MENSAGEM_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnMensagemSmsDSP($p as element(t5:SnMensagemSmsDSP)*)as schema-element(t5:SnMensagemSmsDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_MENSAGEM_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnMensagemSmsDSP($p as changed-element(t5:SnMensagemSmsDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_MENSAGEM_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnMensagemSmsDSP($p as element(t5:SnMensagemSmsDSP)*) as empty()  external;
+

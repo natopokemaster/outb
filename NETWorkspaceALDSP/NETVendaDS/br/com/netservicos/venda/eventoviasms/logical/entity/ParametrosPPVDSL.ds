@@ -1,0 +1,95 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:ParametroPPV" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="http://www.netservicos.com.br/ParametroPPV"><creationDate>2012-01-20T16:52:18</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace snc3= "ld:br/com/netservicos/venda/campanha/physical/netsms/table/SnCampanhaDSP";
+
+declare namespace snm1= "ld:br/com/netservicos/venda/midia/physical/netsms/table/SnMidiaDSP";
+
+declare namespace ppc= "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP";
+
+declare namespace ppm= "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpMidiaDSP";
+
+declare namespace snt= "ld:br/com/netservicos/venda/canalvenda/physical/netsms/table/SnTipoVendaDSP";
+
+declare namespace snc1= "ld:br/com/netservicos/venda/operadora/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace snd= "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnDetalheEnvioSmsDSP";
+
+declare namespace ppd= "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP";
+
+declare namespace snc= "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnConfiguracaoEnvioSmsDSP";
+
+import schema namespace ns1="http://www.netservicos.com.br/ParametroPPV" at "ld:br/com/netservicos/venda/eventoviasms/schemas/ParametroPPV.xsd";
+
+
+declare namespace tns="ld:br/com/netservicos/venda/eventoviasms/logical/entity/ParametrosPPVDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:buscarParametros($siglaPPVSMS as xs:string, $codigoOperadora as xs:string) as element(ns1:ParametroPPV)* {
+	{	
+		declare $responseEvento :=
+		 	for $config in snc:SnConfiguracaoEnvioSmsDSP()
+	    	where $siglaPPVSMS eq $config/CD_MENSAGEM_SMS
+			for $operadora in snc1:SnCidadeOperadoraDSP()
+			where $config/CID_CONTRATO eq $operadora/CID_CONTRATO
+			where $operadora/COD_OPERADORA eq $codigoOperadora
+	    	for $detalhe in ppd:PpDetalheEnvioSmsPpvDSP()
+	    	where $config/ID_DETALHE_ENVIO_SMS_PPV eq $detalhe/ID_DETALHE_ENVIO_SMS_PPV
+	    	for $tipoVenda in snt:SnTipoVendaDSP()
+		    where $detalhe/ID_TIPO_VENDA eq $tipoVenda/ID_TIPO_VENDA
+		    for $midia in ppm:PpMidiaDSP()
+		    where $detalhe/ID_MIDIA eq $midia/ID_MIDIA
+		    for $campanha in ppc:PpCampanhaDSP()
+		    where $detalhe/ID_CAMPANHA eq $campanha/ID_CAMPANHA
+	    	return 
+		    <ns1:ParametroPPV?>
+		        <ns1:COD_OPERADORA?>{fn:data($codigoOperadora)}</ns1:COD_OPERADORA>
+		        <ns1:COD_SMS_PPV?>{fn:data($siglaPPVSMS)}</ns1:COD_SMS_PPV>
+		        <ns1:ID_ORIGEM?>{fn:data($detalhe/ID_ORIGEM)}</ns1:ID_ORIGEM>
+		        <ns1:ID_PACOTE_PPV?>{fn:data($detalhe/ID_PACOTE_PPV)}</ns1:ID_PACOTE_PPV>
+		        <ns1:ID_PROMOCAO?>{fn:data($detalhe/ID_PROMOCAO)}</ns1:ID_PROMOCAO>
+		        <ns1:ID_PLANO_PGTO?>{fn:data($detalhe/ID_PLANO_PGTO)}</ns1:ID_PLANO_PGTO>
+		        <ns1:TIPO_VENDA?>{fn:data($tipoVenda/DESCRICAO)}</ns1:TIPO_VENDA>
+		        <ns1:MIDIA?>{fn:data($midia/DESCRICAO)}</ns1:MIDIA>
+		        <ns1:CAMPANHA?>{fn:data($campanha/CAMPANHA)}</ns1:CAMPANHA>
+		    </ns1:ParametroPPV>;
+    	declare $responsePacote :=
+		 	for $config in snc:SnConfiguracaoEnvioSmsDSP()
+	    	where $siglaPPVSMS eq $config/CD_MENSAGEM_SMS
+			for $operadora in snc1:SnCidadeOperadoraDSP()
+			where $config/CID_CONTRATO eq $operadora/CID_CONTRATO
+			where $operadora/COD_OPERADORA eq $codigoOperadora
+	    	for $detalhe in snd:SnDetalheEnvioSmsDSP()
+	    	where $config/ID_DETALHE_ENVIO_SMS eq $detalhe/ID_DETALHE_ENVIO_SMS
+	    	for $tipoVenda in snt:SnTipoVendaDSP()
+		    where $detalhe/ID_TIPO_VENDA eq $tipoVenda/ID_TIPO_VENDA
+		    for $midia in snm1:SnMidiaDSP()
+		    where $detalhe/ID_MIDIA eq $midia/ID_MIDIA
+		    for $campanha in snc3:SnCampanhaDSP()
+		    where $detalhe/ID_CAMPANHA eq $campanha/ID_CAMPANHA
+	    	return
+		    <ns1:ParametroPPV?>
+		        <ns1:COD_OPERADORA?>{fn:data($codigoOperadora)}</ns1:COD_OPERADORA>
+		        <ns1:COD_SMS_PPV?>{fn:data($siglaPPVSMS)}</ns1:COD_SMS_PPV>
+		        <ns1:ID_ORIGEM?>{fn:data($detalhe/ID_ORIGEM)}</ns1:ID_ORIGEM>
+		        <ns1:ID_PRODUTO?>{fn:data($detalhe/ID_PRODUTO)}</ns1:ID_PRODUTO>
+		        <ns1:ID_PROMOCAO?>{fn:data($detalhe/ID_PROMOCAO)}</ns1:ID_PROMOCAO>
+		        <ns1:ID_PLANO_PGTO?>{fn:data($detalhe/ID_PLANO_PGTO)}</ns1:ID_PLANO_PGTO>
+		        <ns1:TIPO_VENDA?>{fn:data($tipoVenda/DESCRICAO)}</ns1:TIPO_VENDA>
+		        <ns1:MIDIA?>{fn:data($midia/DESCRICAO)}</ns1:MIDIA>
+		        <ns1:CAMPANHA?>{fn:data($campanha/CAMPANHA)}</ns1:CAMPANHA>
+		    </ns1:ParametroPPV>;
+		    
+		if (fn:not(fn:empty(fn:data($responseEvento)))) then {   
+			return value $responseEvento;
+		}else{
+			return value $responsePacote;
+		}; 
+   }
+};
+
+
+
+

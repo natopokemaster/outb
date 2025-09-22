@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" name="OcorrenciaJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/Ocorrencia">
+      <xs:import namespace="http://www.netservicos.com.br/Ocorrencia"/>
+      <xs:element name="inserirOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="idTipoOcorrencia" type="xs:integer"/>
+            <xs:element name="idAssinante" type="xs:integer"/>
+            <xs:element name="nomeInformante" type="xs:string"/>
+            <xs:element name="telInformante" type="xs:string"/>
+            <xs:element name="dtOcorrencia" type="xs:dateTime"/>
+            <xs:element name="idUsr" type="xs:string"/>
+            <xs:element name="situacao" type="xs:integer"/>
+            <xs:element name="dtRetorno" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="idOrigemOcorrencia" type="xs:integer"/>
+            <xs:element name="obs" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inserirOcorrenciaResponse">
+        <xs:complexType>
+          <xs:sequence>
+           <xs:element name="idOcorrencia" type="xs:integer"/>	
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inserirCacheOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cdHashCode" type="xs:string"/>
+            <xs:element name="dsEndpoint" type="xs:string"/>
+            <xs:element name="xtRequisicao" type="xs:string"/>
+            <xs:element name="xtResposta" type="xs:string"/>
+            <xs:element name="numContrato" type="xs:integer"/>
+            <xs:element name="cidContrato" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inserirCacheOcorrenciaResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarDadosOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cdHashCode" type="xs:string"/>
+            <xs:element name="descricao" type="xs:string"/>
+            <xs:element name="idTipoOcorrencia" type="xs:integer"/>
+            <xs:element name="numContrato" type="xs:integer"/>
+            <xs:element name="cidContrato" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DadosOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:dadosOcorrencia" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/Ocorrencia" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/Ocorrencia">
+      <complexType name="dadosOcorrenciaType">
+        <sequence>
+          <element name="ID_STATUS" type="integer"/>
+		  <element name="ID_ORIGEM" type="integer"/>
+		  <element name="DESCRICAO" type="string"/>
+		  <element name="CD_HASH_CODE" type="string"/>
+        </sequence>
+      </complexType>
+      <element name="dadosOcorrencia" type="tns:dadosOcorrenciaType"></element>
+    </schema>
+  </types>
+  <message name="consultarDadosOcorrenciaIn">
+    <part name="parameters" element="tns:consultarDadosOcorrencia"/>
+  </message>
+  <message name="consultarDadosOcorrenciaOut">
+    <part name="parameters" element="tns:DadosOcorrencia"/>
+  </message>
+  <message name="inserirCacheOcorrenciaIn">
+    <part name="parameters" element="tns:inserirCacheOcorrencia"/>
+  </message>
+  <message name="inserirCacheOcorrenciaOut">
+    <part name="parameters" element="tns:inserirCacheOcorrenciaResponse"/>
+  </message>
+  <message name="inserirOcorrenciaIn">
+    <part name="parameters" element="tns:inserirOcorrencia"/>
+  </message>
+  <message name="inserirOcorrenciaOut">
+    <part name="parameters" element="tns:inserirOcorrenciaResponse"/>
+  </message>
+  <portType name="OcorrenciaJWSPT">
+    <operation name="consultarDadosOcorrencia">
+      <input message="tns:consultarDadosOcorrenciaIn"/>
+      <output message="tns:consultarDadosOcorrenciaOut"/>
+    </operation>
+    <operation name="inserirCacheOcorrencia">
+      <input message="tns:inserirCacheOcorrenciaIn"/>
+      <output message="tns:inserirCacheOcorrenciaOut"/>
+    </operation>
+    <operation name="inserirOcorrencia">
+      <input message="tns:inserirOcorrenciaIn"/>
+      <output message="tns:inserirOcorrenciaOut"/>
+    </operation>
+  </portType>
+  <binding name="OcorrenciaJWSSoapBinding" type="tns:OcorrenciaJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarDadosOcorrencia">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws/consultarDadosOcorrencia" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="inserirCacheOcorrencia">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws/inserirCacheOcorrencia" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="inserirOcorrencia">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws/inserirOcorrencia" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="OcorrenciaJWSSoapService">
+    <port binding="tns:OcorrenciaJWSSoapBinding" name="OcorrenciaJWSSoapPort">
+      <soap:address location="http://10.218.134.144:7041/NETAtendimentoDS/ALDSPWebServiceSOAP12/br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws"/>
+    </port>
+  </service>
+</definitions>

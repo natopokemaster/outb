@@ -1,0 +1,46 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnChamadaDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP">
+<creationDate>2009-11-27T12:22:48</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_PROTOCOLO" type="xs:string">
+  <extension nativeXpath="ID_PROTOCOLO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_CHAMADA" type="xs:integer">
+  <extension nativeXpath="ID_CHAMADA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_CHAMADA" type="snc:SnChamadaDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP"/>
+
+<relationshipTarget roleName="SnAtendimentoAssDSP" roleNumber="2" XDS="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnAtendimentoAssDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="SnChamadaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnChamadaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnChamadaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_CHAMADA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnChamadaDSP() as schema-element(t2:SnChamadaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_CHAMADA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnChamadaDSP($p as element(t2:SnChamadaDSP)*)as schema-element(t2:SnChamadaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_CHAMADA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnChamadaDSP($p as changed-element(t2:SnChamadaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_CHAMADA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnChamadaDSP($p as element(t2:SnChamadaDSP)*) as empty()  external;
+

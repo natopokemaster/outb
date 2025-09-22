@@ -1,0 +1,52 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnTipoOCDSP" xmlns:t="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP">
+<creationDate>2012-05-30T15:32:02</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_TIPO_OC" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_OC" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="VALIDO" type="xs:integer">
+  <extension nativeXpath="VALIDO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="INTERFACE" type="xs:integer">
+  <extension nativeXpath="INTERFACE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_TIPO_OC" type="snt:SnTipoOCDSP_KEY" inferredSchema="true" xmlns:snt="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnTipoOCDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnTipoOCDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_TIPO_OC" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnTipoOCDSP() as schema-element(t3:SnTipoOCDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_TIPO_OC" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnTipoOCDSP($p as element(t3:SnTipoOCDSP)*)as schema-element(t3:SnTipoOCDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_TIPO_OC" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnTipoOCDSP($p as changed-element(t3:SnTipoOCDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_TIPO_OC" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnTipoOCDSP($p as element(t3:SnTipoOCDSP)*) as empty()  external;
+

@@ -1,0 +1,425 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="IncluirRequisicaoInternaJWSV2_0ServiceDefinitions" targetNamespace="http://br/com/netservicos/atendimento/jws" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://br/com/netservicos/atendimento/jws" xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <s0:types>
+    <schema targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento" xmlns:tns="http://www.netservicos.com.br/v2/NetHeader">
+      <element name="NetHeader" type="tns:Header">
+        <annotation>
+          <documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Header">
+        <annotation>
+          <documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="aplicacao">
+            <annotation>
+              <documentation>
+						Aplicação que esta consumindo o serviço
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="NETSMS"/>
+                <enumeration value="NETSALES"/>
+                <enumeration value="PORTAL NET"/>
+                <enumeration value="URA"/>
+                <enumeration value="MODULO COBRANCA"/>
+                <enumeration value="ATLAS"/>
+                <enumeration value="RETENCAO REVERSAO"/>
+                <enumeration value="COMISSIONAMENTO"/>
+                <enumeration value="WORKASSURE"/>
+                <enumeration value="EMBRATEL"/>
+                <enumeration value="ACTIVIA"/>
+                <enumeration value="DECODER DIGITAL"/>
+                <enumeration value="OTHER"/>
+                <enumeration value="NETADMIN"/>
+                <enumeration value="WLI_EVENT"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="funcionalidade">
+            <annotation>
+              <documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="versaoServico" type="string">
+            <annotation>
+              <documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="token">
+            <annotation>
+              <documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="atendimento" type="tns:Atendimento">
+            <annotation>
+              <documentation>
+						Atendimento de cliente.
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="username" type="string">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="Atendimento">
+        <annotation>
+          <documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamada deveria preencher os
+				valores desde entidade.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element name="numeroProtocolo" type="string">
+            <annotation>
+              <documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+            </annotation>
+          </element>
+          <element name="numeroChamada" type="string">
+            <annotation>
+              <documentation>
+						Numero de chamanda de atendimento
+					</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/usuario" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:usuario="http://www.netservicos.com.br/atendimento/usuario">
+      <complexType name="Usuario">
+        <annotation>
+          <documentation>
+    			Usuario de sistemas de NET
+    		</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="LoginUsuario" type="string">
+            <annotation>
+              <documentation>
+    					Login de usuario
+    				</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="NomeUsuario" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Usuarios">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Usuarios" type="usuario:Usuario"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/evento" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/atendimento/evento" xmlns:usuario="http://www.netservicos.com.br/atendimento/usuario">
+      <import namespace="http://www.netservicos.com.br/atendimento/usuario">
+	</import>
+      <complexType abstract="true" name="Evento">
+        <annotation>
+          <documentation>
+				Listagem de todas ocorrências do sistema que gera uma
+				ação manual ou automática para seu tratamento.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="Usuario" type="usuario:Usuario">
+            <annotation>
+              <documentation>
+						Usuario de sistema que abriu o evento
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="Observacao" type="string">
+            <annotation>
+              <documentation>
+						Observação de evento
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="OrigemEvento" type="string">	</element>
+          <element maxOccurs="1" minOccurs="0" name="Identificador" type="long">
+            <annotation>
+              <documentation>
+						Utilizado para identifcar o evento, exemplo
+						evento de ocorrencia
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="Tipo" type="evento:TipoEvento">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType abstract="true" name="Registro">
+        <annotation>
+          <documentation>
+				Entidade abstrato utilizando para agrupar os registros
+				gerados.
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Evento"/>
+        </complexContent>
+      </complexType>
+      <complexType name="RegistroSistemico">
+        <annotation>
+          <documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzação para legado --&gt; Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+
+			</extension>
+        </complexContent>
+      </complexType>
+      <complexType name="RegistroContato">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzação para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+            <sequence>
+              <element name="nomeContato" type="string"/>
+              <element name="telefoneContato" type="string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="RequisicaoInterna">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzação para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+            <sequence>
+              <element name="nomeContato" type="string"/>
+              <element name="telefoneContato" type="string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <element name="RegistroSistemico" type="evento:RegistroSistemico">
+        <annotation>
+          <documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzação para legado --&gt; Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</documentation>
+        </annotation>
+      </element>
+      <element name="RegistroContato" type="evento:RegistroContato">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzação para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+      </element>
+      <element name="RequisicaoInterna" type="evento:RequisicaoInterna">
+        <annotation>
+          <documentation>
+				Requisiçao Interna
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="TipoEvento">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="Identificador" type="long"/>
+          <element maxOccurs="1" minOccurs="0" name="Descricao" type="string"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/identificacaoContrato" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ident="http://www.netservicos.com.br/atendimento/identificacaoContrato">
+      <complexType name="IdentificacaoContratoType">
+        <annotation>
+          <documentation>
+        		Tipo para padronizar os possíveis atributos usados
+        		para identificação de um Contrato na NET, a saber: -
+        		SmartCard ou Código do Endereçavel no Terminal OU -
+        		Combinação de Número do Contrato e: - Código da
+        		Operadora OU Identificação da Cidade.
+        	</documentation>
+        </annotation>
+        <choice>
+          <element maxOccurs="1" minOccurs="1" name="Contrato" type="ident:ContratoType">
+            <annotation>
+              <documentation>
+        				Tipo para representar identificador do contrato.
+        				Que é formado pela combinação de Número do
+        				Contrato e: - Código da Operadora OU
+        				Identificação da Cidade.
+        			</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="AliasDatabase" type="string">
+            <annotation>
+              <documentation>
+        				Álias da base de dados em que se encontra o contrato. 
+        				Ex: Usado para definir o atributo j_identity_base no header das requisições.
+        			</documentation>
+            </annotation>
+          </element>
+        </choice>
+      </complexType>
+      <simpleType name="SmartCardType">
+        <annotation>
+          <documentation>
+        		Número do SmartCard ou Código do Endereçavel do
+        		terminal.
+        	</documentation>
+        </annotation>
+        <restriction base="string"/>
+      </simpleType>
+      <complexType name="ContratoType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="NumeroContrato">
+            <annotation>
+              <documentation>
+                		Número do contrato do assinante, conforme
+                		cadastro no legado.
+                	</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <choice>
+            <element maxOccurs="1" minOccurs="1" name="CodigoOperadora">
+              <annotation>
+                <documentation>
+                    		Código da Operadora onde o contrato está
+                    		cadastrado, conforme cadastro no legado.
+                    	</documentation>
+              </annotation>
+              <simpleType>
+                <restriction base="string">
+                  <length value="3"/>
+                </restriction>
+              </simpleType>
+            </element>
+            <element maxOccurs="1" minOccurs="1" name="IdentificacaoCidade">
+              <annotation>
+                <documentation>
+                    		Identificação da Cidade onde o contrato está
+                    		cadastrado, conforme cadastro no legado.
+                    	</documentation>
+              </annotation>
+              <simpleType>
+                <restriction base="string">
+                  <length value="5"/>
+                </restriction>
+              </simpleType>
+            </element>
+          </choice>
+        </sequence>
+      </complexType>
+      <element name="IdentificacaoContrato" type="ident:IdentificacaoContratoType">
+        <annotation>
+          <documentation>
+				Elemento que representa a identificação do Contrato na
+				NET.
+			</documentation>
+        </annotation>
+      </element>
+    </schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://br/com/netservicos/atendimento/jws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.netservicos.com.br/atendimento/evento"/>
+      <xs:import namespace="http://www.netservicos.com.br/atendimento/identificacaoContrato"/>
+      <xs:element name="incluirRequisicaoInterna">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="even:RequisicaoInterna" xmlns:even="http://www.netservicos.com.br/atendimento/evento"/>
+            <xs:element ref="iden:IdentificacaoContrato" xmlns:iden="http://www.netservicos.com.br/atendimento/identificacaoContrato"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="incluirRequisicaoInternaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="even:RequisicaoInterna" xmlns:even="http://www.netservicos.com.br/atendimento/evento"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+  </s0:types>
+  <s0:message name="incluirRequisicaoInterna">
+    <s0:part element="s1:incluirRequisicaoInterna" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netheader"/>
+  </s0:message>
+  <s0:message name="incluirRequisicaoInternaResponse">
+    <s0:part element="s1:incluirRequisicaoInternaResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="IncluirRequisicaoInternaJWSV2_0">
+    <s0:operation name="incluirRequisicaoInterna" parameterOrder="parameters netheader">
+      <s0:input message="s1:incluirRequisicaoInterna"/>
+      <s0:output message="s1:incluirRequisicaoInternaResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="IncluirRequisicaoInternaJWSV2_0ServiceSoapBinding" type="s1:IncluirRequisicaoInternaJWSV2_0">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="incluirRequisicaoInterna">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:incluirRequisicaoInterna" part="netheader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="IncluirRequisicaoInternaJWSV2_0Service">
+    <s0:port binding="s1:IncluirRequisicaoInternaJWSV2_0ServiceSoapBinding" name="IncluirRequisicaoInternaJWSV2_0SoapPort">
+      <s3:address location="http://localhost:7001/NETAtendimentoWLIWeb/br/com/netservicos/atendimento/jws/IncluirRequisicaoInternaJWSV2_0"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

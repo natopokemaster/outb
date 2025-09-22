@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/" xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.openuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.openuri.org/">
+  <wsdl:types>
+    <s:schema xmlns:sch="http://netservicos.com.br/atender/contrato/schema" elementFormDefault="qualified" targetNamespace="http://www.openuri.org/">
+      <s:import namespace="http://netservicos.com.br/atender/contrato/schema"/>
+      <s:element name="identificarContratoRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="ORIGEM" type="s:string" minOccurs="0"/>
+            <s:element name="CONSUMIDOR" type="s:string" minOccurs="0"/>
+            <s:element name="COD_ASSINANTE" type="s:string" minOccurs="0"/>
+            <s:element name="CPF_CNPJ" type="s:string" minOccurs="0"/>
+            <s:element name="TELEFONE" type="s:string" minOccurs="0"/>
+            <s:element name="PROTOCOLO" type="s:string" minOccurs="0"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="identificarContratoRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="sch:RetornoIdentificaContrato"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://netservicos.com.br/atender/contrato/schema" xmlns:pref="http://netservicos.com.br/core/schema" targetNamespace="http://netservicos.com.br/atender/contrato/schema">
+      <import namespace="http://netservicos.com.br/core/schema"/>
+      <!--../../../../../../../../NETCoreWLXBeans/schemas/br/com/netservicos/core/schema
+         ../../../core/schema !-->
+      <element name="RetornoIdentificaContrato">
+        <complexType>
+          <sequence>
+            <choice>
+              <element ref="pref:RetornoPadrao"/>
+            </choice>
+            <choice>
+              <element ref="tns:ContratoAssinante" minOccurs="0" maxOccurs="1"/>
+            </choice>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>    <xsd:schema xmlns:tns="http://netservicos.com.br/core/schema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://netservicos.com.br/core/schema">
+      <xsd:element name="RetornoPadrao">
+        <xsd:complexType>
+          <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="tns:RetornoPadraoRow" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>    <xsd:schema xmlns:tns="http://netservicos.com.br/atender/contrato/schema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wld="http://www.bea.com/2002/10/weblogicdata" targetNamespace="http://netservicos.com.br/atender/contrato/schema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+      <xsd:element name="ContratoAssinante" wld:DefaultNamespace="java:///br/com/netservicos/atender/contrato/schema" wld:RowSet="true">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:ContratoAssinanteRow" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://netservicos.com.br/core/schema" targetNamespace="http://netservicos.com.br/core/schema">
+      <xsd:element name="RetornoPadraoRow">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PROVEDOR" type="xsd:string"/>
+            <xsd:element name="CATEGORIA_MENSAGEM" type="xsd:string"/>
+            <xsd:element name="CODIGO_MENSAGEM" type="xsd:string"/>
+            <xsd:element name="TEXTO_MENSAGEM" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://netservicos.com.br/atender/contrato/schema" xmlns:wld="http://www.bea.com/2002/10/weblogicdata" targetNamespace="http://netservicos.com.br/atender/contrato/schema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+      <xsd:element name="ContratoAssinanteRow" wld:DefaultNamespace="java:///br/com/netservicos/atender/contrato/schema">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SCO_COD_OPERADORA" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SC_NUM_CONTRATO" type="xsd:long" wld:JDBCType="VARCHAR" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SC_CID_CONTRATO" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SC_ID_TIPO_CONTRATO" type="xsd:int" wld:JDBCType="NUMERIC" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SA_NOME_TITULAR" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SA_CPF" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SA_ID_TIPO_PESSOA" type="xsd:int" wld:JDBCType="NUMERIC" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SRAS_ID_TIPO_SEGMENTO" type="xsd:int" wld:JDBCType="NUMERIC" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="STS_DESCRICAO" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SRSCA_ID_STATUS" type="xsd:int" wld:JDBCType="NUMERIC" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SSC_DESCRICAO" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SCO_ID_EMPRESA" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SDV_DIA" type="xsd:int" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SC_DT_CADASTRO" type="xsd:date" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SC_ID_TIPO_COBRANCA" type="xsd:int" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="STC_DESCRICAO" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SA_ID_ENDER_INSTALACAO" type="xsd:long" wld:JDBCType="NUMERIC" minOccurs="1" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SE_ID_EDIFICACAO" type="xsd:long" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="COD_IMOVEL" type="xsd:long" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="NODE" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="CELULA" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_PJ" type="xsd:string" wld:JDBCType="CHAR" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="STATUS_ADIMPL" type="xsd:string" wld:JDBCType="CHAR" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_PAYTV_ANALOGICO" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_PAYTV_DIGITAL" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_INTERNET" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_NETFONE" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_VENDA_PPV_EVENTO" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="FLAG_NODE_SD" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SRCPC_ID_PERFIL_CLIENTE" type="xsd:long" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SRAP_DESCRICAO" type="xsd:string" minOccurs="1" nillable="true" maxOccurs="1"/>
+            <xsd:element xmlns="http://netservicos.com.br/atender/contrato/schema" name="SA_E_MAIL" type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="0" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="identificarContratoRequestSoapIn">
+    <wsdl:part name="parameters" element="s0:identificarContratoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="identificarContratoRequestSoapOut">
+    <wsdl:part name="parameters" element="s0:identificarContratoRequestResponse"/>
+  </wsdl:message>
+  <wsdl:message name="identificarContratoRequestHttpGetIn">
+    <wsdl:part name="ORIGEM" type="s:string"/>
+    <wsdl:part name="CONSUMIDOR" type="s:string"/>
+    <wsdl:part name="COD_ASSINANTE" type="s:string"/>
+    <wsdl:part name="CPF_CNPJ" type="s:string"/>
+    <wsdl:part name="TELEFONE" type="s:string"/>
+    <wsdl:part name="PROTOCOLO" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="identificarContratoRequestHttpGetOut">
+    <wsdl:part xmlns:s1="http://netservicos.com.br/atender/contrato/schema" name="Body" element="s1:RetornoIdentificaContrato"/>
+  </wsdl:message>
+  <wsdl:message name="identificarContratoRequestHttpPostIn">
+    <wsdl:part name="ORIGEM" type="s:string"/>
+    <wsdl:part name="CONSUMIDOR" type="s:string"/>
+    <wsdl:part name="COD_ASSINANTE" type="s:string"/>
+    <wsdl:part name="CPF_CNPJ" type="s:string"/>
+    <wsdl:part name="TELEFONE" type="s:string"/>
+    <wsdl:part name="PROTOCOLO" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="identificarContratoRequestHttpPostOut">
+    <wsdl:part xmlns:s1="http://netservicos.com.br/atender/contrato/schema" name="Body" element="s1:RetornoIdentificaContrato"/>
+  </wsdl:message>
+  <wsdl:portType name="IdentificarContratosSoap">
+    <wsdl:operation name="identificarContratoRequest">
+      <wsdl:documentation/>
+      <wsdl:input message="s0:identificarContratoRequestSoapIn"/>
+      <wsdl:output message="s0:identificarContratoRequestSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IdentificarContratosHttpGet">
+    <wsdl:operation name="identificarContratoRequest">
+      <wsdl:documentation/>
+      <wsdl:input message="s0:identificarContratoRequestHttpGetIn"/>
+      <wsdl:output message="s0:identificarContratoRequestHttpGetOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IdentificarContratosHttpPost">
+    <wsdl:operation name="identificarContratoRequest">
+      <wsdl:documentation/>
+      <wsdl:input message="s0:identificarContratoRequestHttpPostIn"/>
+      <wsdl:output message="s0:identificarContratoRequestHttpPostOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IdentificarContratosSoap" type="s0:IdentificarContratosSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="identificarContratoRequest">
+      <soap:operation soapAction="http://www.openuri.org/identificarContratoRequest" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IdentificarContratosHttpGet" type="s0:IdentificarContratosHttpGet">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="identificarContratoRequest">
+      <http:operation location="/identificarContratoRequest"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IdentificarContratosHttpPost" type="s0:IdentificarContratosHttpPost">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="identificarContratoRequest">
+      <http:operation location="/identificarContratoRequest"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IdentificarContratos">
+    <wsdl:documentation><![CDATA[/** 
+ * <P>
+ * <B>Description :</B><BR>
+ * Implementação de um Java Process do Weblogic Integration, que, com base nos 
+ * parâmetros de filtro informados, pesquisa algumas informações de contratos 
+ * retornando-as para seu consumidor. Utiliza alguns outros processos para 
+ * identificar o contrato por telefone e cpf por exemplo.
+ * </P>
+ * <P>
+ * <B> Issues : <BR>
+ * None </B>
+ * @author Gustavo Dalla Nora
+ * @since 12/09/2007
+ * @version $Revision: 1.2 $
+ */
+]]></wsdl:documentation>
+    <wsdl:port name="IdentificarContratosSoap" binding="s0:IdentificarContratosSoap">
+      <soap:address location="http://claro-project:7005/NETAtenderWLWeb/br/com/netservicos/atender/processos/contrato/IdentificarContratos.jpd"/>
+    </wsdl:port>
+    <wsdl:port name="IdentificarContratosHttpGet" binding="s0:IdentificarContratosHttpGet">
+      <http:address location="http://claro-project:7005/NETAtenderWLWeb/br/com/netservicos/atender/processos/contrato/IdentificarContratos.jpd"/>
+    </wsdl:port>
+    <wsdl:port name="IdentificarContratosHttpPost" binding="s0:IdentificarContratosHttpPost">
+      <http:address location="http://claro-project:7005/NETAtenderWLWeb/br/com/netservicos/atender/processos/contrato/IdentificarContratos.jpd"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

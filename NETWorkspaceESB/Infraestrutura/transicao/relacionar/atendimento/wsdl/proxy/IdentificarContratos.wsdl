@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="http://www.netservicos.com.br/IdentificarContratos/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="IdentificarContratos"
+	targetNamespace="http://www.netservicos.com.br/IdentificarContratos/"
+	xmlns:xsd1="http://www.netservicos.com.br/v2/NetHeader">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/IdentificarContratos/"
+			xmlns:cnt="http://www.netservicos.com.br/ContratoAssinante">
+			<xsd:import
+				schemaLocation="../../schema/ContratoAssinante.xsd"
+				namespace="http://www.netservicos.com.br/ContratoAssinante">
+			</xsd:import>
+			<xsd:element
+				name="consultarContratoPorCodigoClienteRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigoCliente"
+							type="xsd:string" minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element
+				name="consultarContratoPorCodigoClienteResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="cnt:contratos" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarContratosPorProtocoloRequest">
+				<xsd:complexType>
+					<xsd:sequence>						<xsd:element name="protocolo" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element
+				name="consultarContratosPorProtocoloResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="cnt:contratos" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarContratoPorDocumentoRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="documento" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarContratoPorDocumentoResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="cnt:contratos" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarContratoPorTelefoneRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="telefone" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="consultarContratoPorTelefoneResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="cnt:contratos"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element
+				name="solicitarBuscaContratosMultiBaseRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="documento" type="xsd:string"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="telefone" type="xsd:string"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="bases"
+							type="tns:BasesAtivasType" minOccurs="0" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element
+				name="solicitarBuscaContratosMultiBaseResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="cnt:contratos"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="BasesAtivasType">
+				<xsd:sequence>
+					<xsd:element name="baseAtiva" type="xsd:string"
+						minOccurs="1" maxOccurs="unbounded">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarContratoPorCodigoClienteRequest">
+		<wsdl:part
+			element="tns:consultarContratoPorCodigoClienteRequest"
+			name="consultarContratoPorCodigoClienteRequest" />
+		<wsdl:part name="request_header" element="xsd1:NetHeader" />
+	</wsdl:message>
+	<wsdl:message name="consultarContratoPorCodigoClienteResponse">
+		<wsdl:part
+			element="tns:consultarContratoPorCodigoClienteResponse"
+			name="consultarContratoPorCodigoClienteResponse" />
+	</wsdl:message>
+	<wsdl:message name="consultarContratosPorProtocoloRequest">
+		<wsdl:part name="consultarContratosPorProtocoloRequest"
+			element="tns:consultarContratosPorProtocoloRequest" />
+		<wsdl:part name="request_header" element="xsd1:NetHeader" />
+	</wsdl:message>
+	<wsdl:message name="consultarContratosPorProtocoloResponse">
+		<wsdl:part name="consultarContratosPorProtocoloResponse"
+			element="tns:consultarContratosPorProtocoloResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarContratoPorDocumentoRequest">
+		<wsdl:part name="consultarContratoPorDocumentoRequest"
+			element="tns:consultarContratoPorDocumentoRequest" />
+		<wsdl:part name="request_header" element="xsd1:NetHeader" />
+	</wsdl:message>
+	<wsdl:message name="consultarContratoPorDocumentoResponse">
+		<wsdl:part name="consultarContratoPorDocumentoResponse"
+			element="tns:consultarContratoPorDocumentoResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarContratoPorTelefoneRequest">
+		<wsdl:part name="consultarContratoPorTelefoneRequest"
+			element="tns:consultarContratoPorTelefoneRequest" />
+		<wsdl:part name="request_header" element="xsd1:NetHeader" />
+	</wsdl:message>
+	<wsdl:message name="consultarContratoPorTelefoneResponse">
+		<wsdl:part name="consultarContratoPorTelefoneResponse"
+			element="tns:consultarContratoPorTelefoneResponse">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="IdentificarContratos">
+		<wsdl:operation name="consultarContratoPorCodigoCliente">
+			<wsdl:input
+				message="tns:consultarContratoPorCodigoClienteRequest" />
+			<wsdl:output
+				message="tns:consultarContratoPorCodigoClienteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarContratosPorProtocolo">
+			<wsdl:input
+				message="tns:consultarContratosPorProtocoloRequest">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:consultarContratosPorProtocoloResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarContratoPorDocumento">
+			<wsdl:input
+				message="tns:consultarContratoPorDocumentoRequest">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:consultarContratoPorDocumentoResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarContratoPorTelefone">
+			<wsdl:input
+				message="tns:consultarContratoPorTelefoneRequest">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:consultarContratoPorTelefoneResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+
+
+	<wsdl:binding name="IdentificarContratosSOAP11"
+		type="tns:IdentificarContratos">
+		<soap11:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="consultarContratoPorCodigoCliente">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorCodigoCliente" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="consultarContratoPorCodigoClienteRequest" />
+				<soap11:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorCodigoClienteRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="consultarContratoPorCodigoClienteResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratosPorProtocolo">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratosPorProtocolo" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="consultarContratosPorProtocoloRequest" />
+				<soap11:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratosPorProtocoloRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="consultarContratosPorProtocoloResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratoPorDocumento">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorDocumento" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="consultarContratoPorDocumentoRequest" />
+				<soap11:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorDocumentoRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="consultarContratoPorDocumentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratoPorTelefone">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorTelefone" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="consultarContratoPorTelefoneRequest" />
+				<soap11:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorTelefoneRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="consultarContratoPorTelefoneResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+
+	</wsdl:binding>
+
+
+	<wsdl:binding name="IdentificarContratosSOAP12"
+		type="tns:IdentificarContratos">
+		<soap12:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="consultarContratoPorCodigoCliente">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorCodigoCliente" />
+
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="consultarContratoPorCodigoClienteRequest" />
+				<soap12:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorCodigoClienteRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="consultarContratoPorCodigoClienteResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratosPorProtocolo">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratosPorProtocolo" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="consultarContratosPorProtocoloRequest" />
+				<soap12:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratosPorProtocoloRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="consultarContratosPorProtocoloResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratoPorDocumento">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorDocumento" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="consultarContratoPorDocumentoRequest" />
+				<soap12:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorDocumentoRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="consultarContratoPorDocumentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarContratoPorTelefone">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/IdentificarContratos/consultarContratoPorTelefone" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="consultarContratoPorTelefoneRequest" />
+				<soap12:header wsdl:required="true"
+					part="request_header" use="literal"
+					message="tns:consultarContratoPorTelefoneRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="consultarContratoPorTelefoneResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+
+	</wsdl:binding>
+
+	<wsdl:service name="IdentificarContratos">
+		<wsdl:port binding="tns:IdentificarContratosSOAP11"
+			name="IdentificarContratosSOAP11">
+			<soap11:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+
+		<wsdl:port binding="tns:IdentificarContratosSOAP12"
+			name="IdentificarContratosSOAP12">
+			<soap12:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

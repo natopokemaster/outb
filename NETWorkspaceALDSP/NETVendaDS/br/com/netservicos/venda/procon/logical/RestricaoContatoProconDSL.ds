@@ -1,0 +1,63 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com"><creationDate>2009-11-20T13:36:27</creationDate></x:xfl> ::)
+
+
+import schema namespace lis="ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ListaTelefoneProconDSP.xsd";
+
+import schema namespace con1="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ConsultaTelefoneLogDSP.xsd";
+
+import schema namespace con="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ConsultaTelefoneLogDSP_KEY.xsd";
+
+declare namespace res= "ld:br/com/netservicos/venda/procon/logical/RestricaoContatoProconDSL";
+
+declare namespace tns="ld:br/com/netservicos/venda/procon/logical/RestricaoContatoProcoDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare procedure res:inserirRegistroConsultaRestricaoContatoProcon($arg0 as element(con1:ConsultaTelefoneLogDSP)) as element(con1:ConsultaTelefoneLogDSP_KEY){
+	return value con1:createConsultaTelefoneLogDSP($arg0);
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function res:consultarRestricaoContatoProcon($identificacaoCidade as xs:string?, $ddd as xs:string?, $telefone as xs:string) as element(lis:ListaTelefoneProconDSP)? {
+	let $p :=
+		for $ListaTelefoneProconDSP in lis:ListaTelefoneProconDSP()
+		where $ListaTelefoneProconDSP/NR_TELEFONE eq xs:string(xs:long(fn:concat($ddd,$telefone)))
+		order by $ListaTelefoneProconDSP/DT_ENTRADA descending
+		return
+	    <lis:ListaTelefoneProconDSP>
+	        <ID_LISTA_TELEFONE_PROCON>{ fn:data($ListaTelefoneProconDSP/ID_LISTA_TELEFONE_PROCON) }</ID_LISTA_TELEFONE_PROCON>
+	        <NR_TELEFONE>{ fn:data($ListaTelefoneProconDSP/NR_TELEFONE) }</NR_TELEFONE>
+	        <DT_ENTRADA>{ fn:data($ListaTelefoneProconDSP/DT_ENTRADA) }</DT_ENTRADA>
+	        <DT_RESTRICAO>{ fn:data($ListaTelefoneProconDSP/DT_RESTRICAO) }</DT_RESTRICAO>
+	        <ST_BLOQUEIO>{ fn:data($ListaTelefoneProconDSP/ST_BLOQUEIO) }</ST_BLOQUEIO>
+	        <SG_UF>{ fn:data($ListaTelefoneProconDSP/SG_UF) }</SG_UF>
+	        <DH_ULTIMA_ATUALIZACAO>{ fn:data($ListaTelefoneProconDSP/DH_ULTIMA_ATUALIZACAO) }</DH_ULTIMA_ATUALIZACAO>
+	    </lis:ListaTelefoneProconDSP>
+	return
+		subsequence($p, 1, 1)
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function res:consultarListaRestricoesContatoProcon($identificacaoCidade as xs:string?, $ddd as xs:string?, $telefone as xs:string) as element(lis:listaItensTelefoneProcon)* {
+	<lis:listaItensTelefoneProcon>
+		{
+		for $ListaTelefoneProconDSP in lis:ListaTelefoneProconDSP()
+		where $ListaTelefoneProconDSP/NR_TELEFONE eq xs:string(xs:long(fn:concat($ddd,$telefone)))
+		where $ListaTelefoneProconDSP/ST_BLOQUEIO eq "B"
+		return
+	    <ListaTelefoneProconDSP>
+	        <ID_LISTA_TELEFONE_PROCON>{ fn:data($ListaTelefoneProconDSP/ID_LISTA_TELEFONE_PROCON) }</ID_LISTA_TELEFONE_PROCON>
+	        <NR_TELEFONE>{ fn:data($ListaTelefoneProconDSP/NR_TELEFONE) }</NR_TELEFONE>
+	        <DT_ENTRADA>{ fn:data($ListaTelefoneProconDSP/DT_ENTRADA) }</DT_ENTRADA>
+	        <DT_RESTRICAO>{ fn:data($ListaTelefoneProconDSP/DT_RESTRICAO) }</DT_RESTRICAO>
+	        <ST_BLOQUEIO>{ fn:data($ListaTelefoneProconDSP/ST_BLOQUEIO) }</ST_BLOQUEIO>
+	        <SG_UF>{ fn:data($ListaTelefoneProconDSP/SG_UF) }</SG_UF>
+	        <DH_ULTIMA_ATUALIZACAO>{ fn:data($ListaTelefoneProconDSP/DH_ULTIMA_ATUALIZACAO) }</DH_ULTIMA_ATUALIZACAO>
+	    </ListaTelefoneProconDSP>
+        }
+    </lis:listaItensTelefoneProcon>
+};

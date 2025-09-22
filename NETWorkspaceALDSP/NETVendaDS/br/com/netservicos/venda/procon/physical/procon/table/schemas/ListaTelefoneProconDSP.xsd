@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	targetNamespace="ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:Q1="ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP">
+
+	<xs:complexType name="ListaTelefoneProconType">
+		<xs:sequence>
+			<xs:element name="ID_LISTA_TELEFONE_PROCON"
+				type="xs:double" />
+			<xs:element name="NR_TELEFONE" type="xs:string" />
+			<xs:element name="DT_ENTRADA" type="xs:dateTime" />
+			<xs:element name="DT_RESTRICAO" type="xs:dateTime" />
+			<xs:element name="ST_BLOQUEIO" type="xs:string" />
+			<xs:element name="SG_UF" type="xs:string" />
+			<xs:element name="DH_ULTIMA_ATUALIZACAO" type="xs:dateTime" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ListaItensTelefoneProconType">
+		<xs:sequence>
+			<xs:element name="ListaTelefoneProconDSP"
+				type="Q1:ListaTelefoneProconType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="ListaTelefoneProconDSP"
+		type="Q1:ListaTelefoneProconType">
+	</xs:element>
+	<xs:element name="listaItensTelefoneProcon"
+		type="Q1:ListaItensTelefoneProconType">
+	</xs:element>
+</xs:schema>
+

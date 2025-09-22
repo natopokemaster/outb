@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SoSegmentoNegociosDSP_KEY">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_SEGMENTO_NEGOCIOS" type="xs:integer"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

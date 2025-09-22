@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<s0:definitions name="JwsServiceDefinitions" targetNamespace="http://www.openuri.org/" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://www.openuri.org/" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:br.com.netservicos.sb.config.netsms.operadora" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="NETSMSOperadora">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="Ddd" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="AliasDatabase" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="CidadeContrato" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="CodigoOperadora" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="IdentificadorEmpresa" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="NomeOperadora" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="NomeFantasia" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="RazaoSocial" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="Uf" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.openuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="java:br.com.netservicos.sb.config.netsms.operadora"/>
+      <xs:import namespace="java:java.util"/>
+      <xs:element name="getNETSMSOperadoraBySrcTrackIdSource">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraBySrcTrackIdSourceResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByIdentifcadorEmpresa">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByIdentifcadorEmpresaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:NETSMSOperadora" xmlns:java="java:br.com.netservicos.sb.config.netsms.operadora"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByCodigoOperadora">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByCodigoOperadoraResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:NETSMSOperadora" xmlns:java="java:br.com.netservicos.sb.config.netsms.operadora"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadorasByNomeOperadora">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+            <xs:element name="arg1" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadorasByNomeOperadoraResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:ArrayList" xmlns:java="java:java.util"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByNumBP">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByNumBPResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByCidadeContrato">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByCidadeContratoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:NETSMSOperadora" xmlns:java="java:br.com.netservicos.sb.config.netsms.operadora"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoras">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadorasResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:ArrayList" xmlns:java="java:java.util"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByDDDTel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="arg0" type="xs:string"/>
+            <xs:element name="arg1" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNETSMSOperadoraByDDDTelResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getPrincipalIdentityBase">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getPrincipalIdentityBaseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:java.util" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <xs:complexType name="ArrayList">
+        <xs:complexContent>
+          <xs:restriction base="soapenc:Array" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"/>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="getNETSMSOperadoraBySrcTrackIdSource">
+    <s0:part element="s1:getNETSMSOperadoraBySrcTrackIdSource" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraBySrcTrackIdSourceResponse">
+    <s0:part element="s1:getNETSMSOperadoraBySrcTrackIdSourceResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByIdentifcadorEmpresa">
+    <s0:part element="s1:getNETSMSOperadoraByIdentifcadorEmpresa" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByIdentifcadorEmpresaResponse">
+    <s0:part element="s1:getNETSMSOperadoraByIdentifcadorEmpresaResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByCodigoOperadora">
+    <s0:part element="s1:getNETSMSOperadoraByCodigoOperadora" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByCodigoOperadoraResponse">
+    <s0:part element="s1:getNETSMSOperadoraByCodigoOperadoraResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadorasByNomeOperadora">
+    <s0:part element="s1:getNETSMSOperadorasByNomeOperadora" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadorasByNomeOperadoraResponse">
+    <s0:part element="s1:getNETSMSOperadorasByNomeOperadoraResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByNumBP">
+    <s0:part element="s1:getNETSMSOperadoraByNumBP" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByNumBPResponse">
+    <s0:part element="s1:getNETSMSOperadoraByNumBPResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByCidadeContrato">
+    <s0:part element="s1:getNETSMSOperadoraByCidadeContrato" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByCidadeContratoResponse">
+    <s0:part element="s1:getNETSMSOperadoraByCidadeContratoResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoras">
+    <s0:part element="s1:getNETSMSOperadoras" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadorasResponse">
+    <s0:part element="s1:getNETSMSOperadorasResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByDDDTel">
+    <s0:part element="s1:getNETSMSOperadoraByDDDTel" name="parameters"/>
+  </s0:message>
+  <s0:message name="getNETSMSOperadoraByDDDTelResponse">
+    <s0:part element="s1:getNETSMSOperadoraByDDDTelResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="getPrincipalIdentityBase">
+    <s0:part element="s1:getPrincipalIdentityBase" name="parameters"/>
+  </s0:message>
+  <s0:message name="getPrincipalIdentityBaseResponse">
+    <s0:part element="s1:getPrincipalIdentityBaseResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="Jws">
+    <s0:operation name="getNETSMSOperadoraBySrcTrackIdSource" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraBySrcTrackIdSource"/>
+      <s0:output message="s1:getNETSMSOperadoraBySrcTrackIdSourceResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByIdentifcadorEmpresa" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraByIdentifcadorEmpresa"/>
+      <s0:output message="s1:getNETSMSOperadoraByIdentifcadorEmpresaResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByCodigoOperadora" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraByCodigoOperadora"/>
+      <s0:output message="s1:getNETSMSOperadoraByCodigoOperadoraResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadorasByNomeOperadora" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadorasByNomeOperadora"/>
+      <s0:output message="s1:getNETSMSOperadorasByNomeOperadoraResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByNumBP" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraByNumBP"/>
+      <s0:output message="s1:getNETSMSOperadoraByNumBPResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByCidadeContrato" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraByCidadeContrato"/>
+      <s0:output message="s1:getNETSMSOperadoraByCidadeContratoResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoras" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoras"/>
+      <s0:output message="s1:getNETSMSOperadorasResponse"/>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByDDDTel" parameterOrder="parameters">
+      <s0:input message="s1:getNETSMSOperadoraByDDDTel"/>
+      <s0:output message="s1:getNETSMSOperadoraByDDDTelResponse"/>
+    </s0:operation>
+    <s0:operation name="getPrincipalIdentityBase" parameterOrder="parameters">
+      <s0:input message="s1:getPrincipalIdentityBase"/>
+      <s0:output message="s1:getPrincipalIdentityBaseResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="JwsServiceSoapBinding" type="s1:Jws">
+    <s2:binding style="document" transport="http://www.bea.com/soap/transport/local"/>
+    <s0:operation name="getNETSMSOperadoraBySrcTrackIdSource">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraBySrcTrackIdSource" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByIdentifcadorEmpresa">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraByIdentifcadorEmpresa" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByCodigoOperadora">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraByCodigoOperadora" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadorasByNomeOperadora">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadorasByNomeOperadora" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByNumBP">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraByNumBP" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByCidadeContrato">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraByCidadeContrato" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoras">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoras" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getNETSMSOperadoraByDDDTel">
+      <s2:operation soapAction="http://www.openuri.org/getNETSMSOperadoraByDDDTel" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getPrincipalIdentityBase">
+      <s2:operation soapAction="http://www.openuri.org/getPrincipalIdentityBase" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+</s0:definitions>

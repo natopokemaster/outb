@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/ComprasType"
+	xmlns="http://www.netservicos.com.br/ComprasType"
+	elementFormDefault="qualified">
+
+   <xs:element name="ParametrosListarCompraType" type="ListarCompraType" />
+   
+   <xs:element name="ComprasType" type="ComprasType" />
+   
+   <xs:complexType name="ComprasType">
+		<xs:sequence>
+			<xs:element name="compra" type="CompraType" maxOccurs="unbounded"  minOccurs="0"/>	
+			<xs:element name="totalRegistros"  type="xs:int" maxOccurs="1"  minOccurs="0"/>	
+		</xs:sequence>
+
+	</xs:complexType>
+   
+	
+	<xs:complexType name="ListarCompraType">
+		<xs:sequence>
+			<xs:element name="numeroContrato" type="xs:long" maxOccurs="1"  minOccurs="1"/>
+			<xs:element name="cidadeContrato" type="xs:string" maxOccurs="1"  minOccurs="1"/>
+			<xs:element name="dtInicioCompra" type="xs:date" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtTerminoCompra"  type="xs:date" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtInicioExibicao"  type="xs:date" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtTerminoExibicao"  type="xs:date" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="numeroPagina"  type="xs:int" maxOccurs="1"  minOccurs="0"/>
+		    <xs:element name="tamanhoPagina"  type="xs:int" maxOccurs="1"  minOccurs="0"/>
+		    <xs:element name="resultadoPaginado"  type="xs:boolean" maxOccurs="1"  minOccurs="1"/>
+		</xs:sequence>
+
+	</xs:complexType>
+	
+	
+		<xs:complexType name="CompraType">
+		<xs:sequence>
+			<xs:element name="smartCard" type="xs:long" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="produtoNow" type="xs:string" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="filme" type="xs:string" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dataCompra" type="xs:dateTime" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtTerminoCompra" type="xs:dateTime" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtInicioExibicao" type="xs:dateTime" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="dtTerminoExibicao" type="xs:dateTime" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="oferta" type="xs:int" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="preco" type="xs:float" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="precoFinal" type="xs:float" maxOccurs="1"  minOccurs="0"/>
+			<xs:element name="numeroPaginaAtual"  type="xs:int" maxOccurs="1"  minOccurs="0"/>			
+		    <xs:element name="quantidadeTotalPagina"  type="xs:int" maxOccurs="1"  minOccurs="0"/>
+		    <xs:element name="flagAdulto"  type="xs:string" maxOccurs="1"  minOccurs="0"/>
+		    <xs:element name="canalCompra"  type="xs:string" maxOccurs="1"  minOccurs="0"/>
+		</xs:sequence>
+
+	</xs:complexType>
+	
+
+
+</xs:schema>

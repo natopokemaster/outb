@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" isTracingEnabled="false" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="SOAP" isSoap12="true" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="general/NETSMSDatabaseConfig/wsdl/proxy/TransformaIdentificacaoPropostaWSDL12V1"/>
+      <con:port>
+        <con:name>TransformaIdentificacaoPropostaPort</con:name>
+        <con:namespace>http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body">
+        <con:mapping operation="transformaIdentificacaoProposta" value=""/>
+      </con:selector>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/general/TransformaIdentificacaoProposta12V1</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"/></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-1944752546491231690--157b29f8.16ae53de1da.-7ff5" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="request" name="Transforma Identificacao Proposta_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Validação de dados">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/empresa" prefix="empresa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET" prefix="iden1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6557587900155355603--43667106.126335a7b72.-8000</con2:id>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">($body/iden:IdentificacaoProposta/iden:Proposta/node()
+and data($body/iden:IdentificacaoProposta/iden:Proposta/iden:NumeroProposta) ne "")
+and (fn:not($body/iden:IdentificacaoProposta/iden:Protocolo/node())
+	 or data($body/iden:IdentificacaoProposta/iden:Protocolo) eq "")</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:ifThenElse>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6557587900155355603--43667106.126335a7b72.-7ffc</con2:id>
+                  <con1:case>
+                    <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">($body/iden:IdentificacaoProposta/iden:Proposta/iden:CodigoOperadora/node()
+and data($body/iden:IdentificacaoProposta/iden:Proposta/iden:CodigoOperadora) ne "")
+and (fn:not($body/iden:IdentificacaoProposta/iden:Proposta/iden:IdentificacaoCidade/node())
+	 or data($body/iden:IdentificacaoProposta/iden:Proposta/iden:IdentificacaoCidade) eq "")</con2:xqueryText></con1:condition>
+                    <con1:actions>
+                      <con1:wsCallout>
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-8000</con2:id>
+                        <con1:service xsi:type="ref:ProxyRef" ref="general/NETSMSDatabaseConfig/proxyservice/IdentificacaoOperadoraNET12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        
+                        <con1:operation>identificarOperadoraNET</con1:operation><con1:request><con1:body>$identificarOperadoraNETRequest</con1:body></con1:request>
+                        <con1:response><con1:body>identificarOperadoraNETResponse</con1:body></con1:response>
+                        <con1:requestTransform>
+                          <con1:assign varName="identificarOperadoraNETRequest">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-7fff</con2:id>
+                            <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<iden1:IdentificacaoOperadoraNET>
+	<iden1:CodigoOperadora>{$body/iden:IdentificacaoProposta/iden:Proposta/iden:CodigoOperadora}</iden1:CodigoOperadora>
+	<iden1:IdentificacaoCidade></iden1:IdentificacaoCidade>
+</iden1:IdentificacaoOperadoraNET>]]></con2:xqueryText></con1:expr>
+                          </con1:assign>
+                        </con1:requestTransform>
+                        <con1:responseTransform/>
+                      </con1:wsCallout>
+                    </con1:actions>
+                  </con1:case>
+                  <con1:case>
+                    <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">($body/iden:IdentificacaoProposta/iden:Proposta/iden:IdentificacaoCidade/node()
+and data($body/iden:IdentificacaoProposta/iden:Proposta/iden:IdentificacaoCidade) ne "")
+and (fn:not($body/iden:IdentificacaoProposta/iden:Proposta/iden:CodigoOperadora/node())
+	 or data($body/iden:IdentificacaoProposta/iden:Proposta/iden:CodigoOperadora) eq "")</con2:xqueryText></con1:condition>
+                    <con1:actions>
+                      <con1:wsCallout>
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-7ffa</con2:id>
+                        <con1:service xsi:type="ref:ProxyRef" ref="general/NETSMSDatabaseConfig/proxyservice/IdentificacaoOperadoraNET12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        
+                        <con1:operation>identificarOperadoraNET</con1:operation><con1:request><con1:body>$identificarOperadoraNETRequest</con1:body></con1:request>
+                        <con1:response><con1:body>identificarOperadoraNETResponse</con1:body></con1:response>
+                        <con1:requestTransform>
+                          <con1:assign varName="identificarOperadoraNETRequest">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-7ff9</con2:id>
+                            <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<iden1:IdentificacaoOperadoraNET>
+	<iden1:CodigoOperadora></iden1:CodigoOperadora>
+	<iden1:IdentificacaoCidade>{$body/iden:IdentificacaoProposta/iden:Proposta/iden:IdentificacaoCidade}</iden1:IdentificacaoCidade>
+</iden1:IdentificacaoOperadoraNET>]]></con2:xqueryText></con1:expr>
+                          </con1:assign>
+                        </con1:requestTransform>
+                        <con1:responseTransform/>
+                      </con1:wsCallout>
+                    </con1:actions>
+                  </con1:case>
+                  <con1:default>
+                    <con1:Error>
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1503470935995913670-f5bc16c.126425e1a04.-7ffc</con2:id>
+                      <con1:errCode>ESB-GERAL-0028</con1:errCode>
+                      <con1:message>E necessario informar codigo da operadora ou identificador da cidade</con1:message>
+                    </con1:Error>
+                  </con1:default>
+                </con1:ifThenElse>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">($body/iden:IdentificacaoProposta/iden:Protocolo/node()
+and $body/iden:IdentificacaoProposta/iden:Protocolo ne "")
+and (fn:not($body/iden:IdentificacaoProposta/iden:Proposta/node())
+	 or $body/iden:IdentificacaoProposta/iden:Proposta/iden:NumeroProposta eq "")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                
+              <con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7874041868829463900-95152b2.126e277cdec.-8000</con2:id><con1:errCode>ESB-GERAL-0032</con1:errCode><con1:message>A busca por protocolo ainda não é suportada nesta versão.</con1:message></con1:Error></con1:actions>
+            </con1:case>
+            <con1:default>
+              <con1:Error>
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1503470935995913670-f5bc16c.126425e1a04.-7ffa</con2:id>
+                <con1:errCode>ESB-GERAL-0027</con1:errCode>
+                <con1:message>E necessario informar o protocolo ou a proposta.</con1:message>
+              </con1:Error>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Transforma Identificacao Proposta_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="stage1">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/empresa" prefix="emp" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1" prefix="tran" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:assign varName="identificacaoPropostaResponse" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-7ff2</con2:id>
+            <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<tran:IdentificacaoPropostaResponse>
+	<tran:Protocolo>{$body/iden:IdentificacaoProposta/iden:Protocolo}</tran:Protocolo>
+	<tran:Proposta>
+		<tran:NumeroProposta>{fn:data($body/iden:IdentificacaoProposta/iden:Proposta/iden:NumeroProposta)}</tran:NumeroProposta>
+		<tran:CodigoOperadora>{fn:data($identificarOperadoraNETResponse/emp:CodigoOperdaora)}</tran:CodigoOperadora>
+		<tran:IdentificacaoCidade>{fn:data($identificarOperadoraNETResponse/emp:IdentificacaoCidade)}</tran:IdentificacaoCidade>
+	</tran:Proposta>
+	<tran:AliasDatabase>{fn:data($identificarOperadoraNETResponse/aliasDatabase)}</tran:AliasDatabase>
+</tran:IdentificacaoPropostaResponse>]]></con2:xqueryText></con1:expr>
+          </con1:assign>
+          <con1:replace varName="header" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4172313910299605099--6bd59846.1263914d6b3.-8000</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap12-env:Header/></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7000787249095099450--eeaee7.1263863bc9b.-7ff1</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$identificacaoPropostaResponse</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+        <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-5968204675237802189-499c6ff6.17c95929a70.-7ff9</con2:id><con1:header-set>inbound-response</con1:header-set><con1:header name="SOA-Base" value="expression"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($identificarOperadoraNETResponse/aliasDatabase)</con2:xqueryText></con1:header></con1:transport-headers></con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-1944752546491231690--157b29f8.16ae53de1da.-7ff5" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="stage1"><con:context/><con:actions><con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config"><con2:id>_ActionId-1509255832891877887-6052c751.128887c6c38.-8000</con2:id><con4:logLevel>error</con4:logLevel><con4:expr><con2:xqueryText>$fault</con2:xqueryText></con4:expr><con4:message>Erro ao Transformar Identificação Proposta</con4:message></con4:log><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2200672819673162128--307c079d.1756f86f1cc.-8000</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:contains($fault, "ORA-") or
+fn:contains($body, "ORA-")</con2:xqueryText></con1:condition><con1:actions><con1:transport-headers>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header value="expression" name="SOA-Code">
+              
+	        <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/transformation/FormatTransportHeaderResponseORAErrorXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:actions></con1:case><con1:default><con1:transport-headers>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              
+	        <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/transformation/FormatTransportHeaderResponseCodeXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:default></con1:ifThenElse><con1:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-7007574487356270431-6cdc776f.1205cc0ed95.-7ff5</con1:id>
+          </con1:reply></con:actions></con:stage></con:pipeline><con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="Transforma Identificacao Proposta">
+        <con:request>Transforma Identificacao Proposta_request</con:request>
+        <con:response>Transforma Identificacao Proposta_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

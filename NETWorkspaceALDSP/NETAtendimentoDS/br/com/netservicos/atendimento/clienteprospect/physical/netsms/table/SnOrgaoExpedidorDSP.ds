@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnOrgaoExpedidorDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP">
+    <creationDate>2009-11-19T17:54:23</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="ID_ORGAO_EXPEDIDOR" type="xs:integer">
+        <extension nativeXpath="ID_ORGAO_EXPEDIDOR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DESCRICAO" type="xs:string">
+        <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <key name="PKSN_ORGAO_EXPEDIDOR" type="snor:SnOrgaoExpedidorDSP_KEY" inferredSchema="true" xmlns:snor="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP";
+
+import schema namespace t8 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnOrgaoExpedidorDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnOrgaoExpedidorDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_ORGAO_EXPEDIDOR" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnOrgaoExpedidorDSP() as schema-element(t8:SnOrgaoExpedidorDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_ORGAO_EXPEDIDOR" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnOrgaoExpedidorDSP($p as element(t8:SnOrgaoExpedidorDSP)*)as schema-element(t8:SnOrgaoExpedidorDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_ORGAO_EXPEDIDOR" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnOrgaoExpedidorDSP($p as changed-element(t8:SnOrgaoExpedidorDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_ORGAO_EXPEDIDOR" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnOrgaoExpedidorDSP($p as element(t8:SnOrgaoExpedidorDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnAssinanteDSP.xsd";
+
+   
+

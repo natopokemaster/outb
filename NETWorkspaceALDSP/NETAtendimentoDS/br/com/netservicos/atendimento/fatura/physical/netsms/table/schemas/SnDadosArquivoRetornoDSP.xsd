@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnDadosArquivoRetornoDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnDadosArquivoRetornoDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_DADOS_ARQUIVO_RETORNO" type="xs:integer"/>
+            <xs:element name="ID_ARQUIVO_RETORNO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CONTROLE_ARQUIVO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_ACAO_TIPO_REGISTRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="NUM_CONTRATO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="CID_CONTRATO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ID_COBRANCA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_COBRANCA_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_BOLETO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CARTAO_CREDITO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CARTAO_CREDITO_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CONVENIO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_CONVENIO_CARTAO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_LOTE_RETORNO_CNAB" type="xs:integer" minOccurs="0"/>
+            <xs:element name="ID_PADRAO_CNAB" type="xs:integer" minOccurs="0"/>
+            <xs:element name="DT_VENCIMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DT_PAGAMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="DH_PROCESSAMENTO" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="CC_ESTADO_OPERACAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_AGENCIA" type="xs:string" minOccurs="0"/>
+            <xs:element name="CC_CODIGO_AUTORIZACAO_CARTAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="CN_QTDE_COB_PARCEIRO" type="xs:integer" minOccurs="0"/>
+            <xs:element name="NUM_CC" type="xs:string" minOccurs="0"/>
+            <xs:element name="DS_OBSERVACAO_CARTAO" type="xs:string" minOccurs="0"/>
+            <xs:element name="VL_REPASSE" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_COBRADO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_RECEBIDO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="VL_RESULTADO_CALCULO" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="FN_BAIXA_PROCESSADA" type="xs:integer" minOccurs="0"/>
+            <xs:element name="FC_BOLETO_CONSOLIDADO" type="xs:string" minOccurs="0"/>
+            <xs:element name="ID_BOLETO_ORIGINAL" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

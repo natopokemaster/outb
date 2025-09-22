@@ -1,0 +1,49 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SoSegmentoNegociosDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP">
+<creationDate>2014-01-14T15:35:16</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_SEGMENTO_NEGOCIOS" type="xs:integer">
+  <extension nativeXpath="ID_SEGMENTO_NEGOCIOS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_SERVICO" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_SERVICO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKIE_SEGMENTO_NEGOCIOS" type="sos:SoSegmentoNegociosDSP_KEY" inferredSchema="true" xmlns:sos="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SoSegmentoNegociosDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SoSegmentoNegociosDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SoSegmentoNegociosDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SO_SEGMENTO_NEGOCIOS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SoSegmentoNegociosDSP() as schema-element(t4:SoSegmentoNegociosDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SO_SEGMENTO_NEGOCIOS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSoSegmentoNegociosDSP($p as element(t4:SoSegmentoNegociosDSP)*)as schema-element(t4:SoSegmentoNegociosDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SO_SEGMENTO_NEGOCIOS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSoSegmentoNegociosDSP($p as changed-element(t4:SoSegmentoNegociosDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SO_SEGMENTO_NEGOCIOS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSoSegmentoNegociosDSP($p as element(t4:SoSegmentoNegociosDSP)*) as empty()  external;
+

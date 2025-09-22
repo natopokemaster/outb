@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnCaracteristicaDSP" xmlns:t="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP">
+<creationDate>2012-05-30T15:32:02</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_CARACTERISTICA" type="xs:integer">
+  <extension nativeXpath="ID_CARACTERISTICA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_SEGMENTO_NEGOCIOS" type="xs:integer">
+  <extension nativeXpath="ID_SEGMENTO_NEGOCIOS" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_CARACTERISTICA" type="snc:SnCaracteristicaDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnCaracteristicaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnCaracteristicaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_CARACTERISTICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnCaracteristicaDSP() as schema-element(t1:SnCaracteristicaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_CARACTERISTICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnCaracteristicaDSP($p as element(t1:SnCaracteristicaDSP)*)as schema-element(t1:SnCaracteristicaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_CARACTERISTICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnCaracteristicaDSP($p as changed-element(t1:SnCaracteristicaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_CARACTERISTICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnCaracteristicaDSP($p as element(t1:SnCaracteristicaDSP)*) as empty()  external;
+

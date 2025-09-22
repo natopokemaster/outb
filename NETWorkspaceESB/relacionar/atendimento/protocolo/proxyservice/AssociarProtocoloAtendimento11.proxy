@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:description/>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="relacionar/atendimento/protocolo/wsdl/proxyservice/AssociarProtocoloAtendimentoWSDL11"/>
+      <con:binding>
+        <con:name>JwsServiceSoapBinding</con:name>
+        <con:namespace>http://www.netservicos.com.br/</con:namespace>
+      </con:binding>
+      <con:selector type="SOAP body"/>
+      <con:WSI-compliant>false</con:WSI-compliant>
+    </ser:binding>
+    <ser:monitoring isEnabled="true">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>false</ser:reporting>
+    <ser:logging isEnabled="false">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="false">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="false">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+    <ser:throttling enabled="false">
+      <ser:capacity>0</ser:capacity>
+      <ser:maxQueueLength>0</ser:maxQueueLength>
+      <ser:timeToLive>0</ser:timeToLive>
+    </ser:throttling>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/relacionar/atendimento/protocolo/AssociarProtocoloAtendimento11</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific><http:inbound-properties/><http:dispatch-policy>GerarProtocolo-WorkManager</http:dispatch-policy></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-576707428335037015-50f7e842.11d97f09c77.-7fe3">
+    <con:pipeline name="_onErrorHandler-576707428335037015-50f7e842.11d97f09c77.-7fe3" type="error">
+      <con:stage name="Estágio Tratamento Erro">
+        <con:context/>
+        <con:actions>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-1509255832891877887-6052c751.128887c6c38.-8000</con2:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$fault</con2:xqueryText>
+            </con4:expr>
+            <con4:message>Erro ao Associar protocolo</con4:message>
+          </con4:log>
+        
+        <con1:ifThenElse><con2:id>_ActionId-2200672819673162128--307c079d.1756f86f1cc.-8000</con2:id><con1:case><con1:condition><con2:xqueryText>fn:contains($fault, "ORA-") or
+fn:contains($body, "ORA-")</con2:xqueryText></con1:condition><con1:actions><con1:transport-headers>
+            <con2:id>_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header value="expression" name="SOA-Code">
+              
+	        <con2:xqueryTransform><con2:resource ref="general/transformation/FormatTransportHeaderResponseORAErrorXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:actions></con1:case><con1:default><con1:transport-headers>
+            <con2:id>_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              
+	        <con2:xqueryTransform><con2:resource ref="general/transformation/FormatTransportHeaderResponseCodeXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:default></con1:ifThenElse></con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="Estágio Associar Protocolo">
+        <con:context>
+          <con2:userNsDecl namespace="http://www.netservicos.com.br/" prefix="ns0"/>
+          <con2:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+          <con2:userNsDecl namespace="java:br.com.netservicos.atendimento.protocolo.bean" prefix="java"/>
+        </con:context>
+        <con:actions>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fea</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$body</con2:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con1:wsCallout>
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fe9</con2:id>
+            <con1:service xsi:type="ref:BusinessServiceRef" ref="relacionar/atendimento/protocolo/businessservice/AssociarProtocoloAtendimentoBSV2_0" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation>associarProtocoloAtendimento</con1:operation>
+            <con1:request>
+              <con1:body>$associarRequest</con1:body>
+            </con1:request>
+            <con1:response>
+              <con1:body>associarResponse</con1:body>
+            </con1:response>
+            <con1:requestTransform>
+              <con1:assign varName="associarRequest">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fff</con2:id>
+                <con1:expr>
+                  <con2:xqueryTransform xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con2:resource ref="relacionar/atendimento/protocolo/transformation/TransformarContatoCanonicoEntradaEjbXQuery"/>
+                    <con2:param name="associarProtocoloAtendimento1">
+                      <con2:path>$body/ns0:associarProtocoloAtendimento</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:assign>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7ff4</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'associarRequest::INCIO************'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7ffc</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>$associarRequest</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7ff3</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'associarRequest::FIM************'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7ffb</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>$associarResponse</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con1:assign varName="numeroProtocolo">
+                <con2:id>_ActionId-5313243720195840166--2ce6eb66.1288d5df401.-7fff</con2:id>
+                <con1:expr>
+                  <con2:xqueryText>fn:data($associarResponse/m:contato/java:numeroProtocolo)</con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:assign varName="numeroChamado">
+                <con2:id>_ActionId-5313243720195840166--2ce6eb66.1288d5df401.-7ffe</con2:id>
+                <con1:expr>
+                  <con2:xqueryText>fn:data($associarResponse/m:contato/java:numeroChamado)</con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response">
+      <con:stage name="Estágio Construção Resposta">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="body">
+            <con2:id>_ActionId-5313243720195840166--2ce6eb66.1288d5df401.-8000</con2:id>
+            <con1:expr>
+              <con2:xqueryText><![CDATA[<env:Body xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+        <m:associarProtocoloAtendimentoResponse xmlns:m="http://www.netservicos.com.br/">
+            <m:Contato>
+                <even:Protocolo xmlns:even="http://www.netservicos.com.br/modelocanonico/evento">{ fn:data($numeroProtocolo) }</even:Protocolo>
+                <even:NumeroChamado xmlns:even="http://www.netservicos.com.br/modelocanonico/evento">{ fn:data($numeroChamado) }</even:NumeroChamado>
+            </m:Contato>
+        </m:associarProtocoloAtendimentoResponse>
+    </env:Body>]]></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode11">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

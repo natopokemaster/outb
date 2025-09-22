@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s0:definitions name="JwsServiceDefinitions" targetNamespace="http://www.openuri.org/" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://www.openuri.org/" xmlns:s2="java:br.com.netservicos.atendimento.protocolo.exception" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:br.com.netservicos.atendimento.protocolo.exception" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ProtocoloUnicoSystemException">
+        <xs:complexContent>
+          <xs:extension base="java:ProtocoloUnicoException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="ProtocoloUnicoException"/>
+      <xs:complexType name="ProtocoloUnicoBusinessException">
+        <xs:complexContent>
+          <xs:extension base="java:ProtocoloUnicoException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ProtocoloUnicoSystemException" type="java:ProtocoloUnicoSystemException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+      <xs:element name="ProtocoloUnicoBusinessException" type="java:ProtocoloUnicoBusinessException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:br.com.netservicos.atendimento.protocolo.bean" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ContatoBean">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="numeroProtocolo" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="numeroChamado" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="eventos" nillable="true" type="java:EventoBean" xmlns:java="java:br.com.netservicos.atendimento.protocolo.bean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="EventoBean">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="identificador" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="1" name="tipoIdentificador" nillable="false" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.openuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="java:br.com.netservicos.atendimento.protocolo.bean"/>
+      <xs:element name="gerarProtocoloAtendimento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="numProposta" type="xs:long"/>
+            <xs:element name="numContrato" type="xs:long"/>
+            <xs:element name="codOperadora" type="xs:string"/>
+            <xs:element name="protocolo" type="xs:string"/>
+            <xs:element minOccurs="0" name="idMotivoChamada" nillable="true" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="gerarProtocoloAtendimentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:ContatoBean" xmlns:java="java:br.com.netservicos.atendimento.protocolo.bean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="associarProtocoloAtendimento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contato" type="java:ContatoBean" xmlns:java="java:br.com.netservicos.atendimento.protocolo.bean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="associarProtocoloAtendimentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="java:ContatoBean" xmlns:java="java:br.com.netservicos.atendimento.protocolo.bean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="gerarProtocoloAtendimento">
+    <s0:part element="s1:gerarProtocoloAtendimento" name="parameters"/>
+  </s0:message>
+  <s0:message name="gerarProtocoloAtendimentoResponse">
+    <s0:part element="s1:gerarProtocoloAtendimentoResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="ProtocoloUnicoBusinessException">
+    <s0:part element="s2:ProtocoloUnicoBusinessException" name="ProtocoloUnicoBusinessException"/>
+  </s0:message>
+  <s0:message name="ProtocoloUnicoSystemException">
+    <s0:part element="s2:ProtocoloUnicoSystemException" name="ProtocoloUnicoSystemException"/>
+  </s0:message>
+  <s0:message name="associarProtocoloAtendimento">
+    <s0:part element="s1:associarProtocoloAtendimento" name="parameters"/>
+  </s0:message>
+  <s0:message name="associarProtocoloAtendimentoResponse">
+    <s0:part element="s1:associarProtocoloAtendimentoResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="Jws">
+    <s0:operation name="gerarProtocoloAtendimento" parameterOrder="parameters">
+      <s0:input message="s1:gerarProtocoloAtendimento"/>
+      <s0:output message="s1:gerarProtocoloAtendimentoResponse"/>
+      <s0:fault message="s1:ProtocoloUnicoBusinessException" name="ProtocoloUnicoBusinessException"/>
+      <s0:fault message="s1:ProtocoloUnicoSystemException" name="ProtocoloUnicoSystemException"/>
+    </s0:operation>
+    <s0:operation name="associarProtocoloAtendimento" parameterOrder="parameters">
+      <s0:input message="s1:associarProtocoloAtendimento"/>
+      <s0:output message="s1:associarProtocoloAtendimentoResponse"/>
+      <s0:fault message="s1:ProtocoloUnicoBusinessException" name="ProtocoloUnicoBusinessException"/>
+      <s0:fault message="s1:ProtocoloUnicoSystemException" name="ProtocoloUnicoSystemException"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="JwsServiceSoapBinding" type="s1:Jws">
+    <s3:binding style="document" transport="http://www.bea.com/soap/transport/local"/>
+    <s0:operation name="gerarProtocoloAtendimento">
+      <s3:operation soapAction="http://www.openuri.org/gerarProtocoloAtendimento" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:output>
+      <s0:fault name="ProtocoloUnicoSystemException">
+        <s3:fault name="ProtocoloUnicoSystemException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="ProtocoloUnicoBusinessException">
+        <s3:fault name="ProtocoloUnicoBusinessException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+    <s0:operation name="associarProtocoloAtendimento">
+      <s3:operation soapAction="http://www.openuri.org/associarProtocoloAtendimento" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:output>
+      <s0:fault name="ProtocoloUnicoSystemException">
+        <s3:fault name="ProtocoloUnicoSystemException" use="literal"/>
+      </s0:fault>
+      <s0:fault name="ProtocoloUnicoBusinessException">
+        <s3:fault name="ProtocoloUnicoBusinessException" use="literal"/>
+      </s0:fault>
+    </s0:operation>
+  </s0:binding>
+</s0:definitions>

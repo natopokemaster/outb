@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:description>Proxy de entrada para o serviço Mediação versão 1.0.
+Versão SOAP: 1.2.
+O proxy contém o método executarMediacao que faz chamadas ao WLI onde são feitas as regras necessárias, e o método Default retorna uma mensagem de erro informando que
+a operação solicitada não existe.</ser:description>
+    <ser:binding type="SOAP" isSoap12="true" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="ativar/aprovisionamento/mediacao/wsdl/proxy/MediacaoWSDLV1"/>
+      <con:port>
+        <con:name>MediacaoPort12</con:name>
+        <con:namespace>http://www.netservicos.com.br/MediacaoV1/</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/ativar/aprovisionamento/mediacao/Mediacao12V1</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"><http:client-authentication xsi:type="http:HttpBasicAuthenticationType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></http:inbound-properties></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-958992457794249747--20a57133.14f65da31c6.-7fd6" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="request" name="PipelinePair Operação Não Informada_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio Trata NetHeader">
+        <con:comment>Estágio onde é feita a chamada à XQuery TransformarNetHeaderDefaults
+adequando o Header da requisição ao padrão.</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/v2/NetHeader" prefix="netheader" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff9</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$header</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Header de Entrada</con1:message>
+          </con1:log>
+          <con1:replace varName="header" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff8</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/TransformarNetHeaderDefaults"/>
+                <con2:param name="tokenDefault">
+                  <con2:path>fn-bea:uuid()</con2:path>
+                </con2:param>
+                <con2:param name="numeroProtocoloDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="netHeaderIN">
+                  <con2:path>$header//netheader:NetHeader</con2:path>
+                </con2:param>
+                <con2:param name="aplicacaoDefault">
+                  <con2:path>'OTHER'</con2:path>
+                </con2:param>
+                <con2:param name="funcionalidadeDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="versaoServicoDefault">
+                  <con2:path>'2.0'</con2:path>
+                </con2:param>
+                <con2:param name="usernameDefault">
+                  <con2:path>fn:data($inbound/ctx:security/ctx:transportClient/ctx:username)</con2:path>
+                </con2:param>
+                <con2:param name="numeroChamadaDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+      <con:stage name="Estágio Lança Exceção" errorHandler="_onErrorHandler-958992457794249747--20a57133.14f65da31c6.-7ff2">
+        <con:comment>Estágio onde é lançada o erro de operação não existente.</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7142622860427203207--21c666f.15844308e20.-7ffb</con2:id><con1:logLevel>error</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText></con1:expr><con1:message>Dados do request.</con1:message></con1:log><con1:assign varName="validationMessages" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff7</con2:id>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="validationMessages" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff6</con2:id>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:Error xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff5</con2:id>
+            <con1:errCode>ESB-APROV-0011</con1:errCode>
+            <con1:message>A operação solicitada para o serviço não é válida.</con1:message>
+          </con1:Error>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePair Operação Não Informada_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:pipeline name="_onErrorHandler-958992457794249747--20a57133.14f65da31c6.-7ff2" type="error" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio Error Handler Lança Exceção">
+        <con:comment>Estágio onde é executado o tratamento do erro.</con:comment>
+        <con:context/>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7142622860427203207--21c666f.15844308e20.-7ffc</con2:id><con1:logLevel>error</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText></con1:expr><con1:message>Captura do log de erro.</con1:message></con1:log><con1:assign varName="errorHandlerRequest" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff4</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                <con2:param name="additionalInformation">
+                  <con2:path>$null</con2:path>
+                </con2:param>
+                <con2:param name="currentFault">
+                  <con2:path>$fault</con2:path>
+                </con2:param>
+                <con2:param name="exceptionStackTrace">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="accessResourceName">
+                  <con2:path>'OrdemAtivacao12StatusV1.Operação Default.Estágio Lança Exceção'</con2:path>
+                </con2:param>
+                <con2:param name="responseSOAPVersion">
+                  <con2:path>'1.2'</con2:path>
+                </con2:param>
+                <con2:param name="currentBody">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="exceptionClassification">
+                  <con2:path>'CLASSIFICATION_VALIDATION'</con2:path>
+                </con2:param>
+                <con2:param name="messageParameters">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="processo">
+                  <con2:path>'aprovisionamento'</con2:path>
+                </con2:param>
+                <con2:param name="macroProcesso">
+                  <con2:path>'ATIVAR'</con2:path>
+                </con2:param>
+                <con2:param name="validationMessages">
+                  <con2:path>$validationMessages</con2:path>
+                </con2:param>
+                <con2:param name="callResponse">
+                  <con2:path>$null</con2:path>
+                </con2:param>
+                <con2:param name="messageCode">
+                  <con2:path>fn:data($fault/ctx:errorCode)</con2:path>
+                </con2:param>
+                <con2:param name="currentInbound">
+                  <con2:path>$inbound</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+          <con1:Error xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7ff3</con2:id>
+            <con1:errCode>ESB-APROV-0011</con1:errCode>
+            <con1:message>A operação solicitada para o serviço não é válida.</con1:message>
+          </con1:Error>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-958992457794249747--20a57133.14f65da31c6.-7fd6" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio Error Handler Proxy">
+        <con:comment>Estágio de tratamento de erro geral.</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/errorinfo" prefix="errorInfo" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/logging" prefix="logging" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7fba</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Erro no proxy Mediacao12V1</con1:message>
+          </con1:log>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7fb9</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">empty($errorHandlerRequest)</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:assign varName="validationMessages">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f8a</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:assign varName="localMessageParameters">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f8a</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:assign varName="errorHandlerRequest">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f8a</con2:id>
+                  <con1:expr>
+                    <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                      <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                      <con2:param name="additionalInformation">
+                        <con2:path>$null</con2:path>
+                      </con2:param>
+                      <con2:param name="currentFault">
+                        <con2:path>$fault</con2:path>
+                      </con2:param>
+                      <con2:param name="exceptionStackTrace">
+                        <con2:path>''</con2:path>
+                      </con2:param>
+                      <con2:param name="accessResourceName">
+                        <con2:path>'OrdemAtivacaoStatus12V1.Estágio Error Handler Proxy'</con2:path>
+                      </con2:param>
+                      <con2:param name="responseSOAPVersion">
+                        <con2:path>'1.2'</con2:path>
+                      </con2:param>
+                      <con2:param name="currentBody">
+                        <con2:path>$body</con2:path>
+                      </con2:param>
+                      <con2:param name="exceptionClassification">
+                        <con2:path>'CLASSIFICATION_UNEXPECTED'</con2:path>
+                      </con2:param>
+                      <con2:param name="messageParameters">
+                        <con2:path>$localMessageParameters</con2:path>
+                      </con2:param>
+                      <con2:param name="processo">
+                        <con2:path>'aprovisionamento'</con2:path>
+                      </con2:param>
+                      <con2:param name="macroProcesso">
+                        <con2:path>'ATIVAR'</con2:path>
+                      </con2:param>
+                      <con2:param name="validationMessages">
+                        <con2:path>$validationMessages</con2:path>
+                      </con2:param>
+                      <con2:param name="callResponse">
+                        <con2:path>$null</con2:path>
+                      </con2:param>
+                      <con2:param name="messageCode">
+                        <con2:path>'ESB-APROV-0008'</con2:path>
+                      </con2:param>
+                      <con2:param name="currentInbound">
+                        <con2:path>$inbound</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform>
+                  </con1:expr>
+                </con1:assign>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7fb5</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="general/NETESBExceptionHandler/proxyservice/NETESBExceptionHandler12V1" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <con1:operation>convertLocalExceptionToFault</con1:operation>
+            <con1:request>
+              <con1:body>$errorHandlerRequest</con1:body>
+            </con1:request>
+            <con1:response>
+              <con1:body>errorHandlerResponse</con1:body>
+            </con1:response>
+            <con1:requestTransform>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$errorHandlerRequest</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Request errorHandler</con2:message>
+              </con2:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$errorHandlerResponse</con3:xqueryText>
+                </con2:expr>
+                <con2:message>Response $errorHandler</con2:message>
+              </con2:log>
+            </con1:responseTransform>
+          </con1:wsCallout>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-958992457794249747--20a57133.14f65da31c6.-7fb2</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">($inbound//ctx:transport/ctx:request/http:client-host/node() and
+$inbound//ctx:transport/ctx:request/http:client-host ne "")
+or
+($inbound//ctx:transport/ctx:request/http:client-address/node() and
+$inbound//ctx:transport/ctx:request/http:client-address ne "")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:message>Chamada Externa, gerar Log e Alerta Mediacao12V1.proxy</con2:message>
+                </con2:log>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f72</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETLog/proxyservice/FormatLogMessage12" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>formatLogMessage</con1:operation>
+                  <con1:request>
+                    <con1:body>$formatLogMessageRequest</con1:body>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body>formatLogMessageResponse</con1:body>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="formatLogMessageRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f71</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<for:logMessage xmlns:log="http://www.netservicos.com.br/modelocanonico/v2/logging" xmlns:for="http://www.netservicos.com.br/FormatLogMessage">
+   <log:transactionId>{fn:data($header//token)}</log:transactionId>
+   <log:logType>ERROR</log:logType>
+   <log:messageCode>{ fn:data($errorHandlerRequest/excephdlr:messageCode) }</log:messageCode>
+   <log:messageParameters>{ $errorHandlerRequest/excephdlr:messageParameters }</log:messageParameters>
+   <log:username>{fn:data($header//username)}</log:username>
+   <log:timestamp>{fn:data(fn:current-dateTime())}</log:timestamp>
+   <log:errorInfo>{ $errorHandlerResponse//errorInfo:ErrorInfo/@* , $errorHandlerResponse//errorInfo:ErrorInfo/node() }</log:errorInfo>
+   <log:macroProcesso>ATIVAR</log:macroProcesso>
+   <log:processo>aprovisionamento</log:processo>
+   <log:consumidor>{fn:data($header//aplicacao)}</log:consumidor>
+</for:logMessage>]]></con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$formatLogMessageRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>Request formatLogMessage</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$formatLogMessageResponse</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>Response formatLogMessage</con2:message>
+                    </con2:log>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f72</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/Alert12" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body>$alertRequest</con1:body>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body>alertResponse</con1:body>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="alertRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f71</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<aler1:alert xmlns:aler="http://www.netservicos.com.br/modelocanonico/v2/alert" xmlns:aler1="http://www.netservicos.com.br/Alert">
+    <aler:timestamp>{data(fn:current-dateTime())}</aler:timestamp>
+    <aler:transactionId>{fn:data($header//token)}</aler:transactionId>
+    <aler:message>{fn:data($formatLogMessageResponse/logging:message)}</aler:message>
+    <aler:serviceSeverityLevel>NIVEL1</aler:serviceSeverityLevel>
+    <aler:consumidor>{fn:data($header//aplicacao)}</aler:consumidor>
+    <aler:macroProcesso>ATIVAR</aler:macroProcesso>
+    <aler:macroProcessoNivel>aprovisionamento</aler:macroProcessoNivel>
+    <aler:macroProcessoSubNivel></aler:macroProcessoSubNivel>
+    <aler:exceptionClassification>{fn:data($errorHandlerResponse//errorInfo:ErrorInfo/exceptionClassification)}</aler:exceptionClassification>
+</aler1:alert>]]></con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$alertRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>Request alert</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$alertResponse</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>Response alert</con2:message>
+                    </con2:log>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+                <con1:ifThenElse>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f62</con2:id>
+                  <con1:case>
+                    <con1:condition>
+                      <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:exists($errorHandlerResponse/soap12-env:Fault)</con2:xqueryText>
+                    </con1:condition>
+                    <con1:actions>
+                      <con1:replace varName="body" contents-only="true">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                        <con1:location>
+                          <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                          <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$errorHandlerResponse/soap12-env:Fault</con2:xqueryText>
+                        </con1:expr>
+                      </con1:replace>
+                      <con1:replace varName="header">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                        <con1:location>
+                          <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                          <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap12-env:Header/></con2:xqueryText>
+                        </con1:expr>
+                      </con1:replace>
+                    </con1:actions>
+                  </con1:case>
+                  <con1:default>
+                    <con1:replace varName="body" contents-only="true">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                      <con1:location>
+                        <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                      </con1:location>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$errorHandlerResponse/soap-env:Fault</con2:xqueryText>
+                      </con1:expr>
+                    </con1:replace>
+                    <con1:replace varName="header">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                      <con1:location>
+                        <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                      </con1:location>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Header/></con2:xqueryText>
+                      </con1:expr>
+                    </con1:replace>
+                  </con1:default>
+                </con1:ifThenElse>
+                <con2:reply isError="true" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                  <con2:id>_ActionId-3645977647574307871-2479de8.127de3015b9.-7f5c</con2:id>
+                </con2:reply>
+              </con1:actions>
+            </con1:case>
+            <con1:default>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f79</con3:id>
+                <con2:logLevel>debug</con2:logLevel>
+                <con2:message>Chamada Interna Mediacao12V1.proxy</con2:message>
+              </con2:log>
+              <con1:replace varName="fault">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                <con1:location>
+                  <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$errorHandlerResponse/ctx:fault</con2:xqueryText>
+                </con1:expr>
+              </con1:replace>
+              <con1:replace varName="header">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3645977647574307871-2479de8.127de3015b9.-7f6d</con2:id>
+                <con1:location>
+                  <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap12-env:Header/></con2:xqueryText>
+                </con1:expr>
+              </con1:replace>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairExecutarMediacao_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio Trata NetHeader1"><con:comment>Estágio onde é feita a chamada à XQuery TransformarNetHeaderDefaults
+adequando o Header da requisição ao padrão.</con:comment><con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/v2/NetHeader" prefix="netheader" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context><con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e99</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$header</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Mediacao12V1 - Header de Entrada</con1:message>
+          </con1:log>
+          <con1:replace varName="header" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e98</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/TransformarNetHeaderDefaults"/>
+                <con2:param name="tokenDefault">
+                  <con2:path>fn-bea:uuid()</con2:path>
+                </con2:param>
+                <con2:param name="numeroProtocoloDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="netHeaderIN">
+                  <con2:path>$header/netheader:NetHeader</con2:path>
+                </con2:param>
+                <con2:param name="aplicacaoDefault">
+                  <con2:path>'OTHER'</con2:path>
+                </con2:param>
+                <con2:param name="funcionalidadeDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="versaoServicoDefault">
+                  <con2:path>'1.0'</con2:path>
+                </con2:param>
+                <con2:param name="usernameDefault">
+                  <con2:path>fn:data($inbound/ctx:security/ctx:transportClient/ctx:username)</con2:path>
+                </con2:param>
+                <con2:param name="numeroChamadaDefault">
+                  <con2:path>''</con2:path>
+                </con2:param>
+              </con2:xqueryTransform></con1:expr>
+          </con1:replace>
+        <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3891594539591728427--40f69a14.14faea79c3f.-7fbf</con2:id><con1:logLevel>debug</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$header</con2:xqueryText></con1:expr><con1:message>#CARMEM - header</con1:message></con1:log></con:actions></con:stage><con:stage name="Valida Dados" errorHandler="_onErrorHandler-4352448323641376182--72290dc3.14f9a3b96ef.-7e75"><con:comment>Stage para validação dos dados de entrada.</con:comment><con:context><con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/logging" prefix="logging" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/MediacaoV1/" prefix="med" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context><con:actions><con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e86</con2:id>
+            <con1:logLevel>info</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Request Inicial</con1:message>
+          </con1:log><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e85</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not($body/med:parametrosExecutarMediacao/identificacaoOperadoraNET/node())</con2:xqueryText></con1:condition><con1:actions><con1:assign varName="validationMessages">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c54</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign><con1:assign varName="localMessageParameters">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c53</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters>     
+      &lt;logging:value>{'Identificação Ordem Ativação'}&lt;/logging:value>
+&lt;/excephdlr:messageParameters></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign><con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c52</con2:id>
+                  <con1:errCode>ESB-APROV-0012</con1:errCode>
+                  <con1:message>Código da Operadora ou Identificador da Cidade é obrigatório.</con1:message>
+                </con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not($body/med:parametrosExecutarMediacao/identificadorOrdemAtivacao/node())</con2:xqueryText></con1:condition><con1:actions><con1:assign varName="validationMessages">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c54</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign><con1:assign varName="localMessageParameters">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c53</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters>     
+      &lt;logging:value>{'Identificação Ordem Ativação'}&lt;/logging:value>
+&lt;/excephdlr:messageParameters></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign><con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1329109486734490451--12694915.128f3b8d2c2.-7c52</con2:id>
+                  <con1:errCode>ESB-APROV-0012</con1:errCode>
+                  <con1:message>Identificação Ordem Ativação é obrigatório.</con1:message>
+                </con1:Error></con1:actions></con1:case><con1:default/></con1:ifThenElse></con:actions></con:stage><con:stage name="Valida Dados de Entrada" errorHandler="_onErrorHandler-4352448323641376182--72290dc3.14f9a3b96ef.-7e62"><con:comment>Estágio responsável pela validação dos dados de entrada.</con:comment><con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/integracao/OrdemAtivacaoStatus" prefix="ord" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.netservicos.com.br/ExtensaoFone/" prefix="ext" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        <con1:varNsDecl namespace="http://www.netservicos.com.br/MediacaoV1/" prefix="med" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context><con:actions>
+          <con1:validate xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e6b</con2:id>
+            <con1:wsdl ref="ativar/aprovisionamento/mediacao/wsdl/proxy/MediacaoWSDLV1"/>
+            <con1:schemaElement xmlns:ext="http://www.netservicos.com.br/ExtensaoFone/" xmlns:ord="http://www.netservicos.com.br/integracao/OrdemAtivacaoStatus" xmlns:med="http://www.netservicos.com.br/MediacaoV1/">med:parametrosExecutarMediacao</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location><con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./med:parametrosExecutarMediacao
+</con2:xpathText></con1:location>
+          </con1:validate>
+        </con:actions></con:stage><con:stage name="Insere Ordem na Fila de Mediação" errorHandler="_onErrorHandler-7142622860427203207--21c666f.15844308e20.-7ffa">
+        <con:comment>Stage responsável pela inserção da Ordem na Fila de Mediação</con:comment><con:context><con1:varNsDecl namespace="http://www.netservicos.com.br/MediacaoV1/" prefix="med" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context>
+        <con:actions>
+          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8474145102821745293-429ce1b8.14f75718dc4.-7ffd</con2:id>
+            <con1:service xsi:type="ref:BusinessServiceRef" ref="ativar/aprovisionamento/mediacao/businessservice/MediacaoQueueBSV1_0" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <con1:request>
+              <con1:payload>$mediacaoQueueRequest</con1:payload>
+            </con1:request>
+            <con1:response>
+              <con1:payload>localCallResponse</con1:payload>
+            </con1:response>
+            <con1:requestTransform>
+              <con1:assign varName="mediacaoQueueRequest">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8474145102821745293-429ce1b8.14f75718dc4.-7ffa</con2:id>
+                <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="ativar/aprovisionamento/mediacao/transformation/xquery/MediacaoQueueRequestXQuery"/><con2:param name="parametrosExecutarMediacao1"><con2:path>$body/med:parametrosExecutarMediacao</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+              </con1:assign>
+              <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4666842523361333000-280af77e.14f8463f7a6.-7ffb</con3:id>
+                <con2:logLevel>info</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$mediacaoQueueRequest</con3:xqueryText>
+                </con2:expr>
+                <con2:message>mediacaoQueueRequest</con2:message>
+              </con2:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              
+              <con1:assign varName="mediacaoQueueResponse">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8474145102821745293-429ce1b8.14f75718dc4.-7ff9</con2:id>
+                <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$localCallResponse</con2:xqueryText></con1:expr>
+              </con1:assign>
+            <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-4666842523361333000-280af77e.14f8463f7a6.-7ff9</con3:id>
+                <con2:logLevel>info</con2:logLevel>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$mediacaoQueueResponse</con3:xqueryText>
+                </con2:expr>
+                <con2:message>mediacaoQueueResponse</con2:message>
+              </con2:log></con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairExecutarMediacao_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:pipeline name="_onErrorHandler-4352448323641376182--72290dc3.14f9a3b96ef.-7e75" type="error" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Estágio Error Handler Validação do Request"><con:comment>Estágio de tratamento de erro, caso o request de entrada
+não estiver OK com o WSDL então é lançado erro.</con:comment><con:context>
+          <con1:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/logging" prefix="logging" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context><con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e7e</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Entrada inválida</con1:message>
+          </con1:log>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e7d</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:errorCode</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'ESB-APROV-0014'</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:assign varName="faultReason" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e7c</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/TransformarValidationFailureEmFaultReason"/>
+                <con2:param name="validationFailure">
+                  <con2:path>$fault/ctx:details/con1:ValidationFailureDetail</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e7b</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:reason</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:concat('Request inválido: ', $faultReason)</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e7a</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Fault Tratada</con1:message>
+          </con1:log>
+          <con1:assign varName="localMessageParameters" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e79</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/TransformarValidationFailureEmMessageParameters"/>
+                <con2:param name="validationFailure">
+                  <con2:path>$fault/ctx:details/con1:ValidationFailureDetail</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="validationMessage" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e78</con2:id>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="errorHandlerRequest" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e77</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                <con2:param name="additionalInformation">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="currentFault">
+                  <con2:path>$fault</con2:path>
+                </con2:param>
+                <con2:param name="exceptionStackTrace">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="accessResourceName">
+                  <con2:path>'OrdemAtivacao12V1.Estágio Validação do Request'</con2:path>
+                </con2:param>
+                <con2:param name="responseSOAPVersion">
+                  <con2:path>'1.2'</con2:path>
+                </con2:param>
+                <con2:param name="currentBody">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="exceptionClassification">
+                  <con2:path>'CLASSIFICATION_VALIDATION'</con2:path>
+                </con2:param>
+                <con2:param name="messageParameters">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="processo">
+                  <con2:path>'aprovisionamento'</con2:path>
+                </con2:param>
+                <con2:param name="macroProcesso">
+                  <con2:path>'ATIVAR'</con2:path>
+                </con2:param>
+                <con2:param name="callResponse">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="validationMessages">
+                  <con2:path>$validationMessages</con2:path>
+                </con2:param>
+                <con2:param name="messageCode">
+                  <con2:path>'ESB-APROV-0014'</con2:path>
+                </con2:param>
+                <con2:param name="currentInbound">
+                  <con2:path>$inbound</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+          <con1:Error xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e76</con2:id>
+            <con1:errCode>ESB-APROV-0014</con1:errCode>
+            <con1:message>Request inválido: Solicitar Atualização.</con1:message>
+          </con1:Error>
+        </con:actions></con:stage></con:pipeline><con:pipeline name="_onErrorHandler-4352448323641376182--72290dc3.14f9a3b96ef.-7e62" type="error" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Tratemento - Validação dados de Entrada">
+        <con:comment>Estágio responsável pelo tratemento de erros do estágio
+Validação dados de Entrada.</con:comment><con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/logging" prefix="logging" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e6a</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>fault</con1:message>
+          </con1:log>
+          <con1:assign varName="localMessageParameters" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e69</con2:id>
+            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/transformation/TransformarValidationFailureEmMessageParameters"/><con2:param name="validationFailure"><con2:path>$fault/ctx:details/con1:ValidationFailureDetail</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+          </con1:assign>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e68</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:errorCode</con2:xpathText>
+            </con1:location>
+            <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"ESB-APROV-0014"</con2:xqueryText></con1:expr>
+          </con1:replace>
+          <con1:replace varName="fault" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e67</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./ctx:reason</con2:xpathText>
+            </con1:location>
+            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="general/transformation/TransformarValidationFailureEmFaultReason"/><con2:param name="validationFailure"><con2:path>$fault/ctx:details/con1:ValidationFailureDetail</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e66</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>fault</con1:message>
+          </con1:log>
+          <con1:assign varName="validationMessage" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e65</con2:id>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="errorHandlerRequest" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e64</con2:id>
+            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                <con2:param name="additionalInformation">
+                  <con2:path>$null</con2:path>
+                </con2:param>
+                <con2:param name="currentFault">
+                  <con2:path>$fault</con2:path>
+                </con2:param>
+                <con2:param name="exceptionStackTrace">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="accessResourceName">
+                  <con2:path>'OrdemAtivacaoStatus12V1.Estágio Validação da Entrada'</con2:path>
+                </con2:param>
+                <con2:param name="responseSOAPVersion">
+                  <con2:path>'1.2'</con2:path>
+                </con2:param>
+                <con2:param name="currentBody">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="exceptionClassification">
+                  <con2:path>'CLASSIFICATION_VALIDATION'</con2:path>
+                </con2:param>
+                <con2:param name="messageParameters">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="processo">
+                  <con2:path>'aprovisionamento'</con2:path>
+                </con2:param>
+                <con2:param name="macroProcesso">
+                  <con2:path>'ATIVAR'</con2:path>
+                </con2:param>
+                <con2:param name="callResponse">
+                  <con2:path>$null</con2:path>
+                </con2:param>
+                <con2:param name="validationMessages">
+                  <con2:path>$validationMessages</con2:path>
+                </con2:param>
+                <con2:param name="messageCode">
+                  <con2:path>fn:data($fault/ctx:errorCode)</con2:path>
+                </con2:param>
+                <con2:param name="currentInbound">
+                  <con2:path>$inbound</con2:path>
+                </con2:param>
+              </con2:xqueryTransform></con1:expr>
+          </con1:assign>
+          <con1:Error xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4352448323641376182--72290dc3.14f9a3b96ef.-7e63</con2:id>
+            <con1:errCode>ESB-APROV-0014</con1:errCode>
+            <con1:message>Request Inválido.</con1:message>
+          </con1:Error>
+        </con:actions>
+      </con:stage></con:pipeline><con:pipeline type="error" name="_onErrorHandler-7142622860427203207--21c666f.15844308e20.-7ffa" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Log de erro durante inserção na Fila JMS"><con:comment>Stage para Log de erro durante inserção na Fila JMS</con:comment><con:context/><con:actions><con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7142622860427203207--21c666f.15844308e20.-7ff9</con2:id><con1:logLevel>error</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText></con1:expr><con1:message>Captura do log de erro durante inserção da Ordem de Ativação na fila JMS</con1:message></con1:log><con1:Error xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7142622860427203207--21c666f.15844308e20.-7ff8</con2:id><con1:errCode>ESB-MEDIAT-02</con1:errCode><con1:message>Erro durante a inserção da Ordem de Ativação na fila JMS com Processo de Mediação Pendente.</con1:message></con1:Error></con:actions></con:stage></con:pipeline><con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:branch-node type="operation" name="Operações do Serviço Mediação">
+        <con:context/>
+        <con:branch-table>
+          <con:branch name="executarMediacao">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="PipelinePairExecutarMediacao">
+                <con:request>PipelinePairExecutarMediacao_request</con:request>
+                <con:response>PipelinePairExecutarMediacao_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:default-branch>
+            <con:flow>
+              <con:pipeline-node name="PipelinePair Operação Não Informada">
+                <con:comment>PipelinePair caso nenhuma operacao seja informada.</con:comment>
+                <con:request>PipelinePair Operação Não Informada_request</con:request>
+                <con:response>PipelinePair Operação Não Informada_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:default-branch>
+        </con:branch-table>
+      </con:branch-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="Infraestrutura/transicao/relacionar/atendimento/wsdl/business/ListarPontoContrato11V1"/>
+      <con:port>
+        <con:name>ListarPontoContratoSoap</con:name>
+        <con:namespace>http://www.openuri.org/</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/infraestrutura/transicao/relacionar/atendimento/ListarPontoContrato11V1</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"><http:client-authentication xsi:type="http:HttpBasicAuthenticationType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></http:inbound-properties></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router xmlns:ser="http://www.bea.com/wli/sb/services"><con:pipeline type="error" name="_onErrorHandler-551756148912346583--5e3ddd32.128a817e80c.-7ff0" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Estágio Tratamento de Erro"><con:context/><con:actions><con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-551756148912346583--5e3ddd32.128a817e80c.-7fef</con2:id><con1:logLevel>error</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText></con1:expr><con1:message>Erro no proxy ListarPontoContrato11V1</con1:message></con1:log></con:actions></con:stage></con:pipeline><con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:route-node name="Route to Listar Ponto Contrato URA" error-handler="_onErrorHandler-551756148912346583--5e3ddd32.128a817e80c.-7ff0"><con:context><con1:varNsDecl namespace="http://www.openuri.org/" prefix="open" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context><con:actions><con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-551756148912346583--5e3ddd32.128a817e80c.-7fff</con2:id><con1:service ref="Infraestrutura/transicao/relacionar/atendimento/businessservice/ListarPontoContratoBSV1" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con1:operation>listarPontoContratoRequest</con1:operation><con1:outboundTransform><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-551756148912346583--5e3ddd32.128a817e80c.-7ffa</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/open:listarPontoContratoRequest</con3:xqueryText></con2:expr><con2:message>Dados de entrada ListarPontoContrato11V1</con2:message></con2:log></con1:outboundTransform><con1:responseTransform><con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config"><con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-551756148912346583--5e3ddd32.128a817e80c.-7ff9</con3:id><con2:logLevel>debug</con2:logLevel><con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/open:listarPontoContratoRequestResponse</con3:xqueryText></con2:expr><con2:message>Resposta ao cliente ListarPontoContrato11V1</con2:message></con2:log></con1:responseTransform></con1:route></con:actions></con:route-node></con:flow></ser:router>
+</xml-fragment>

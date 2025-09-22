@@ -1,0 +1,62 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnEventoOcorrenciaDSP" xmlns:t="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP">
+<creationDate>2010-04-12T10:21:44</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_EVENTO_OCORRENCIA" type="xs:integer">
+  <extension nativeXpath="ID_EVENTO_OCORRENCIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="200" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ALARME" type="xs:integer">
+  <extension nativeXpath="ALARME" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_EVENTO_OCORRENCIA" type="snev:SnEventoOcorrenciaDSP_KEY" inferredSchema="true" xmlns:snev="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP"/>
+
+<relationshipTarget roleName="SnRelEventoOcorOperadoraDSP" roleNumber="2" XDS="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="SnEventoOcorrenciaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnEventoOcorrenciaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnEventoOcorrenciaDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnEventoOcorrenciaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_EVENTO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnEventoOcorrenciaDSP() as schema-element(t1:SnEventoOcorrenciaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_EVENTO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnEventoOcorrenciaDSP($p as element(t1:SnEventoOcorrenciaDSP)*)as schema-element(t1:SnEventoOcorrenciaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_EVENTO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnEventoOcorrenciaDSP($p as changed-element(t1:SnEventoOcorrenciaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_EVENTO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnEventoOcorrenciaDSP($p as element(t1:SnEventoOcorrenciaDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnRelEventoOcorOperadoraDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="SnRelEventoOcorOperadoraDSP"/>::)
+
+   declare function f1:getSnRelEventoOcorOperadoraDSP($pk as element(t1:SnEventoOcorrenciaDSP)) as element(t2:SnRelEventoOcorOperadoraDSP)*
+   {
+      for $fk in f2:SnRelEventoOcorOperadoraDSP()
+      where $pk/ID_EVENTO_OCORRENCIA eq $fk/ID_EVENTO_OCORRENCIA
+      return $fk
+   };
+

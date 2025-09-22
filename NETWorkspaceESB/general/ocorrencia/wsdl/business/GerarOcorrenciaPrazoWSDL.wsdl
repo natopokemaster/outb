@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/"
+	xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:s0="http://www.openuri.org/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://www.openuri.org/"
+	xmlns:xsd="http://www.netservicos.com.br/NetHeader">
+	
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified"
+			targetNamespace="http://www.openuri.org/"
+			xmlns:s="http://www.w3.org/2001/XMLSchema"
+			xmlns:sch="http://netservicos.com.br/atender/ocorrencia/schema">
+			<s:import
+				namespace="http://netservicos.com.br/atender/ocorrencia/schema" />
+			<s:element name="gerarOcorrenciaPrazoRequest">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="ORIGEM" type="s:string"
+							minOccurs="0" />
+						<s:element name="CONSUMIDOR" type="s:string"
+							minOccurs="0" />
+						<s:element name="PROCESSO_GERADOR"
+							type="s:string" minOccurs="0" />
+						<s:element name="SITUACAO" type="s:string"
+							minOccurs="0" />
+						<s:element name="TIPO_OCORRENCIA"
+							type="s:string" minOccurs="0" />
+						<s:element name="NUM_CONTRATO" type="s:string"
+							minOccurs="0" />
+						<s:element name="COD_OPERADORA" type="s:string"
+							minOccurs="0" />
+						<s:element name="OBSERVACAO" type="s:string"
+							minOccurs="0" />
+						<s:element name="NOME_CONTATO" type="s:string"
+							minOccurs="0" />
+						<s:element name="TELEFONE_CONTATO"
+							type="s:string" minOccurs="0" />
+						<s:element name="NUM_CHAMADA" type="s:string"
+							minOccurs="0" />
+						<s:element name="PROTOCOLO" type="s:string"
+							minOccurs="0" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="gerarOcorrenciaPrazoRequestResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element ref="sch:RetornoGeraOcorrenciaPrazo" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+		<schema
+			targetNamespace="http://netservicos.com.br/atender/ocorrencia/schema"
+			xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://netservicos.com.br/atender/ocorrencia/schema"
+			xmlns:pref="http://netservicos.com.br/core/schema">
+			<import namespace="http://netservicos.com.br/core/schema" />
+			<element name="RetornoGeraOcorrenciaPrazo">
+				<complexType>
+					<sequence>
+						<choice>
+							<element ref="pref:RetornoPadrao" />
+						</choice>
+						<choice>
+							<element ref="tns:OcorrenciaGeradaPrazo"
+								minOccurs="0" maxOccurs="1">
+							</element>
+						</choice>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+		<xsd:schema
+			targetNamespace="http://netservicos.com.br/core/schema"
+			xmlns:tns="http://netservicos.com.br/core/schema"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="RetornoPadrao">
+				<xsd:complexType>
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<xsd:element ref="tns:RetornoPadraoRow"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema
+			targetNamespace="http://netservicos.com.br/atender/ocorrencia/schema"
+			elementFormDefault="unqualified" attributeFormDefault="unqualified"
+			xmlns:tns="http://netservicos.com.br/atender/ocorrencia/schema"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:wld="http://www.bea.com/2002/10/weblogicdata">
+			<xsd:element name="OcorrenciaGeradaPrazo">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ID_OCORRENCIA"
+							type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1"
+							maxOccurs="1"
+							xmlns="http://netservicos.com.br/atender/ocorrencia/schema" />
+						<xsd:element name="NR_ATENDIMENTO"
+							type="xsd:string" wld:JDBCType="VARCHAR" minOccurs="1"
+							maxOccurs="1"
+							xmlns="http://netservicos.com.br/atender/ocorrencia/schema" />
+						<xsd:element name="PRAZO_ATENDIMENTO"
+							type="xsd:long" wld:JDBCType="NUMERIC" minOccurs="0"
+							maxOccurs="1"
+							xmlns="http://netservicos.com.br/atender/ocorrencia/schema" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema
+			targetNamespace="http://netservicos.com.br/core/schema"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://netservicos.com.br/core/schema">
+			<xsd:element name="RetornoPadraoRow">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PROVEDOR" type="xsd:string" />
+						<xsd:element name="CATEGORIA_MENSAGEM"
+							type="xsd:string" />
+						<xsd:element name="CODIGO_MENSAGEM"
+							type="xsd:string" />
+						<xsd:element name="TEXTO_MENSAGEM"
+							type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/NetHeader"
+				schemaLocation="../../../../modelocanonico/geral/NETHeader.xsd">
+			</xsd:import></xsd:schema></wsdl:types>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestSoapIn">
+		<wsdl:part name="parameters"
+			element="s0:gerarOcorrenciaPrazoRequest" />
+		<wsdl:part name="request_header" element="xsd:NetHeader" />
+	</wsdl:message>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestSoapOut">
+		<wsdl:part name="parameters"
+			element="s0:gerarOcorrenciaPrazoRequestResponse" />
+	</wsdl:message>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestHttpGetIn">
+		<wsdl:part name="ORIGEM" type="s:string" />
+		<wsdl:part name="CONSUMIDOR" type="s:string" />
+		<wsdl:part name="PROCESSO_GERADOR" type="s:string" />
+		<wsdl:part name="SITUACAO" type="s:string" />
+		<wsdl:part name="TIPO_OCORRENCIA" type="s:string" />
+		<wsdl:part name="NUM_CONTRATO" type="s:string" />
+		<wsdl:part name="COD_OPERADORA" type="s:string" />
+		<wsdl:part name="OBSERVACAO" type="s:string" />
+		<wsdl:part name="NOME_CONTATO" type="s:string" />
+		<wsdl:part name="TELEFONE_CONTATO" type="s:string" />
+		<wsdl:part name="NUM_CHAMADA" type="s:string" />
+		<wsdl:part name="PROTOCOLO" type="s:string" />
+	</wsdl:message>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestHttpGetOut">
+		<wsdl:part name="Body" element="s1:RetornoGeraOcorrenciaPrazo"
+			xmlns:s1="http://netservicos.com.br/atender/ocorrencia/schema" />
+	</wsdl:message>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestHttpPostIn">
+		<wsdl:part name="ORIGEM" type="s:string" />
+		<wsdl:part name="CONSUMIDOR" type="s:string" />
+		<wsdl:part name="PROCESSO_GERADOR" type="s:string" />
+		<wsdl:part name="SITUACAO" type="s:string" />
+		<wsdl:part name="TIPO_OCORRENCIA" type="s:string" />
+		<wsdl:part name="NUM_CONTRATO" type="s:string" />
+		<wsdl:part name="COD_OPERADORA" type="s:string" />
+		<wsdl:part name="OBSERVACAO" type="s:string" />
+		<wsdl:part name="NOME_CONTATO" type="s:string" />
+		<wsdl:part name="TELEFONE_CONTATO" type="s:string" />
+		<wsdl:part name="NUM_CHAMADA" type="s:string" />
+		<wsdl:part name="PROTOCOLO" type="s:string" />
+	</wsdl:message>
+	<wsdl:message name="gerarOcorrenciaPrazoRequestHttpPostOut">
+		<wsdl:part name="Body" element="s1:RetornoGeraOcorrenciaPrazo"
+			xmlns:s1="http://netservicos.com.br/atender/ocorrencia/schema" />
+	</wsdl:message>
+	<wsdl:portType name="GerarOcorrenciaPrazoSoap">
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<wsdl:documentation></wsdl:documentation>
+			<wsdl:input message="s0:gerarOcorrenciaPrazoRequestSoapIn" />
+			<wsdl:output
+				message="s0:gerarOcorrenciaPrazoRequestSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="GerarOcorrenciaPrazoHttpGet">
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<wsdl:documentation></wsdl:documentation>
+			<wsdl:input
+				message="s0:gerarOcorrenciaPrazoRequestHttpGetIn" />
+			<wsdl:output
+				message="s0:gerarOcorrenciaPrazoRequestHttpGetOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="GerarOcorrenciaPrazoHttpPost">
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<wsdl:documentation></wsdl:documentation>
+			<wsdl:input
+				message="s0:gerarOcorrenciaPrazoRequestHttpPostIn" />
+			<wsdl:output
+				message="s0:gerarOcorrenciaPrazoRequestHttpPostOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GerarOcorrenciaPrazoSoap"
+		type="s0:GerarOcorrenciaPrazoSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<soap:operation
+				soapAction="http://www.openuri.org/gerarOcorrenciaPrazoRequest"
+				style="document" />
+			<wsdl:input>
+				<soap:header
+					message="s0:gerarOcorrenciaPrazoRequestSoapIn"
+					part="request_header" use="literal" />
+				<soap:body parts="parameters" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="GerarOcorrenciaPrazoHttpGet"
+		type="s0:GerarOcorrenciaPrazoHttpGet">
+		<http:binding verb="GET" />
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<http:operation location="/gerarOcorrenciaPrazoRequest" />
+			<wsdl:input>
+				<http:urlEncoded />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="GerarOcorrenciaPrazoHttpPost"
+		type="s0:GerarOcorrenciaPrazoHttpPost">
+		<http:binding verb="POST" />
+		<wsdl:operation name="gerarOcorrenciaPrazoRequest">
+			<http:operation location="/gerarOcorrenciaPrazoRequest" />
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GerarOcorrenciaPrazo">
+		<wsdl:documentation>
+			/** * &lt;P&gt; * &lt;B&gt;Description :&lt;/B&gt;&lt;BR&gt;
+			* Implementação de um Java Process do Weblogic Integration,
+			que, com base nos * parâmetros de entrada identifique a
+			necessidade de gerar ocorrência, obtenha * o código da
+			ocorrência para a base alvo e gere a ocorrência. *
+			&lt;/P&gt; * &lt;P&gt; * &lt;B&gt; Issues : &lt;BR&gt; *
+			None &lt;/B&gt; * @author Angela Mitie Hamamoto * @since
+			12/09/2007 * @version $Revision: 1.3 $ */
+		</wsdl:documentation>
+		<wsdl:port name="GerarOcorrenciaPrazoSoap"
+			binding="s0:GerarOcorrenciaPrazoSoap">
+			<soap:address
+				location="http://alteon.ura/NETAtenderWLWeb/br/com/netservicos/atender/processos/GerarOcorrenciaPrazo.jpd" />
+		</wsdl:port>
+		<wsdl:port name="GerarOcorrenciaPrazoHttpGet"
+			binding="s0:GerarOcorrenciaPrazoHttpGet">
+			<http:address
+				location="http://alteon.ura/NETAtenderWLWeb/br/com/netservicos/atender/processos/GerarOcorrenciaPrazo.jpd" />
+		</wsdl:port>
+		<wsdl:port name="GerarOcorrenciaPrazoHttpPost"
+			binding="s0:GerarOcorrenciaPrazoHttpPost">
+			<http:address
+				location="http://alteon.ura/NETAtenderWLWeb/br/com/netservicos/atender/processos/GerarOcorrenciaPrazo.jpd" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

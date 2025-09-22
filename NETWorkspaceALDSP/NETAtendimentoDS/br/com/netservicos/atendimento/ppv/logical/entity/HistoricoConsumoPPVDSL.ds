@@ -1,0 +1,190 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com"><creationDate>2016-08-24T13:21:40</creationDate></x:xfl> ::)
+
+declare namespace tns="ld:br/com/netservicos/atendimento/ppv/logical/entity/HistoricoConsumoPPVDSL";
+
+declare namespace pag= "http://www.netservicos.com.br/modelocanonico/v2/paginacao";
+
+declare namespace par="ld:br/com/netservicos/atendimento/ppv/logical/entity/ParametroDSL";
+
+declare namespace pvp="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP";
+
+declare namespace rpe="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpRelPacoteEventoDSP";
+
+declare namespace pep="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpEventoPpvDSP";
+
+declare namespace pcp="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpCategoriaPpvDSP";
+
+declare namespace ptp="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpTipoPpvDSP";
+
+declare namespace psv="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP";
+
+declare namespace ptv="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/SnTipoVendaDSP";
+
+declare namespace pca="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpCampanhaDSP";
+
+declare namespace pmi="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpMidiaDSP";
+
+declare namespace ppr="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPromocaoDSP";
+
+declare namespace pla="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpPlanoPgtoDSP";
+
+declare namespace ppp="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpRelPacotePpvPromocaoDSP";
+
+import schema namespace com="http://www.netservicos.com.br/Compra" at "ld:br/com/netservicos/atendimento/ppv/schemas/Compra.xsd";
+
+import schema namespace para="http://www.netservicos.com.br/Parametro/schemas" at "ld:br/com/netservicos/atendimento/ppv/schemas/Parametro.xsd";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:listarCompras($listarCompras as element(com:listarCompras)) as element(com:listarCompraResponse){
+	let $listarCompras := tns:verificarDatas($listarCompras)
+	let $listarCompraResponse := tns:buscarCompras($listarCompras)
+	return
+		if ($listarCompras/com:resultadoPaginado eq fn:false()) then
+			$listarCompraResponse
+		else if ($listarCompras/com:resultadoPaginado eq fn:true() and fn:empty($listarCompras/com:paginacao/pag:NumeroPaginaAtual)) then
+			<com:listarCompraResponse>
+				<com:eventosPPVContrato>
+					{
+						subsequence($listarCompraResponse/com:eventosPPVContrato/com:eventoPPVContrato, 1, $listarCompras/com:paginacao/pag:QuantidadeTotalPagina)
+					}
+				</com:eventosPPVContrato>
+				<com:paginacao>
+		            <pag:NumeroPaginaAtual?>{ xs:int(1) }</pag:NumeroPaginaAtual>
+		            <pag:QuantidadeTotalPagina?>{ fn:data($listarCompras/com:paginacao/pag:QuantidadeTotalPagina) }</pag:QuantidadeTotalPagina>
+		            <pag:TotalRegistros?>{ fn:data(count($listarCompraResponse/com:eventosPPVContrato/com:eventoPPVContrato)) }</pag:TotalRegistros>
+				</com:paginacao>
+			</com:listarCompraResponse>
+		else if ($listarCompras/com:resultadoPaginado eq fn:true() and fn:not(fn:empty($listarCompras/com:paginacao/pag:NumeroPaginaAtual))) then
+			<com:listarCompraResponse>
+				<com:eventosPPVContrato>
+					{
+						subsequence($listarCompraResponse/com:eventosPPVContrato/com:eventoPPVContrato, 
+									(($listarCompras/com:paginacao/pag:NumeroPaginaAtual * $listarCompras/com:paginacao/pag:QuantidadeTotalPagina) - ($listarCompras/com:paginacao/pag:QuantidadeTotalPagina)) + 1,
+									$listarCompras/com:paginacao/pag:QuantidadeTotalPagina)
+					}
+				</com:eventosPPVContrato>
+				<com:paginacao>
+		            <pag:NumeroPaginaAtual?>{ fn:data($listarCompras/com:paginacao/pag:NumeroPaginaAtual) }</pag:NumeroPaginaAtual>
+		            <pag:QuantidadeTotalPagina?>{ fn:data($listarCompras/com:paginacao/pag:QuantidadeTotalPagina) }</pag:QuantidadeTotalPagina>
+		            <pag:TotalRegistros?>{ fn:data(count($listarCompraResponse/com:eventosPPVContrato/com:eventoPPVContrato)) }</pag:TotalRegistros>
+				</com:paginacao>
+			</com:listarCompraResponse>
+		else()
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarCompras($listarCompras as element(com:listarCompras)) as element(com:listarCompraResponse){
+    <com:listarCompraResponse>
+    	<com:eventosPPVContrato>
+        {
+        	for $PpVendaPpvDSP in pvp:PpVendaPpvDSP()
+        	where $PpVendaPpvDSP/NUM_CONTRATO eq $listarCompras/com:numeroContrato
+        	where $PpVendaPpvDSP/CID_CONTRATO eq $listarCompras/com:identificacaoCidade
+        	where fn-bea:date-from-dateTime($PpVendaPpvDSP/DATA_COMPRA) ge $listarCompras/com:dtInicioCompra
+        	where fn-bea:date-from-dateTime($PpVendaPpvDSP/DATA_COMPRA) le $listarCompras/com:dtTerminoCompra
+        	for $PpRelPacoteEventoDSP in rpe:PpRelPacoteEventoDSP()
+        	where $PpRelPacoteEventoDSP/ID_PACOTE_PPV eq $PpVendaPpvDSP/ID_PACOTE_PPV
+        	for $PpEventoPpvDSP in pep:PpEventoPpvDSP()
+        	where $PpEventoPpvDSP/ID_EVENTO_PPV eq $PpRelPacoteEventoDSP/ID_EVENTO_PPV
+        	for $PpCategoriaPpvDSP in pcp:PpCategoriaPpvDSP()
+        	where $PpCategoriaPpvDSP/ID_TIPO_PPV eq $PpEventoPpvDSP/ID_TIPO_PPV
+        	where $PpCategoriaPpvDSP/ID_CATEGORIA eq $PpEventoPpvDSP/ID_CATEGORIA
+        	for $PpTipoPpvDSP in ptp:PpTipoPpvDSP()
+        	where $PpTipoPpvDSP/ID_TIPO_PPV eq $PpEventoPpvDSP/ID_TIPO_PPV
+        	where $PpTipoPpvDSP/ID_TIPO_PPV eq $PpCategoriaPpvDSP/ID_TIPO_PPV
+        	for $PpStatusVendaDSP in psv:PpStatusVendaDSP()
+        	where $PpStatusVendaDSP/ID_STATUS_VENDA eq $PpVendaPpvDSP/ID_STATUS_VENDA
+        	for $SnTipoVendaDSP in ptv:SnTipoVendaDSP()
+        	where $SnTipoVendaDSP/ID_TIPO_VENDA eq $PpVendaPpvDSP/ID_TIPO_VENDA
+        	for $PpCampanhaDSP in pca:PpCampanhaDSP()
+        	where $PpCampanhaDSP/ID_CAMPANHA eq $PpVendaPpvDSP/ID_CAMPANHA
+        	for $PpMidiaDSP in pmi:PpMidiaDSP()
+        	where $PpMidiaDSP/ID_MIDIA eq $PpVendaPpvDSP/ID_MIDIA
+        	for $PpPromocaoDSP in ppr:PpPromocaoDSP()
+        	where $PpPromocaoDSP/ID_PROMOCAO eq $PpVendaPpvDSP/ID_PROMOCAO
+        	for $PpPlanoPgtoDSP in pla:PpPlanoPgtoDSP()
+        	where $PpPlanoPgtoDSP/ID_PLANO_PGTO eq $PpVendaPpvDSP/ID_PLANO_PGTO
+        	for $PpRelPacotePpvPromocaoDSP in ppp:PpRelPacotePpvPromocaoDSP()
+        	where $PpRelPacotePpvPromocaoDSP/ID_PACOTE_PPV eq $PpVendaPpvDSP/ID_PACOTE_PPV
+        	where $PpRelPacotePpvPromocaoDSP/ID_PACOTE_PPV eq $PpRelPacoteEventoDSP/ID_PACOTE_PPV
+        	where $PpRelPacotePpvPromocaoDSP/ID_PROMOCAO eq $PpVendaPpvDSP/ID_PROMOCAO
+        	where $PpRelPacotePpvPromocaoDSP/ID_PROMOCAO eq $PpPromocaoDSP/ID_PROMOCAO
+        	where $PpRelPacotePpvPromocaoDSP/ID_PLANO_PGTO eq $PpVendaPpvDSP/ID_PLANO_PGTO
+        	where $PpRelPacotePpvPromocaoDSP/ID_PLANO_PGTO eq $PpVendaPpvDSP/ID_PLANO_PGTO
+        	order by $PpVendaPpvDSP/DATA_COMPRA descending
+        	return
+        		<com:eventoPPVContrato>
+        			<com:contratoDeVenda>
+                        <com:numeroContrato>{ fn:data($PpVendaPpvDSP/NUM_CONTRATO) }</com:numeroContrato>
+                        <com:identificacaoCidade>{ fn:data($PpVendaPpvDSP/CID_CONTRATO) }</com:identificacaoCidade>
+                        <com:tipoVenda>
+                            <com:identificador>{ fn:data($SnTipoVendaDSP/ID_TIPO_VENDA) }</com:identificador>
+                            <com:descricao>{ fn:data($SnTipoVendaDSP/DESCRICAO) }</com:descricao>
+                        </com:tipoVenda>
+                        <com:dataVenda>{ fn:data($PpVendaPpvDSP/DATA_COMPRA) }</com:dataVenda>
+                        <com:canalVenda>{ fn:data($SnTipoVendaDSP/DESCRICAO) }</com:canalVenda>
+                        <com:statusVenda>
+                            <com:identificador>{ fn:data($PpStatusVendaDSP/ID_STATUS_VENDA) }</com:identificador>
+                            <com:descricao?>{ fn:data($PpStatusVendaDSP/DESCRICAO) }</com:descricao>
+                        </com:statusVenda>
+                    </com:contratoDeVenda>
+                    <com:eventoPPV>
+                        <com:identificador>{ fn:data($PpEventoPpvDSP/ID_EVENTO_PPV) }</com:identificador>
+                        <com:descricao>{ fn:data($PpEventoPpvDSP/DESCRICAO) }</com:descricao>
+                        <com:nome>{ fn:data($PpEventoPpvDSP/NOME_EVENTO_PPV) }</com:nome>
+                        <com:preco>{ fn:data($PpVendaPpvDSP/PRECO_COBRADO) }</com:preco>
+                        <com:categoriaPPV>
+                            <com:identificador>{ fn:data($PpCategoriaPpvDSP/ID_CATEGORIA) }</com:identificador>
+                            <com:descricao>{ fn:data($PpCategoriaPpvDSP/DESCRICAO) }</com:descricao>
+                        </com:categoriaPPV>
+                        <com:tipoPPV>
+                            <com:identificador>{ fn:data($PpTipoPpvDSP/ID_TIPO_PPV) }</com:identificador>
+                            <com:descricao?>{ fn:data($PpTipoPpvDSP/DESCRICAO) }</com:descricao>
+                        </com:tipoPPV>
+                    </com:eventoPPV>
+                </com:eventoPPVContrato>
+        }
+        </com:eventosPPVContrato>
+        <com:paginacao/>
+    </com:listarCompraResponse>
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:verificarDatas($listarCompras as element(com:listarCompras)) as element(com:listarCompras){
+	if (empty($listarCompras/com:dtInicioCompra) and empty($listarCompras/com:dtTerminoCompra)) then
+		let $NOME_PARAMETRO := "MAX_DIAS_HIST_PPV"
+		let $parametro := tns:buscarParametroPorNomeECidade($NOME_PARAMETRO, fn:data($listarCompras/com:identificacaoCidade))
+		let $dias := xs:int($parametro/para:valorParametro)
+		let $dtInicioCompra := xs:date(fn:current-date() - xdt:dayTimeDuration(fn:concat('P', $dias, 'D')))
+		let $dtTerminoCompra := fn:current-date()
+		return	
+		    <com:listarCompras>
+		        <com:numeroContrato>{ fn:data($listarCompras/com:numeroContrato) }</com:numeroContrato>
+		        <com:identificacaoCidade>{ fn:data($listarCompras/com:identificacaoCidade) }</com:identificacaoCidade>
+		        <com:dtInicioCompra?>{ fn:data($dtInicioCompra) }</com:dtInicioCompra>
+		        <com:dtTerminoCompra?>{ fn:data($dtTerminoCompra) }</com:dtTerminoCompra>
+		        <com:resultadoPaginado>{ fn:data($listarCompras/com:resultadoPaginado) }</com:resultadoPaginado>
+		        {
+		            <com:paginacao?>
+		                <pag:NumeroPaginaAtual?>{ fn:data($listarCompras/com:paginacao/pag:NumeroPaginaAtual) }</pag:NumeroPaginaAtual>
+		                <pag:QuantidadeTotalPagina?>{ fn:data($listarCompras/com:paginacao/pag:QuantidadeTotalPagina) }</pag:QuantidadeTotalPagina>
+		                <pag:TotalRegistros?>{ fn:data($listarCompras/com:paginacao/pag:TotalRegistros) }</pag:TotalRegistros>
+		            </com:paginacao>
+		        }
+		    </com:listarCompras>
+	else
+		$listarCompras
+
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarParametroPorNomeECidade($nomeParametro as xs:string, $identificadorCidade as xs:string) as element(para:Parametro) {
+	par:buscarParametroPorNomeECidade($nomeParametro, $identificadorCidade)
+};
+

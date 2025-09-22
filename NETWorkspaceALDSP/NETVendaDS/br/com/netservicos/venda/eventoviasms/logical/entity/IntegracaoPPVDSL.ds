@@ -1,0 +1,30 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="urn:SnIntegracaoSmsDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP">
+    <creationDate>2012-02-07T14:09:04</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+import schema namespace ns1="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnIntegracaoSmsDSP.xsd";
+
+
+declare namespace tns="ld:br/com/netservicos/venda/eventoviasms/logical/entity/IntegracaoPPVDSL";
+
+(::pragma  function <f:function kind="create" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare procedure tns:salvarIntegracao($url as xs:string, $status as xs:string, $dataIntegracao as xs:dateTime, $ticket as xs:string, $numero as xs:int, $cpf as xs:string, $mensagemResposta as xs:string) {
+	declare $integracao as element(ns1:SnIntegracaoSmsDSP);
+	set $integracao :=
+    <ns1:SnIntegracaoSmsDSP>
+        <ID_INTEGRACAO></ID_INTEGRACAO>
+        <CD_RECIBO_INTEGRACAO>{$ticket}</CD_RECIBO_INTEGRACAO>
+        <NR_TELEFONE>{$numero}</NR_TELEFONE>
+        <CD_DOCUMENTO>{$cpf}</CD_DOCUMENTO>
+        <DS_URL_ENVIO>{$url}</DS_URL_ENVIO>
+        <ST_INTEGRACAO>{$status}</ST_INTEGRACAO>
+        <DT_INTEGRACAO>{$dataIntegracao}</DT_INTEGRACAO>
+        <DS_MENSAGEM_RESPOSTA>{$mensagemResposta}</DS_MENSAGEM_RESPOSTA>
+    </ns1:SnIntegracaoSmsDSP>;
+	
+	ns1:createSnIntegracaoSmsDSP($integracao);
+};

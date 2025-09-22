@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="MediacaoJWSServiceDefinitions" targetNamespace="http://www.netservicos.com.br/jws/MediacaoJWS" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://www.netservicos.com.br/jws/MediacaoJWS" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <schema targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/v2/NetHeader">
+      <annotation>
+        <documentation/>
+      </annotation>
+      <element name="NetHeader" type="tns:Header">
+        <annotation>
+          <documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Header">
+        <annotation>
+          <documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="aplicacao">
+            <annotation>
+              <documentation>
+						Aplicação ou Parceiro que esta consumindo o serviço
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="NETSMS"/>
+                <enumeration value="NETSALES"/>
+                <enumeration value="PORTAL NET"/>
+                <enumeration value="URA"/>
+                <enumeration value="MODULO COBRANCA"/>
+                <enumeration value="ATLAS"/>
+                <enumeration value="RETENCAO REVERSAO"/>
+                <enumeration value="COMISSIONAMENTO"/>
+                <enumeration value="WORKASSURE"/>
+                <enumeration value="EMBRATEL"/>
+                <enumeration value="ACTIVIA"/>
+                <enumeration value="DECODER DIGITAL"/>
+                <enumeration value="OTHER"/>
+                <enumeration value="NETADMIN"/>
+                <enumeration value="WLI_EVENT"/>
+                <enumeration value="NETOMS"/>
+                <enumeration value="NETVEN"/>
+                <enumeration value="NETCRM"/>
+                <enumeration value="CRMCOR"/>
+                <enumeration value="CLARO"/>
+                <enumeration value="FSECURE"/>
+                <enumeration value="TECHWORK"/>
+                <enumeration value="MOVILE"/>
+                <enumeration value="CUSORD"/>
+                <enumeration value="RHEVOLUTION"/>
+                <enumeration value="GERIP"/>
+                <enumeration value="SMP"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="funcionalidade">
+            <annotation>
+              <documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="versaoServico" type="string">
+            <annotation>
+              <documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="token">
+            <annotation>
+              <documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="atendimento" type="tns:Atendimento">
+            <annotation>
+              <documentation>
+						Atendimento de cliente.
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="username" type="string">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="Atendimento">
+        <annotation>
+          <documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamada deveria preencher os
+				valores desde entidade.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element name="numeroProtocolo" type="string">
+            <annotation>
+              <documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+            </annotation>
+          </element>
+          <element name="numeroChamada" type="string">
+            <annotation>
+              <documentation>
+						Numero de chamanda de atendimento
+					</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/OrdemAtivacao/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:stns="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" xmlns:tns="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.netservicos.com.br/OrdemAtivacao/schemas"/>
+      <xs:element name="consultarPorID">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="identificadorOrdemAtivacao" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarPorIDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" ref="dsns0:OrdemAtivacao"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/OrdemAtivacao/schemas" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://www.netservicos.com.br/OrdemAtivacao/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="OrdemAtivacao">
+        <xs:annotation>
+          <xs:documentation>Ordem de Ativação</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="contrato" type="tns:ContratoType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="contratoAnterior" type="tns:ContratoType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="tipoOrdemAtivacao" type="tns:TipoOrdemAtivacaoType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorOrdemAtivacao" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorOC" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTipoOC" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorSolicitacao" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTipoSolicitacao" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorPonto" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorProduto" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTecnologia" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorVenda" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTerminal" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTerminalTroca" type="long"/>
+          <xs:element maxOccurs="1" name="dhCriacaoOrdem" type="dateTime"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificadorTerminalAssociado" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="usuario" type="string"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="codNode" type="string"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="idOffice" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="idHeadend" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="idController" type="long"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="statusOrdemAtivacao" type="tns:StatusOrdemAtivacaoType"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="statusMediacao" type="tns:StatusMediacaoType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ContratoType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="numeroContrato">
+            <xs:annotation>
+              <xs:documentation>Número do contrato do assinante, conforme
+                		cadastro no legado.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="long"/>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="codigoOperadora">
+            <xs:annotation>
+              <xs:documentation>Código da operadora onde o contrato está
+                   		cadastrado, conforme cadastro no legado.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="string">
+                <xs:length value="3"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" name="identificacaoCidade">
+            <xs:annotation>
+              <xs:documentation>Identificação da Cidade onde o contrato está
+                   		cadastrado, conforme cadastro no legado.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="string">
+                <xs:length value="5"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TipoOrdemAtivacaoType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="identificador">
+            <xs:annotation>
+              <xs:documentation>Identificador do tipo de Ordem Ativação.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="long"/>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="descricao">
+            <xs:annotation>
+              <xs:documentation>Descrição do tipo de Ordem Ativação.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="string"/>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StatusOrdemAtivacaoType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="identificador">
+            <xs:annotation>
+              <xs:documentation>Identificador do Status da Ordem Ativação.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="int"/>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="descricao">
+            <xs:annotation>
+              <xs:documentation>Descrição do Status da Ordem Ativação.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="string"/>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StatusMediacaoType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="identificador">
+            <xs:annotation>
+              <xs:documentation>Identificador do Status da Mediacao.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="int"/>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="1" name="descricao">
+            <xs:annotation>
+              <xs:documentation>Descrição do Status da Mediacao.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="string"/>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OrdemAtivacao" type="tns:OrdemAtivacao"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/jws/MediacaoJWS" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.netservicos.com.br/OrdemAtivacao/schemas"/>
+      <xs:import namespace="http://www.netservicos.com.br/v2/NetHeader"/>
+      <xs:element name="executarMediacao">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="net:NetHeader" xmlns:net="http://www.netservicos.com.br/v2/NetHeader"/>
+            <xs:element ref="sch:OrdemAtivacao" xmlns:sch="http://www.netservicos.com.br/OrdemAtivacao/schemas"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="executarMediacaoResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="executarMediacao">
+    <s0:part element="s1:executarMediacao" name="parameters"/>
+  </s0:message>
+  <s0:message name="executarMediacaoResponse">
+    <s0:part element="s1:executarMediacaoResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="MediacaoJWS">
+    <s0:operation name="executarMediacao" parameterOrder="parameters">
+      <s0:input message="s1:executarMediacao"/>
+      <s0:output message="s1:executarMediacaoResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="MediacaoJWSServiceSoapBinding" type="s1:MediacaoJWS">
+    <s2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="executarMediacao">
+      <s2:operation soapAction="" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="MediacaoJWSService">
+    <s0:port binding="s1:MediacaoJWSServiceSoapBinding" name="MediacaoJWSSoapPort">
+      <s2:address location="http://localhost:7001/NETAprovisionamentoWLIWeb/MediacaoJWS"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

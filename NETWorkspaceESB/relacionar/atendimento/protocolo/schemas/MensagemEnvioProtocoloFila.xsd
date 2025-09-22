@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.netservicos.com.br/MensagemEnvioProtocoloFila"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/MensagemEnvioProtocoloFila" xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader" xmlns:iden="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET" xmlns:ident="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" xmlns:identProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta">
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"
+		schemaLocation="../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd">
+	</import>
+	<import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"
+		schemaLocation="../../../../modelocanonicoV2/geral/IdentificacaoProposta.xsd">
+	</import>
+
+
+	<complexType name="MensagemEnvioProtocoloFilaType">
+		<sequence>
+			<element name="reenvio" type="boolean" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="identificacaoProposta"
+				type="identProposta:IdentificacaoPropostaType" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="identificacaoContrato"
+				type="ident:IdentificacaoContratoType" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="Protocolo" type="string" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Authorization" type="string" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="aliasDatabase" type="string"></element>
+		</sequence>	</complexType>
+	
+	<complexType name="RetornoProtocoloFilaType">
+		<sequence>
+			<element name="Protocolo" type="string" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="numeroChamada" type="string" minOccurs="1"
+				maxOccurs="1">
+			</element>			
+		</sequence>
+	</complexType>
+
+
+    <element name="mensagemEnvioProtocolo" type="tns:MensagemEnvioProtocoloFilaType"></element>
+    
+    <element name="retornoProtocolo" type="tns:RetornoProtocoloFilaType"></element>
+</schema>

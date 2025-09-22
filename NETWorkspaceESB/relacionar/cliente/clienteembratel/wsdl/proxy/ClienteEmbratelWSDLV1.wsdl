@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions
+	name="ClienteEmbratelV1"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:cle="http://www.netservicos.com.br/ClienteEmbratelV1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:clp="http://www.netservicos.com.br/modelocanonico/v2/cliente"
+	xmlns:end="http://www.netservicos.com.br/modelocanonico/v2/endereco"
+	targetNamespace="http://www.netservicos.com.br/ClienteEmbratelV1">
+
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/ClienteEmbratelV1" elementFormDefault="qualified">
+
+			<xsd:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd"/>
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/cliente" schemaLocation="../../../../../modelocanonicoV2/cliente/ClienteProspect.xsd"/>
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/endereco" schemaLocation="../../../../../modelocanonicoV2/endereco/Endereco.xsd"/>
+
+			<xsd:complexType name="clienteProspectType">
+				<xsd:sequence>
+					<xsd:element ref="clp:ClienteProspect" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Canonical entity "ClienteProspect"</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="enderecoType">
+				<xsd:sequence>
+					<xsd:element ref="end:Endereco" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Canonical entity "Endereco"</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+            <xsd:simpleType name="identificadorType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="Principal" />
+                    <xsd:enumeration value="Secundario" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="descricaoType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="7"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+
+			<xsd:complexType name="cnaeType">
+				<xsd:sequence>
+					<xsd:element ref="cle:identificador" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element ref="cle:descricao" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="consultarClienteBvcRequestType">
+                <xsd:sequence>
+					<xsd:element ref="cle:clienteProspect" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="consultarClienteBvcResponseType">
+				<xsd:sequence>
+					<xsd:element ref="cle:clienteProspect" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dataObito" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="cle:endereco" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="cle:cnae" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="situacaoInscricaoEstadual" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dataSituacaoInscricaoEstadual" type="xsd:date" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="indicadorEstabelecimento" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="nomeFantasia" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="situacaoCadastral" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dataSituacaoCadastral" type="xsd:date" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="codigoNaturezaJuridica" type="xsd:int" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dataAberturaEstabelecimento" type="xsd:date" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="porteSerpro" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="indicadorOpcaoSimples" type="xsd:boolean" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="situacaoSuframa" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dataSituacaoSuframa" type="xsd:date" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="indicadorInternacional" type="xsd:boolean" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="classeConsumo" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="naturezaAssinante" type="xsd:string" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="tipoCliente" type="xsd:string" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="clienteProspect" type="cle:clienteProspectType" />
+			<xsd:element name="endereco" type="cle:enderecoType" />
+			<xsd:element name="identificador" type="cle:identificadorType" />
+			<xsd:element name="descricao" type="cle:descricaoType" />
+			<xsd:element name="cnae" type="cle:cnaeType" />
+			<xsd:element name="consultarClienteBvcRequest" type="cle:consultarClienteBvcRequestType" />
+      		<xsd:element name="consultarClienteBvcResponse" type="cle:consultarClienteBvcResponseType" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarClienteBvcRequest">
+		<wsdl:part element="cle:consultarClienteBvcRequest" name="payload" />
+		<wsdl:part name="header" element="netheader:NetHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarClienteBvcResponse">
+		<wsdl:part element="cle:consultarClienteBvcResponse" name="payload" />
+	</wsdl:message>
+
+	<wsdl:portType name="ClienteEmbratelV1PortType">
+		<wsdl:operation name="consultarClienteBvc">
+			<wsdl:input message="cle:consultarClienteBvcRequest" />
+			<wsdl:output message="cle:consultarClienteBvcResponse" />
+        </wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="ClienteEmbratelBinding11"
+		type="cle:ClienteEmbratelV1PortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="consultarClienteBvc">
+			<soap11:operation soapAction="" />
+			<wsdl:input>
+				<soap11:header wsdl:required="true" part="header" use="literal" message="cle:consultarClienteBvcRequest" />
+				<soap11:body use="literal" parts="payload" />
+			</wsdl:input>
+			<wsdl:output>
+		        <soap11:body use="literal" parts="payload" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="ClienteEmbratelBinding12"
+		type="cle:ClienteEmbratelV1PortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="consultarClienteBvc">
+			<soap12:operation soapAction="" />
+			<wsdl:input>
+				<soap12:header wsdl:required="true" part="header" use="literal" message="cle:consultarClienteBvcRequest"/>
+				<soap12:body use="literal" parts="payload"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="payload"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="ClienteEmbratelService">
+		<wsdl:port binding="cle:ClienteEmbratelBinding11" name="ClienteEmbratelPort11">
+			<soap11:address location="http://www.netservicos.com.br/ClienteEmbratel11V1" />
+		</wsdl:port>
+
+		<wsdl:port binding="cle:ClienteEmbratelBinding12" name="ClienteEmbratelPort12">
+			<soap12:address location="http://www.netservicos.com.br/ClienteEmbratel12V1" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" name="OrdemAtivacaoJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/OrdemAtivacao/schemas">
+      <xs:import namespace="http://www.netservicos.com.br/OrdemAtivacao/schemas"/>
+      <xs:element name="consultarPorID">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="identificadorOrdemAtivacao" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarPorIDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:OrdemAtivacao" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/OrdemAtivacao/schemas" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/OrdemAtivacao/schemas">
+      <complexType name="OrdemAtivacao">
+        <annotation>
+          <documentation>Ordem de Ativação</documentation>
+        </annotation>
+        <sequence>
+          <element name="contrato" type="tns:ContratoType" minOccurs="0" maxOccurs="1"/>
+          <element name="contratoAnterior" type="tns:ContratoType" minOccurs="0" maxOccurs="1"/>
+          <element name="tipoOrdemAtivacao" type="tns:TipoOrdemAtivacaoType" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorOrdemAtivacao" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorOC" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorTipoOC" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorSolicitacao" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorTipoSolicitacao" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorPonto" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorProduto" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorTecnologia" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorVenda" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorTerminal" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="identificadorTerminalTroca" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="dhCriacaoOrdem" type="dateTime" maxOccurs="1"/>
+          <element name="identificadorTerminalAssociado" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="usuario" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="codNode" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="idOffice" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="idHeadend" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="idController" type="long" minOccurs="0" maxOccurs="1"/>
+          <element name="statusOrdemAtivacao" type="tns:StatusOrdemAtivacaoType" minOccurs="0" maxOccurs="1"/>
+          <element name="statusMediacao" type="tns:StatusMediacaoType" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+      </complexType>
+      <complexType name="ContratoType">
+        <sequence>
+          <element name="numeroContrato" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation>Número do contrato do assinante, conforme
+                		cadastro no legado.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <element name="codigoOperadora" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation>Código da operadora onde o contrato está
+                   		cadastrado, conforme cadastro no legado.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <length value="3"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="identificacaoCidade" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation>Identificação da Cidade onde o contrato está
+                   		cadastrado, conforme cadastro no legado.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <length value="5"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <complexType name="TipoOrdemAtivacaoType">
+        <sequence>
+          <element name="identificador" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Identificador do tipo de Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <element name="descricao" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Descrição do tipo de Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <complexType name="StatusOrdemAtivacaoType">
+        <sequence>
+          <element name="identificador" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Identificador do Status da Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="int"/>
+            </simpleType>
+          </element>
+          <element name="descricao" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Descrição do Status da Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <complexType name="StatusMediacaoType">
+        <sequence>
+          <element name="identificador" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Identificador do Status da Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="int"/>
+            </simpleType>
+          </element>
+          <element name="descricao" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Descrição do Status da Ordem Ativação.</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <element name="OrdemAtivacao" type="tns:OrdemAtivacao"/>
+    </schema>
+  </types>
+  <message name="consultarPorIDIn">
+    <part name="parameters" element="tns:consultarPorID"/>
+  </message>
+  <message name="consultarPorIDOut">
+    <part name="parameters" element="tns:consultarPorIDResponse"/>
+  </message>
+  <portType name="OrdemAtivacaoJWSPT">
+    <operation name="consultarPorID">
+      <input message="tns:consultarPorIDIn"/>
+      <output message="tns:consultarPorIDOut"/>
+    </operation>
+  </portType>
+  <binding name="OrdemAtivacaoJWSSoapBinding" type="tns:OrdemAtivacaoJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarPorID">
+      <soap:operation soapAction="ld:br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws/consultarPorID" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="OrdemAtivacaoJWSSoapService">
+    <port binding="tns:OrdemAtivacaoJWSSoapBinding" name="OrdemAtivacaoJWSSoapPort">
+      <soap:address location="http://172.16.0.2:7005/NETAprovisionamentoDSBasicAuth/ALDSPWebServiceSOAP12BasicAuth/br/com/netservicos/aprovisionamento/webservice/OrdemAtivacaoJWS.ws"/>
+    </port>
+  </service>
+</definitions>

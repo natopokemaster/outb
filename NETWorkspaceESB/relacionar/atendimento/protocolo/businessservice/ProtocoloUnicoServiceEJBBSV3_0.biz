@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="false" isEnabled="true" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:description>Business Service que realiza a chamada ao EJB responsável pela geração do número do protocolo.</ser:description>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" transport-typed="true" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:binding>
+        <con:name>JwsServiceSoapBinding</con:name>
+        <con:namespace>http://www.openuri.org/</con:namespace>
+      </con:binding>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">ejb</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">ejb:localProvider:netservicos/atendimento/protocolo/control/ejb/ProtocoloUnicoServiceEJB</env:value>
+    </tran:URI>
+    <tran:outbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <tran:load-balancing-algorithm>round-robin</tran:load-balancing-algorithm>
+      <tran:retry-count>0</tran:retry-count>
+      <tran:retry-interval>30</tran:retry-interval>
+      <tran:retry-application-errors>true</tran:retry-application-errors>
+    </tran:outbound-properties>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <ejb:security xmlns:ejb="http://www.bea.com/wli/sb/transports/ejb">
+        <ejb:serviceAccount ref="relacionar/atendimento/protocolo/security/ProtocoloServiceAccount"/>
+      </ejb:security>
+      <ejb:service xmlns:ejb="http://www.bea.com/wli/sb/transports/ejb">
+        <ejb:clientJar ref="relacionar/atendimento/protocolo/jar/NETProtocoloAtendimentoClient"/>
+        <ejb:ejbHome classname="br.com.netservicos.atendimento.protocolo.control.ProtocoloUnicoServiceEJBHome"/>
+        <ejb:ejbObject classname="br.com.netservicos.atendimento.protocolo.control.ProtocoloUnicoServiceEJB">
+          <ejb:method name="associarProtocoloAtendimento" signature="br.com.netservicos.atendimento.protocolo.bean.ContatoBean associarProtocoloAtendimento(br.com.netservicos.atendimento.protocolo.bean.ContatoBean) throws br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoBusinessException,br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoSystemException" exclude="false">
+            <ejb:operation>associarProtocoloAtendimento</ejb:operation>
+            <ejb:param name="contato" type="br.com.netservicos.atendimento.protocolo.bean.ContatoBean"/>
+            <ejb:return name="return" type="br.com.netservicos.atendimento.protocolo.bean.ContatoBean"/>
+          </ejb:method>
+          <ejb:method name="gerarProtocoloAtendimento" signature="br.com.netservicos.atendimento.protocolo.bean.ContatoBean gerarProtocoloAtendimento(long,java.lang.String,java.lang.String,java.lang.Long) throws br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoBusinessException,br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoSystemException" exclude="true">
+            <ejb:operation>gerarProtocoloAtendimento</ejb:operation>
+            <ejb:param name="numContrato" type="long"/>
+            <ejb:param name="codOperadora" type="java.lang.String"/>
+            <ejb:param name="protocolo" type="java.lang.String"/>
+            <ejb:param name="idMotivoChamada" type="java.lang.Long"/>
+            <ejb:return name="return" type="br.com.netservicos.atendimento.protocolo.bean.ContatoBean"/>
+          </ejb:method>
+          <ejb:method name="gerarProtocoloAtendimento" signature="br.com.netservicos.atendimento.protocolo.bean.ContatoBean gerarProtocoloAtendimento(long,long,java.lang.String,java.lang.String,java.lang.Long) throws br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoBusinessException,br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoSystemException" exclude="false">
+            <ejb:operation>gerarProtocoloAtendimento</ejb:operation>
+            <ejb:param name="numProposta" type="long"/>
+            <ejb:param name="numContrato" type="long"/>
+            <ejb:param name="codOperadora" type="java.lang.String"/>
+            <ejb:param name="protocolo" type="java.lang.String"/>
+            <ejb:param name="idMotivoChamada" type="java.lang.Long"/>
+            <ejb:return name="return" type="br.com.netservicos.atendimento.protocolo.bean.ContatoBean"/>
+          </ejb:method>
+          <ejb:method name="gerarProtocoloAtendimento" signature="br.com.netservicos.atendimento.protocolo.bean.ContatoBean gerarProtocoloAtendimento(long,java.lang.String,java.lang.String) throws br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoBusinessException,br.com.netservicos.atendimento.protocolo.exception.ProtocoloUnicoSystemException" exclude="true">
+            <ejb:operation>gerarProtocoloAtendimento</ejb:operation>
+            <ejb:param name="numContrato" type="long"/>
+            <ejb:param name="codOperadora" type="java.lang.String"/>
+            <ejb:param name="protocolo" type="java.lang.String"/>
+            <ejb:return name="return" type="br.com.netservicos.atendimento.protocolo.bean.ContatoBean"/>
+          </ejb:method>
+        </ejb:ejbObject>
+        <ejb:targetNamespace>http://www.openuri.org/</ejb:targetNamespace>
+        <ejb:style>Document Wrapped</ejb:style>
+        <ejb:encoding>Literal</ejb:encoding>
+      </ejb:service>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+</xml-fragment>

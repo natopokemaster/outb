@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ProtocoloWSDL12V1_0" 
+	xmlns:protocolo="http://www.netservicos.com.br/Protocolo"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/Protocolo"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:identificacaoContrato="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato">
+	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/Protocolo" attributeFormDefault="qualified" elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+			
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"
+				schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd">
+			</xsd:import>
+		
+			<xsd:element name="gerarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="identificacaoContrato" type="identificacaoContrato:IdentificacaoContratoType" minOccurs="0" maxOccurs="1" />
+						<xsd:element name="identificadorMotivo" type="xsd:long" minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="gerarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="protocolo" type="xsd:string" />
+						<xsd:element name="numeroChamada" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="gerarRequest">
+		<wsdl:part name="request_header" element="netheader:NetHeader" />
+		<wsdl:part element="protocolo:gerarRequest" name="gerarRequest" />
+	</wsdl:message>
+	
+	<wsdl:message name="gerarResponse">
+		<wsdl:part element="protocolo:gerarResponse" name="gerarResponse" />
+	</wsdl:message>
+	
+	<wsdl:portType name="ProtocoloPortType">
+		<wsdl:operation name="gerar">
+			<wsdl:input message="protocolo:gerarRequest" />
+			<wsdl:output message="protocolo:gerarResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="ProtocoloBinding11" type="protocolo:ProtocoloPortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="gerar">
+			<soap11:operation soapAction="http://www.netservicos.com.br/Protocolo/gerar" />
+			<wsdl:input>
+				<soap11:header message="protocolo:gerarRequest" use="literal" wsdl:required="true" part="request_header" />
+				<soap11:body use="literal" parts="gerarRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="gerarResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:binding name="ProtocoloBinding12" type="protocolo:ProtocoloPortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="gerar">
+			<soap12:operation soapAction="http://www.netservicos.com.br/Protocolo/gerar" />
+			<wsdl:input>
+				<soap12:header message="protocolo:gerarRequest" use="literal" wsdl:required="true" part="request_header" />
+				<soap12:body use="literal" parts="gerarRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="gerarResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="ProtocoloService">
+		<wsdl:port binding="protocolo:ProtocoloBinding11" name="ProtocoloPort11">
+			<soap11:address location="http://servbus/relacionar/atendimento/protocolo/Protocolo11V2" />
+		</wsdl:port>
+		<wsdl:port binding="protocolo:ProtocoloBinding12" name="ProtocoloPort12">
+			<soap12:address location="http://servbus/relacionar/atendimento/protocolo/Protocolo12V2" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

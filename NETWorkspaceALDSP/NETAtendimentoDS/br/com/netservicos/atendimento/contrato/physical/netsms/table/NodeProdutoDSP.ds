@@ -1,0 +1,73 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:NodeProdutoDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/NodeProdutoDSP">
+<creationDate>2014-11-07T15:13:41</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_BATCH_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="COD_OPERADORA" type="xs:integer">
+  <extension nativeXpath="COD_OPERADORA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_NODE" type="xs:string">
+  <extension nativeXpath="COD_NODE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="10" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_PRODUTO" type="xs:integer">
+  <extension nativeXpath="COD_PRODUTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="QTD_HP_INSTAL" type="xs:integer">
+  <extension nativeXpath="QTD_HP_INSTAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_ATIVACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_ATIVACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_PREV_ATIVACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_PREV_ATIVACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_ATUALIZACAO" type="xs:dateTime">
+  <extension nativeXpath="DT_ATUALIZACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_ATIVACAO_COM" type="xs:dateTime">
+  <extension nativeXpath="DT_ATIVACAO_COM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DT_PREV_ATIVACAO_COM" type="xs:dateTime">
+  <extension nativeXpath="DT_PREV_ATIVACAO_COM" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PK_NODE_PRODUTO" type="nod:NodeProdutoDSP_KEY" inferredSchema="true" xmlns:nod="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/NodeProdutoDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/NodeProdutoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/NodeProdutoDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/NodeProdutoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/NodeProdutoDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/NodeProdutoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="NODE_PRODUTO" nativeLevel2Container="GED" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:NodeProdutoDSP() as schema-element(t1:NodeProdutoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="NODE_PRODUTO" nativeLevel2Container="GED" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createNodeProdutoDSP($p as element(t1:NodeProdutoDSP)*)as schema-element(t1:NodeProdutoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="NODE_PRODUTO" nativeLevel2Container="GED" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateNodeProdutoDSP($p as changed-element(t1:NodeProdutoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="NODE_PRODUTO" nativeLevel2Container="GED" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteNodeProdutoDSP($p as element(t1:NodeProdutoDSP)*) as empty()  external;
+

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:description/>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con3:SoapBindingType" xmlns:con3="http://www.bea.com/wli/sb/services/bindings/config">
+      <con3:wsdl ref="Infraestrutura/Equipamento/TrocarEquipamento/WSDL/proxy/TrocarEquipamentoWSDL"/>
+      <con3:binding>
+        <con3:name>TrocarEquipamentoWebServiceSoapBinding</con3:name>
+        <con3:namespace>open:services.netservicos.com.br</con3:namespace>
+      </con3:binding>
+      <con3:selector type="SOAP body">
+        <con3:mapping operation="trocarEquipamento" value=""/>
+      </con3:selector>
+      <con3:WSI-compliant>false</con3:WSI-compliant>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/Infraestrutura/Equipamento/TrocarEquipamentoProxy11</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties>
+        <http:client-authentication xsi:type="http:HttpBasicAuthenticationType"/>
+      </http:inbound-properties>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con:pipeline name="_onErrorHandler-3086725928358583026--7baaf055.11cba6248e0.-7fb9" type="error">
+      <con:stage name="Logging Alert Stage" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+        <con:comment>efetua log e geracao de alertas</con:comment>
+        <con:context>
+          <con2:varNsDecl prefix="net" namespace="http://www.netservicos.com.br/NetHeader"/>
+          <con2:varNsDecl prefix="open" namespace="open:services.netservicos.com.br"/>
+        </con:context>
+        <con:actions>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-3607868998660443135-629781d3.11eeea1c494.-7564</con2:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$header</con:xqueryText>
+            </con4:expr>
+            <con4:message/>
+          </con4:log>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-3607868998660443135-629781d3.11eeea1c494.-7562</con2:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+            </con4:expr>
+            <con4:message/>
+          </con4:log>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-3607868998660443135-629781d3.11eeea1c494.-7563</con2:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$fault</con:xqueryText>
+            </con4:expr>
+            <con4:message/>
+          </con4:log>
+          <con6:ifThenElse xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/alert/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id>_ActionId-1220288251356768672-1ebd01a9.11ff7486a45.-7fba</con2:id>
+            <con6:case>
+              <con6:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">fn:contains(data($body), 'ERRMOV')</con:xqueryText>
+              </con6:condition>
+              <con6:actions>
+                <con4:alert xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config">
+                  <con2:id>_ActionId-1220288251356768672-1ebd01a9.11ff7486a45.-7fb9</con2:id>
+                  <con4:description>Erro de Negocios</con4:description>
+                  <con4:severity>warning</con4:severity>
+                  <con4:payload>
+                    <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+                  </con4:payload>
+                </con4:alert>
+              </con6:actions>
+            </con6:case>
+            <con6:case>
+              <con6:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">fn:contains(data($body), 'ERRSYS')</con:xqueryText>
+              </con6:condition>
+              <con6:actions>
+                <con5:alert>
+                  <con2:id>_ActionId-1305341585380881225--1ae2254b.1202b56311a.-7fe7</con2:id>
+                  <con5:description>Erro de Sistema</con5:description>
+                  <con5:severity>major</con5:severity>
+                  <con5:payload>
+                    <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+                  </con5:payload>
+                </con5:alert>
+              </con6:actions>
+            </con6:case>
+            <con6:default>
+              <con4:alert xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config">
+                <con2:id>_ActionId-1220288251356768672-1ebd01a9.11ff7486a45.-7fb8</con2:id>
+                <con4:description>Erro acessando serviço</con4:description>
+                <con4:severity>critical</con4:severity>
+                <con4:payload>
+                  <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+                </con4:payload>
+              </con4:alert>
+            </con6:default>
+          </con6:ifThenElse>
+        </con:actions>
+      </con:stage>
+      <con:stage name="SoapFaultStage">
+        <con:context>
+          <con2:varNsDecl prefix="net" namespace="http://www.netservicos.com.br/NetHeader"/>
+          <con2:varNsDecl prefix="open" namespace="open:services.netservicos.com.br"/>
+        </con:context>
+        <con:actions>
+          <con3:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id>_ActionId-3607868998660443135-629781d3.11eeea1c494.-756a</con2:id>
+            <con3:case>
+              <con3:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">data($body) = ''</con:xqueryText>
+              </con3:condition>
+              <con3:actions>
+                <con3:replace varName="body" contents-only="true">
+                  <con2:id>_ActionId-3607868998660443135-629781d3.11eeea1c494.-7569</con2:id>
+                  <con3:location>
+                    <con:xpathText xmlns:con="http://www.bea.com/wli/sb/stages/config">.</con:xpathText>
+                  </con3:location>
+                  <con3:expr>
+                    <con:xqueryTransform xmlns:con="http://www.bea.com/wli/sb/stages/config">
+                      <con:resource ref="general/transformation/CriarSOAPFaultServidorIndisponivel"/>
+                    </con:xqueryTransform>
+                  </con3:expr>
+                </con3:replace>
+              </con3:actions>
+            </con3:case>
+          </con3:ifThenElse>
+          <con3:replace varName="body" contents-only="false" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id>_ActionId-2547588159484957611--7b90b34a.11db24404f2.-7f91</con2:id>
+            <con3:location>
+              <con:xpathText xmlns:con="http://www.bea.com/wli/sb/stages/config">./open:trocarEquipamento</con:xpathText>
+            </con3:location>
+            <con3:expr>
+              <con:xqueryTransform xmlns:con="http://www.bea.com/wli/sb/stages/config">
+                <con:resource ref="general/transformation/CriarSOAPFaultServidorIndisponivel"/>
+              </con:xqueryTransform>
+            </con3:expr>
+          </con3:replace>
+          <con3:delete varName="header" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id>_ActionId-2547588159484957611--7b90b34a.11db24404f2.-7f90</con2:id>
+          </con3:delete>
+          <con2:reply isError="true">
+            <con2:id>_ActionId-3086725928358583026--7baaf055.11cba6248e0.-7fb8</con2:id>
+          </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline name="TrocarEquipamento Pipeline_request" type="request">
+      <con:stage name="Log de Payload">
+        <con:comment/>
+        <con:context>
+          <con2:varNsDecl prefix="net" namespace="http://www.netservicos.com.br/NetHeader"/>
+          <con2:varNsDecl prefix="open" namespace="open:services.netservicos.com.br"/>
+        </con:context>
+        <con:actions>
+          <con3:log>
+            <con2:id>_ActionId-1220288251356768672-1ebd01a9.11ff7486a45.-7fb7</con2:id>
+            <con3:logLevel>debug</con3:logLevel>
+            <con3:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+            </con3:expr>
+            <con3:message/>
+          </con3:log>
+        </con:actions>
+      </con:stage>
+      <con:stage name="Configura Base">
+        <con:comment/>
+        <con:context>
+          <con2:userNsDecl prefix="java" namespace="java:br.com.netservicos.sb.config.netsms.operadora"/>
+          <con2:userNsDecl prefix="m" namespace="http://www.openuri.org/"/>
+          <con2:varNsDecl prefix="net" namespace="http://www.netservicos.com.br/NetHeader"/>
+          <con2:varNsDecl prefix="open" namespace="open:services.netservicos.com.br"/>
+        </con:context>
+        <con:actions>
+          <con5:assign varName="cidContrato">
+            <con2:id>_ActionId-35892117379521315-53d7bce.1201f1cf21e.-7fc5</con2:id>
+            <con5:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">data($body/open:trocarEquipamento/open:CIDADE_OPERADORA)</con:xqueryText>
+            </con5:expr>
+          </con5:assign>
+          <con5:wsCallout>
+            <con2:id>_ActionId-35892117379521315-53d7bce.1201f1cf21e.-7fc4</con2:id>
+            <con5:service ref="general/NETSMSDatabaseConfig/BusinessService/NETSMSOperadoraConfigBusinessService" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con5:operation>getNETSMSOperadoraByCidadeContrato</con5:operation>
+            <con5:request>
+              <con5:body wrapped="false">$getNETSMSOperadoraRequest</con5:body>
+              <con5:header/>
+            </con5:request>
+            <con5:response>
+              <con5:body wrapped="false">getNETSMSOperadoraResponse</con5:body>
+              <con5:header/>
+            </con5:response>
+            <con5:requestTransform>
+              <con5:assign varName="getNETSMSOperadoraRequest">
+                <con2:id>_ActionId-35892117379521315-53d7bce.1201f1cf21e.-7fc3</con2:id>
+                <con5:expr>
+                  <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">&lt;open:getNETSMSOperadoraByCidadeContrato xmlns:open="http://www.openuri.org/">
+    &lt;open:arg0>{$cidContrato}&lt;/open:arg0>
+&lt;/open:getNETSMSOperadoraByCidadeContrato></con:xqueryText>
+                </con5:expr>
+              </con5:assign>
+            </con5:requestTransform>
+            <con5:responseTransform/>
+          </con5:wsCallout>
+          <con5:assign varName="baseContrato">
+            <con2:id>_ActionId-35892117379521315-53d7bce.1201f1cf21e.-7fc2</con2:id>
+            <con5:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">fn:data($getNETSMSOperadoraResponse/m:return/java:AliasDatabase)</con:xqueryText>
+            </con5:expr>
+          </con5:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline name="TrocarEquipamento Pipeline_response" type="response"/>
+    <con:flow>
+      <con:pipeline-node name="TrocarEquipamento Pipeline">
+        <con:comment/>
+        <con:request>TrocarEquipamento Pipeline_request</con:request>
+        <con:response>TrocarEquipamento Pipeline_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="Roteamento para nethomewebservice TrocarEquipamento" error-handler="_onErrorHandler-3086725928358583026--7baaf055.11cba6248e0.-7fb9">
+        <con:comment/>
+        <con:context>
+          <con2:varNsDecl prefix="net" namespace="http://www.netservicos.com.br/NetHeader"/>
+          <con2:varNsDecl prefix="open" namespace="open:services.netservicos.com.br"/>
+        </con:context>
+        <con:actions>
+          <con1:route>
+            <con2:id>_ActionId-7987234526945419342-55acb1e0.11c9b55ca31.-7f8c</con2:id>
+            <con1:service ref="Infraestrutura/Equipamento/TrocarEquipamento/BusinessService/TrocarEquipamentoBusiness" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation passThrough="true"/>
+            <con1:outboundTransform>
+              <con5:transport-headers copy-all="false">
+                <con2:id>_ActionId-35892117379521315-53d7bce.1201f1cf21e.-7fc1</con2:id>
+                <con5:header-set>outbound-request</con5:header-set>
+                <con5:header value="expression" name="j_identity_base">
+                  <con2:xqueryText>$baseContrato</con2:xqueryText>
+                </con5:header>
+              </con5:transport-headers>
+            </con1:outboundTransform>
+            <con1:responseTransform/>
+          </con1:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

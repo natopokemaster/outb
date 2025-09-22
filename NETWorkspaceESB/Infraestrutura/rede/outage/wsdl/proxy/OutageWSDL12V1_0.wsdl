@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="Outage"
+	targetNamespace="http://www.netservicos.com.br/rede/outage"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:out="http://www.netservicos.com.br/rede/outage"
+	xmlns:header="http://www.netservicos.com.br/v2/NetHeader">
+	<wsdl:types>
+		<xsd:schema id="Outage"
+			targetNamespace="http://www.netservicos.com.br/rede/outage"
+			elementFormDefault="qualified"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+			<xsd:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd"/>
+			
+			<xsd:complexType name="PontoComum">
+				<xsd:sequence>
+					<xsd:element name="headendId" type="xsd:string" />
+					<xsd:element name="hubId" type="xsd:string"	minOccurs="0" />
+					<xsd:element name="node" type="out:Node" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="Node">
+				<xsd:sequence>
+					<xsd:element name="nodeId" type="xsd:string" />
+					<xsd:element name="cellId" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="NotificacaoOutage">
+				<xsd:sequence>
+					<xsd:annotation>
+						<xsd:documentation>
+							Numero da notificacao, Ponto Comum, Sintoma,
+							Segmentos Afetados, Data/Hora da abertura,
+							Data/Hora prevista para a solucao do
+							problema e campo de observacao da
+							notificacao
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="notificacaoId" type="xsd:string" />
+					<xsd:element name="idCidadeContrato" type="xsd:string" />
+					<xsd:element name="pontoComum" type="out:PontoComum" />
+					<xsd:element name="sintoma" type="xsd:string" />
+					<xsd:element name="segmentoNegocioID" maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="IE1"></xsd:enumeration>
+								<xsd:enumeration value="IE2"></xsd:enumeration>
+								<xsd:enumeration value="IE3"></xsd:enumeration>
+								<xsd:enumeration value="IE4"></xsd:enumeration>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="dataHoraAbertura" type="xsd:dateTime" minOccurs="0" />
+					<!-- If absent, date of creation in WA will be used. -->
+					<xsd:element name="dataHoraPrevista" type="xsd:dateTime" minOccurs="0" />
+					<!-- EstimatedStartDateTime -->
+					<!-- This field should always be appended, never replaced -->
+					<xsd:element name="observacao" type="xsd:string" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="AtualizacaoInfoOutage">
+				<xsd:sequence>
+					<xsd:annotation>
+						<xsd:documentation>
+							Numero da notificacao, Ponto Comum, Sintoma,
+							Segmentos Afetados, Data/Hora da abertura,
+							Data/Hora prevista para a solucao do
+							problema e campo de observacao da notificao
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="notificacaoId" type="xsd:string" />
+					<xsd:element name="idCidadeContrato" type="xsd:string" />
+					<!-- EstimatedJobDuration -->
+					<xsd:element name="tempoEstimadoServico" type="xsd:int" minOccurs="0" />
+					<!-- EstimatedStartDateTime -->
+					<xsd:element name="dataHoraPrevistaInicio" type="xsd:dateTime" minOccurs="0" />
+					<!-- EstimatedDueDateTime -->
+					<xsd:element name="dataHoraPrevista" type="xsd:dateTime" minOccurs="0" />
+					<xsd:element name="pontoComum" type="out:PontoComum" minOccurs="0" />
+					<xsd:element name="observacao" type="xsd:string" minOccurs="0" />
+					<xsd:element name="segmentoNegocioID" minOccurs="0"	maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="IE1"></xsd:enumeration>
+								<xsd:enumeration value="IE2"></xsd:enumeration>
+								<xsd:enumeration value="IE3"></xsd:enumeration>
+								<xsd:enumeration value="IE4"></xsd:enumeration>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="FechamentoOutage">
+				<xsd:sequence>
+					<xsd:annotation>
+						<xsd:documentation>
+							Os seguintes dados serao informados: 1.
+							Numero da Notificacao; 2. Horario de
+							Fechamento; 3. Cod de Baixa; 4. ID do
+							Tecnico; 5. Observacao.
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="notificacaoId" type="xsd:string" />
+					<xsd:element name="idCidadeContrato" type="xsd:string" />
+					<xsd:element name="dataHoraFechamento" type="xsd:dateTime" />
+					<xsd:element name="codigoFechamento" type="xsd:string" />
+					<!-- Codigo de fechamento-->
+					<xsd:element name="tecnicoCod" type="xsd:string" minOccurs="0" />
+					<xsd:element name="credenciadaCod" type="xsd:string" minOccurs="0" />
+					<xsd:element name="outageStatus">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="CANCEL"></xsd:enumeration>
+								<xsd:enumeration value="CLOSE"></xsd:enumeration>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="observacao" type="xsd:string" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="ParametrosNotificarOutage"
+				type="out:NotificacaoOutage" />
+			<xsd:element name="ResultadoNotificarOutage"
+				type="xsd:string" />
+				
+			<xsd:element name="ParametrosAtualizarInfoOutage"
+				type="out:AtualizacaoInfoOutage" />
+			<xsd:element name="ResultadoAtualizarInfoOutage"
+				type="xsd:string" />
+				
+			<xsd:element name="ParametrosFecharOutage"
+				type="out:FechamentoOutage" />
+			<xsd:element name="ResultadoFecharOutage"
+				type="xsd:string" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="notificarOutageRequest">
+		<wsdl:part element="out:ParametrosNotificarOutage" name="parameters" />
+		<wsdl:part element="header:NetHeader" name="request_header" />
+	</wsdl:message>
+	<wsdl:message name="notificarOutageResponse">
+		<wsdl:part element="out:ResultadoNotificarOutage" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="atualizarInfoOutageRequest">
+		<wsdl:part element="out:ParametrosAtualizarInfoOutage" name="parameters" />
+		<wsdl:part element="header:NetHeader" name="request_header" />
+	</wsdl:message>
+	<wsdl:message name="atualizarInfoOutageResponse">
+		<wsdl:part element="out:ResultadoAtualizarInfoOutage" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="fecharOutageRequest">
+		<wsdl:part element="out:ParametrosFecharOutage" name="parameters" />
+		<wsdl:part element="header:NetHeader" name="request_header" />
+	</wsdl:message>
+	<wsdl:message name="fecharOutageResponse">
+		<wsdl:part element="out:ResultadoFecharOutage" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:portType name="OutagePortType">
+		<wsdl:operation name="notificarOutage"
+			parameterOrder="parameters">
+			<wsdl:input message="out:notificarOutageRequest" />
+			<wsdl:output message="out:notificarOutageResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="atualizarInfoOutage"
+			parameterOrder="parameters">
+			<wsdl:input message="out:atualizarInfoOutageRequest" />
+			<wsdl:output message="out:atualizarInfoOutageResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="fecharOutage"
+			parameterOrder="parameters">
+			<wsdl:input message="out:fecharOutageRequest" />
+			<wsdl:output message="out:fecharOutageResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="OutageBinding" type="out:OutagePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="notificarOutage">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input>
+				<soap:body parts="parameters" use="literal" />
+				<soap:header message="out:notificarOutageRequest" wsdl:required="true" part="request_header" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="atualizarInfoOutage">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input>
+				<soap:body parts="parameters" use="literal" />
+				<soap:header message="out:atualizarInfoOutageRequest" wsdl:required="true" part="request_header" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fecharOutage">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input>
+				<soap:body parts="parameters" use="literal" />
+				<soap:header message="out:fecharOutageRequest" wsdl:required="true" part="request_header" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Outage">
+		<wsdl:port binding="out:OutageBinding"
+			name="OutagePort">
+			<soap:address
+				location="http://servbus:5045/Infraestrutura/rede/outage/Outage12V1" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

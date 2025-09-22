@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" name="OcorrenciaJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws" xmlns:dsns0="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd" xmlns:dsns1="br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd">
+      <xs:import namespace="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd"/>
+      <xs:import namespace="br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd"/>
+      <xs:element name="consultarStatusOcorrenciaByTipoOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="idTipoOcorrencia" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarStatusOcorrenciaByTipoOcorrenciaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:StatusOcorrencia" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarOrigemOcorrenciaByDescricao">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="descricao" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarOrigemOcorrenciaByDescricaoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns1:OrigemOcorrencia" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema targetNamespace="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd">
+      <xs:element name="StatusOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="idStatus" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema targetNamespace="br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd">
+      <xs:element name="OrigemOcorrencia">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="idOrigem" type="xs:integer"/>
+            <xs:element name="descricao" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="consultarStatusOcorrenciaByTipoOcorrenciaIn">
+    <part name="parameters" element="tns:consultarStatusOcorrenciaByTipoOcorrencia"/>
+  </message>
+  <message name="consultarStatusOcorrenciaByTipoOcorrenciaOut">
+    <part name="parameters" element="tns:consultarStatusOcorrenciaByTipoOcorrenciaResponse"/>
+  </message>
+  <message name="consultarOrigemOcorrenciaByDescricaoIn">
+    <part name="parameters" element="tns:consultarOrigemOcorrenciaByDescricao"/>
+  </message>
+  <message name="consultarOrigemOcorrenciaByDescricaoOut">
+    <part name="parameters" element="tns:consultarOrigemOcorrenciaByDescricaoResponse"/>
+  </message>
+  <portType name="OcorrenciaJWSPT">
+    <operation name="consultarStatusOcorrenciaByTipoOcorrencia">
+      <input message="tns:consultarStatusOcorrenciaByTipoOcorrenciaIn"/>
+      <output message="tns:consultarStatusOcorrenciaByTipoOcorrenciaOut"/>
+    </operation>
+    <operation name="consultarOrigemOcorrenciaByDescricao">
+      <input message="tns:consultarOrigemOcorrenciaByDescricaoIn"/>
+      <output message="tns:consultarOrigemOcorrenciaByDescricaoOut"/>
+    </operation>
+  </portType>
+  <binding name="OcorrenciaJWSSoapBinding" type="tns:OcorrenciaJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarStatusOcorrenciaByTipoOcorrencia">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws/consultarStatusOcorrenciaByTipoOcorrencia" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultarOrigemOcorrenciaByDescricao">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws/consultarOrigemOcorrenciaByDescricao" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="OcorrenciaJWSSoapService">
+    <port binding="tns:OcorrenciaJWSSoapBinding" name="OcorrenciaJWSSoapPort">
+      <soap:address location="http://5.8.110.148:7002/NETAtendimentoDSBasicAuth/ALDSPWebServiceSOAP12BasicAuth/br/com/netservicos/atendimento/webservice/OcorrenciaJWS.ws"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="MediacaoV1"
+	targetNamespace="http://www.netservicos.com.br/MediacaoV1/"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="http://www.netservicos.com.br/MediacaoV1/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:iden="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET">
+	<wsdl:types>
+		<xsd:schema	targetNamespace="http://www.netservicos.com.br/MediacaoV1/"	xmlns:Q1="http://www.netservicos.com.br/modelocanonico/v2/evento">
+			<xsd:import	schemaLocation="../../../../../modelocanonicoV2/evento/Evento.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/evento" />
+			<xsd:import	schemaLocation="../../../../../modelocanonicoV2/evento/Agenda.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/evento" />
+			<xsd:import schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoOperadoraNET.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET" />
+			<xsd:import	schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato" />
+
+  			<xsd:element name="parametrosExecutarMediacao" type="tns:ExecutarMediacaoType"/>
+  			<xsd:element name="resultadoExecutarMediacao" type="tns:ResultadoExecutarMediacaoType"/>
+  			
+			<xsd:complexType name="ExecutarMediacaoType">
+            	<xsd:sequence>
+            		<xsd:element name="identificacaoOperadoraNET" type="iden:IdentificacaoOperadoraNET" minOccurs="1" maxOccurs="1"/>
+            		<xsd:element name="identificadorOrdemAtivacao" type="xsd:long" minOccurs="1" maxOccurs="1"/>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="ResultadoExecutarMediacaoType"></xsd:complexType>
+
+        </xsd:schema>
+        <xsd:schema>
+			<xsd:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="executarMediacaoRequest">
+        <wsdl:part name="request_header" element="netheader:NetHeader" />
+        <wsdl:part name="executarMediacaoRequest" element="tns:parametrosExecutarMediacao"/>
+    </wsdl:message>
+
+	<wsdl:message name="executarMediacaoResponse">
+		<wsdl:part name="executarMediacaoResponse" element="tns:resultadoExecutarMediacao"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="MediacaoPortType">
+		<wsdl:operation name="executarMediacao">
+			<wsdl:input message="tns:executarMediacaoRequest" />
+			<wsdl:output message="tns:executarMediacaoResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="MediacaoBinding11" type="tns:MediacaoPortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="executarMediacao">
+			<soap11:operation soapAction="" />
+			<wsdl:input>
+				<soap11:body use="literal" parts="executarMediacaoRequest"/>
+				<soap11:header wsdl:required="true" part="request_header" use="literal" message="tns:executarMediacaoRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="executarMediacaoResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:binding name="MediacaoBinding12" type="tns:MediacaoPortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="executarMediacao">
+			<soap12:operation soapAction="" />
+			<wsdl:input>
+				<soap11:body use="literal" parts="executarMediacaoRequest"/>
+				<soap11:header wsdl:required="true" part="request_header" use="literal" message="tns:executarMediacaoRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="executarMediacaoResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MediacaoService">		<wsdl:port binding="tns:MediacaoBinding11" name="MediacaoPort11">
+			<soap11:address	location="http://www.netservicos.com.br/MediacaoV1" />
+		</wsdl:port>
+		<wsdl:port binding="tns:MediacaoBinding12" name="MediacaoPort12">
+			<soap12:address location="http://www.netservicos.com.br/MediacaoV1" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

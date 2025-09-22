@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="http://www.netservicos.com.br/ListarContratos/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="IdentificarContratos"
+	targetNamespace="http://www.netservicos.com.br/ListarContratos/">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/ListarContratos/"
+			xmlns:Q1="http://www.netservicos.com.br/ContratoAssinante">
+			<xsd:import
+				schemaLocation="../../schema/ContratoAssinante.xsd"
+				namespace="http://www.netservicos.com.br/ContratoAssinante">
+			</xsd:import>
+			
+			<xsd:element
+				name="listarContratosPorDocumentoRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="documento" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+						
+						<xsd:element name="base"
+							type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element
+				name="listarContratosPorDocumentoResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="contratoAssinante"
+							type="Q1:ContratoAssinante" minOccurs="0"
+							maxOccurs="unbounded">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			
+			<xsd:element name="listarContratosPorTelefoneRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="telefone" type="xsd:string"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="base"
+							type="xsd:string" minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element
+				name="listarContratosPorTelefoneResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="contratoAssinante"
+							type="Q1:ContratoAssinante" minOccurs="0"
+							maxOccurs="unbounded">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:schema>
+	</wsdl:types>
+	
+	
+	
+	
+	<wsdl:message name="listarContratosPorDocumentoRequest">
+		<wsdl:part name="listarContratosPorDocumentoRequest"
+			element="tns:listarContratosPorDocumentoRequest">
+		</wsdl:part>
+	</wsdl:message>
+	
+	
+	<wsdl:message name="listarPorDocumentoContratosResponse">
+		<wsdl:part name="listarContratosPorDocumentoResponse"
+			element="tns:listarContratosPorDocumentoResponse">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="listarContratosPorTelefoneRequest">
+		<wsdl:part name="listarContratosPorTelefoneRequest" element="tns:listarContratosPorTelefoneRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="listarContratosPorTelefoneResponse">
+		<wsdl:part name="listarContratosPorTelefoneResponse" element="tns:listarContratosPorTelefoneResponse"></wsdl:part>
+	</wsdl:message>
+	
+	
+	<wsdl:portType name="listarContratos">
+		
+		<wsdl:operation name="listarContratosPorDocumento">
+			<wsdl:input
+				message="tns:listarContratosPorDocumentoRequest">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:listarPorDocumentoContratosResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="listarContratosPorTelefone">
+			<wsdl:input message="tns:listarContratosPorTelefoneRequest"></wsdl:input>
+			<wsdl:output message="tns:listarContratosPorTelefoneResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="listarContratosSOAP11"
+		type="tns:listarContratos">
+		<soap11:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="listarContratosPorDocumento">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/ListarContratosPorDocumento/listarContratosPorDocumento" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="listarContratosPorDocumentoRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="listarContratosPorDocumentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="listarContratosPorTelefone">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/ListarContratosPorTelefone/listarContratosPorTelefone" />
+			<wsdl:input>
+				<soap11:body use="literal"
+					parts="listarContratosPorTelefoneRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="listarContratosPorTelefoneResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		
+	</wsdl:binding>
+
+
+	<wsdl:binding name="listarContratosSOAP12"
+		type="tns:listarContratos">
+		<soap12:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="listarContratosPorDocumento">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/ListarContratosPorDocumento/listarContratosPorDocumento" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="listarContratosPorDocumentoRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="listarContratosPorDocumentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="listarContratosPorTelefone">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/ListarContratosPorTelefone/listarContratosPorTelefone" />
+			<wsdl:input>
+				<soap12:body use="literal"
+					parts="listarContratosPorTelefoneRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"
+					parts="listarContratosPorTelefoneResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		
+	</wsdl:binding>
+
+	 <wsdl:service name="ListarContratos">
+		<wsdl:port binding="tns:listarContratosSOAP11"
+			name="listarContratosSOAP11">
+			<soap11:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+
+		<wsdl:port binding="tns:listarContratosSOAP12"
+			name="listarContratosSOAP12">
+			<soap12:address location="http://www.netservicos.com.br/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

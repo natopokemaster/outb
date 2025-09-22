@@ -1,0 +1,22 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com">
+<creationDate>2015-05-14T12:05:30</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+</x:xfl>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/PrListarBoletosAberto";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/FATURA" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/schemas/FaturaDSP.xsd";
+
+   (::pragma  function <f:function visibility="public" kind="library" isPrimary="false" nativeName="PR_LISTAR_BOLETOS_ABERTO" nativeLevel2Container="PROD_JD" nativeLevel3Container="PK_PAGAMENTO_ELETRONICO_CAIXA" style="storedProcedure" xmlns:f="urn:annotations.ld.bea.com">
+    <nonCacheable/>
+    <params xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdt="http://www.w3.org/2004/07/xpath-datatypes" xmlns:pn1="ld:br/com/netservicos/atendimento/fatura/physical/netsms/procedure/FATURA">
+		<param name="PNUM_CONTRATO" kind="in" xqueryType="xs:decimal" nativeTypeCode="3" nativeType="NUMBER"/>
+		<param name="PCID_CONTRATO" kind="in" xqueryType="xs:string" nativeTypeCode="12" nativeType="VARCHAR2"/>
+        <param name="PCUR_BOLETOS" kind="out" xqueryType="pn1:FATURA" nativeTypeCode="0" nativeType="RowSet"/>
+    </params>
+</f:function>::)
+
+   declare function f1:ListarBoletosAbertosDSP($PNUM_CONTRATO as xs:decimal, $PCID_CONTRATO as xs:string) as schema-element(t2:FATURA)* external;
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="MessageUtil" targetNamespace="http://www.netservicos.com.br/MessageUtil" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:flogmsg="http://www.netservicos.com.br/MessageUtil" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:canlogging="http://www.netservicos.com.br/modelocanonico/v2/logging" xmlns:macroprocesso="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso" xmlns:processo="http://www.netservicos.com.br/modelocanonico/v2/processo" xmlns:message="http://netservicos.com.br/core/schema">
+	<wsdl:types>
+
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/MessageUtil" elementFormDefault="qualified">
+
+			<xsd:import schemaLocation="../../../../modelocanonicoV2/geral/Message.xsd" namespace="http://netservicos.com.br/core/schema"/>
+
+			<xsd:import schemaLocation="../../../../modelocanonicoV2/geral/Logging.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/logging"/>
+
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/processo" schemaLocation="../../../../modelocanonicoV2/geral/Processo.xsd"/>
+
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso" schemaLocation="../../../../modelocanonicoV2/geral/MacroProcesso.xsd"/>
+
+			<xsd:element name="logMessage">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="messageCode" type="xsd:string"/>
+
+						<xsd:element name="messageParameters" type="canlogging:MessageParameters"/>
+
+						<xsd:element name="macroProcesso" type="macroprocesso:MacroProcesso">
+							<xsd:annotation>
+								<xsd:documentation>
+									Macro processo de negócio a que a
+									entrada de Log se refere. Os Macro
+									Processos possíveis são definidos na
+									entidade MacroProcesso.
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<xsd:element name="processo" type="processo:Processo">
+							<xsd:annotation>
+								<xsd:documentation>
+									Processo de negócio a que a entrada
+									de Log se refere. Os Processos
+									possíveis são definidos na entidade
+									Processo.
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+
+			</xsd:element>
+
+			<xsd:element name="formatedMessage">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="message:Message"/>
+					</xsd:sequence>
+				</xsd:complexType>
+
+			</xsd:element>
+
+
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="MessageUtilRequest">
+		<wsdl:part name="MessageUtilRequest" element="flogmsg:logMessage"/>
+	</wsdl:message>
+
+	<wsdl:message name="MessageUtilResponse">
+		<wsdl:part name="MessageUtilResponse" element="flogmsg:formatedMessage"/>
+	</wsdl:message>
+
+	<wsdl:portType name="MessageUtil">
+		<wsdl:operation name="getFormatedMessage">
+			<wsdl:input message="flogmsg:MessageUtilRequest"/>
+			<wsdl:output message="flogmsg:MessageUtilResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="MessageUtilSOAP" type="flogmsg:MessageUtil">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getFormatedMessage">
+			<soap:operation soapAction="http://www.netservicos.com.br/MessageUtil12/getFormatedMessage"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MessageUtil">
+		<wsdl:port binding="flogmsg:MessageUtilSOAP" name="MessageUtilSOAP">
+			<soap:address location="http://servbus/general/MessageUtil12"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

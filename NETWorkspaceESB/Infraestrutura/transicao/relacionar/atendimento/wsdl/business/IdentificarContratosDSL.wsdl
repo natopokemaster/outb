@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws" name="IdentificarContratosJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/ContratoAssinante">
+      <xs:import namespace="http://www.netservicos.com.br/ContratoAssinante"/>
+      <xs:element name="identificarContratosPorDocumento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="documento" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratosPorDocumentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:contratoAssinante" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratoPorProtocolo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="protocolo" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratoPorProtocoloResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:contratoAssinante" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratosPorTelefone">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="telefone" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratosPorTelefoneResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:contratoAssinante" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratoPorCodigoCliente">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cidContrato" type="xs:string"/>
+            <xs:element name="numContrato" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="identificarContratoPorCodigoClienteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:contratoAssinante" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/ContratoAssinante" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/ContratoAssinante">
+      <complexType name="ContratoAssinanteType">
+        <sequence>
+          <element name="CELULA" type="string"/>
+          <element name="COD_IMOVEL" type="long"/>
+          <element name="FLAG_NODE_SD" type="string"/>
+          <element name="FLAG_PJ" type="string"/>
+          <element name="FLAG_VENDA_PPV_EVENTO" type="string"/>
+          <element name="NODE" type="string"/>
+          <element name="SA_CPF" type="string"/>
+          <element name="SA_E_MAIL" type="string"/>
+          <element name="SA_ID_ENDER_INSTALACAO" type="long"/>
+          <element name="SA_ID_TIPO_PESSOA" type="int"/>
+          <element name="SA_NOME_TITULAR" type="string"/>
+          <element name="SC_CID_CONTRATO" type="string"/>
+          <element name="SC_DT_CADASTRO" type="date"/>
+          <element name="SC_ID_TIPO_COBRANCA" type="int"/>
+          <element name="SC_ID_TIPO_CONTRATO" type="int"/>
+          <element name="SC_NUM_CONTRATO" type="long"/>
+          <element name="SCO_COD_OPERADORA" type="string"/>
+          <element name="SCO_ID_EMPRESA" type="string"/>
+          <element name="SDV_DIA" type="int"/>
+          <element name="SE_ID_EDIFICACAO" type="long"/>
+          <element name="SRAP_DESCRICAO" type="string"/>
+          <element name="SRAS_ID_TIPO_SEGMENTO" type="int"/>
+          <element name="SRCPC_ID_PERFIL_CLIENTE" type="long"/>
+          <element name="SRSCA_ID_STATUS" type="int"/>
+          <element name="SSC_DESCRICAO" type="string"/>
+          <element name="STATUS_ADIMPL" type="string"/>
+          <element name="STC_DESCRICAO" type="string"/>
+          <element name="STS_DESCRICAO" type="string"/>
+          <element name="SG_NEGOCIO" type="tns:SegmentoNegocioType"/>
+          <element name="DT_NASCIMENTO" type="date" minOccurs="0" maxOccurs="1"/>
+          <element name="FLAG_AREA_NOW" type="string"/>
+          <element name="FLAG_CHIP_CLARO" type="string"/>
+          <element name="FLAG_CLOUD" type="string"/>
+          <element name="MIGRACAO_NET_UNO" type="int"/>
+        </sequence>
+      </complexType>
+      <element name="contratoAssinante" type="tns:ContratoAssinanteType"></element>
+      <complexType name="SegmentoNegocioType">
+        <sequence>
+          <element name="FLAG_NETFONE" type="string"/>
+          <element name="FLAG_INTERNET" type="string"/>
+          <element name="FLAG_PAYTV_ANALOGICO" type="string"/>
+          <element name="FLAG_PAYTV_DIGITAL" type="string"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+  <message name="identificarContratoPorCodigoClienteIn">
+    <part name="parameters" element="tns:identificarContratoPorCodigoCliente"/>
+  </message>
+  <message name="identificarContratoPorCodigoClienteOut">
+    <part name="parameters" element="tns:identificarContratoPorCodigoClienteResponse"/>
+  </message>
+  <message name="identificarContratoPorProtocoloIn">
+    <part name="parameters" element="tns:identificarContratoPorProtocolo"/>
+  </message>
+  <message name="identificarContratoPorProtocoloOut">
+    <part name="parameters" element="tns:identificarContratoPorProtocoloResponse"/>
+  </message>
+  <message name="identificarContratosPorDocumentoIn">
+    <part name="parameters" element="tns:identificarContratosPorDocumento"/>
+  </message>
+  <message name="identificarContratosPorDocumentoOut">
+    <part name="parameters" element="tns:identificarContratosPorDocumentoResponse"/>
+  </message>
+  <message name="identificarContratosPorTelefoneIn">
+    <part name="parameters" element="tns:identificarContratosPorTelefone"/>
+  </message>
+  <message name="identificarContratosPorTelefoneOut">
+    <part name="parameters" element="tns:identificarContratosPorTelefoneResponse"/>
+  </message>
+  <portType name="IdentificarContratosJWSPT">
+    <operation name="identificarContratoPorCodigoCliente">
+      <input message="tns:identificarContratoPorCodigoClienteIn"/>
+      <output message="tns:identificarContratoPorCodigoClienteOut"/>
+    </operation>
+    <operation name="identificarContratoPorProtocolo">
+      <input message="tns:identificarContratoPorProtocoloIn"/>
+      <output message="tns:identificarContratoPorProtocoloOut"/>
+    </operation>
+    <operation name="identificarContratosPorDocumento">
+      <input message="tns:identificarContratosPorDocumentoIn"/>
+      <output message="tns:identificarContratosPorDocumentoOut"/>
+    </operation>
+    <operation name="identificarContratosPorTelefone">
+      <input message="tns:identificarContratosPorTelefoneIn"/>
+      <output message="tns:identificarContratosPorTelefoneOut"/>
+    </operation>
+  </portType>
+  <binding name="IdentificarContratosJWSSoapBinding" type="tns:IdentificarContratosJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="identificarContratoPorCodigoCliente">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws/identificarContratoPorCodigoCliente" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="identificarContratoPorProtocolo">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws/identificarContratoPorProtocolo" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="identificarContratosPorDocumento">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws/identificarContratosPorDocumento" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="identificarContratosPorTelefone">
+      <soap:operation soapAction="ld:br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws/identificarContratosPorTelefone" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="IdentificarContratosJWSSoapService">
+    <port binding="tns:IdentificarContratosJWSSoapBinding" name="IdentificarContratosJWSSoapPort">
+      <soap:address location="http://192.168.190.128:7005/NETAtendimentoDSBasicAuth/ALDSPWebServiceSOAP12BasicAuth/br/com/netservicos/atendimento/webservice/IdentificarContratosJWS.ws"/>
+    </port>
+  </service>
+</definitions>

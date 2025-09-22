@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contratocoletivo/physical/netsms/table/SnRelContratoMestreFiliadoDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnRelContratoMestreFiliadoDSP_KEY">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="NUM_CONTRATO_MESTRE" type="xs:integer"/>
+            <xs:element name="NUM_CONTRATO_FILIADO" type="xs:integer"/>
+            <xs:element name="CID_CONTRATO" type="xs:string"/>
+            <xs:element name="ID_PRODUTO" type="xs:integer"/>
+            <xs:element name="ID_PONTO" type="xs:integer"/>
+            <xs:element name="DT_INI" type="xs:dateTime"/>
+            <xs:element name="DT_FIM" type="xs:dateTime"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

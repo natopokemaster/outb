@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TransformaIdentificacaoPropostaWSDL12V1"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1"
+	xmlns:netHeader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:idProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"
+	xmlns:transProposta="http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"
+				schemaLocation="../../../../modelocanonicoV2/geral/IdentificacaoProposta.xsd">
+			</xsd:import>
+			<xsd:element name="IdentificacaoPropostaResponse"
+				type="transProposta:IdentificacaoPropostaType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Elemento que representa a identificação da
+						Proposta para retorno do Serviço
+						TransformaIdentificacaoProposta.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:complexType name="PropostaType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Entidade utilizada para localizar uma proposta
+						de venda. Deve ser utilizado a combinacao de
+						Numero da Proposta + Codigo Operadora ou Numero
+						da Proposta + Identificacao Cidade
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="NumeroProposta" minOccurs="1"
+						maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Número de identificação da proposta de
+								venda. Deve sempre ser utilizado em
+								conjunto com CodigoOperadora ou
+								IdentificacaoCidade
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:long">
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="CodigoOperadora" minOccurs="1"
+						maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Código da Operadora onde a proposta de
+								venda está cadastrada, conforme cadastro
+								no legado.
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="3"></xsd:length>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="IdentificacaoCidade"
+						minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Identificação da Cidade onde a proposta
+								de venda está cadastrada, conforme
+								cadastro no legado.
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="5"></xsd:length>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:complexType name="IdentificacaoPropostaType">
+				<xsd:sequence>
+					<xsd:element name="Protocolo" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Atualmente as propostas de venda nao
+								estao gerando numero de protocolo, mas a
+								ideia e no futuro gerar o numero de
+								protocolo tambem para vendas.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Proposta"
+						type="transProposta:PropostaType" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Elemento para identificacao de uma
+								proposta de venda.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AliasDatabase" type="xsd:string"
+						minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								Álias da base de dados em que se
+								encontra o contrato. Ex: Usado para
+								definir o atributo j_identity_base no
+								header das requisições.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="transformaIdentificacaoPropostaRequest">
+		<wsdl:part element="netHeader:NetHeader"
+			name="transformaIdentificacaoPropostaRequestHeader" />
+		<wsdl:part name="transformaIdentificacaoPropostaRequest"
+			element="idProposta:IdentificacaoProposta">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="transformaIdentificacaoPropostaResponse">
+		<wsdl:part element="netHeader:NetHeader"
+			name="transformaIdentificacaoPropostaResponseHeader" />
+		<wsdl:part name="transformaIdentificacaoPropostaResponse"
+			element="transProposta:IdentificacaoPropostaResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="TransformaIdentificacaoPropostaPortType">
+		<wsdl:operation name="transformaIdentificacaoProposta">
+			<wsdl:input
+				message="transProposta:transformaIdentificacaoPropostaRequest" />
+			<wsdl:output
+				message="transProposta:transformaIdentificacaoPropostaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TransformaIdentificacaoPropostaBinding"
+		type="transProposta:TransformaIdentificacaoPropostaPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="transformaIdentificacaoProposta">
+			<soap:operation
+				soapAction="http://www.netservicos.com.br/TransformaIdentificacaoProposta12V1/transformaIdentificacaoProposta" />
+			<wsdl:input>
+				<soap:header
+					message="transProposta:transformaIdentificacaoPropostaRequest"
+					part="transformaIdentificacaoPropostaRequestHeader" use="literal" />
+				<soap:body parts="transformaIdentificacaoPropostaRequest"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header
+					message="transProposta:transformaIdentificacaoPropostaResponse"
+					part="transformaIdentificacaoPropostaResponseHeader" use="literal" />
+				<soap:body parts="transformaIdentificacaoPropostaResponse"
+					use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TransformaIdentificacaoPropostaService">
+		<wsdl:port
+			binding="transProposta:TransformaIdentificacaoPropostaBinding"
+			name="TransformaIdentificacaoPropostaPort">
+			<soap:address
+				location="http://servbus:7001/general/TransformaIdentificacaoProposta12V1" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

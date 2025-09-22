@@ -1,0 +1,174 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpVendaPpvDSP" xmlns:t="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP">
+<creationDate>2016-08-23T16:15:35</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NUM_CONTRATO" type="xs:integer">
+  <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="TM_ID" type="xs:integer">
+  <extension nativeXpath="TM_ID" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_ANTECEDENCIA" type="xs:integer">
+  <extension nativeXpath="ID_ANTECEDENCIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_STATUS_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_STATUS_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_VENDA" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_VENDA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_CAMPANHA" type="xs:integer">
+  <extension nativeXpath="ID_CAMPANHA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_MIDIA" type="xs:integer">
+  <extension nativeXpath="ID_MIDIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PACOTE_PPV" type="xs:integer">
+  <extension nativeXpath="ID_PACOTE_PPV" nativeTypeCode="3" nativeType="NUMBER" nativeSize="12" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PROMOCAO" type="xs:integer">
+  <extension nativeXpath="ID_PROMOCAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_PLANO_PGTO" type="xs:integer">
+  <extension nativeXpath="ID_PLANO_PGTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DATA_COMPRA" type="xs:dateTime">
+  <extension nativeXpath="DATA_COMPRA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="HORA_COMPRA" type="xs:dateTime">
+  <extension nativeXpath="HORA_COMPRA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="PRECO_COBRADO" type="xs:decimal">
+  <extension nativeXpath="PRECO_COBRADO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="2"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_VENDEDOR" type="xs:integer">
+  <extension nativeXpath="ID_VENDEDOR" nativeTypeCode="3" nativeType="NUMBER" nativeSize="7" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_REPORT" type="xs:integer">
+  <extension nativeXpath="ID_REPORT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="USR_RESP" type="xs:string">
+  <extension nativeXpath="USR_RESP" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="30" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DATA_EXPORT" type="xs:dateTime">
+  <extension nativeXpath="DATA_EXPORT" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DATA_VENDA" type="xs:dateTime">
+  <extension nativeXpath="DATA_VENDA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="VNDPPV_PK" type="ppv:PpVendaPpvDSP_KEY" inferredSchema="true" xmlns:ppv="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP"/>
+
+<relationshipTarget roleName="PpCampanhaDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpCampanhaDSP.ds" opposite="PpVendaPpvDSP"/>
+<relationshipTarget roleName="PpMidiaDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpMidiaDSP.ds" opposite="PpVendaPpvDSP"/>
+<relationshipTarget roleName="PpRelPacotePpvPromocaoDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpRelPacotePpvPromocaoDSP.ds" opposite="PpVendaPpvDSP"/>
+<relationshipTarget roleName="PpStatusVendaDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP.ds" opposite="PpVendaPpvDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP";
+
+import schema namespace t11 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpVendaPpvDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpVendaPpvDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpVendaPpvDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="PP_VENDA_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpVendaPpvDSP() as schema-element(t11:PpVendaPpvDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="PP_VENDA_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpVendaPpvDSP($p as element(t11:PpVendaPpvDSP)*)as schema-element(t11:PpVendaPpvDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="PP_VENDA_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpVendaPpvDSP($p as changed-element(t11:PpVendaPpvDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="PP_VENDA_PPV" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpVendaPpvDSP($p as element(t11:PpVendaPpvDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpCampanhaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpCampanhaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpCampanhaDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="PpCampanhaDSP"/>::)
+
+   declare function f1:getPpCampanhaDSP($fk as element(t11:PpVendaPpvDSP)) as element(t1:PpCampanhaDSP)*
+   {
+      for $pk in f2:PpCampanhaDSP()
+      where $pk/ID_CAMPANHA eq $fk/ID_CAMPANHA
+      return $pk
+   };
+
+declare namespace f3="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpMidiaDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpMidiaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpMidiaDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="PpMidiaDSP"/>::)
+
+   declare function f1:getPpMidiaDSP($fk as element(t11:PpVendaPpvDSP)) as element(t4:PpMidiaDSP)*
+   {
+      for $pk in f3:PpMidiaDSP()
+      where $pk/ID_MIDIA eq $fk/ID_MIDIA
+      return $pk
+   };
+
+declare namespace f4="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpRelPacotePpvPromocaoDSP";
+
+import schema namespace t8 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpRelPacotePpvPromocaoDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpRelPacotePpvPromocaoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="PpRelPacotePpvPromocaoDSP"/>::)
+
+   declare function f1:getPpRelPacotePpvPromocaoDSP($fk as element(t11:PpVendaPpvDSP)) as element(t8:PpRelPacotePpvPromocaoDSP)*
+   {
+      for $pk in f4:PpRelPacotePpvPromocaoDSP()
+      where $pk/ID_PACOTE_PPV eq $fk/ID_PACOTE_PPV
+         and $pk/ID_PROMOCAO eq $fk/ID_PROMOCAO
+         and $pk/ID_PLANO_PGTO eq $fk/ID_PLANO_PGTO
+      return $pk
+   };
+
+declare namespace f5="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP";
+
+import schema namespace t9 = "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/PpStatusVendaDSP" at "ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/schemas/PpStatusVendaDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="PpStatusVendaDSP"/>::)
+
+   declare function f1:getPpStatusVendaDSP($fk as element(t11:PpVendaPpvDSP)) as element(t9:PpStatusVendaDSP)*
+   {
+      for $pk in f5:PpStatusVendaDSP()
+      where $pk/ID_STATUS_VENDA eq $fk/ID_STATUS_VENDA
+      return $pk
+   };
+

@@ -1,0 +1,84 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnCidadeOperadoraDSP" xmlns:t="ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP">
+<creationDate>2011-09-28T09:53:16</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CI_NOME" type="xs:string">
+  <extension nativeXpath="CI_NOME" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CI_ESTADO" type="xs:string">
+  <extension nativeXpath="CI_ESTADO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_EMPRESA" type="xs:string">
+  <extension nativeXpath="ID_EMPRESA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="RAZAO_SOCIAL" type="xs:string">
+  <extension nativeXpath="RAZAO_SOCIAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="NOME_PESSOA" type="xs:string">
+  <extension nativeXpath="NOME_PESSOA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_OPERADORA" type="xs:string">
+  <extension nativeXpath="COD_OPERADORA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="3" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_TIPO_TRIBUT" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_TRIBUT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="COD_OPE_JDE" type="xs:string">
+  <extension nativeXpath="COD_OPE_JDE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="5" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_LOCALIDADE_EBT" type="xs:string">
+  <extension nativeXpath="COD_LOCALIDADE_EBT" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="3" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CD_MUNICIPIO_IBGE" type="xs:string">
+  <extension nativeXpath="CD_MUNICIPIO_IBGE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CD_REGIONAL_WA" type="xs:string">
+  <extension nativeXpath="CD_REGIONAL_WA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="12" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_CIDADE_OPERADORA" type="snc:SnCidadeOperadoraDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP" at "ld:br/com/netservicos/atendimento/now/physical/netsms/table/schemas/SnCidadeOperadoraDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnCidadeOperadoraDSP" at "ld:br/com/netservicos/atendimento/now/physical/netsms/table/schemas/SnCidadeOperadoraDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_CIDADE_OPERADORA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnCidadeOperadoraDSP() as schema-element(t1:SnCidadeOperadoraDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_CIDADE_OPERADORA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnCidadeOperadoraDSP($p as element(t1:SnCidadeOperadoraDSP)*)as schema-element(t1:SnCidadeOperadoraDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_CIDADE_OPERADORA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnCidadeOperadoraDSP($p as changed-element(t1:SnCidadeOperadoraDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_CIDADE_OPERADORA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnCidadeOperadoraDSP($p as element(t1:SnCidadeOperadoraDSP)*) as empty()  external;
+

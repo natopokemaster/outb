@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.netservicos.com.br/modelocanonico/v2/evento" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento" xmlns:usuario="http://www.netservicos.com.br/modelocanonico/v2/usuario" xmlns:endereco="http://www.netservicos.com.br/modelocanonico/v2/endereco">
+
+	<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/usuario" schemaLocation="../geral/Usuario.xsd"/>
+	<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/endereco" schemaLocation="../endereco/Endereco.xsd"/>
+	<xsd:complexType name="PrazoAtendimento">
+		<xsd:sequence>
+			<xsd:element name="TempoMinimoAtendimento" type="evento:TempoAtendimento" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="TempoMaximoAtendimento" type="evento:TempoAtendimento" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TempoAtendimento">
+		<xsd:sequence>
+			<xsd:element name="Perocidade" minOccurs="1" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="string">
+						<xsd:enumeration value="MINUTOS"/>
+						<xsd:enumeration value="HORAS"/>
+						<xsd:enumeration value="DIAS"/>
+						<xsd:enumeration value="SEMANAS"/>
+						<xsd:enumeration value="MESES"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Valor" type="int" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="FormaContato" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>
+				Forma de contato de assinante
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:complexType>
+
+	<xsd:complexType name="FormaContatoTelefone">
+		<xsd:complexContent>
+			<xsd:extension base="evento:FormaContato">
+				<xsd:sequence>
+					<element name="DDD" maxOccurs="1" minOccurs="0">
+						<annotation>
+							<documentation>
+								DDD do telefone de contato do cliente
+							</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="3"/>
+								<pattern value="[0-9].*"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="numeroTelefone" maxOccurs="1" minOccurs="0" nillable="true">
+						<annotation>
+							<documentation>
+								Numero de telefone de contato do cliente
+							</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="14"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="ramal" maxOccurs="1" minOccurs="0" nillable="true">
+						<annotation>
+							<documentation>
+								Ramal do telefone do cliente
+							</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="4"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="tipoTelefone" maxOccurs="1" minOccurs="0" nillable="true">
+						<annotation>
+							<documentation>
+								Tipo de telefone do cliente
+							</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<enumeration value="celular"/>
+								<enumeration value="residencial"/>
+								<enumeration value="comercial"/>
+								<enumeration value="netfone"/>
+								<enumeration value="outros"/>
+								<enumeration value="fax"/>
+							</restriction>
+						</simpleType>
+					</element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="FormaContatoEmail">
+		<xsd:complexContent>
+			<xsd:extension base="evento:FormaContato">
+				<xsd:sequence>
+					<xsd:element name="EnderecoEmail">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*">
+								</xsd:pattern>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="TipoResolucao">
+		<xsd:sequence>
+			<xsd:element name="IdentificadorTipoResolucao" type="xsd:long" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="Descricao" type="xsd:string" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ResolucaoOrdemInterna">
+		<xsd:sequence>
+			<xsd:element name="IdentificadorResolucao" type="xsd:long" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="Observacao" type="xsd:string" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="Usuario" type="usuario:Usuario" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="TipoResolucao" type="evento:TipoResolucao" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="PrazoAtendimento" type="evento:PrazoAtendimento" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="DataResolucao" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="FormaContatoCorrespondencia">
+		<xsd:annotation>
+			<xsd:documentation>
+				Entidade que representa o contato feito via correios.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="evento:FormaContato">
+				<xsd:sequence>
+					<xsd:element name="endereco" type="endereco:Endereco" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,57 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnDiaVcto" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnDiaVcto">
+<creationDate>2013-12-20T14:27:26</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_DIA_VCTO" type="xs:integer">
+  <extension nativeXpath="ID_DIA_VCTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DIA" type="xs:integer">
+  <extension nativeXpath="DIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CID_CONTRATO" type="xs:string">
+  <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DIA_EBT" type="xs:integer">
+  <extension nativeXpath="DIA_EBT" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="DIA_CLARO" type="xs:integer">
+  <extension nativeXpath="DIA_CLARO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_DIA_VCTO" type="snd:SnDiaVcto_KEY" inferredSchema="true" xmlns:snd="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnDiaVcto"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnDiaVctoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnDiaVcto" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnDiaVctoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnDiaVcto" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnDiaVctoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_DIA_VCTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnDiaVcto() as schema-element(t1:SnDiaVcto)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_DIA_VCTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnDiaVcto($p as element(t1:SnDiaVcto)*)as schema-element(t1:SnDiaVcto_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_DIA_VCTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnDiaVcto($p as changed-element(t1:SnDiaVcto)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_DIA_VCTO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnDiaVcto($p as element(t1:SnDiaVcto)*) as empty()  external;
+

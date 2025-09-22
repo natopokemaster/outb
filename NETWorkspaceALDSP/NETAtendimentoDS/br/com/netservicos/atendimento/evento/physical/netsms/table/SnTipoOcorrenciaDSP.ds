@@ -1,0 +1,74 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnTipoOcorrenciaDSP" xmlns:t="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP">
+<creationDate>2010-04-12T10:21:44</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_TIPO_OCORRENCIA" type="xs:integer">
+  <extension nativeXpath="ID_TIPO_OCORRENCIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="60" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ENCERRADA_POR_QUEM_ABRIU" type="xs:integer">
+  <extension nativeXpath="ENCERRADA_POR_QUEM_ABRIU" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="RELACIONADA_A_CANAL" type="xs:integer">
+  <extension nativeXpath="RELACIONADA_A_CANAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="FLAG_HISTORICO" type="xs:integer">
+  <extension nativeXpath="FLAG_HISTORICO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_DEPTO" type="xs:integer">
+  <extension nativeXpath="ID_DEPTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="5" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="PKSN_TIPO_OCORRENCIA" type="snt:SnTipoOcorrenciaDSP_KEY" inferredSchema="true" xmlns:snt="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP"/>
+
+<relationshipTarget roleName="SnRelEventoOcorOperadoraDSP" roleNumber="2" XDS="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP.ds" minOccurs="0" maxOccurs="unbounded" opposite="SnTipoOcorrenciaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnTipoOcorrenciaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnTipoOcorrenciaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_TIPO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnTipoOcorrenciaDSP() as schema-element(t3:SnTipoOcorrenciaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_TIPO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnTipoOcorrenciaDSP($p as element(t3:SnTipoOcorrenciaDSP)*)as schema-element(t3:SnTipoOcorrenciaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_TIPO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnTipoOcorrenciaDSP($p as changed-element(t3:SnTipoOcorrenciaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_TIPO_OCORRENCIA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnTipoOcorrenciaDSP($p as element(t3:SnTipoOcorrenciaDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnRelEventoOcorOperadoraDSP" at "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/schemas/SnRelEventoOcorOperadoraDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="SnRelEventoOcorOperadoraDSP"/>::)
+
+   declare function f1:getSnRelEventoOcorOperadoraDSP($pk as element(t3:SnTipoOcorrenciaDSP)) as element(t2:SnRelEventoOcorOperadoraDSP)*
+   {
+      for $fk in f2:SnRelEventoOcorOperadoraDSP()
+      where $pk/ID_TIPO_OCORRENCIA eq $fk/ID_TIPO_OCORRENCIA
+      return $fk
+   };
+

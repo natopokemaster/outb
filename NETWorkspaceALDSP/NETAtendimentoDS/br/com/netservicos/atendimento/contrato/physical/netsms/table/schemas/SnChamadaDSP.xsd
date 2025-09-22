@@ -1,0 +1,10 @@
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnChamadaDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnChamadaDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_PROTOCOLO" type="xs:string"/>
+            <xs:element name="ID_CHAMADA" type="xs:integer"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

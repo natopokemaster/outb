@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/Ocorrencia"
+	xmlns:tns="http://www.netservicos.com.br/Ocorrencia"
+	elementFormDefault="qualified">
+
+    <complexType name="InserirOcorrenciaRequestType">
+    	<sequence>
+    		<element name="idTipoOcorrencia" type="integer"></element>
+    		<element name="idAssinante" type="integer"></element>
+    		<element name="nomeInformante" type="string"></element>
+    		<element name="telInformante" type="string"></element>
+    		<element name="dtOcorrencia" type="dateTime"></element>
+    		<element name="idUsr" type="string"></element>
+    		<element name="situacao" type="string"></element>
+    		<element name="dtRetorno" type="dateTime" minOccurs="0"></element>
+    		<element name="idOrigemOcorrencia" type="integer"></element>
+    		<element name="obs" type="string"></element>
+    	</sequence>
+    </complexType>
+    <complexType name="InserirOcorrenciaResponseType">
+    	<sequence>
+			 	<element name="ID_OCORRENCIA" type="integer"></element>
+		</sequence>
+    </complexType>
+
+    <element name="inserirOcorrencia" type="tns:InserirOcorrenciaRequestType"></element>
+
+    <element name="IdOcorrencia" type="tns:InserirOcorrenciaResponseType"></element>
+</schema>

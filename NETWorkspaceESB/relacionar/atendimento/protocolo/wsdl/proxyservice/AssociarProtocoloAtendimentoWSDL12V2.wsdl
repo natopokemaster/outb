@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="http://www.netservicos.com.br/relacionar/atendimento/protocolo" 
+   name="AssociarProtocoloAtendimento" 
+   xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="http://www.netservicos.com.br/relacionar/atendimento/protocolo" 
+   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:header="http://www.netservicos.com.br/v2/NetHeader">
+  <documentation></documentation>
+  <types>
+    <xs:schema targetNamespace="http://www.netservicos.com.br/relacionar/atendimento/protocolo" 
+      elementFormDefault="qualified" 
+      xmlns:stns="http://www.netservicos.com.br/relacionar/atendimento/protocolo" 
+      xmlns:even="http://www.netservicos.com.br/modelocanonico/v2/evento">
+     <xs:import namespace="http://www.netservicos.com.br/modelocanonico/v2/evento" schemaLocation="../../../../../modelocanonicoV2/evento/Evento.xsd"/>
+      <xs:import namespace="http://www.netservicos.com.br/v2/NetHeader" schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd"/>
+      <xs:element name="associarProtocoloAtendimento">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="contato" type="even:Contato"/>
+				</xs:sequence>
+			</xs:complexType>
+	  </xs:element>
+      <xs:element name="associarProtocoloAtendimentoResponse">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="contato" type="even:Contato"/>
+				</xs:sequence>
+			</xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="associarProtocoloAtendimentoIn">
+    <part name="parameters" element="tns:associarProtocoloAtendimento"/>
+    <part element="header:NetHeader"  name="request_header" />
+  </message>
+  <message name="associarProtocoloAtendimentoOut">
+    <part name="parameters" element="tns:associarProtocoloAtendimentoResponse"/>
+  </message>
+  <portType name="AssociarProtocoloAtendimentoPT">
+    <operation name="associarProtocoloAtendimento">
+      <input message="tns:associarProtocoloAtendimentoIn"/>
+      <output message="tns:associarProtocoloAtendimentoOut"/>
+    </operation>
+  </portType>
+  <binding name="AssociarProtocoloAtendimentoSoapBinding" type="tns:AssociarProtocoloAtendimentoPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="associarProtocoloAtendimento">
+      <soap:operation style="document"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+        <soap:header message="tns:associarProtocoloAtendimentoIn" part="request_header" use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AssociarProtocoloAtendimentoSoapService">
+    <port binding="tns:AssociarProtocoloAtendimentoSoapBinding" name="AssociarProtocoloAtendimentoSoapPort">
+      <soap:address location="http://5.8.110.148:7002/NETClienteDSBasicAuth/ALDSPWebServiceSOAP12BasicAuth/br/com/netservicos/cliente/dadoscobranca/webservice/ConsultarBancoDisponivelJWS.ws"/>
+    </port>
+  </service>
+</definitions>

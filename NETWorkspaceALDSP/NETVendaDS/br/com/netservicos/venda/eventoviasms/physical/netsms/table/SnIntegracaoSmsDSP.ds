@@ -1,0 +1,61 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnIntegracaoSmsDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP">
+    <creationDate>2012-02-07T12:01:19</creationDate>
+	<relationalDB name="VENDA_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.vender.VendaOnlineNETSMSBindingProvider"/>
+    <field xpath="ID_INTEGRACAO" type="xs:integer">
+        <extension nativeXpath="ID_INTEGRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0" nativeKey="true">
+            <autoNumber type="sequence" sequenceObjectName="PROD_JD.SQ_INTEGRACAO_SMS"/>
+        </extension>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="CD_RECIBO_INTEGRACAO" type="xs:string">
+        <extension nativeXpath="CD_RECIBO_INTEGRACAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="NR_TELEFONE" type="xs:integer">
+        <extension nativeXpath="NR_TELEFONE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="CD_DOCUMENTO" type="xs:string">
+        <extension nativeXpath="CD_DOCUMENTO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DS_URL_ENVIO" type="xs:string">
+        <extension nativeXpath="DS_URL_ENVIO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="300" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ST_INTEGRACAO" type="xs:string">
+        <extension nativeXpath="ST_INTEGRACAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="18" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DT_INTEGRACAO" type="xs:dateTime">
+        <extension nativeXpath="DT_INTEGRACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="DS_MENSAGEM_RESPOSTA" type="xs:string">
+        <extension nativeXpath="DS_MENSAGEM_RESPOSTA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="1000" nativeFractionalDigits="null"/>
+        <properties nullable="false"/>
+    </field>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnIntegracaoSmsDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnIntegracaoSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnIntegracaoSmsDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_INTEGRACAO_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnIntegracaoSmsDSP() as schema-element(t4:SnIntegracaoSmsDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_INTEGRACAO_SMS" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnIntegracaoSmsDSP($p as element(t4:SnIntegracaoSmsDSP)*)as empty() external;
+
+   
+
+   
+

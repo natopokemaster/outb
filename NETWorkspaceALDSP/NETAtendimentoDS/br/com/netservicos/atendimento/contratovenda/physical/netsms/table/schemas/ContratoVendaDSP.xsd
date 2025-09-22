@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://www.netservicos.com.br/Manifestacaoombudsman/schemas"
+		   xmlns:ns="http://www.netservicos.com.br/Manifestacaoombudsman/schemas" 
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   elementFormDefault="qualified" 
+		   attributeFormDefault="qualified">
+   <xs:element name="ContratoVendaDSP" type="ns:ContratoVendaDSPType">
+   </xs:element>
+   <xs:complexType name="ContratoVendaDSPType">
+         <xs:sequence>
+         	<xs:element name="QUANTIDADE_CONTRATO" type="xs:integer" />
+         </xs:sequence>
+   </xs:complexType>
+</xs:schema>

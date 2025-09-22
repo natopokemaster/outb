@@ -1,0 +1,83 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnRelAssinanteSegmentacaoDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP">
+    <creationDate>2009-11-19T17:54:24</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="ID_REL_ASS_SEGMENTACAO" type="xs:double">
+        <extension nativeXpath="ID_REL_ASS_SEGMENTACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="22" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_ARQUIVO_PROPENSAO" type="xs:integer">
+        <extension nativeXpath="ID_ARQUIVO_PROPENSAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_CONTRATO" type="xs:integer">
+        <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CID_CONTRATO" type="xs:string">
+        <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="QUARTIL" type="xs:integer">
+        <extension nativeXpath="QUARTIL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="VALOR_CLIENTE" type="xs:decimal">
+        <extension nativeXpath="VALOR_CLIENTE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="10" nativeFractionalDigits="2"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_TIPO_SEGMENTO" type="xs:integer">
+        <extension nativeXpath="ID_TIPO_SEGMENTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="SEGMENTO_POTENCIAL" type="xs:integer">
+        <extension nativeXpath="SEGMENTO_POTENCIAL" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="DT_INI_VALIDADE" type="xs:dateTime">
+        <extension nativeXpath="DT_INI_VALIDADE" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <key name="PK_SN_REL_ASS_SEGMENTACAO" type="snr:SnRelAssinanteSegmentacaoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP"/>
+</x:xds>::)
+
+declare namespace snc1= "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP";
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP";
+
+import schema namespace snc="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoDSP.xsd";
+
+import schema namespace t10 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnRelAssinanteSegmentacaoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnRelAssinanteSegmentacaoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_REL_ASSINANTE_SEGMENTACAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelAssinanteSegmentacaoDSP() as schema-element(t10:SnRelAssinanteSegmentacaoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_REL_ASSINANTE_SEGMENTACAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelAssinanteSegmentacaoDSP($p as element(t10:SnRelAssinanteSegmentacaoDSP)*)as schema-element(t10:SnRelAssinanteSegmentacaoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_REL_ASSINANTE_SEGMENTACAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelAssinanteSegmentacaoDSP($p as changed-element(t10:SnRelAssinanteSegmentacaoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_REL_ASSINANTE_SEGMENTACAO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelAssinanteSegmentacaoDSP($p as element(t10:SnRelAssinanteSegmentacaoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnTipoSegmentoDSP";
+
+import schema namespace t13 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnTipoSegmentoDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnTipoSegmentoDSP.xsd";
+
+   
+
+
+
+

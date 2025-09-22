@@ -1,0 +1,46 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:IeEnderecosDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/IeEnderecosDSP">
+<creationDate>2014-01-27T15:08:52</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_ATENDIMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="SE_ID_EDIFICACAO" type="xs:integer">
+  <extension nativeXpath="SE_ID_EDIFICACAO" nativeType="NUMBER" nativeTypeCode="2" nativeSize="10" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_IMOVEL" type="xs:double">
+  <extension nativeXpath="COD_IMOVEL" nativeType="NUMBER" nativeTypeCode="2" nativeSize="0" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="NODE" type="xs:string">
+  <extension nativeXpath="NODE" nativeType="VARCHAR2" nativeTypeCode="12" nativeSize="4000" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="CELULA" type="xs:string">
+  <extension nativeXpath="CELULA" nativeType="VARCHAR2" nativeTypeCode="12" nativeSize="4000" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/IeEnderecosDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/IeEnderecosDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/sql/schemas/IeEnderecosDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" style="sqlQuery">
+   <sql isSubquery="true">SELECT SE.ID_EDIFICACAO AS SE_ID_EDIFICACAO,
+             PROD_JD.IE_ENDERECOS.FIE_Retorna_Cod_Imovel(SE.ID_EDIFICACAO) AS COD_IMOVEL,
+             PROD_JD.IE_ENDERECOS.FIE_RetornaCodigoCelula(SE.ID_EDIFICACAO) AS NODE,
+             PROD_JD.IE_ENDERECOS.FIE_RetornaCodigoMicroCelula(SE.ID_EDIFICACAO) AS CELULA 
+                FROM    
+             PROD_JD.SN_ENDER SE
+                WHERE   
+             SE.ID_ENDER = ?</sql>
+   <params>
+      <param nativeType="INTEGER" nativeTypeCode="4"/>
+   </params>
+
+   </f:function>::)
+
+   declare function f1:sqlQuery($x1 as xs:integer) as schema-element(t1:IeEnderecosDSP)* external;
+

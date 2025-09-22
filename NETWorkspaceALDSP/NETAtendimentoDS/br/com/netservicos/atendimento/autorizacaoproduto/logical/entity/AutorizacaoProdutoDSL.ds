@@ -1,0 +1,228 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:contratosDeVenda" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="http://www.netservicos.com.br/ContratoDeVenda/schemas"><creationDate>2012-05-22T09:41:41</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace sns= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnServicoContratoDSP";
+
+import schema namespace ns0="http://www.netservicos.com.br/ContratoDeVenda/schemas" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/schemas/ContratoDeVenda.xsd";
+
+import schema namespace ns8="ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelObjTipoProdutoDSP" at "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/schemas/SnRelObjTipoProdutoDSP.xsd";
+
+declare namespace ns1= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnAssinanteDSP";
+
+declare namespace ns2= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnContratoDSP";
+
+declare namespace ns3= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnProdutoDSP";
+
+declare namespace ns4= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelAtributosProdutoDSP";
+
+declare namespace ns5= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelObjTipoProdutoDSP";
+
+declare namespace ns6= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelPontoProdutoDSP";
+
+declare namespace ns7= "ld:br/com/netservicos/atendimento/autorizacaoproduto/physical/netsms/table/SnRelStatusContratoAuxDSP";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/autorizacaoproduto/logical/entity/AutorizacaoProdutoDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:autorizarProduto($cpf as xs:string, $codigoParceiro as xs:integer) as element(ns0:contratosDeVenda) {
+    let $produtosAlaCarte := tns:autorizarProdutoAlaCarte($cpf, $codigoParceiro)
+	return
+	if(not(empty(data($produtosAlaCarte))))then    
+	   $produtosAlaCarte	    	
+	 else(
+	 	let $produtoServicoAvando := tns:consultarServicoAvancadoContratado($cpf, $codigoParceiro)
+	 	return
+	 		if(not(empty(data($produtoServicoAvando))))then 
+	 			$produtoServicoAvando
+	 		else(<ns0:contratosDeVenda/>)
+	 )   
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarTipoProduto() as element(ns8:SnRelObjTipoProdutoDSP)* {
+
+	(: Declaração do identificador do objeto referente ao tipo de produto do TV EVERYWHERE :)
+	let $ID_OBJETO := 639
+	
+	for $snRelObjTipoProduto in ns5:SnRelObjTipoProdutoDSP()
+	where $snRelObjTipoProduto/ID_OBJETO eq $ID_OBJETO
+	return
+    <ns8:SnRelObjTipoProdutoDSP>
+    	<ID_OBJETO>{fn:data($snRelObjTipoProduto/ID_OBJETO)}</ID_OBJETO>
+        <ID_TIPO_PRODUTO>{fn:data($snRelObjTipoProduto/ID_TIPO_PRODUTO)}</ID_TIPO_PRODUTO>
+    </ns8:SnRelObjTipoProdutoDSP>
+
+};
+
+(::pragma  function <f:function kind="read" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarServicoAvancadoContratado($cpf as xs:string, $codigoParceiro as xs:integer) as element(ns0:contratosDeVenda)*{
+<ns0:contratosDeVenda>
+    {
+		(: Declaração da constante para data fim :)
+		let $DATA_FIM := xs:date('2049-12-30')
+		
+		(: Declaração da constante para Instalado :)
+		let $INSTALADO := 1
+		
+		(: Declaração das constantes para Status de Contrato :)
+		let $STATUS_CONTRATO_CONECTADO := 1
+		let $STATUS_CONTRATO_MUDANCA_ENDERECO := 2
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_PARCIAL := 10
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO := 11
+		let $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO_SEM_INSTALACAO_NOVO_ENDERECO := 15
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO_DESPACHADA := 16
+		let $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO := 17
+		let $STATUS_CONTRATO_MUDANCA_ENDERECO_DESCONEXAO_OPCAO := 19
+		let $STATUS_CONTRATO_CONECTADO_DESABILITACAO := 25
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL := 27
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL_DESPACHADA := 28	
+	
+	let $servicoAvancado :=
+			for $snAssinante in ns1:SnAssinanteDSP()	
+			for $snContrato in ns2:SnContratoDSP()		
+			where $snAssinante/CPF eq $cpf			
+			where $snContrato/ID_ASSINANTE eq $snAssinante/ID_ASSINANTE
+			for $snRelStatusContratoAux in ns7:SnRelStatusContratoAuxDSP()
+			where $snContrato/NUM_CONTRATO eq $snRelStatusContratoAux/NUM_CONTRATO
+			where $snContrato/CID_CONTRATO eq $snRelStatusContratoAux/CID_CONTRATO
+			where (($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_MUDANCA_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_PARCIAL) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO_SEM_INSTALACAO_NOVO_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO_DESPACHADA) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_MUDANCA_ENDERECO_DESCONEXAO_OPCAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESABILITACAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL_DESPACHADA))
+			where xs:date($snRelStatusContratoAux/DT_FIM) eq $DATA_FIM
+			return
+			
+			if(fn:not(fn:empty($snContrato/NUM_CONTRATO)))then
+				for $SnServicoContratoDSP in sns:SnServicoContratoDSP()
+				where $SnServicoContratoDSP/NUM_CONTRATO eq $snContrato/NUM_CONTRATO	
+				where $SnServicoContratoDSP/CID_CONTRATO eq $snContrato/CID_CONTRATO
+				return			
+					
+						if(fn:not(fn:empty($SnServicoContratoDSP/ID_PRODUTO)))then
+							for $SnProdutoDSP in ns3:SnProdutoDSP()	
+										
+							where $SnProdutoDSP/ID_PRODUTO eq $SnServicoContratoDSP/ID_PRODUTO
+							for $tipoProduto in tns:consultarTipoProduto()
+							where $SnProdutoDSP/ID_TIPO_PRODUTO eq $tipoProduto/ID_TIPO_PRODUTO
+							for $snRelAtributosProduto in ns4:SnRelAtributosProdutoDSP()
+							where $SnProdutoDSP/ID_PRODUTO eq $snRelAtributosProduto/ID_PRODUTO
+							where $snRelAtributosProduto/ID_ATRIBUTO_PARAMETRO eq $codigoParceiro	
+							return					  
+					            <ns0:contratoDeVenda>
+					                <ns0:numeroContrato?>{fn:data($snContrato/NUM_CONTRATO)}</ns0:numeroContrato>
+					                <ns0:identificacaoCidade?>{fn:data($snContrato/CID_CONTRATO)}</ns0:identificacaoCidade>
+					                <ns0:identificacaoTipoContrato?></ns0:identificacaoTipoContrato>
+					                <ns0:descricaoTipoContrato?></ns0:descricaoTipoContrato>
+					                {
+					                    <ns0:titular?>
+					                        <ns0:nomeTitular?></ns0:nomeTitular>
+					                        <ns0:cpf?></ns0:cpf>
+					                        <ns0:cnpj?></ns0:cnpj>
+					                    </ns0:titular>
+					                }
+					            </ns0:contratoDeVenda>
+				         else()
+            else()
+
+		for $rownum in subsequence($servicoAvancado, 1, 1)
+		return $rownum
+    }
+    </ns0:contratosDeVenda>
+    
+
+};
+
+(::pragma  function <f:function kind="read" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:autorizarProdutoAlaCarte($cpf as xs:string, $codigoParceiro as xs:integer) as element(ns0:contratosDeVenda)*{
+    <ns0:contratosDeVenda>
+    {
+		(: Declaração da constante para data fim :)
+		let $DATA_FIM := xs:date('2049-12-30')
+		
+		(: Declaração da constante para Instalado :)
+		let $INSTALADO := 1
+		
+		(: Declaração das constantes para Status de Contrato :)
+		let $STATUS_CONTRATO_CONECTADO := 1
+		let $STATUS_CONTRATO_MUDANCA_ENDERECO := 2
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_PARCIAL := 10
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO := 11
+		let $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO_SEM_INSTALACAO_NOVO_ENDERECO := 15
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO_DESPACHADA := 16
+		let $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO := 17
+		let $STATUS_CONTRATO_MUDANCA_ENDERECO_DESCONEXAO_OPCAO := 19
+		let $STATUS_CONTRATO_CONECTADO_DESABILITACAO := 25
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL := 27
+		let $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL_DESPACHADA := 28	
+	
+	let $result := 
+		for $snAssinante in ns1:SnAssinanteDSP()
+		for $snContrato in ns2:SnContratoDSP()
+		for $snProduto in ns3:SnProdutoDSP()
+		for $snRelAtributosProduto in ns4:SnRelAtributosProdutoDSP()
+		for $snRelPontoProduto in ns6:SnRelPontoProdutoDSP()
+		for $snRelStatusContratoAux in ns7:SnRelStatusContratoAuxDSP()
+	
+		for $tipoProduto in tns:consultarTipoProduto()
+		where $snProduto/ID_TIPO_PRODUTO eq $tipoProduto/ID_TIPO_PRODUTO	
+	
+		where $snProduto/ID_PRODUTO eq $snRelAtributosProduto/ID_PRODUTO
+		where $snRelAtributosProduto/ID_ATRIBUTO_PARAMETRO eq $codigoParceiro
+		where $snRelAtributosProduto/ID_PRODUTO eq $snRelPontoProduto/ID_PRODUTO
+		where xs:date($snRelPontoProduto/DT_FIM) eq $DATA_FIM
+		where $snRelPontoProduto/INSTALADO eq $INSTALADO
+		where $snRelPontoProduto/NUM_CONTRATO eq $snContrato/NUM_CONTRATO
+		where $snRelPontoProduto/CID_CONTRATO eq $snContrato/CID_CONTRATO
+		where $snAssinante/ID_ASSINANTE eq $snContrato/ID_ASSINANTE
+		where $snContrato/NUM_CONTRATO eq $snRelStatusContratoAux/NUM_CONTRATO
+		where $snContrato/CID_CONTRATO eq $snRelStatusContratoAux/CID_CONTRATO
+		where (($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_MUDANCA_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_PARCIAL) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO_SEM_INSTALACAO_NOVO_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_OPCAO_DESPACHADA) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_MUDANCA_ENDERECO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_MUDANCA_ENDERECO_DESCONEXAO_OPCAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESABILITACAO) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL) or
+			   ($snRelStatusContratoAux/ID_STATUS eq $STATUS_CONTRATO_CONECTADO_DESCONEXAO_TOTAL_DESPACHADA))
+		where xs:date($snRelStatusContratoAux/DT_FIM) eq $DATA_FIM
+		where $snAssinante/CPF eq $cpf
+		
+	
+		return
+            <ns0:contratoDeVenda>
+                <ns0:numeroContrato?>{fn:data($snContrato/NUM_CONTRATO)}</ns0:numeroContrato>
+                <ns0:identificacaoCidade?>{fn:data($snContrato/CID_CONTRATO)}</ns0:identificacaoCidade>
+                <ns0:identificacaoTipoContrato?></ns0:identificacaoTipoContrato>
+                <ns0:descricaoTipoContrato?></ns0:descricaoTipoContrato>
+                {
+                    <ns0:titular?>
+                        <ns0:nomeTitular?></ns0:nomeTitular>
+                        <ns0:cpf?></ns0:cpf>
+                        <ns0:cnpj?></ns0:cnpj>
+                    </ns0:titular>
+                }
+            </ns0:contratoDeVenda>
+            
+           
+		
+		for $rownum in subsequence($result, 1, 1)
+		return $rownum
+    }
+    </ns0:contratosDeVenda>
+
+};

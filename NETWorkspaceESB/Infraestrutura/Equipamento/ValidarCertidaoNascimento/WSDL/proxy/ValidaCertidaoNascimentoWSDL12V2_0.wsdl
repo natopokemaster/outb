@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ValidaCertidaoNascimentoWSDL12V2_0"
+	targetNamespace="http://www.netservicos.com.br/ValidaCertidaoNascimento/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:vcn="http://www.netservicos.com.br/ValidaCertidaoNascimento/"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/ValidaCertidaoNascimento/"
+			attributeFormDefault="qualified" elementFormDefault="qualified">
+
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd" />
+
+			<xsd:element name="parametrosValidaCertidaoNascimento">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ticketIn" type="xsd:string"
+							maxOccurs="1" minOccurs="1" />
+						<xsd:element name="caId" type="xsd:string"
+							maxOccurs="1" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="resultadoValidaCertidaoNascimento">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="valida" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element
+				name="resultadoValidaCertidaoNascimentoReuso">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="valida" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element
+				name="parametrosValidaCertidaoNascimentoReuso">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ticketIn" type="xsd:string"
+							maxOccurs="1" minOccurs="1" />
+						<xsd:element name="caId" type="xsd:string"
+							maxOccurs="1" minOccurs="1" />
+						<xsd:element name="simCardID" type="xsd:string"
+							maxOccurs="1" minOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="parametrosConsultarDadosCertidaoNascimento">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ticketIn" type="xsd:string"
+							maxOccurs="1" minOccurs="1" />
+						<xsd:element name="caId" type="xsd:string"
+							maxOccurs="1" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="resultadoConsultarDadosCertidaoNascimento">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="caIdStatus" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="dataInstalacao" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="horaInstalacao" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="flagRegiao" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="statusFinal" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="stbType" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="idQs" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="nvQs" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="validaCertidaoNascimentoRequest">
+		<wsdl:part element="netheader:NetHeader" name="request_header" />
+		<wsdl:part element="vcn:parametrosValidaCertidaoNascimento"
+			name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="validaCertidaoNascimentoResponse">
+		<wsdl:part element="vcn:resultadoValidaCertidaoNascimento"
+			name="validaCertidaoNascimentoResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="validaCertidaoNascimentoReusoRequest">
+		<wsdl:part element="netheader:NetHeader" name="request_header" />
+		<wsdl:part name="parameters"
+			element="vcn:parametrosValidaCertidaoNascimentoReuso">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="validaCertidaoNascimentoReusoResponse">
+		<wsdl:part name="validaCertidaoNascimentoReusoResponse"
+			element="vcn:resultadoValidaCertidaoNascimentoReuso">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="consultarDadosCertidaoNascimentoRequest">
+		<wsdl:part element="netheader:NetHeader" name="request_header" />
+		<wsdl:part element="vcn:parametrosConsultarDadosCertidaoNascimento"
+			name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarDadosCertidaoNascimentoResponse">
+		<wsdl:part element="vcn:resultadoConsultarDadosCertidaoNascimento"
+			name="consultarDadosCertidaoNascimentoResponse" />
+	</wsdl:message>
+
+	<wsdl:portType name="ValidaCertidaoNascimentoPortType">
+		<wsdl:operation name="validaCertidaoNascimento">
+			<wsdl:input message="vcn:validaCertidaoNascimentoRequest" />
+			<wsdl:output message="vcn:validaCertidaoNascimentoResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="validaCertidaoNascimentoReuso">
+			<wsdl:input message="vcn:validaCertidaoNascimentoReusoRequest"/>
+			<wsdl:output message="vcn:validaCertidaoNascimentoReusoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarDadosCertidaoNascimento">
+			<wsdl:input message="vcn:consultarDadosCertidaoNascimentoRequest" />
+			<wsdl:output message="vcn:consultarDadosCertidaoNascimentoResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="ValidaCertidaoNascimento11" type="vcn:ValidaCertidaoNascimentoPortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="validaCertidaoNascimento">
+			<soap11:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/validaCertidaoNascimento" />
+			<wsdl:input>
+				<soap11:header use="literal" part="request_header" message="vcn:validaCertidaoNascimentoRequest" />
+				<soap11:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="validaCertidaoNascimentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="validaCertidaoNascimentoReuso">
+			<soap11:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/validaCertidaoNascimentoReuso" />
+			<wsdl:input>
+				<soap11:header use="literal" part="request_header" message="vcn:validaCertidaoNascimentoReusoRequest" />
+				<soap11:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="validaCertidaoNascimentoReusoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarDadosCertidaoNascimento">
+			<soap11:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/consultarDadosCertidaoNascimento" />
+			<wsdl:input>
+				<soap11:header use="literal" part="request_header" message="vcn:consultarDadosCertidaoNascimentoRequest" />
+				<soap11:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal" parts="consultarDadosCertidaoNascimentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="ValidaCertidaoNascimento12" type="vcn:ValidaCertidaoNascimentoPortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="validaCertidaoNascimento">
+			<soap12:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/validaCertidaoNascimento" />
+			<wsdl:input>
+				<soap12:header use="literal" part="request_header" message="vcn:validaCertidaoNascimentoRequest" />
+				<soap12:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="validaCertidaoNascimentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="validaCertidaoNascimentoReuso">
+			<soap12:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/validaCertidaoNascimentoReuso" />
+			<wsdl:input>
+				<soap12:header use="literal" part="request_header" message="vcn:validaCertidaoNascimentoReusoRequest" />
+				<soap12:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="validaCertidaoNascimentoReusoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarDadosCertidaoNascimento">
+			<soap12:operation soapAction="http://www.netservicos.com.br/ValidaCertidaoNascimento/consultarDadosCertidaoNascimento" />
+			<wsdl:input>
+				<soap12:header use="literal" part="request_header" message="vcn:consultarDadosCertidaoNascimentoRequest" />
+				<soap12:body use="literal" parts="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="consultarDadosCertidaoNascimentoResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="ValidarCertidaoNascimentoService">
+		<wsdl:port binding="vcn:ValidaCertidaoNascimento11" name="ValidaCertidaoNascimento11">
+			<soap11:address location="http://servbus/infraestrutura/equipamento/validacertidaonascimento/ValidaCertidaoNascimento11V2" />
+		</wsdl:port>
+		<wsdl:port binding="vcn:ValidaCertidaoNascimento12" name="ValidaCertidaoNascimento12">
+			<soap12:address location="http://servbus/infraestrutura/equipamento/validacertidaonascimento/ValidaCertidaoNascimento12V2" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

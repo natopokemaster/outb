@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns:envioProtocolo="http://www.netservicos.com.br/EnvioProtocoloFila"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:identificacaoContrato="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"
+	xmlns:identificacaoProposta="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"
+	name="EnvioProtocoloFilaWSDL"
+	targetNamespace="http://www.netservicos.com.br/EnvioProtocoloFila">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.netservicos.com.br/EnvioProtocoloFila"
+			attributeFormDefault="qualified" elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://www.netservicos.com.br/v2/NetHeader"
+				schemaLocation="../../../../../modelocanonicoV2/geral/NETHeader.xsd">
+			</xsd:import>
+
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoContrato"
+				schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoContrato.xsd">
+			</xsd:import>
+
+			<xsd:import
+				namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoProposta"
+				schemaLocation="../../../../../modelocanonicoV2/geral/IdentificacaoProposta.xsd">
+			</xsd:import>
+
+			<xsd:element name="enviarProtocoloFilaRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="reenvio" type="xsd:boolean"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="identificacaoProposta"
+							type="identificacaoProposta:IdentificacaoPropostaType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="identificacaoContrato"
+							type="identificacaoContrato:IdentificacaoContratoType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="protocolo" type="xsd:string"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="aliasDatabase"
+							type="xsd:string" minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="enviarProtocoloFilaResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="enviarProtocoloFilaRequest">
+		<wsdl:part element="envioProtocolo:enviarProtocoloFilaRequest"
+			name="enviarProtocoloFilaRequest" />
+		<wsdl:part name="request_header" element="netheader:NetHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="enviarProtocoloFilaResponse">
+		<wsdl:part element="envioProtocolo:enviarProtocoloFilaResponse"
+			name="enviarProtocoloFilaResponse" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="EnvioProtocoloFilaPortType">
+		<wsdl:operation name="envioProtocoloFila">
+			<wsdl:input
+				message="envioProtocolo:enviarProtocoloFilaRequest" />
+			<wsdl:output
+				message="envioProtocolo:enviarProtocoloFilaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="EnvioProtocoloFilaBinding11"
+		type="envioProtocolo:EnvioProtocoloFilaPortType">
+		<soap11:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="envioProtocoloFila">
+			<soap11:operation
+				soapAction="http://www.netservicos.com.br/EnvioProtocoloFila/envioProtocoloFila" />
+			<wsdl:input>
+				<soap11:header
+					message="envioProtocolo:enviarProtocoloFilaRequest" use="literal"
+					wsdl:required="true" part="request_header" />
+				<soap11:body use="literal"
+					parts="enviarProtocoloFilaRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="enviarProtocoloFilaResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="EnvioProtocoloFilaBinding12"
+		type="envioProtocolo:EnvioProtocoloFilaPortType">
+		<soap12:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="envioProtocoloFila">
+			<soap12:operation
+				soapAction="http://www.netservicos.com.br/EnvioProtocoloFila/envioProtocoloFila" />
+			<wsdl:input>
+				<soap11:header
+					message="envioProtocolo:enviarProtocoloFilaRequest" use="literal"
+					wsdl:required="true" part="request_header" />
+				<soap11:body use="literal"
+					parts="enviarProtocoloFilaRequest" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"
+					parts="enviarProtocoloFilaResponse" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="EnvioProtocoloFilaService">
+		<wsdl:port binding="envioProtocolo:EnvioProtocoloFilaBinding11" name="EnvioProtocoloFilaPort11">
+			<soap11:address location="http://servbus/relacionar/atendimento/protocolo/EnvioProtocoloFila11V1"/>
+		</wsdl:port>
+		<wsdl:port binding="envioProtocolo:EnvioProtocoloFilaBinding12" name="EnvioProtocoloFilaPort12">
+			<soap12:address location="http://servbus/relacionar/atendimento/protocolo/EnvioProtocoloFila12V1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

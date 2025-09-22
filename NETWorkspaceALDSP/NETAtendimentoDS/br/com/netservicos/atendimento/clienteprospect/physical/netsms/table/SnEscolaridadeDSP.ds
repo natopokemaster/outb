@@ -1,0 +1,44 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnEscolaridadeDSP" xmlns:t="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP">
+<creationDate>2009-11-19T17:54:23</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_ESCOLARIDADE" type="xs:integer">
+  <extension nativeXpath="ID_ESCOLARIDADE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DESCRICAO" type="xs:string">
+  <extension nativeXpath="DESCRICAO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_ESCOLARIDADE" type="snes:SnEscolaridadeDSP_KEY" inferredSchema="true" xmlns:snes="ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP";
+
+import schema namespace t6 = "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnEscolaridadeDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP" at "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/schemas/SnEscolaridadeDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_ESCOLARIDADE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnEscolaridadeDSP() as schema-element(t6:SnEscolaridadeDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_ESCOLARIDADE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnEscolaridadeDSP($p as element(t6:SnEscolaridadeDSP)*)as schema-element(t6:SnEscolaridadeDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_ESCOLARIDADE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnEscolaridadeDSP($p as changed-element(t6:SnEscolaridadeDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_ESCOLARIDADE" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnEscolaridadeDSP($p as element(t6:SnEscolaridadeDSP)*) as empty()  external;
+

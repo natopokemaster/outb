@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s0:definitions name="JwsServiceDefinitions" targetNamespace="http://www.netservicos.com.br/" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://www.netservicos.com.br/" xmlns:s2="java:br.com.netservicos.atendimento.protocolo.exception" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s4="http://www.netservicos.com.br/NetHeader">
+	<s0:types>                                                                                                                                                                                                                                                                            
+		<xsd:schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/modelocanonico/evento" xmlns:evento="http://www.netservicos.com.br/modelocanonico/evento" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:complexType abstract="true" name="Evento">
+				<xsd:annotation>
+					<xsd:documentation>
+						Listagem de todas ocorrÃªncias do sistema que
+						gera uma aÃ§Ã£o manual ou automÃ¡tica para seu
+						tratamento.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="evento:Eventos"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType abstract="true" name="Registro">
+				<xsd:annotation>
+					<xsd:documentation>
+						Entidade abstrato utilizando para agrupar os
+						registros gerados.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:Evento"/>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="Contato">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ã‰ o registro de qualquer Contato da NET com
+						seus Clientes e Prospects
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:Registro">
+						<xsd:sequence>
+							<xsd:element maxOccurs="1" minOccurs="0" name="Protocolo" type="xsd:string"/>
+							<xsd:element maxOccurs="1" minOccurs="0" name="NumeroChamado" type="xsd:string">
+							</xsd:element>
+							<xsd:element maxOccurs="unbounded" minOccurs="0" name="RegistroContato" type="evento:RegistroContato"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="RegistroContato">
+				<xsd:annotation>
+					<xsd:documentation>
+						Registro de Contato com o cliente
+
+						- TraduzaÃ§Ã£o para legado --> Ocorrencia de que
+						e fechado e esta referente um contato com o
+						cliente
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="IdentificadorRegistroContato" type="xsd:long"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="RegistroSistemica">
+				<xsd:annotation>
+					<xsd:documentation>
+						Registro gerado automaticamente pelo as sistemas
+
+						- TraduzaÃ§Ã£o para legado --> Ocorrencia de que
+						e fechado e esta gerado automaticamente para o
+						processo de negocio dentro a sistema
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:Registro">
+						<xsd:sequence>
+							<xsd:element maxOccurs="1" minOccurs="0" name="IdentificadorRegistroSistemica" type="xsd:long"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="OrdemInterna">
+				<xsd:annotation>
+					<xsd:documentation>
+						Entidade que contem os informaÃ§Ãµes de um
+						evento que esta gerado para alguem executar
+						alguma tipo de tratamento (via backoffice,
+						faturamento etc.)
+
+						TraduizaÃ§Ã£o de Legado : RequisÃ£o Interno -
+						Ocorrencia Aberto
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:Evento">
+						<xsd:sequence>
+							<xsd:element maxOccurs="1" minOccurs="0" name="IdentificadorOrdemInterna" type="xsd:long"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType abstract="true" name="OrdemServico">
+				<xsd:annotation>
+					<xsd:documentation>
+						Toda SolicitaÃ§Ã£o de cliente que gera uma ou
+						mais tarefas de aprovisionamento para ativar /
+						desativar produtos e serviÃ§os.
+
+						TraduziaÃ§Ã£o de Legado: SolicitaÃ§Ã£o
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:Evento"/>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="OrdemCampo">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ordem de ServiÃ§o que indicar que e necessario
+						que um tecnico e necessario para resolver o
+						ordem de serviÃ§o
+
+						TraduziÃ§Ã£o de legado : Ordem de ServiÃ§o (OS)
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:OrdemServico">
+						<xsd:sequence>
+							<xsd:element maxOccurs="1" minOccurs="0" name="IdentifcadorOrdemCampo" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="OrdemAtivacao">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ordem de ServiÃ§o que indicar que e necessario
+						executar alguma tipo de aprovisionamento para
+						resolver a problemas
+
+						TraduziÃ§Ã£o de legado : Ordem de ConfiguraÃ§Ã£o
+						(OC)
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexContent>
+					<xsd:extension base="evento:OrdemServico">
+						<xsd:sequence>
+							<xsd:element maxOccurs="1" minOccurs="0" name="IdentificadorOrdemAtivacao" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:element name="Contato" type="evento:Contato">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ã‰ o registro de qualquer Contato da NET com
+						seus Clientes e Prospects
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegistroContato" type="evento:RegistroContato">
+				<xsd:annotation>
+					<xsd:documentation>
+						Registro de Contato com o cliente
+
+						- TraduzaÃ§Ã£o para legado --> Ocorrencia de que
+						e fechado e esta referente um contato com o
+						cliente
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegistroSistemica" type="evento:RegistroSistemica">
+				<xsd:annotation>
+					<xsd:documentation>
+						Registro gerado automaticamente pelo as sistemas
+
+						- TraduzaÃ§Ã£o para legado --> Ocorrencia de que
+						e fechado e esta gerado automaticamente para o
+						processo de negocio dentro a sistema
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrdemInterna" type="evento:OrdemInterna">
+				<xsd:annotation>
+					<xsd:documentation>
+						Entidade que contem os informaÃ§Ãµes de um
+						evento que esta gerado para alguem executar
+						alguma tipo de tratamento (via backoffice,
+						faturamento etc.)
+
+						TraduizaÃ§Ã£o de Legado : RequisÃ£o Interno -
+						Ocorrencia Aberto
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrdemCampo" type="evento:OrdemCampo">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ordem de ServiÃ§o que indicar que e necessario
+						que um tecnico e necessario para resolver o
+						ordem de serviÃ§o
+
+						TraduziÃ§Ã£o de legado : Ordem de ServiÃ§o (OS)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrdemAtivacao" type="evento:OrdemAtivacao">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ordem de ServiÃ§o que indicar que e necessario
+						executar alguma tipo de aprovisionamento para
+						resolver a problemas
+
+						TraduziÃ§Ã£o de legado : Ordem de ConfiguraÃ§Ã£o
+						(OC)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Eventos" type="evento:Eventos">
+				<xsd:annotation>
+					<xsd:documentation>
+						Listagem de varios contatos
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:complexType name="Eventos">
+				<xsd:annotation>
+					<xsd:documentation>
+						Listagem de varios eventos
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="0" name="Eventos" type="evento:Evento"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://www.netservicos.com.br/modelocanonico/evento"/>
+			<xs:element name="associarProtocoloAtendimento">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contato" type="even:Contato" xmlns:even="http://www.netservicos.com.br/modelocanonico/evento"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="associarProtocoloAtendimentoResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Contato" type="even:Contato" xmlns:even="http://www.netservicos.com.br/modelocanonico/evento"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:br.com.netservicos.atendimento.protocolo.exception" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:complexType name="ProtocoloUnicoSystemException">
+				<xs:complexContent>
+					<xs:extension base="java:ProtocoloUnicoException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="ProtocoloUnicoException"/>
+			<xs:complexType name="ProtocoloUnicoBusinessException">
+				<xs:complexContent>
+					<xs:extension base="java:ProtocoloUnicoException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:element name="ProtocoloUnicoSystemException" type="java:ProtocoloUnicoSystemException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+			<xs:element name="ProtocoloUnicoBusinessException" type="java:ProtocoloUnicoBusinessException" xmlns:java="java:br.com.netservicos.atendimento.protocolo.exception"/>
+		</xs:schema>
+		<xsd:schema xmlns:pro="http://www.netservicos.com.br/atendimento/protocolo" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.netservicos.com.br/NetHeader">
+			<xsd:import namespace="http://www.netservicos.com.br/NetHeader" schemaLocation="../../../../../modelocanonico/geral/NETHeader.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</s0:types>
+	<s0:message name="associarProtocoloAtendimento">
+		<s0:part element="s1:associarProtocoloAtendimento" name="parameters"/>
+		<s0:part name="request_header" element="s4:NetHeader"/>
+	</s0:message>
+	<s0:message name="associarProtocoloAtendimentoResponse">
+		<s0:part element="s1:associarProtocoloAtendimentoResponse" name="parameters"/>
+	</s0:message>
+	<s0:message name="ProtocoloUnicoBusinessException">
+		<s0:part element="s2:ProtocoloUnicoBusinessException" name="ProtocoloUnicoBusinessException"/>
+	</s0:message>
+	<s0:message name="ProtocoloUnicoSystemException">
+		<s0:part element="s2:ProtocoloUnicoSystemException" name="ProtocoloUnicoSystemException"/>
+	</s0:message>
+	<s0:portType name="Jws">
+		<s0:operation name="associarProtocoloAtendimento" parameterOrder="parameters">
+			<s0:input message="s1:associarProtocoloAtendimento"/>
+			<s0:output message="s1:associarProtocoloAtendimentoResponse"/>
+			<s0:fault message="s1:ProtocoloUnicoBusinessException" name="ProtocoloUnicoBusinessException"/>
+			<s0:fault message="s1:ProtocoloUnicoSystemException" name="ProtocoloUnicoSystemException"/>
+		</s0:operation>
+	</s0:portType>
+	<s0:binding name="JwsServiceSoapBinding" type="s1:Jws">
+		<s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<s0:operation name="associarProtocoloAtendimento">
+			<s3:operation soapAction="http://www.netservicos.com.br/associarProtocoloAtendimento" style="document"/>
+			<s0:input>
+				<s3:header message="s1:associarProtocoloAtendimento" part="request_header" use="literal"/>
+				<s3:body parts="parameters" use="literal"/>
+			</s0:input>
+			<s0:output>
+				<s3:body parts="parameters" use="literal"/>
+			</s0:output>
+			<s0:fault name="ProtocoloUnicoSystemException">
+				<s3:fault name="ProtocoloUnicoSystemException" use="literal"/>
+			</s0:fault>
+			<s0:fault name="ProtocoloUnicoBusinessException">
+				<s3:fault name="ProtocoloUnicoBusinessException" use="literal"/>
+			</s0:fault>
+		</s0:operation>
+	</s0:binding>
+	<s0:service name="JwsServiceSoapBindingQSService">
+		<s0:port binding="s1:JwsServiceSoapBinding" name="JwsServiceSoapBindingQSPort">
+			<s3:address location="http://dynamic-641.dynatec.com.br:7001/relacionar/atendimento/protocolo/AssociarProtocoloAtendimento12"/>
+		</s0:port>
+	</s0:service>
+</s0:definitions>

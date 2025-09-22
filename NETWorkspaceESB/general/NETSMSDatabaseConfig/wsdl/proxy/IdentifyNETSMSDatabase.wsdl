@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NETSMSOperadoraWSDL" targetNamespace="http://www.netservicos.com.br/operadoranet/" xmlns:operadora="http://www.netservicos.com.br/operadoranet/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.netservicos.com.br/modelocanonico/empresa">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/operadoranet/">
+			<xsd:element name="getSiglaDatabaseFromOperadoraNETResponse" type="xsd:string"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/empresa" schemaLocation="../../../../modelocanonico/geral/Empresa.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="getSiglaDatabaseFromOperadoraNETRequest">
+		<wsdl:part name="parameters" element="xsd1:OperadoraNET"/>
+	</wsdl:message>
+	<wsdl:message name="getSiglaDatabaseFromOperadoraNETResponse">
+		<wsdl:part name="parameters" element="operadora:getSiglaDatabaseFromOperadoraNETResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="NETSMSOperadoraWSDL">
+		<wsdl:operation name="getSiglaDatabaseFromOperadoraNET">
+			<wsdl:input message="operadora:getSiglaDatabaseFromOperadoraNETRequest"/>
+			<wsdl:output message="operadora:getSiglaDatabaseFromOperadoraNETResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="NETSMSOperadoraWSDLSOAP" type="operadora:NETSMSOperadoraWSDL">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getSiglaDatabaseFromOperadoraNET">
+			<soap:operation soapAction="http://www.netservicos.com.br/operadoranet/NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="NETSMSOperadoraWSDL">
+		<wsdl:port binding="operadora:NETSMSOperadoraWSDLSOAP" name="NETSMSOperadoraWSDLSOAP">
+			<soap:address location="http://www.localhost:7001/general/netsmsdatabaseconfig/NETSMSOperadora"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

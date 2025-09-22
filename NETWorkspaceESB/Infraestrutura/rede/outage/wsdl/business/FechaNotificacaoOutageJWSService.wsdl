@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="FechaNotificacaoOutageJWSServiceDefinitions" targetNamespace="http://br/com/netservicos/infraestrutura/rede/jws" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://www.netservicos.com.br/rede/outage" xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" xmlns:s3="http://br/com/netservicos/infraestrutura/rede/jws" xmlns:s4="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <s0:types>
+    <schema targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/modelocanonico/v2/evento" xmlns:tns="http://www.netservicos.com.br/v2/NetHeader">
+      <element name="NetHeader" type="tns:Header">
+        <annotation>
+          <documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Header">
+        <annotation>
+          <documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="aplicacao">
+            <annotation>
+              <documentation>
+						Aplicação que esta consumindo o serviço
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="NETSMS"/>
+                <enumeration value="NETSALES"/>
+                <enumeration value="PORTAL NET"/>
+                <enumeration value="URA"/>
+                <enumeration value="MODULO COBRANCA"/>
+                <enumeration value="ATLAS"/>
+                <enumeration value="RETENCAO REVERSAO"/>
+                <enumeration value="COMISSIONAMENTO"/>
+                <enumeration value="WORKASSURE"/>
+                <enumeration value="EMBRATEL"/>
+                <enumeration value="ACTIVIA"/>
+                <enumeration value="DECODER DIGITAL"/>
+                <enumeration value="NETADMIN"/>
+                <enumeration value="WLI_EVENT"/>
+                <enumeration value="OTHER"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="funcionalidade">
+            <annotation>
+              <documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="versaoServico" type="string">
+            <annotation>
+              <documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="token">
+            <annotation>
+              <documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="atendimento" type="tns:Atendimento">
+            <annotation>
+              <documentation>
+						Atendimento de cliente.
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="username" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Atendimento">
+        <annotation>
+          <documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamada deveria preencher os
+				valores desde entidade.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element name="numeroProtocolo" type="string">
+            <annotation>
+              <documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+            </annotation>
+          </element>
+          <element name="numeroChamada" type="string">
+            <annotation>
+              <documentation>
+						Numero de chamanda de atendimento
+					</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/rede/outage" xmlns:out="http://www.netservicos.com.br/rede/outage" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="FechamentoOutage">
+        <xsd:sequence>
+          <xsd:annotation>
+            <xsd:documentation>
+					Os seguintes dados serao informados: 1.
+					Numero da Notificacao; 2. Horario de
+					Fechamento; 3. Cod de Baixa; 4. ID do
+					Tecnico; 5. Observacao.
+				</xsd:documentation>
+          </xsd:annotation>
+          <xsd:element name="notificacaoId" type="xsd:string"/>
+          <xsd:element name="idCidadeContrato" type="xsd:string"/>
+          <xsd:element name="dataHoraFechamento" type="xsd:dateTime"/>
+          <xsd:element name="codigoFechamento" type="xsd:string"/>
+          <!-- Codigo de fechamento-->
+          <xsd:element minOccurs="0" name="tecnicoCod" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="credenciadaCod" type="xsd:string"/>
+          <xsd:element name="outageStatus">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="CANCEL"/>
+                <xsd:enumeration value="CLOSE"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="observacao" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ParametrosFecharOutage" type="out:FechamentoOutage"/>
+      <xsd:element name="ResultadoFecharOutage" type="xsd:string"/>
+    </xsd:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://br/com/netservicos/infraestrutura/rede/jws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="return" type="xs:string"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/rede/outage" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+  </s0:types>
+  <s0:message name="fechar">
+    <s0:part element="s1:ParametrosFecharOutage" name="request"/>
+    <s0:part element="s2:NetHeader" name="header"/>
+  </s0:message>
+  <s0:message name="fecharResponse">
+    <s0:part element="s3:return" name="return"/>
+  </s0:message>
+  <s0:portType name="FechaNotificacaoOutageJWS">
+    <s0:operation name="fechar" parameterOrder="request header">
+      <s0:input message="s3:fechar"/>
+      <s0:output message="s3:fecharResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="FechaNotificacaoOutageJWSServiceSoapBinding" type="s3:FechaNotificacaoOutageJWS">
+    <s4:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="fechar">
+      <s4:operation soapAction="" style="document"/>
+      <s0:input>
+        <s4:body parts="request" use="literal"/>
+        <s4:header message="s3:fechar" part="header" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s4:body parts="return" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="FechaNotificacaoOutageJWSService">
+    <s0:port binding="s3:FechaNotificacaoOutageJWSServiceSoapBinding" name="FechaNotificacaoOutageJWSSoapPort">
+      <s4:address location="http://localhost:7001/NETRedeWLIWeb/br/com/netservicos/infraestrutura/rede/control/process/FechaNotificacaoOutageJWS"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

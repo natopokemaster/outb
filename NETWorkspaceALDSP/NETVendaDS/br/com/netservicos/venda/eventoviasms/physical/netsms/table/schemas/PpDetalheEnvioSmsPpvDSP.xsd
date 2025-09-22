@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpDetalheEnvioSmsPpvDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PpDetalheEnvioSmsPpvDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_DETALHE_ENVIO_SMS_PPV" type="xs:integer"/>
+            <xs:element name="ID_ORIGEM" type="xs:integer"/>
+            <xs:element name="ID_PACOTE_PPV" type="xs:integer"/>
+            <xs:element name="ID_PROMOCAO" type="xs:integer"/>
+            <xs:element name="ID_PLANO_PGTO" type="xs:integer"/>
+            <xs:element name="ID_TIPO_VENDA" type="xs:integer"/>
+            <xs:element name="ID_MIDIA" type="xs:integer"/>
+            <xs:element name="ID_CAMPANHA" type="xs:integer"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

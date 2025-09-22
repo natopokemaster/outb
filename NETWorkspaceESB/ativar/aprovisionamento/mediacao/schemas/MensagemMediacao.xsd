@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.netservicos.com.br/MensagemMediacao"
+	xmlns:netheader="http://www.netservicos.com.br/v2/NetHeader"
+	xmlns:iden="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET"
+	targetNamespace="http://www.netservicos.com.br/MensagemMediacao"
+	elementFormDefault="qualified">
+
+	<xsd:import
+		namespace="http://www.netservicos.com.br/modelocanonico/v2/identificacaoOperadoraNET"
+		schemaLocation="../../../../modelocanonicoV2/geral/IdentificacaoOperadoraNET.xsd" />
+
+	<xsd:import namespace="http://www.netservicos.com.br/v2/NetHeader"
+		schemaLocation="../../../../modelocanonicoV2/geral/NETHeader.xsd" />
+
+	<xsd:element name="mensagemMediacao" type="tns:MensagemMediacaoType" />
+
+	<xsd:complexType name="MensagemMediacaoType">
+		<xsd:sequence>
+			<xsd:element name="netHeader" minOccurs="1" maxOccurs="1"
+				type="netheader:Header" />
+			<xsd:element name="identificacaoOperadoraNET"
+				type="iden:IdentificacaoOperadoraNET" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="identificadorOrdemAtivacao"
+				type="xsd:long" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

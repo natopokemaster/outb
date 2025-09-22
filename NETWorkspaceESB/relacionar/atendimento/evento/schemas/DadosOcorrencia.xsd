@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netservicos.com.br/Ocorrencia"
+	xmlns:tns="http://www.netservicos.com.br/Ocorrencia"
+	elementFormDefault="qualified">
+
+    <complexType name="DadosOcorrenciaRequestType">
+    	<sequence>
+    		<element name="cdHashCode" type="string"></element>
+    		<element name="idTipoOcorrencia" type="integer"></element>
+    		<element name="descricao" type="string"></element>
+    		<element name="numContrato" type="string"></element>
+    		<element name="cidContrato" type="string"></element>
+    	</sequence>
+    </complexType>
+    <complexType name="DadosOcorrenciaResponseType">
+    	<sequence>
+			 	<element name="ID_STATUS" type="integer" minOccurs="0"></element>
+			 	<element name="ID_ORIGEM" type="integer" minOccurs="0"></element>
+			 	<element name="DESCRICAO" type="string" minOccurs="0"></element>
+			 	<element name="CD_HASH_CODE" type="string" minOccurs="0"></element>
+			 	<element name="ID_ASSINANTE" type="string" minOccurs="0"></element>
+		</sequence>
+    </complexType>
+
+    <element name="consultarDadosOcorrencia" type="tns:DadosOcorrenciaRequestType"></element>
+
+    <element name="DadosOcorrencia" type="tns:DadosOcorrenciaResponseType"></element>
+</schema>

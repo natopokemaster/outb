@@ -1,0 +1,64 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:ListaTelefoneProconDSP" xmlns:t="ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP">
+<creationDate>2009-11-20T13:03:53</creationDate>
+<relationalDB name="jdbc/PROCON_ONLINE" providerId="Oracle-9"/>
+<field xpath="ID_LISTA_TELEFONE_PROCON" type="xs:double">
+  <extension nativeXpath="ID_LISTA_TELEFONE_PROCON" nativeTypeCode="3" nativeType="NUMBER" nativeSize="22" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="NR_TELEFONE" type="xs:string">
+  <extension nativeXpath="NR_TELEFONE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="15" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_ENTRADA" type="xs:dateTime">
+  <extension nativeXpath="DT_ENTRADA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DT_RESTRICAO" type="xs:dateTime">
+  <extension nativeXpath="DT_RESTRICAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ST_BLOQUEIO" type="xs:string">
+  <extension nativeXpath="ST_BLOQUEIO" nativeTypeCode="1" nativeType="CHAR" nativeSize="1" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="SG_UF" type="xs:string">
+  <extension nativeXpath="SG_UF" nativeTypeCode="1" nativeType="CHAR" nativeSize="2" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="DH_ULTIMA_ATUALIZACAO" type="xs:dateTime">
+  <extension nativeXpath="DH_ULTIMA_ATUALIZACAO" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PK_LISTA_TELEFONE_PROCON" type="lis:ListaTelefoneProconDSP_KEY" inferredSchema="true" xmlns:lis="ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP";
+
+import schema namespace t2 = "ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ListaTelefoneProconDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/procon/physical/procon/table/ListaTelefoneProconDSP" at "ld:br/com/netservicos/venda/procon/physical/procon/table/schemas/ListaTelefoneProconDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="LISTA_TELEFONE_PROCON" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:ListaTelefoneProconDSP() as schema-element(t2:ListaTelefoneProconDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="LISTA_TELEFONE_PROCON" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createListaTelefoneProconDSP($p as element(t2:ListaTelefoneProconDSP)*)as schema-element(t2:ListaTelefoneProconDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="LISTA_TELEFONE_PROCON" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateListaTelefoneProconDSP($p as changed-element(t2:ListaTelefoneProconDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="LISTA_TELEFONE_PROCON" nativeLevel2Container="NETLNP" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteListaTelefoneProconDSP($p as element(t2:ListaTelefoneProconDSP)*) as empty()  external;
+

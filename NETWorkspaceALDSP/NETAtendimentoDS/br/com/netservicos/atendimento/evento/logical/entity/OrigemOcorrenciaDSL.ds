@@ -1,0 +1,28 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="orig:OrigemOcorrencia" xmlns:x="urn:annotations.ld.bea.com" xmlns:orig="br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd">
+    <creationDate>2009-07-07T22:05:41</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+
+declare namespace sno= "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnOrigemOcorrenciaDSP";
+
+import schema namespace ori="br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd" at "ld:br/com/netservicos/atendimento/evento/logical/entity/schemas/OrigemOcorrencia.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/evento/logical/entity/OrigemOcorrenciaDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarOrigemOcorrenciaByDescricao($descricao as xs:string) as element(ori:OrigemOcorrencia)*{
+for $SnOrigemOcorrenciaDSP in sno:SnOrigemOcorrenciaDSP()
+where $descricao eq $SnOrigemOcorrenciaDSP/DESCRICAO
+return
+        <ori:OrigemOcorrencia>
+            <idOrigem>{fn:data($SnOrigemOcorrenciaDSP/ID_ORIGEM)}</idOrigem>
+            <descricao>{fn:data($SnOrigemOcorrenciaDSP/DESCRICAO)}</descricao>
+        </ori:OrigemOcorrencia>
+    
+
+};
+

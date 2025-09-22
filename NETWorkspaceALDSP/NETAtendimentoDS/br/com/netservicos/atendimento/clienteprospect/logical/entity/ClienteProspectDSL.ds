@@ -1,0 +1,897 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="sch:ClientesProspect" xmlns:x="urn:annotations.ld.bea.com" xmlns:sch="http://www.netservicos.com.br/ClientePropesct/schemas">
+    <creationDate>2009-11-16T17:02:45</creationDate>
+    <userDefinedView/>
+</x:xds>::)
+
+declare namespace snp= "ld:br/com/netservicos/atendimento/now/physical/netsms/table/SnParametroDSP";
+
+import schema namespace snt="ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP" at "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/schemas/SnTelefoneVoipDSP.xsd";
+
+declare namespace sexo= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnSexoDSP";
+
+declare namespace relAssinanteSegmentacao= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnRelAssinanteSegmentacaoDSP";
+
+declare namespace profissao= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnProfissaoDSP";
+
+declare namespace orgaoExpedidor= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnOrgaoExpedidorDSP";
+
+declare namespace estadoCivil= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEstadoCivilDSP";
+
+declare namespace escolaridade= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnEscolaridadeDSP";
+
+declare namespace contrato= "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP";
+
+declare namespace contratoColetivo= "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP";
+
+declare namespace telefoneVoip= "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnTelefoneVoipDSP";
+
+declare namespace tipoSegmento= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnTipoSegmentoDSP";
+
+declare namespace cidadeOperadora= "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace assinante= "ld:br/com/netservicos/atendimento/clienteprospect/physical/netsms/table/SnAssinanteDSP";
+
+declare namespace pessoaJuridica= "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP";
+
+import schema namespace sch="http://www.netservicos.com.br/ClientePropesct/schemas" at "ld:br/com/netservicos/atendimento/clienteprospect/schemas/ClientesProspect.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/clienteprospect/logical/entity/ClienteProspectDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarClientesPorCPF($cpf as xs:string) as element(sch:ClientesProspect) {
+
+	    <sch:ClientesProspect>
+    	{
+    		for $SnAssinanteDSP in assinante:SnAssinanteDSP()
+    		where $SnAssinanteDSP/CPF eq $cpf
+     		for $SnContratoDSP in contrato:SnContratoDSP()
+     		where $SnContratoDSP/ID_ASSINANTE eq $SnAssinanteDSP/ID_ASSINANTE
+     		for $SnCidadeOperadoraDSP in cidadeOperadora:SnCidadeOperadoraDSP()
+     		where $SnCidadeOperadoraDSP/CID_CONTRATO eq $SnContratoDSP/CID_CONTRATO
+     		for $SnProfissaoDSP in profissao:SnProfissaoDSP()
+     		where $SnProfissaoDSP/ID_PROFISSAO eq $SnAssinanteDSP/ID_PROFISSAO
+     		for $SnSexoDSP in sexo:SnSexoDSP()
+     		where $SnSexoDSP/ID_SEXO eq $SnAssinanteDSP/ID_SEXO
+     		for $SnEstadoCivilDSP in estadoCivil:SnEstadoCivilDSP()
+     		where $SnEstadoCivilDSP/ID_ESTADO_CIVIL eq $SnAssinanteDSP/ID_ESTADO_CIVIL
+     		for $RhPessoaJuridicaDSP in pessoaJuridica:RhPessoaJuridicaDSP()
+     		where $RhPessoaJuridicaDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+     		for $SnParametroDSP in snp:SnParametroDSP()
+    		where $SnCidadeOperadoraDSP/ID_EMPRESA eq $SnParametroDSP/ID_EMPRESA
+			where $SnParametroDSP/NOME_PARAMETRO eq tns:obterNomeParametro('CIDADE_MIGRADA_NETUNO')
+    		where $SnParametroDSP/VLR_PARAMETRO eq fn:number(0)
+    		where $SnParametroDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+     		return
+    	        <sch:clienteProspect>
+    				<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ASSINANTE)}</sch:Identificador>
+    	            <sch:nome?>{fn:data($SnAssinanteDSP/NOME_TITULAR)}</sch:nome>
+    	            <sch:tipoPessoa?>{fn-bea:if-then-else((fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1), "fisica", "juridica")}</sch:tipoPessoa>
+    	            {
+    		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+    		            	<sch:CPF?>{fn:data($SnAssinanteDSP/CPF)}</sch:CPF>
+    		            else ()
+    	            }
+    	            {
+    		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+    		            	<sch:RG?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:RG>
+    		            else ()
+    	            }
+    	            {
+    		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+    		            	<sch:CNPJ?>{fn:data($SnAssinanteDSP/CPF)}</sch:CNPJ>
+    		            else ()
+    	            }
+    	            {
+    		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+    		            	<sch:InscricaoEstadual?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:InscricaoEstadual>
+    		            else ()
+    	            }
+    	            {
+    	            	if ($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR)))) then
+    			        	<sch:OrgaoExpedidor?>{fn:data(tns:consultarOrgaoExpedidor($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR))}</sch:OrgaoExpedidor>
+    			        else ()
+    			    }
+                    <sch:Profissao?>
+                        <sch:Identificador?>{fn:data($SnProfissaoDSP/ID_PROFISSAO)}</sch:Identificador>
+                        <sch:Descricao?>{fn:data($SnProfissaoDSP/DESCRICAO)}</sch:Descricao>
+                    </sch:Profissao>
+                    <sch:DataNascimento?>{fn-bea:date-from-dateTime(fn:data($SnAssinanteDSP/DT_NASCIMENTO))}</sch:DataNascimento>
+                    <sch:Sexo?>{fn:data($SnSexoDSP/DESCRICAO)}</sch:Sexo>
+                    <sch:EstadoCivil?>
+                        <sch:Identificador?>{fn:data($SnEstadoCivilDSP/ID_ESTADO_CIVIL)}</sch:Identificador>
+                        <sch:Descricao?>{fn:data($SnEstadoCivilDSP/DESCRICAO)}</sch:Descricao>
+                    </sch:EstadoCivil>
+                    {
+                    if(fn:data($SnAssinanteDSP/ESTRANGEIRO) eq 1)then
+     	    	        <sch:IndicadorDeEstrangeiro?>{fn:true()}</sch:IndicadorDeEstrangeiro>
+                    else
+        	            <sch:IndicadorDeEstrangeiro?>{fn:false()}</sch:IndicadorDeEstrangeiro>
+                    }
+                    {
+                    	if ($SnAssinanteDSP/ID_ESCOLARIDADE/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)))) then
+    		            	<sch:GrauDeInstrucao?>
+    		                	<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)}</sch:Identificador>
+    							<sch:Descricao?>{fn:data(tns:consultarEscolaridade($SnAssinanteDSP/ID_ESCOLARIDADE))}</sch:Descricao>
+    		                </sch:GrauDeInstrucao>
+    					else ()
+                    }
+                    <sch:NomeMae?>{fn:data($SnAssinanteDSP/NOME_MAE)}</sch:NomeMae>
+                    <sch:NomePai?>{fn:data($SnAssinanteDSP/NOME_PAI)}</sch:NomePai>
+                    {
+    	            	if (fn:data($SnAssinanteDSP/E_MAIL) ne "" and fn:not(fn:empty(fn:data($SnAssinanteDSP/E_MAIL)))) then
+    	                    <sch:Emails?>
+    	                        {
+    	                            <sch:Emails>
+    	            					<sch:EnderecoEmail?>{fn:data($SnAssinanteDSP/E_MAIL)}</sch:EnderecoEmail>
+    	                                <sch:TipoEmail?></sch:TipoEmail>
+    	                                <sch:AceitaContato?>{fn:data($SnAssinanteDSP/E_MAIL_DEFAULT)}</sch:AceitaContato>
+    	                            </sch:Emails>
+    	                        }
+    	                    </sch:Emails>
+    					else ()
+                    }
+                    {
+                    	let $contato :=  tns:consultarContato($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+                    	return
+    		                <sch:TelefonesContato?>
+    		                    {
+    							if ($SnAssinanteDSP/TEL_RES/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_RES)))) then
+    		                    	<sch:telefoneContato>
+    		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+    	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_RES))}</sch:DDD>
+    		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_RES))}</sch:numeroTelefone>
+    		                        	<sch:ramal?></sch:ramal>
+    		                        	<sch:tipoTelefone?>{ xs:string("residencial") }</sch:tipoTelefone>
+    		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+    		                    	</sch:telefoneContato>
+    		                    	
+    		                    else()
+    		               		}
+    		               		{
+    		               		if ($SnAssinanteDSP/TEL_COM/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_COM)))) then
+    		                   		<sch:telefoneContato>
+    		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+    	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_COM))}</sch:DDD>
+    		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_COM))}</sch:numeroTelefone>
+    		                        	<sch:ramal?>{fn:data($SnAssinanteDSP/RAMAL)}</sch:ramal>
+    		                        	<sch:tipoTelefone?>{ xs:string("comercial") }</sch:tipoTelefone>
+    		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+    		                    	</sch:telefoneContato>
+    		                    else()
+    		              		}
+    		              		{
+    		              		if ($SnAssinanteDSP/CC_TEL_CEL/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/CC_TEL_CEL)))) then
+    		        				<sch:telefoneContato>
+    		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+    	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:DDD>
+    		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:numeroTelefone>
+    		                        	<sch:ramal?></sch:ramal>
+    		                        	<sch:tipoTelefone?>{ xs:string("celular") }</sch:tipoTelefone>
+    		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+    		                    	</sch:telefoneContato>
+    		                    else()
+    		             		}
+    		                    {
+    		                    if ($SnContratoDSP/NUM_CONTRATO/node()) then 
+    								let $netFones := tns:consultarNetFone($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+    			                    for $netFone in $netFones
+    			                    return
+    				            		<sch:telefoneContato>
+    				                        <sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+    				                        <sch:DDD?>{fn:data($netFone/DDD_TELEFONE_VOIP)}</sch:DDD>
+    				                        <sch:numeroTelefone?>{fn:data($netFone/NUM_TELEFONE_VOIP)}</sch:numeroTelefone>
+    				                        <sch:ramal?></sch:ramal>
+    				                        <sch:tipoTelefone?>{ xs:string("netfone") }</sch:tipoTelefone>
+    				                        <sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+    				                    </sch:telefoneContato>
+    			                else()
+    					}
+    		                </sch:TelefonesContato>
+                    }
+                    <sch:ContratosDeVenda?>
+    	                <sch:contratoDeVenda>
+    	                    <sch:numeroContrato?>{fn:data($SnContratoDSP/NUM_CONTRATO)}</sch:numeroContrato>
+    	                    <sch:digitoVerificador?>{fn:data($SnContratoDSP/DIGITO_VERIFICACAO)}</sch:digitoVerificador>
+    	                    <sch:operadoraNET?>
+    	                        <sch:identificador?>{fn:data($RhPessoaJuridicaDSP/ID_EMPRESA)}</sch:identificador>
+    	                        <sch:NomeEmpresa?>{fn:data($SnCidadeOperadoraDSP/RAZAO_SOCIAL)}</sch:NomeEmpresa>
+    	                        <sch:CNPJ?>{fn:data($RhPessoaJuridicaDSP/CGC)}</sch:CNPJ>
+    	                        <sch:inscricaoEstadual?>{fn:data($RhPessoaJuridicaDSP/INSCRICAO_ESTADUAL)}</sch:inscricaoEstadual>
+    	                        <sch:nomeFantasia?>{fn:data($SnCidadeOperadoraDSP/NOME_PESSOA)}</sch:nomeFantasia>
+    	                        <sch:CodigoOperdaora?>{fn:data($SnCidadeOperadoraDSP/COD_OPERADORA)}</sch:CodigoOperdaora>
+    	                        <sch:IdentificacaoCidade?>{fn:data($SnCidadeOperadoraDSP/CID_CONTRATO)}</sch:IdentificacaoCidade>
+    	                        <sch:NomeOperadora?>{fn:data($SnCidadeOperadoraDSP/CI_NOME)}</sch:NomeOperadora>
+    	                    </sch:operadoraNET>
+    	                    <sch:dataVenda?></sch:dataVenda>
+    	                    <sch:dataCancelamento?></sch:dataCancelamento>
+    	                    <sch:motivoCancelamento?></sch:motivoCancelamento>
+    	                    <sch:dataCadastro?></sch:dataCadastro>
+    	                    <sch:observacao?></sch:observacao>
+    	                </sch:contratoDeVenda>
+                    </sch:ContratosDeVenda>
+                    <sch:CodigoSuframa?>{fn:data($SnAssinanteDSP/CD_SUFRAMA)}</sch:CodigoSuframa>
+    	            <sch:TipoCliente?>{fn:data(tns:consultarTipoSegmento($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO))}</sch:TipoCliente>
+                </sch:clienteProspect>
+    	}
+    	</sch:ClientesProspect>
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarClientesPorCNPJ($cnpj as xs:string) as element(sch:ClientesProspect) {
+	let $retorno := tns:consultarClientesPorCPF($cnpj)
+	return $retorno 
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarClientePorContrato($numeroContrato as xs:long, $identificacaoCidade as xs:string) as element(sch:ClientesProspect) {
+	<sch:ClientesProspect>
+	{
+		for $SnAssinanteDSP in assinante:SnAssinanteDSP()
+		for $SnContratoDSP in contrato:SnContratoDSP()
+		where $SnContratoDSP/ID_ASSINANTE eq $SnAssinanteDSP/ID_ASSINANTE
+		where $SnContratoDSP/CID_CONTRATO eq  $identificacaoCidade
+		where $SnContratoDSP/NUM_CONTRATO eq  $numeroContrato
+		for $SnCidadeOperadoraDSP in cidadeOperadora:SnCidadeOperadoraDSP()
+		where $SnCidadeOperadoraDSP/CID_CONTRATO eq $SnContratoDSP/CID_CONTRATO
+		for $SnProfissaoDSP in profissao:SnProfissaoDSP()
+		where $SnProfissaoDSP/ID_PROFISSAO eq $SnAssinanteDSP/ID_PROFISSAO
+		for $SnSexoDSP in sexo:SnSexoDSP()
+		where $SnSexoDSP/ID_SEXO eq $SnAssinanteDSP/ID_SEXO
+		for $SnEstadoCivilDSP in estadoCivil:SnEstadoCivilDSP()
+		where $SnEstadoCivilDSP/ID_ESTADO_CIVIL eq $SnAssinanteDSP/ID_ESTADO_CIVIL
+		for $RhPessoaJuridicaDSP in pessoaJuridica:RhPessoaJuridicaDSP()
+		where $RhPessoaJuridicaDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+		for $SnParametroDSP in snp:SnParametroDSP()
+    	where $SnCidadeOperadoraDSP/ID_EMPRESA eq $SnParametroDSP/ID_EMPRESA
+		where $SnParametroDSP/NOME_PARAMETRO eq tns:obterNomeParametro('CIDADE_MIGRADA_NETUNO')
+    	where $SnParametroDSP/VLR_PARAMETRO eq fn:number(0)
+    	where $SnParametroDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+		
+		return
+			<sch:clienteProspect>
+				<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ASSINANTE)}</sch:Identificador>
+				<sch:nome?>{fn:data($SnAssinanteDSP/NOME_TITULAR)}</sch:nome>
+				<sch:tipoPessoa?>{fn-bea:if-then-else((fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1), "fisica", "juridica")}</sch:tipoPessoa>
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:CPF?>{fn:data($SnAssinanteDSP/CPF)}</sch:CPF>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:RG?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:RG>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:CNPJ?>{fn:data($SnAssinanteDSP/CPF)}</sch:CNPJ>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:InscricaoEstadual?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:InscricaoEstadual>
+		            else ()
+	            }
+	            {
+	            	if ($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR)))) then
+			        	<sch:OrgaoExpedidor?>{fn:data(tns:consultarOrgaoExpedidor($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR))}</sch:OrgaoExpedidor>
+			        else ()
+			    }
+				<sch:Profissao?>
+						<sch:Identificador?>{fn:data($SnProfissaoDSP/ID_PROFISSAO)}</sch:Identificador>
+						<sch:Descricao?>{fn:data($SnProfissaoDSP/DESCRICAO)}</sch:Descricao>
+				</sch:Profissao>
+				<sch:DataNascimento?>{fn-bea:date-from-dateTime(fn:data($SnAssinanteDSP/DT_NASCIMENTO))}</sch:DataNascimento>
+				<sch:Sexo?>{fn:data($SnSexoDSP/DESCRICAO)}</sch:Sexo>
+				<sch:EstadoCivil?>
+						<sch:Identificador?>{fn:data($SnEstadoCivilDSP/ID_ESTADO_CIVIL)}</sch:Identificador>
+						<sch:Descricao?>{fn:data($SnEstadoCivilDSP/DESCRICAO)}</sch:Descricao>
+				</sch:EstadoCivil>
+				                {
+                if(fn:data($SnAssinanteDSP/ESTRANGEIRO) eq 1)then
+ 	    	        <sch:IndicadorDeEstrangeiro?>{fn:true()}</sch:IndicadorDeEstrangeiro>
+                else
+    	            <sch:IndicadorDeEstrangeiro?>{fn:false()}</sch:IndicadorDeEstrangeiro>
+                }
+                {
+                	if ($SnAssinanteDSP/ID_ESCOLARIDADE/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)))) then
+		            	<sch:GrauDeInstrucao?>
+		                	<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)}</sch:Identificador>
+							<sch:Descricao?>{fn:data(tns:consultarEscolaridade($SnAssinanteDSP/ID_ESCOLARIDADE))}</sch:Descricao>
+		                </sch:GrauDeInstrucao>
+					else ()
+                }
+				<sch:NomeMae?>{fn:data($SnAssinanteDSP/NOME_MAE)}</sch:NomeMae>
+				<sch:NomePai?>{fn:data($SnAssinanteDSP/NOME_PAI)}</sch:NomePai>
+				{
+					if(fn:data($SnAssinanteDSP/E_MAIL) ne "" and fn:not(fn:empty(fn:data($SnAssinanteDSP/E_MAIL)))) then
+						<sch:Emails?>
+							<sch:Emails>
+								<sch:EnderecoEmail?>{fn:data($SnAssinanteDSP/E_MAIL)}</sch:EnderecoEmail>
+								<sch:TipoEmail?></sch:TipoEmail>
+								<sch:AceitaContato?>{fn:data($SnAssinanteDSP/E_MAIL_DEFAULT)}</sch:AceitaContato>
+							</sch:Emails>
+						</sch:Emails>
+					else ()
+				}
+				{
+                	let $contato :=  tns:consultarContato($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+                	return
+						<sch:TelefonesContato?>
+							{
+							if ($SnAssinanteDSP/TEL_RES/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_RES)))) then
+		                    	<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>                    	                                                                
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_RES))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_RES))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("residencial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		              		}
+		               		{
+		               		if ($SnAssinanteDSP/TEL_COM/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_COM)))) then
+		                   		<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_COM))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_COM))}</sch:numeroTelefone>
+		                        	<sch:ramal?>{fn:data($SnAssinanteDSP/RAMAL)}</sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("comercial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		              		}
+		              		{
+		              		if ($SnAssinanteDSP/CC_TEL_CEL/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/CC_TEL_CEL)))) then
+		        				<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("celular") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		             		}
+		              		{
+		              		if ($SnAssinanteDSP/FAX/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/FAX)))) then
+		        				<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/FAX))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/FAX))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("fax") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		             		}
+		              		{
+		              		if ($SnAssinanteDSP/TEL_OUTROS/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_OUTROS)))) then
+		        				<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:substring(fn:data($SnAssinanteDSP/TEL_OUTROS), 1, 14))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:substring(fn:data($SnAssinanteDSP/TEL_OUTROS), 1, 14))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("outros") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		             		}
+		                    {
+		                    if ($SnContratoDSP/NUM_CONTRATO/node()) then
+			                    let $netFones := tns:consultarNetFone($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+			                    for $netFone in $netFones
+			                    return
+				            		<sch:telefoneContato>
+				                        <sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+				                        <sch:DDD?>{fn:data($netFone/DDD_TELEFONE_VOIP)}</sch:DDD>
+				                        <sch:numeroTelefone?>{fn:data($netFone/NUM_TELEFONE_VOIP)}</sch:numeroTelefone>
+				                        <sch:ramal?></sch:ramal>
+				                        <sch:tipoTelefone?>{ xs:string("netfone") }</sch:tipoTelefone>
+				                        <sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+				                    </sch:telefoneContato>
+							else()
+					}
+						</sch:TelefonesContato>
+				}
+				<sch:ContratosDeVenda?>
+					<sch:contratoDeVenda>
+						<sch:numeroContrato?>{fn:data($SnContratoDSP/NUM_CONTRATO)}</sch:numeroContrato>
+						<sch:digitoVerificador?>{fn:data($SnContratoDSP/DIGITO_VERIFICACAO)}</sch:digitoVerificador>
+							<sch:operadoraNET?>
+								<sch:identificador?>{fn:data($RhPessoaJuridicaDSP/ID_EMPRESA)}</sch:identificador>
+								<sch:NomeEmpresa?>{fn:data($SnCidadeOperadoraDSP/RAZAO_SOCIAL)}</sch:NomeEmpresa>
+								<sch:CNPJ?>{fn:data($RhPessoaJuridicaDSP/CGC)}</sch:CNPJ>
+								<sch:inscricaoEstadual?>{fn:data($RhPessoaJuridicaDSP/INSCRICAO_ESTADUAL)}</sch:inscricaoEstadual>
+								<sch:nomeFantasia?>{fn:data($SnCidadeOperadoraDSP/NOME_PESSOA)}</sch:nomeFantasia>
+								<sch:CodigoOperdaora?>{fn:data($SnCidadeOperadoraDSP/COD_OPERADORA)}</sch:CodigoOperdaora>
+								<sch:IdentificacaoCidade?>{fn:data($SnCidadeOperadoraDSP/CID_CONTRATO)}</sch:IdentificacaoCidade>
+								<sch:NomeOperadora?>{fn:data($SnCidadeOperadoraDSP/CI_NOME)}</sch:NomeOperadora>
+							</sch:operadoraNET>
+						<sch:dataVenda?></sch:dataVenda>
+						<sch:dataCancelamento?></sch:dataCancelamento>
+						<sch:motivoCancelamento?></sch:motivoCancelamento>
+						<sch:dataCadastro?></sch:dataCadastro>
+						<sch:observacao?></sch:observacao>
+					</sch:contratoDeVenda>
+				</sch:ContratosDeVenda>
+				<sch:CodigoSuframa?>{fn:data($SnAssinanteDSP/CD_SUFRAMA)}</sch:CodigoSuframa>
+				<sch:TipoCliente?>{fn:data(tns:consultarTipoSegmento($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO))}</sch:TipoCliente>
+			</sch:clienteProspect>
+	}
+	</sch:ClientesProspect>
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarClientesPorTelefoneContato($ddd as xs:string, $numeroTelefone as xs:string) as element(sch:ClientesProspect) {
+	let $telefonesNaoVoip := tns:consultarTelefoneNaoVoip($ddd, $numeroTelefone)
+	let $telefonesVoip := tns:consultarTelefoneVoip($ddd, $numeroTelefone)
+	return
+	    if (fn:empty(fn:data($telefonesNaoVoip))) then 
+	   		$telefonesVoip
+	   	else if(fn:empty(fn:data($telefonesVoip)))then
+	    	$telefonesNaoVoip
+	    else 
+	    	$telefonesVoip union $telefonesNaoVoip
+};
+
+(::pragma function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarTelefoneNaoVoip($ddd as xs:string , $numeroTelefone as xs:string) as element(sch:ClientesProspect)*{
+	<sch:ClientesProspect>
+	{
+		for $SnAssinanteDSP in assinante:SnAssinanteDSP() 
+		where ($SnAssinanteDSP/TEL_RES eq fn:concat($ddd, $numeroTelefone)
+		or $SnAssinanteDSP/TEL_COM eq fn:concat($ddd, $numeroTelefone)
+		or $SnAssinanteDSP/CC_TEL_CEL eq fn:concat($ddd, $numeroTelefone))																 
+		for $SnContratoDSP in contrato:SnContratoDSP() 
+		where $SnContratoDSP/ID_ASSINANTE eq $SnAssinanteDSP/ID_ASSINANTE                     					
+		for $SnCidadeOperadoraDSP in cidadeOperadora:SnCidadeOperadoraDSP()
+		where $SnCidadeOperadoraDSP/CID_CONTRATO eq $SnContratoDSP/CID_CONTRATO
+		for $SnProfissaoDSP in profissao:SnProfissaoDSP()  
+		where $SnProfissaoDSP/ID_PROFISSAO eq $SnAssinanteDSP/ID_PROFISSAO
+		for $SnSexoDSP in sexo:SnSexoDSP()
+		where $SnSexoDSP/ID_SEXO eq $SnAssinanteDSP/ID_SEXO
+		for $SnEstadoCivilDSP in estadoCivil:SnEstadoCivilDSP()
+		where $SnEstadoCivilDSP/ID_ESTADO_CIVIL eq $SnAssinanteDSP/ID_ESTADO_CIVIL
+		for $RhPessoaJuridicaDSP in pessoaJuridica:RhPessoaJuridicaDSP()
+		where $RhPessoaJuridicaDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+		for $SnParametroDSP in snp:SnParametroDSP()
+    	where $SnCidadeOperadoraDSP/ID_EMPRESA eq $SnParametroDSP/ID_EMPRESA
+		where $SnParametroDSP/NOME_PARAMETRO eq tns:obterNomeParametro('CIDADE_MIGRADA_NETUNO')
+    	where $SnParametroDSP/VLR_PARAMETRO eq fn:number(0)
+    	where $SnParametroDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+		
+		return
+			<sch:clienteProspect>
+				<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ASSINANTE)}</sch:Identificador>
+				<sch:nome?>{fn:data($SnAssinanteDSP/NOME_TITULAR)}</sch:nome>
+				<sch:tipoPessoa?>{fn-bea:if-then-else((fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1), "fisica", "juridica")}</sch:tipoPessoa>
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:CPF?>{fn:data($SnAssinanteDSP/CPF)}</sch:CPF>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:RG?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:RG>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:CNPJ?>{fn:data($SnAssinanteDSP/CPF)}</sch:CNPJ>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:InscricaoEstadual?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:InscricaoEstadual>
+		            else ()
+	            }
+	            {
+	            	if ($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR)))) then
+			        	<sch:OrgaoExpedidor?>{fn:data(tns:consultarOrgaoExpedidor($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR))}</sch:OrgaoExpedidor>
+			        else ()
+			    }
+				<sch:Profissao?>
+						<sch:Identificador?>{fn:data($SnProfissaoDSP/ID_PROFISSAO)}</sch:Identificador>
+						<sch:Descricao?>{fn:data($SnProfissaoDSP/DESCRICAO)}</sch:Descricao>
+				</sch:Profissao>
+				<sch:DataNascimento?>{fn-bea:date-from-dateTime(fn:data($SnAssinanteDSP/DT_NASCIMENTO))}</sch:DataNascimento>
+				<sch:Sexo?>{fn:data($SnSexoDSP/DESCRICAO)}</sch:Sexo>
+				<sch:EstadoCivil?>
+						<sch:Identificador?>{fn:data($SnEstadoCivilDSP/ID_ESTADO_CIVIL)}</sch:Identificador>
+						<sch:Descricao?>{fn:data($SnEstadoCivilDSP/DESCRICAO)}</sch:Descricao>
+				</sch:EstadoCivil>
+                {
+                if(fn:data($SnAssinanteDSP/ESTRANGEIRO) eq 1)then
+ 	    	        <sch:IndicadorDeEstrangeiro?>{fn:true()}</sch:IndicadorDeEstrangeiro>
+                else
+    	            <sch:IndicadorDeEstrangeiro?>{fn:false()}</sch:IndicadorDeEstrangeiro>
+                }
+                {
+                	if ($SnAssinanteDSP/ID_ESCOLARIDADE/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)))) then
+		            	<sch:GrauDeInstrucao?>
+		                	<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)}</sch:Identificador>
+							<sch:Descricao?>{fn:data(tns:consultarEscolaridade($SnAssinanteDSP/ID_ESCOLARIDADE))}</sch:Descricao>
+		                </sch:GrauDeInstrucao>
+					else ()
+                }
+				<sch:NomeMae?>{fn:data($SnAssinanteDSP/NOME_MAE)}</sch:NomeMae>
+				<sch:NomePai?>{fn:data($SnAssinanteDSP/NOME_PAI)}</sch:NomePai>
+				{
+					if(fn:data($SnAssinanteDSP/E_MAIL) ne "" and fn:not(fn:empty(fn:data($SnAssinanteDSP/E_MAIL)))) then
+						<sch:Emails?>
+							<sch:Emails>
+								<sch:EnderecoEmail?>{fn:data($SnAssinanteDSP/E_MAIL)}</sch:EnderecoEmail>
+								<sch:TipoEmail?></sch:TipoEmail>
+								<sch:AceitaContato?>{fn:data($SnAssinanteDSP/E_MAIL_DEFAULT)}</sch:AceitaContato>
+							</sch:Emails>
+						</sch:Emails>
+					else ()
+				}
+				{
+                	let $contato :=  tns:consultarContato($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+                	return
+						<sch:TelefonesContato?>
+		                    {
+							if ($SnAssinanteDSP/TEL_RES/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_RES)))) then
+		                    	<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>                    	                                                                
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_RES))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_RES))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("residencial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		               		}
+		               		{
+		               		if ($SnAssinanteDSP/TEL_COM/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_COM)))) then
+		                   		<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_COM))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_COM))}</sch:numeroTelefone>
+		                        	<sch:ramal?>{fn:data($SnAssinanteDSP/RAMAL)}</sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("comercial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		              		}
+		              		{
+		              		if ($SnAssinanteDSP/CC_TEL_CEL/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/CC_TEL_CEL)))) then
+		        				<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("celular") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		             		}
+		                    {
+		                    if ($SnContratoDSP/NUM_CONTRATO/node()) then
+			                    let $netFones := tns:consultarNetFone($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+			                    for $netFone in $netFones
+			                    return
+				            		<sch:telefoneContato>
+				                        <sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+				                        <sch:DDD?>{fn:data($netFone/DDD_TELEFONE_VOIP)}</sch:DDD>
+				                        <sch:numeroTelefone?>{fn:data($netFone/NUM_TELEFONE_VOIP)}</sch:numeroTelefone>
+				                        <sch:ramal?></sch:ramal>
+				                        <sch:tipoTelefone?>{ xs:string("netfone") }</sch:tipoTelefone>
+				                        <sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+				                    </sch:telefoneContato>
+							else()
+							}
+						</sch:TelefonesContato>
+				}
+				<sch:ContratosDeVenda?>
+					<sch:contratoDeVenda>
+						<sch:numeroContrato?>{fn:data($SnContratoDSP/NUM_CONTRATO)}</sch:numeroContrato>
+						<sch:digitoVerificador?>{fn:data($SnContratoDSP/DIGITO_VERIFICACAO)}</sch:digitoVerificador>
+						<sch:operadoraNET?>
+							<sch:identificador?>{fn:data($RhPessoaJuridicaDSP/ID_EMPRESA)}</sch:identificador>
+							<sch:NomeEmpresa?>{fn:data($SnCidadeOperadoraDSP/RAZAO_SOCIAL)}</sch:NomeEmpresa>
+							<sch:CNPJ?>{fn:data($RhPessoaJuridicaDSP/CGC)}</sch:CNPJ>
+							<sch:inscricaoEstadual?>{fn:data($RhPessoaJuridicaDSP/INSCRICAO_ESTADUAL)}</sch:inscricaoEstadual>
+							<sch:nomeFantasia?>{fn:data($SnCidadeOperadoraDSP/NOME_PESSOA)}</sch:nomeFantasia>
+							<sch:CodigoOperdaora?>{fn:data($SnCidadeOperadoraDSP/COD_OPERADORA)}</sch:CodigoOperdaora>
+							<sch:IdentificacaoCidade?>{fn:data($SnCidadeOperadoraDSP/CID_CONTRATO)}</sch:IdentificacaoCidade>
+							<sch:NomeOperadora?>{fn:data($SnCidadeOperadoraDSP/CI_NOME)}</sch:NomeOperadora>
+						</sch:operadoraNET>
+						<sch:dataVenda?></sch:dataVenda>
+						<sch:dataCancelamento?></sch:dataCancelamento>
+						<sch:motivoCancelamento?></sch:motivoCancelamento>
+						<sch:dataCadastro?></sch:dataCadastro>
+						<sch:observacao?></sch:observacao>
+					</sch:contratoDeVenda>
+				</sch:ContratosDeVenda>
+				<sch:CodigoSuframa?>{fn:data($SnAssinanteDSP/CD_SUFRAMA)}</sch:CodigoSuframa>
+				<sch:TipoCliente?>{fn:data(tns:consultarTipoSegmento($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO))}</sch:TipoCliente>
+			</sch:clienteProspect>
+		}
+	</sch:ClientesProspect>
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarTelefoneVoip($ddd as xs:string, $numeroTelefone as xs:string) as element(sch:ClientesProspect)* {
+    <sch:ClientesProspect>
+	{
+		for $SnAssinanteDSP in assinante:SnAssinanteDSP()
+		for $SnContratoDSP in contrato:SnContratoDSP()
+		where $SnContratoDSP/ID_ASSINANTE eq $SnAssinanteDSP/ID_ASSINANTE
+ 		for $SnCidadeOperadoraDSP in cidadeOperadora:SnCidadeOperadoraDSP()
+ 		where $SnCidadeOperadoraDSP/CID_CONTRATO eq $SnContratoDSP/CID_CONTRATO
+		for $SnTelefoneVoipDSP in telefoneVoip:SnTelefoneVoipDSP()
+		where $SnTelefoneVoipDSP/NUM_CONTRATO eq $SnContratoDSP/NUM_CONTRATO
+		where $SnTelefoneVoipDSP/CID_CONTRATO eq $SnContratoDSP/CID_CONTRATO
+		where fn:concat(fn:upper-case($SnTelefoneVoipDSP/ID_STATUS_TELEFONE_VOIP), '') eq 'U'
+		where $SnTelefoneVoipDSP/DT_FIM ge fn:current-dateTime()
+		where $SnTelefoneVoipDSP/DDD_TELEFONE_VOIP eq xs:string(xs:long($ddd))
+		where $SnTelefoneVoipDSP/NUM_TELEFONE_VOIP eq $numeroTelefone
+		for $SnProfissaoDSP in profissao:SnProfissaoDSP()
+ 		where $SnProfissaoDSP/ID_PROFISSAO eq $SnAssinanteDSP/ID_PROFISSAO
+		for $SnSexoDSP in sexo:SnSexoDSP()
+ 		where $SnSexoDSP/ID_SEXO eq $SnAssinanteDSP/ID_SEXO
+ 		for $SnEstadoCivilDSP in estadoCivil:SnEstadoCivilDSP()
+ 		where $SnEstadoCivilDSP/ID_ESTADO_CIVIL eq $SnAssinanteDSP/ID_ESTADO_CIVIL
+ 		for $RhPessoaJuridicaDSP in pessoaJuridica:RhPessoaJuridicaDSP()
+ 		where $RhPessoaJuridicaDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+ 		for $SnParametroDSP in snp:SnParametroDSP()
+    	where $SnCidadeOperadoraDSP/ID_EMPRESA eq $SnParametroDSP/ID_EMPRESA
+		where $SnParametroDSP/NOME_PARAMETRO eq tns:obterNomeParametro('CIDADE_MIGRADA_NETUNO')
+    	where $SnParametroDSP/VLR_PARAMETRO eq fn:number(0)
+    	where $SnParametroDSP/ID_EMPRESA eq $SnCidadeOperadoraDSP/ID_EMPRESA
+ 		
+ 		return
+            <sch:clienteProspect>
+                <sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ASSINANTE)}</sch:Identificador>
+                <sch:nome?>{fn:data($SnAssinanteDSP/NOME_TITULAR)}</sch:nome>
+                <sch:tipoPessoa?>{fn-bea:if-then-else((fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1), "fisica", "juridica")}</sch:tipoPessoa>
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:CPF?>{fn:data($SnAssinanteDSP/CPF)}</sch:CPF>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 1)then
+		            	<sch:RG?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:RG>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:CNPJ?>{fn:data($SnAssinanteDSP/CPF)}</sch:CNPJ>
+		            else ()
+	            }
+	            {
+		            if(fn:data($SnAssinanteDSP/ID_TIPO_PESSOA) eq 2)then
+		            	<sch:InscricaoEstadual?>{fn:data($SnAssinanteDSP/NUM_RG)}</sch:InscricaoEstadual>
+		            else ()
+	            }
+	            {
+	            	if ($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR)))) then
+			        	<sch:OrgaoExpedidor?>{fn:data(tns:consultarOrgaoExpedidor($SnAssinanteDSP/ID_ORGAO_EXPEDIDOR))}</sch:OrgaoExpedidor>
+			        else ()
+			    }
+                <sch:Profissao?>
+                    <sch:Identificador?>{fn:data($SnProfissaoDSP/ID_PROFISSAO)}</sch:Identificador>
+                    <sch:Descricao?>{fn:data($SnProfissaoDSP/DESCRICAO)}</sch:Descricao>
+                </sch:Profissao>
+                <sch:DataNascimento?>{fn-bea:date-from-dateTime(fn:data($SnAssinanteDSP/DT_NASCIMENTO))}</sch:DataNascimento>
+                <sch:Sexo?>{fn:data($SnSexoDSP/DESCRICAO)}</sch:Sexo>
+                <sch:EstadoCivil?>
+                    <sch:Identificador?>{fn:data($SnEstadoCivilDSP/ID_ESTADO_CIVIL)}</sch:Identificador>
+                    <sch:Descricao?>{fn:data($SnEstadoCivilDSP/DESCRICAO)}</sch:Descricao>
+                </sch:EstadoCivil>
+                {
+                if(fn:data($SnAssinanteDSP/ESTRANGEIRO) eq 1)then
+ 	    	        <sch:IndicadorDeEstrangeiro?>{fn:true()}</sch:IndicadorDeEstrangeiro>
+                else
+    	            <sch:IndicadorDeEstrangeiro?>{fn:false()}</sch:IndicadorDeEstrangeiro>
+                }
+                {
+                	if ($SnAssinanteDSP/ID_ESCOLARIDADE/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)))) then
+		            	<sch:GrauDeInstrucao?>
+		                	<sch:Identificador?>{fn:data($SnAssinanteDSP/ID_ESCOLARIDADE)}</sch:Identificador>
+							<sch:Descricao?>{fn:data(tns:consultarEscolaridade($SnAssinanteDSP/ID_ESCOLARIDADE))}</sch:Descricao>
+		                </sch:GrauDeInstrucao>
+					else ()
+                }
+                <sch:NomeMae?>{fn:data($SnAssinanteDSP/NOME_MAE)}</sch:NomeMae>
+                <sch:NomePai?>{fn:data($SnAssinanteDSP/NOME_PAI)}</sch:NomePai>
+                 {
+                	if(fn:data($SnAssinanteDSP/E_MAIL) ne "" and fn:not(fn:empty(fn:data($SnAssinanteDSP/E_MAIL)))) then
+	                    <sch:Emails?>
+	                        <sch:Emails>
+	        					<sch:EnderecoEmail?>{fn:data($SnAssinanteDSP/E_MAIL)}</sch:EnderecoEmail>
+	                            <sch:TipoEmail?></sch:TipoEmail>
+	                            <sch:AceitaContato?>{fn:data($SnAssinanteDSP/E_MAIL_DEFAULT)}</sch:AceitaContato>
+	                        </sch:Emails>
+	                    </sch:Emails>
+					else ()
+                }
+				{
+                	let $contato :=  tns:consultarContato($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO)
+                	return
+		                <sch:TelefonesContato?>
+		                    {
+							if ($SnAssinanteDSP/TEL_RES/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_RES)))) then
+		                    	<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>                    	                                                                
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_RES))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_RES))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("residencial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		               		}
+		               		{
+		               		if ($SnAssinanteDSP/TEL_COM/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/TEL_COM)))) then
+		                   		<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/TEL_COM))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/TEL_COM))}</sch:numeroTelefone>
+		                        	<sch:ramal?>{fn:data($SnAssinanteDSP/RAMAL)}</sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("comercial") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		              		}
+		              		{
+		              		if ($SnAssinanteDSP/CC_TEL_CEL/node() and fn:not(fn:empty(fn:data($SnAssinanteDSP/CC_TEL_CEL)))) then
+		        				<sch:telefoneContato>
+		                        	<sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+	                        		<sch:DDD?>{tns:obtemDDD(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:DDD>
+		                        	<sch:numeroTelefone?>{tns:obtemTelefone(fn:data($SnAssinanteDSP/CC_TEL_CEL))}</sch:numeroTelefone>
+		                        	<sch:ramal?></sch:ramal>
+		                        	<sch:tipoTelefone?>{ xs:string("celular") }</sch:tipoTelefone>
+		                        	<sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    	</sch:telefoneContato>
+		                    else()
+		             		}
+		            		<sch:telefoneContato>
+		                        <sch:IdentificadorTelefoneContato?></sch:IdentificadorTelefoneContato>
+		                        <sch:DDD?>{fn:data($SnTelefoneVoipDSP/DDD_TELEFONE_VOIP)}</sch:DDD>
+		                        <sch:numeroTelefone?>{fn:data($SnTelefoneVoipDSP/NUM_TELEFONE_VOIP)}</sch:numeroTelefone>
+		                        <sch:ramal?></sch:ramal>
+		                        <sch:tipoTelefone?>{ xs:string("netfone") }</sch:tipoTelefone>
+		                        <sch:nomeRecado?>{fn:data($contato)}</sch:nomeRecado>
+		                    </sch:telefoneContato>
+		                </sch:TelefonesContato>
+				}
+                <sch:ContratosDeVenda?>
+	                <sch:contratoDeVenda>
+	                    <sch:numeroContrato?>{fn:data($SnContratoDSP/NUM_CONTRATO)}</sch:numeroContrato>
+	                    <sch:digitoVerificador?>{fn:data($SnContratoDSP/DIGITO_VERIFICACAO)}</sch:digitoVerificador>
+	                        <sch:operadoraNET?>
+	                            <sch:identificador?>{fn:data($RhPessoaJuridicaDSP/ID_EMPRESA)}</sch:identificador>
+	                            <sch:NomeEmpresa?>{fn:data($SnCidadeOperadoraDSP/RAZAO_SOCIAL)}</sch:NomeEmpresa>
+	                            <sch:CNPJ?>{fn:data($RhPessoaJuridicaDSP/CGC)}</sch:CNPJ>
+	                            <sch:inscricaoEstadual?>{fn:data($RhPessoaJuridicaDSP/INSCRICAO_ESTADUAL)}</sch:inscricaoEstadual>
+	                            <sch:nomeFantasia?>{fn:data($SnCidadeOperadoraDSP/NOME_PESSOA)}</sch:nomeFantasia>
+	                            <sch:CodigoOperdaora?>{fn:data($SnCidadeOperadoraDSP/COD_OPERADORA)}</sch:CodigoOperdaora>
+	                            <sch:IdentificacaoCidade?>{fn:data($SnCidadeOperadoraDSP/CID_CONTRATO)}</sch:IdentificacaoCidade>
+	                            <sch:NomeOperadora?>{fn:data($SnCidadeOperadoraDSP/CI_NOME)}</sch:NomeOperadora>
+	                        </sch:operadoraNET>
+	                    <sch:dataVenda?></sch:dataVenda>
+	                    <sch:dataCancelamento?></sch:dataCancelamento>
+	                    <sch:motivoCancelamento?></sch:motivoCancelamento>
+	                    <sch:dataCadastro?></sch:dataCadastro>
+	                    <sch:observacao?></sch:observacao>
+	                </sch:contratoDeVenda>
+                </sch:ContratosDeVenda>
+                <sch:CodigoSuframa?>{fn:data($SnAssinanteDSP/CD_SUFRAMA)}</sch:CodigoSuframa>
+                <sch:TipoCliente?>{fn:data(tns:consultarTipoSegmento($SnContratoDSP/NUM_CONTRATO, $SnContratoDSP/CID_CONTRATO))}</sch:TipoCliente>
+            </sch:clienteProspect>
+        }
+    </sch:ClientesProspect>
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarOrgaoExpedidor($idOrgaoExpedidor as xs:integer) as xs:string? {
+	for $SnOrgaoExpedidorDSP in orgaoExpedidor:SnOrgaoExpedidorDSP()
+	where $SnOrgaoExpedidorDSP/ID_ORGAO_EXPEDIDOR eq $idOrgaoExpedidor
+	return 
+		$SnOrgaoExpedidorDSP/DESCRICAO
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarEscolaridade($idEscolaridade as xs:integer) as xs:string?{
+	for $SnEscolaridadeDSP in escolaridade:SnEscolaridadeDSP()
+	where $SnEscolaridadeDSP/ID_ESCOLARIDADE eq $idEscolaridade
+	return
+		$SnEscolaridadeDSP/DESCRICAO
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarTipoSegmento($numContrato as xs:integer, $cidContrato as xs:string) as xs:string?{
+	for $SnRelAssinanteSegmentacaoDSP in relAssinanteSegmentacao:SnRelAssinanteSegmentacaoDSP()
+	where $SnRelAssinanteSegmentacaoDSP/NUM_CONTRATO eq $numContrato
+	where $SnRelAssinanteSegmentacaoDSP/CID_CONTRATO eq $cidContrato
+	for $SnTipoSegmentoDSP in tipoSegmento:SnTipoSegmentoDSP()
+	where $SnTipoSegmentoDSP/ID_TIPO_SEGMENTO eq $SnRelAssinanteSegmentacaoDSP/ID_TIPO_SEGMENTO
+	return
+		$SnTipoSegmentoDSP[1]/DESCRICAO
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarContato($numContrato as xs:integer, $cidContrato as xs:string) as xs:string?{
+	for $SnContratoColetivoDSP in contratoColetivo:SnContratoColetivoDSP()
+	where $SnContratoColetivoDSP/NUM_CONTRATO eq $numContrato
+	where $SnContratoColetivoDSP/CID_CONTRATO eq $cidContrato
+	return
+		$SnContratoColetivoDSP/CONTATO
+};
+
+(::pragma  function <f:function kind="library" visibility="private" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com">
+    <nonCacheable/>
+</f:function>::)
+
+declare function tns:consultarNetFone($numContrato as xs:integer, $cidContrato as xs:string) as element(telefoneVoip:SnTelefoneVoipDSP)* {
+	for $SnTelefoneVoipDSP in telefoneVoip:SnTelefoneVoipDSP()
+	where $SnTelefoneVoipDSP/NUM_CONTRATO eq $numContrato
+	where $SnTelefoneVoipDSP/CID_CONTRATO eq $cidContrato
+	where fn:concat(fn:upper-case($SnTelefoneVoipDSP/ID_STATUS_TELEFONE_VOIP), '') eq 'U'
+	where $SnTelefoneVoipDSP/DT_FIM ge fn:current-dateTime()
+	return
+		$SnTelefoneVoipDSP
+};
+
+(:Função responsavel por retirar caracter " -()" da string que contem um telefeno. O retorno desta função é o DDD com 2 digitos. Vericação 
+se o telefone possui 8 ou 9 digitos, se a string começar com 0 quer disser que o telefone tem 8 digitos, caso contrario tem 9 digitos:)
+declare function tns:obtemDDD($telefone as xs:string) as xs:string{
+	let $DDD := fn:translate(fn:data($telefone), " -()", "")
+	return
+		if(fn:string-length($DDD) >= 10) then
+			if(fn:substring(fn:data($DDD), 1, 1) eq "0")then
+				fn:substring(fn:data($DDD), 2, 2)
+			else		
+				fn:substring(fn:data($DDD), 1, 2)
+		else
+			"00"
+};
+
+(:Função responsavel por retirar caracter " -()" da string que contem um telefeno. O retorno desta função é o DDD com 2 digitos. Vericação 
+se o telefone possui 8 ou 9 digitos, se a string começar com 0 quer disser que o telefone tem 8 digitos, caso contrario tem 9 digitos:)
+declare function tns:obtemTelefone($telefone as xs:string) as xs:string{
+	let $tel := fn:replace(fn:data($telefone), "[^0-9]", "")
+	return
+		if(fn:string-length($tel) eq 10) then
+			fn:substring(fn:data($tel),3,8)
+		else if(fn:string-length($tel) eq 11) then
+			fn:substring(fn:data($tel),3,9)
+		else if(fn:string-length($tel) > 11) then
+			if(fn:substring(fn:data($tel),1,1)eq "0")then
+				fn:substring(fn:data($tel),4)
+			else
+				fn:substring(fn:data($tel),3)
+	else
+		"00000000"
+};
+
+(:Função responsavel por retornar o nome do parametro conforme argumento recebido na função :)
+declare xqse function tns:obterNomeParametro($tipoInformacaoParametro as xs:string) as xs:string {
+
+	declare $resposta := "";
+	declare $CONV_SOA_CUSTOMER := xs:string('CONV_SOA_CUSTOMER');
+		
+	if ($tipoInformacaoParametro eq "CIDADE_MIGRADA_NETUNO") then{ 
+		set $resposta := $CONV_SOA_CUSTOMER; 
+	}else {};
+	
+	return value $resposta;
+};

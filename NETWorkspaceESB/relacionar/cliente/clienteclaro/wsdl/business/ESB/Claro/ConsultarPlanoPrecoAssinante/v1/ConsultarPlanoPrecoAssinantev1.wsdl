@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	name="ConsultarPlanoPrecoAssinantev1"
+	targetNamespace="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:tns="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:documentation>
+	<![CDATA[
+
+	ATENCAO: Arquivo gerado automaticamente, as alteracoes realizada diretamente neste arquivo serao perdidas.
+	Ferramenta: GeraSoa-v4.5.1
+	Especificacao de servico: ConsultarPlanoPrecoAssinante v-1.6.2
+
+	]]>
+	</wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.claro.com.br/EBS/Claro/v1" schemaLocation="ConsultarPlanoPrecoAssinantev1.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="ConsultarPlanoPrecoAssinanteRequestMsg">
+		<wsdl:part name="request" element="tns:ConsultarPlanoPrecoAssinanteRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="ConsultarPlanoPrecoAssinanteResponseMsg">
+		<wsdl:part name="response" element="tns:ConsultarPlanoPrecoAssinanteResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="AssinanteNaoEncontradoFaultMsg">
+		<wsdl:part name="AssinanteNaoEncontradoFault" element="tns:AssinanteNaoEncontradoFault" />
+	</wsdl:message>
+
+	<wsdl:message name="PlanoPrecoNaoEncontradoFaultMsg">
+		<wsdl:part name="PlanoPrecoNaoEncontradoFault" element="tns:PlanoPrecoNaoEncontradoFault" />
+	</wsdl:message>
+
+	<wsdl:message name="ParametroInvalidoFaultMsg">
+		<wsdl:part name="ParametroInvalidoFault" element="tns:ParametroInvalidoFault" />
+	</wsdl:message>
+
+	<wsdl:message name="TechnicalFaultMsg">
+		<wsdl:part name="TechnicalFault" element="tns:TechnicalFault" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="SynPortType">
+
+		<wsdl:operation name="consultarPlanoPrecoAssinante">
+			<wsdl:input message="tns:ConsultarPlanoPrecoAssinanteRequestMsg" />
+			<wsdl:output message="tns:ConsultarPlanoPrecoAssinanteResponseMsg" />
+			<wsdl:fault name="AssinanteNaoEncontradoFault" message="tns:AssinanteNaoEncontradoFaultMsg" />
+			<wsdl:fault name="PlanoPrecoNaoEncontradoFault" message="tns:PlanoPrecoNaoEncontradoFaultMsg" />
+			<wsdl:fault name="ParametroInvalidoFault" message="tns:ParametroInvalidoFaultMsg" />
+			<wsdl:fault name="TechnicalFault" message="tns:TechnicalFaultMsg" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="SynPortTypeSOAP" type="tns:SynPortType">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="consultarPlanoPrecoAssinante">
+			<soap:operation soapAction="consultarPlanoPrecoAssinante" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="AssinanteNaoEncontradoFault">
+				<soap:fault name="AssinanteNaoEncontradoFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="PlanoPrecoNaoEncontradoFault">
+				<soap:fault name="PlanoPrecoNaoEncontradoFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="ParametroInvalidoFault">
+				<soap:fault name="ParametroInvalidoFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="TechnicalFault">
+				<soap:fault name="TechnicalFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="ConsultarPlanoPrecoAssinantev1">
+		<wsdl:port name="SynPortSOA" binding="tns:SynPortTypeSOAP">
+			<soap:address location="http://esbsoa.claro.com.br/esb/services/ConsultarPlanoPrecoAssinantev1" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

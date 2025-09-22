@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="ld:br/com/netservicos/atendimento/historicoatendimento/logical/library/PgsmsPesquisaAtendimentoDSL"
+	xmlns:tns="ld:br/com/netservicos/atendimento/historicoatendimento/logical/library/PgsmsPesquisaAtendimentoDSL"
+	elementFormDefault="qualified">
+
+	<xs:element name="buscarHistoricoResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="atendimento"
+					type="tns:atendimento" minOccurs="0"
+					maxOccurs="unbounded">
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="atendimento">
+		<xs:sequence>
+			<xs:element name="ordem" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="numeroProtocolo" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="numeroChamada" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="acao" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="numeroOcorSolic" type="xs:long" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="tipoOcorrencia" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="tipoOcorSolic" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="dataAberturaOcorSolic" type="xs:dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="dataFechamentoOcorSolic" type="xs:dateTime" minOccurs="0"
+				maxOccurs="1" />	
+			<xs:element name="situacaoOcorSolic" type="xs:string"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="classificacao" type="xs:string" minOccurs="0" maxOccurs="1" />
+			
+		</xs:sequence>
+	</xs:complexType>
+
+
+</xs:schema>

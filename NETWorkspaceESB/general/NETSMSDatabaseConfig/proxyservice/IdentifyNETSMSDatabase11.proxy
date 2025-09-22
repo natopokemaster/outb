@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:con="http://www.bea.com/wli/sb/stages/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isTracingEnabled="false" isAutoPublish="false" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="general/NETSMSDatabaseConfig/wsdl/proxy/IdentifyNETSMSDatabase"/>
+      <con:port>
+        <con:name>NETSMSOperadoraWSDLSOAP</con:name>
+        <con:namespace>http://www.netservicos.com.br/operadoranet/</con:namespace>
+      </con:port>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/general/netsmsdatabaseconfig/NETSMSOperadora</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">false</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="response" name="Identificador Banco de Dados NETSMS_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Criar resposta">
+        <con:context>
+          <con1:varNsDecl prefix="oper" namespace="http://www.netservicos.com.br/operadoranet/" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="emp" namespace="http://www.netservicos.com.br/modelocanonico/empresa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="body" contents-only="false" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ff0</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./emp:OperadoraNET</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">&lt;oper:getSiglaDatabaseFromOperadoraNETResponse>{fn:data($aliasDatabase)}&lt;/oper:getSiglaDatabaseFromOperadoraNETResponse></con:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7f00</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+            </con1:expr>
+            <con1:message>Response a cliente</con1:message>
+          </con1:log>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Identificador Banco de Dados NETSMS_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Stage - Validar request">
+        <con:comment/>
+        <con:context>
+          <con1:userNsDecl prefix="java" namespace="java:br.com.netservicos.sb.config.netsms.operadora" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl prefix="m" namespace="http://www.openuri.org/" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="oper" namespace="http://www.netservicos.com.br/operadoranet/" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="emp" namespace="http://www.netservicos.com.br/modelocanonico/empresa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d60</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+            </con1:expr>
+            <con1:message>Request de cliente</con1:message>
+          </con1:log>
+          <con:ifThenElse xmlns:con="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id xmlns:con1="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5f</con1:id>
+            <con:case>
+              <con:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">(not($body/emp:OperadoraNET/emp:CodigoOperdaora/node()) or  $body/emp:OperadoraNET/emp:CodigoOperdaora eq "")
+and (not($body/emp:OperadoraNET/emp:IdentificacaoCidade/node()) or $body/emp:OperadoraNET/emp:IdentificacaoCidade eq "")</con:xqueryText>
+              </con:condition>
+              <con:actions>
+                <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d55</con2:id>
+                  <con1:logLevel>error</con1:logLevel>
+                  <con1:expr>
+                    <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+                  </con1:expr>
+                  <con1:message>Codigo da Operadora ou Identificador da Cidade devem estar preenchidos</con1:message>
+                </con1:log>
+                <con:Error>
+                  <con1:id xmlns:con1="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5e</con1:id>
+                  <con:errCode>CAMPO_OBRIGATORIO_NAO_PREENCHIDO</con:errCode>
+                  <con:message>Codigo da Operadora ou Identificador da Cidade devem estar preenchidos</con:message>
+                </con:Error>
+              </con:actions>
+            </con:case>
+          </con:ifThenElse>
+        </con:actions>
+      </con:stage>
+      <con:stage name="Stage - Identificar Banco de Dados NETSMS">
+        <con:context>
+          <con1:userNsDecl namespace="java:br.com.netservicos.sb.config.netsms.operadora" prefix="java" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="m" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="oper" namespace="http://www.netservicos.com.br/operadoranet/" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="emp" namespace="http://www.netservicos.com.br/modelocanonico/empresa" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ffe</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body/emp:OperadoraNET/emp:CodigoOperdaora/node() and $body/emp:OperadoraNET/emp:CodigoOperdaora ne ""</con:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ffd</con2:id>
+                  <con1:service xsi:type="ref:BusinessServiceRef" ref="general/NETSMSDatabaseConfig/BusinessService/NETSMSOperadoraConfigBusinessService" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>getNETSMSOperadoraByCodigoOperadora</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="false">$ejbRequest</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="false">ejbResponse</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="ejbRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ff4</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;open:getNETSMSOperadoraByCodigoOperadora xmlns:open="http://www.openuri.org/">
+    &lt;open:arg0>{fn:data($body/emp:OperadoraNET/emp:CodigoOperdaora)}&lt;/open:arg0>
+&lt;/open:getNETSMSOperadoraByCodigoOperadora></con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5d</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$ejbRequest</con:xqueryText>
+                      </con2:expr>
+                      <con2:message>Request a EJB de identificacao de base</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con1:assign varName="aliasDatabase">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ff5</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($ejbResponse/m:return/java:AliasDatabase)</con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5c</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$ejbResponse</con:xqueryText>
+                      </con2:expr>
+                      <con2:message>Response de EJB de identificacao de base</con2:message>
+                    </con2:log>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body/emp:OperadoraNET/emp:IdentificacaoCidade/node() and $body/emp:OperadoraNET/emp:IdentificacaoCidade ne ""</con:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7ffc</con2:id>
+                  <con1:service xsi:type="ref:BusinessServiceRef" ref="general/NETSMSDatabaseConfig/BusinessService/NETSMSOperadoraConfigBusinessService" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>getNETSMSOperadoraByCidadeContrato</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="false">$ejbRequest</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="false">ejbResponse</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="ejbRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7fee</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;open:getNETSMSOperadoraByCidadeContrato xmlns:open="http://www.openuri.org/">
+    &lt;open:arg0>{fn:data($body/emp:OperadoraNET/emp:IdentificacaoCidade)}&lt;/open:arg0>
+&lt;/open:getNETSMSOperadoraByCidadeContrato></con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5a</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$ejbRequest</con:xqueryText>
+                      </con2:expr>
+                      <con2:message>Request a EJB de identificacao de base</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con1:assign varName="aliasDatabase">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4797806235826513453-cc2703c.11d2a117b0e.-7fed</con2:id>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:data($ejbResponse/m:return/java:AliasDatabase)</con2:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d5b</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$ejbResponse</con:xqueryText>
+                      </con2:expr>
+                      <con2:message>Response de EJB de identificacao de base</con2:message>
+                    </con2:log>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+          </con1:ifThenElse>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d58</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">fn:empty($aliasDatabase)</con:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d56</con3:id>
+                  <con2:logLevel>error</con2:logLevel>
+                  <con2:expr>
+                    <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body</con:xqueryText>
+                  </con2:expr>
+                  <con2:message>Nao foi possivel identificar a base com o seguinte body</con2:message>
+                </con2:log>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d57</con2:id>
+                  <con1:errCode>BASE_NAO_IDENTIFICADA</con1:errCode>
+                  <con1:message>Nao foi possivel identificar a base</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+          </con1:ifThenElse>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-840394679896983321--237d2b5c.11db4ab9e8f.-7d59</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$aliasDatabase</con:xqueryText>
+            </con1:expr>
+            <con1:message>Base identificada</con1:message>
+          </con1:log>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="Identificador Banco de Dados NETSMS">
+        <con:request>Identificador Banco de Dados NETSMS_request</con:request>
+        <con:response>Identificador Banco de Dados NETSMS_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

@@ -1,0 +1,764 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="IncluirRegistroContatoJWSV2_0ServiceDefinitions" targetNamespace="http://br/com/netservicos/atendimento/jws" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://br/com/netservicos/atendimento/jws" xmlns:s2="http://www.netservicos.com.br/v2/NetHeader" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <s0:types>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/geral" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ident="http://www.netservicos.com.br/atendimento/geral">
+      <element name="IdentificadorContrato" type="ident:IdentificadorContratoType">
+        <annotation>
+          <documentation>
+   				Tipo para representar identificador do contrato no legado.
+   				Que eh formado pela combinacao de Numero do
+   				Contrato e Identificacao da Cidade.
+   			</documentation>
+        </annotation>
+      </element>
+      <complexType name="IdentificadorContratoType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="NumeroContrato">
+            <annotation>
+              <documentation>
+                		Numero do contrato do assinante, conforme
+                		cadastro no legado.
+                	</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="IdentificacaoCidade">
+            <annotation>
+              <documentation>
+                   		Identificacao da Cidade onde o contrato esta
+                   		cadastrado, conforme cadastro no legado.
+                   	</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <length value="5"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/v2/NetHeader">
+      <element name="NetHeader" type="tns:Header">
+        <annotation>
+          <documentation>
+				Header padrão de NET. Sera utilizando como um header
+				explicito de todos os WSDL's e operações
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Header">
+        <annotation>
+          <documentation>
+				Elemento raiz de header de NET.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="aplicacao">
+            <annotation>
+              <documentation>
+						Aplicação que esta consumindo o serviço
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="NETSMS"/>
+                <enumeration value="NETSALES"/>
+                <enumeration value="PORTAL NET"/>
+                <enumeration value="URA"/>
+                <enumeration value="MODULO COBRANCA"/>
+                <enumeration value="ATLAS"/>
+                <enumeration value="RETENCAO REVERSAO"/>
+                <enumeration value="COMISSIONAMENTO"/>
+                <enumeration value="WORKASSURE"/>
+                <enumeration value="EMBRATEL"/>
+                <enumeration value="ACTIVIA"/>
+                <enumeration value="DECODER DIGITAL"/>
+                <enumeration value="OTHER"/>
+                <enumeration value="NETADMIN"/>
+                <enumeration value="WLI_EVENT"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="funcionalidade">
+            <annotation>
+              <documentation>
+						Funcionalidade de consumidor enquanto esta
+						consumido este serviço. Sera utilizado para
+						auditoria e tracking.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="versaoServico" type="string">
+            <annotation>
+              <documentation>
+						Versão de serviço que sera consumido
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="token">
+            <annotation>
+              <documentation>
+						Token de consumidor, utilizado para tracking e
+						rastrabilidade de transação.
+					</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <minLength value="0"/>
+                <maxLength value="200"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="atendimento" type="tns:Atendimento">
+            <annotation>
+              <documentation>
+						Atendimento de cliente.
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="username" type="string">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="Atendimento">
+        <annotation>
+          <documentation>
+				Elemento que representar um atendimento da uma cliente
+				de NET. Todos os consumidores de serviços que tem os
+				informações de protocolo e chamada deveria preencher os
+				valores desde entidade.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element name="numeroProtocolo" type="string">
+            <annotation>
+              <documentation>
+						Numero de protocolo de atendimento.
+					</documentation>
+            </annotation>
+          </element>
+          <element name="numeroChamada" type="string">
+            <annotation>
+              <documentation>
+						Numero de chamanda de atendimento
+					</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/evento" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:atend="http://www.netservicos.com.br/atendimento/atendimento" xmlns:evento="http://www.netservicos.com.br/atendimento/evento" xmlns:usuario="http://www.netservicos.com.br/atendimento/usuario">
+      <import namespace="http://www.netservicos.com.br/atendimento/usuario">
+	</import>
+      <import namespace="http://www.netservicos.com.br/atendimento/atendimento">
+	</import>
+      <complexType abstract="true" name="Evento">
+        <annotation>
+          <documentation>
+				Listagem de todas ocorrencias do sistema que gera uma
+				acao manual ou automatica para seu tratamento.
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="Usuario" type="usuario:Usuario">
+            <annotation>
+              <documentation>
+						Usuario de sistema que abriu o evento
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="DataEvento" type="dateTime">
+            <annotation>
+              <documentation>
+						Data que o evento foi criado
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="Observacao" type="string">
+            <annotation>
+              <documentation>
+						Observacao de evento
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="OrigemEvento" type="string">	</element>
+          <element maxOccurs="1" minOccurs="0" name="Identificador" type="long">
+            <annotation>
+              <documentation>
+						Utilizado para identifcar o evento, exemplo
+						evento de ocorrencia
+					</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="Descricao" type="string">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="Tipo" type="evento:TipoEvento">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType abstract="true" name="Registro">
+        <annotation>
+          <documentation>
+				Entidade abstrato utilizando para agrupar os registros
+				gerados.
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Evento"/>
+        </complexContent>
+      </complexType>
+      <complexType name="RegistroSistemico">
+        <annotation>
+          <documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzacao para legado --&gt; Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+			</extension>
+        </complexContent>
+      </complexType>
+      <complexType name="RequisicaoInterna">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzacao para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+            <sequence>
+              <element name="nomeContato" type="string"/>
+              <element name="telefoneContato" type="string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <element name="RegistroSistemico" type="evento:RegistroSistemico">
+        <annotation>
+          <documentation>
+				Registro gerado automaticamente pelo as sistemas
+
+				- Traduzacao para legado --&gt; Ocorrencia de que e fechado
+				e esta gerado automaticamente para o processo de negocio
+				dentro a sistema
+			</documentation>
+        </annotation>
+      </element>
+      <element name="RequisicaoInterna" type="evento:RequisicaoInterna">
+        <annotation>
+          <documentation>
+				Requisicao Interna
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="Contato">
+        <annotation>
+          <documentation>
+				Eh o registro de qualquer Contato da NET com seus
+				Clientes e Prospects
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="Protocolo" type="string">
+					</element>
+              <element maxOccurs="1" minOccurs="0" name="NumeroChamado" type="string">
+					</element>
+              <element maxOccurs="1" minOccurs="0" name="NomeContato" type="string">
+					</element>
+              <element maxOccurs="1" minOccurs="0" name="FormaContato" type="atend:FormaContato">
+					</element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="TipoEvento">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="Identificador" type="long"/>
+          <element maxOccurs="1" minOccurs="0" name="Descricao" type="string"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/usuario" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:usuario="http://www.netservicos.com.br/atendimento/usuario">
+      <complexType name="Usuario">
+        <annotation>
+          <documentation>
+    			Usuario de sistemas de NET
+    		</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="LoginUsuario" type="string">
+            <annotation>
+              <documentation>
+    					Login de usuario
+    				</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="NomeUsuario" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="CPF">
+            <simpleType>
+              <restriction base="string">
+                <pattern value="\d{10,11}"/>
+                <maxLength value="11"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="EmailUsuario" type="usuario:EmailType"/>
+          <element name="TelefoneUsuario" type="usuario:TelefoneType"/>
+        </sequence>
+      </complexType>
+      <complexType name="TelefoneType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="DDD" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Telefone" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Ramal" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="EmailType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="EnderecoEmail" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Usuarios">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Usuarios" type="usuario:Usuario"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/atendimento" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:atend="http://www.netservicos.com.br/atendimento/atendimento" xmlns:endereco="http://www.netservicos.com.br/atendimento/endereco" xmlns:evento="http://www.netservicos.com.br/atendimento/evento" xmlns:usuario="http://www.netservicos.com.br/atendimento/usuario" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.netservicos.com.br/atendimento/usuario"/>
+      <import namespace="http://www.netservicos.com.br/atendimento/endereco"/>
+      <complexType name="PrazoAtendimento">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="TempoMinimoAtendimento" type="atend:TempoAtendimento">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="TempoMaximoAtendimento" type="atend:TempoAtendimento">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="TempoAtendimento">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="Perocidade">
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="MINUTOS"/>
+                <enumeration value="HORAS"/>
+                <enumeration value="DIAS"/>
+                <enumeration value="SEMANAS"/>
+                <enumeration value="MESES"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="1" name="Valor" type="int">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="FormaContato">
+        <!--  alterado tipo da classe devido a problema com tratamento de tipos abstratos no service bus 
+	 abstract="true">
+	 -->
+        <annotation>
+          <documentation>
+				Forma de contato de assinante
+			</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="FormaContatoTelefone" type="atend:FormaContatoTelefone"/>
+          <element maxOccurs="1" minOccurs="1" name="FormaContatoEmail" type="atend:FormaContatoEmail"/>
+          <element maxOccurs="1" minOccurs="1" name="FormaContatoCorrespondencia" type="atend:FormaContatoCorrespondencia"/>
+        </sequence>
+      </complexType>
+      <complexType name="FormaContatoTelefone">
+        <!--  
+					<xsd:complexContent>
+			alterado tipo da classe devido a problema com tratamento de tipos abstratos no service bus 
+			<xsd:extension base="atend:FormaContato">
+			-->
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="DDD">
+            <annotation>
+              <documentation>
+								DDD do telefone de contato do cliente
+							</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="3"/>
+                <pattern value="[0-9].*"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="numeroTelefone" nillable="true">
+            <annotation>
+              <documentation>
+								Numero de telefone de contato do cliente
+							</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="14"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="ramal" nillable="true">
+            <annotation>
+              <documentation>
+								Ramal do telefone do cliente
+							</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="4"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="tipoTelefone" nillable="true">
+            <annotation>
+              <documentation>
+								Tipo de telefone do cliente
+							</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="celular"/>
+                <enumeration value="residencial"/>
+                <enumeration value="comercial"/>
+                <enumeration value="netfone"/>
+                <enumeration value="outros"/>
+                <enumeration value="fax"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+        <!--  
+					</xsd:extension>
+		</xsd:complexType>
+		-->
+      </complexType>
+      <complexType name="FormaContatoEmail">
+        <!--  
+			<xsd:complexContent>
+			alterado tipo da classe devido a problema com tratamento de tipos abstratos no service bus 
+			<xsd:extension base="atend:FormaContato">
+			-->
+        <sequence>
+          <element name="EnderecoEmail">
+            <simpleType>
+              <restriction base="xsd:string">
+                <pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*">
+								</pattern>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+        <!-- 
+					</xsd:extension>
+		</xsd:complexContent>
+		 -->
+      </complexType>
+      <complexType name="TipoResolucao">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="IdentificadorTipoResolucao" type="xsd:long">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="Descricao" type="xsd:string">
+			</element>
+        </sequence>
+      </complexType>
+      <complexType name="ResolucaoOrdemInterna">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="IdentificadorResolucao" type="xsd:long">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="Observacao" type="xsd:string">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="Usuario" type="usuario:Usuario">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="TipoResolucao" type="atend:TipoResolucao">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="PrazoAtendimento" type="atend:PrazoAtendimento">
+			</element>
+          <element maxOccurs="1" minOccurs="0" name="DataResolucao" type="xsd:date"/>
+        </sequence>
+      </complexType>
+      <complexType name="FormaContatoCorrespondencia">
+        <annotation>
+          <documentation>
+				Entidade que representa o contato feito via correios.
+			</documentation>
+        </annotation>
+        <!-- 		<xsd:complexContent>
+			 alterado tipo da classe devido a problema com tratamento de tipos abstratos no service bus 
+			<xsd:extension base="atend:FormaContato">
+			-->
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="endereco" type="endereco:Endereco">
+					</element>
+        </sequence>
+        <!-- 
+			</xsd:extension>
+		</xsd:complexContent>
+		-->
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/endereco" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:endereco="http://www.netservicos.com.br/atendimento/endereco">
+      <annotation>
+        <documentation>
+    		Entidade responsavel por representar um Endereco
+    	</documentation>
+      </annotation>
+      <complexType name="Endereco">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="identificadorEndereco" nillable="true">
+            <annotation>
+              <documentation>
+        				Identificador do endereco
+        			</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="long"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="pais" nillable="true">
+            <annotation>
+              <documentation>Pais do endereco</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="UF" nillable="true">
+            <annotation>
+              <documentation>Sigla do estado</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="2"/>
+                <enumeration value="AC"/>
+                <enumeration value="AL"/>
+                <enumeration value="AM"/>
+                <enumeration value="AP"/>
+                <enumeration value="BA"/>
+                <enumeration value="CE"/>
+                <enumeration value="DF"/>
+                <enumeration value="ES"/>
+                <enumeration value="GO"/>
+                <enumeration value="MA"/>
+                <enumeration value="MG"/>
+                <enumeration value="MS"/>
+                <enumeration value="MT"/>
+                <enumeration value="PA"/>
+                <enumeration value="PB"/>
+                <enumeration value="PE"/>
+                <enumeration value="PI"/>
+                <enumeration value="PR"/>
+                <enumeration value="RJ"/>
+                <enumeration value="RN"/>
+                <enumeration value="RO"/>
+                <enumeration value="RR"/>
+                <enumeration value="RS"/>
+                <enumeration value="SC"/>
+                <enumeration value="SE"/>
+                <enumeration value="SP"/>
+                <enumeration value="TO"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="idCidade" type="long">
+        	</element>
+          <element maxOccurs="1" minOccurs="0" name="cidade" nillable="true">
+            <annotation>
+              <documentation>Cidade</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="60"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="CEP" nillable="true">
+            <annotation>
+              <documentation>
+        				Cep associado ao endereco
+        			</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="bairro" nillable="true">
+            <annotation>
+              <documentation>Bairro</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="60"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="tipoLogradouro" nillable="true" type="string">
+            <annotation>
+              <documentation>
+        				Tipo de logradouro. Ex: Avenida, Praca, etc.
+        			</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="idLogradouro" type="long">
+        	</element>
+          <element maxOccurs="1" minOccurs="0" name="logradouro" nillable="true">
+            <annotation>
+              <documentation>
+        				logradouro. Ex: R. verbo divino, Av. Santo Amaro
+        			</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="100"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="numeroEndereco" nillable="true">
+            <annotation>
+              <documentation>Numero do endereco</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="complemento" nillable="true">
+            <annotation>
+              <documentation>
+        				Complemento do endereco. Ex: Ap. 103 Bl. A
+        			</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="120"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="referencia" nillable="true">
+            <annotation>
+              <documentation>
+        				Referencia do endereco. Ex: proximo a NET.
+        			</documentation>
+            </annotation>
+            <simpleType>
+              <restriction base="string"/>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="higienizado" type="boolean">
+        	</element>
+          <element maxOccurs="1" minOccurs="0" name="CaixaPostal" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Enderecos">
+        <annotation>
+          <documentation>Entidade responsavel por representar um conjunto de Enderecos</documentation>
+        </annotation>
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="endereco" type="endereco:Endereco"/>
+        </sequence>
+      </complexType>
+      <element name="Endereco" type="endereco:Endereco"/>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/atendimento/RegistroContato" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:evento="http://www.netservicos.com.br/atendimento/evento" xmlns:regcontato="http://www.netservicos.com.br/atendimento/RegistroContato">
+      <import namespace="http://www.netservicos.com.br/atendimento/evento">
+	</import>
+      <element name="RegistroContato" type="regcontato:RegistroContato">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzacao para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+      </element>
+      <complexType name="RegistroContato">
+        <annotation>
+          <documentation>
+				Registro de Contato com o cliente
+
+				- Traduzacao para legado --&gt; Ocorrencia de que e fechado
+				e esta referente um contato com o cliente
+			</documentation>
+        </annotation>
+        <complexContent>
+          <extension base="evento:Registro">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="Contato" type="evento:Contato">
+					</element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://br/com/netservicos/atendimento/jws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.netservicos.com.br/atendimento/geral"/>
+      <xs:import namespace="http://www.netservicos.com.br/atendimento/RegistroContato"/>
+      <xs:element name="incluirRegistroContato">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="reg:RegistroContato" xmlns:reg="http://www.netservicos.com.br/atendimento/RegistroContato"/>
+            <xs:element ref="ger:IdentificadorContrato" xmlns:ger="http://www.netservicos.com.br/atendimento/geral"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="incluirRegistroContatoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="reg:RegistroContato" xmlns:reg="http://www.netservicos.com.br/atendimento/RegistroContato"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.netservicos.com.br/v2/NetHeader" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+  </s0:types>
+  <s0:message name="incluirRegistroContato">
+    <s0:part element="s1:incluirRegistroContato" name="parameters"/>
+    <s0:part element="s2:NetHeader" name="netheader"/>
+  </s0:message>
+  <s0:message name="incluirRegistroContatoResponse">
+    <s0:part element="s1:incluirRegistroContatoResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="IncluirRegistroContatoJWSV2_0">
+    <s0:operation name="incluirRegistroContato" parameterOrder="parameters netheader">
+      <s0:input message="s1:incluirRegistroContato"/>
+      <s0:output message="s1:incluirRegistroContatoResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="IncluirRegistroContatoJWSV2_0ServiceSoapBinding" type="s1:IncluirRegistroContatoJWSV2_0">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="incluirRegistroContato">
+      <s3:operation soapAction="" style="document"/>
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+        <s3:header message="s1:incluirRegistroContato" part="netheader" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="IncluirRegistroContatoJWSV2_0Service">
+    <s0:port binding="s1:IncluirRegistroContatoJWSV2_0ServiceSoapBinding" name="IncluirRegistroContatoJWSV2_0SoapPort">
+      <s3:address location="http://localhost:7001/NETAtendimentoWLIWeb/br/com/netservicos/atendimento/jws/IncluirRegistroContatoJWSV2_0"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

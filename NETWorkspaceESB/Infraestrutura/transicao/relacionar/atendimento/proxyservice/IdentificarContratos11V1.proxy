@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment>
+  <ser:coreEntry isProxy="true" isEnabled="true" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:description>Proxy Service de Entrada do serviço Identificar Contratos. Serviços responsavel por identicar um determinado contrato nas bases de dados ativas.</ser:description>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:wsdl ref="Infraestrutura/transicao/relacionar/atendimento/wsdl/business/IdentificarContratos11V1"/>
+      <con:port>
+        <con:name>IdentificarContratosSoap</con:name>
+        <con:namespace>http://www.openuri.org/</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/infraestrutura/transicao/relacionar/atendimento/IdentificarContratos11V1</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"><http:client-authentication xsi:type="http:HttpBasicAuthenticationType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></http:inbound-properties></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-2877978171829717322-2e6d1b85.143a6b6cd1d.-8000" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="error" name="_onErrorHandler-2877978171829717322-2e6d1b85.143a6b6cd1d.-8000" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Tratamento de erro de Geral">
+        <con:comment>Tratamento de erro de Geral do Proxy IdentificarContratos11V1</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7fff</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Erro Geral</con1:message>
+          </con1:log>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ff6</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">empty($errorHandlerRequest)</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:assign varName="localMessageParameters">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ff5</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:assign varName="validationMessages">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ff4</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:assign varName="errorHandlerRequest">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ff3</con2:id>
+                  <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                      <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                      <con2:param name="additionalInformation">
+                        <con2:path>$body</con2:path>
+                      </con2:param>
+                      <con2:param name="currentFault">
+                        <con2:path>$fault</con2:path>
+                      </con2:param>
+                      <con2:param name="exceptionStackTrace">
+                        <con2:path>''</con2:path>
+                      </con2:param>
+                      <con2:param name="accessResourceName">
+                        <con2:path>'Erro Geral proxy IdentificarContratos11V1'</con2:path>
+                      </con2:param>
+                      <con2:param name="responseSOAPVersion">
+                        <con2:path>'1.1'</con2:path>
+                      </con2:param>
+                      <con2:param name="currentBody">
+                        <con2:path>$body</con2:path>
+                      </con2:param>
+                      <con2:param name="exceptionClassification">
+                        <con2:path>''</con2:path>
+                      </con2:param>
+                      <con2:param name="processo">
+                        <con2:path>'rede'</con2:path>
+                      </con2:param>
+                      <con2:param name="messageParameters">
+                        <con2:path>$localMessageParameters</con2:path>
+                      </con2:param>
+                      <con2:param name="macroProcesso">
+                        <con2:path>'INFRAESTRUTURA'</con2:path>
+                      </con2:param>
+                      <con2:param name="callResponse">
+                        <con2:path>$localMessageParameters</con2:path>
+                      </con2:param>
+                      <con2:param name="validationMessages">
+                        <con2:path>$validationMessages</con2:path>
+                      </con2:param>
+                      <con2:param name="messageCode">
+                        <con2:path>data($fault/ctx:errorCode)</con2:path>
+                      </con2:param>
+                      <con2:param name="currentInbound">
+                        <con2:path>$inbound</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform></con1:expr>
+                </con1:assign>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+          <con1:replace varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7fed</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<soap-env:Body>
+      <ns:identificarContratoRequestResponse xmlns:ns="http://www.openuri.org/">
+         <ns0:RetornoIdentificaContrato xmlns:ns0="http://netservicos.com.br/atender/contrato/schema">
+            <ns1:RetornoPadrao xmlns:ns1="http://netservicos.com.br/core/schema">
+               <ns1:RetornoPadraoRow>
+                  <PROVEDOR>br.com.netservicos.atender.processos.IdentificarContratos</PROVEDOR>
+                  <CATEGORIA_MENSAGEM>FALHA</CATEGORIA_MENSAGEM>
+                  <CODIGO_MENSAGEM>{data($fault/ctx:errorCode)}</CODIGO_MENSAGEM>
+                  <TEXTO_MENSAGEM>{data($fault/ctx:reason)}</TEXTO_MENSAGEM>
+               </ns1:RetornoPadraoRow>
+            </ns1:RetornoPadrao>
+            <ns0:ContratoAssinante/>
+         </ns0:RetornoIdentificaContrato>
+      </ns:identificarContratoRequestResponse>
+</soap-env:Body>]]></con2:xqueryText></con1:expr>
+          </con1:replace>
+          
+          <con1:ifThenElse xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-118215193248057280-6920a02c.1731106cb6a.-8000</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:contains($body/soap-env:Fault/faultstring,
+     "ORA-")</con2:xqueryText></con1:condition><con1:actions><con3:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config"><con1:id>_ActionId-8357929311831198413--30d35dae.1720e402d09.-7ffe</con1:id><con3:header-set>inbound-response</con3:header-set><con3:header name="SOA-Code" value="expression"><con1:xqueryTransform><con1:resource ref="general/transformation/FormatTransportHeaderResponseORAErrorXQTv1"/><con1:param name="fault"><con1:path>$fault</con1:path></con1:param><con1:param name="body"><con1:path>$body</con1:path></con1:param></con1:xqueryTransform></con3:header></con3:transport-headers></con1:actions></con1:case><con1:default><con1:transport-headers>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/transformation/FormatTransportHeaderResponseCodeXQTv1"/>
+                <con2:param name="body"><con2:path>$body</con2:path></con2:param>
+                <con2:param name="fault"><con2:path>$fault</con2:path></con2:param>
+              </con2:xqueryTransform>
+	        </con1:header>
+          </con1:transport-headers></con1:default></con1:ifThenElse><con1:reply isError="true" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7fec</con1:id>
+          </con1:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Identificar Contratos_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Validar Dados de Entrada" errorHandler="_onErrorHandler-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ffe">
+        <con:comment>Validar Dados de Entrada</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" prefix="excephdlr" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.openuri.org/" prefix="open" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ffc</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Dados de entrada ++++++++++++++++++++++++++++++++++++++++++++++</con1:message>
+          </con1:log>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ff3</con2:id><con1:logLevel>debug</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not($body/open:identificarContratoRequest/open:ORIGEM/node())
+or data($body/open:identificarContratoRequest/open:ORIGEM) eq ''</con2:xqueryText></con1:expr><con1:message>comparacao$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$</con1:message></con1:log><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">Verificar se pelo um atributo de entrada foi preenchido</con2:comment>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ffb</con2:id>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">(not($body/open:identificarContratoRequest/open:CPF_CNPJ/node()) or $body/open:identificarContratoRequest/open:CPF_CNPJ eq "")
+and
+(not($body/open:identificarContratoRequest/open:COD_ASSINANTE/node()) or $body/open:identificarContratoRequest/open:COD_ASSINANTE eq "")
+and 
+(not($body/open:identificarContratoRequest/open:TELEFONE/node()) or $body/open:identificarContratoRequest/open:TELEFONE eq "")
+and
+(not($body/open:identificarContratoRequest/open:PROTOCOLO/node()) or $body/open:identificarContratoRequest/open:PROTOCOLO eq "")</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:assign varName="validationMessages">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff9</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:assign varName="localMessageParameters">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff8</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7fef</con2:id>
+                  <con1:errCode>ATR-0032</con1:errCode>
+                  <con1:message>Dados obrigatórios para identificação do contrato não preenchidos corretamente. Informar um e apenas um dos parâmetros: COD_ASSINANTE, TELEFONE, CPF_CNPJ OU PROTOCOLO.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not($body/open:identificarContratoRequest/open:ORIGEM/node())
+or data($body/open:identificarContratoRequest/open:ORIGEM) eq ""</con2:xqueryText></con1:condition><con1:actions><con1:assign varName="validationMessages"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7fff</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText></con1:expr></con1:assign><con1:assign varName="localMessageParameters"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ffe</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText></con1:expr></con1:assign><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ffd</con2:id><con1:errCode>ATR-0033</con1:errCode><con1:message>O parâmetro Origem não foi informado. Este parâmetro é Obrigatório.</con1:message></con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not($body/open:identificarContratoRequest/open:CONSUMIDOR/node())
+or (data($body/open:identificarContratoRequest/open:CONSUMIDOR) eq "")</con2:xqueryText></con1:condition><con1:actions><con1:assign varName="validationMessages"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ffc</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText></con1:expr></con1:assign><con1:assign varName="localMessageParameters"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ffb</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText></con1:expr></con1:assign><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ffa</con2:id><con1:errCode>ATR-0034</con1:errCode><con1:message>O parâmetro CONSUMIDOR não foi informado. Este parâmetro é Obrigatório.</con1:message></con1:Error></con1:actions></con1:case><con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($body/open:identificarContratoRequest/open:COD_ASSINANTE)) and $body/open:identificarContratoRequest/open:COD_ASSINANTE ne ""</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:assign varName="operacao">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff7</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">string('COD_CLIENTE')</con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff3</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:expr>
+                    <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$operacao</con3:xqueryText>
+                  </con2:expr>
+                  <con2:message>Identificar Contrato por codigo assinante</con2:message>
+                </con2:log>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($body/open:identificarContratoRequest/open:CPF_CNPJ)) and $body/open:identificarContratoRequest/open:CPF_CNPJ ne ""</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:assign varName="operacao">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff6</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">string('CPF_CNPJ')</con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff2</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:message>Identificar Contrato por documento</con2:message>
+                </con2:log>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($body/open:identificarContratoRequest/open:TELEFONE)) and $body/open:identificarContratoRequest/open:TELEFONE ne ""</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:assign varName="operacao">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff5</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">string('TELEFONE')</con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff1</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:message>Identificar Contrato por telefone</con2:message>
+                </con2:log>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($body/open:identificarContratoRequest/open:PROTOCOLO)) and $body/open:identificarContratoRequest/open:PROTOCOLO ne ""</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:assign varName="operacao">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff4</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">string('PROTOCOLO')</con2:xqueryText>
+                  </con1:expr>
+                </con1:assign>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ff0</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:message>Identificar Contrato por protocolo</con2:message>
+                </con2:log>
+              </con1:actions>
+            </con1:case>
+            <con1:default>
+              <con1:assign varName="validationMessages">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ffd</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:validationMessages/></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:assign varName="localMessageParameters">
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ffc</con2:id>
+                <con1:expr>
+                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;excephdlr:messageParameters/></con2:xqueryText>
+                </con1:expr>
+              </con1:assign>
+              <con1:Error>
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7fed</con2:id>
+                <con1:errCode>ATR-0032</con1:errCode>
+                <con1:message>Dados obrigatórios para identificação do contrato não preenchidos corretamente. Informar um e apenas um dos parâmetros: COD_ASSINANTE, TELEFONE, CPF_CNPJ OU PROTOCOLO.</con1:message>
+              </con1:Error>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+      <con:stage name=" Identificação de Contratos" errorHandler="_onErrorHandler-6101344389522702860--23cdd7ca.15867983efe.-7fff">
+        <con:comment>Escolhe o tipo de consulta de Identificação de Contratos</con:comment>
+        <con:context>
+          <con1:userNsDecl namespace="http://netservicos.com.br/atender/contrato/schema" prefix="ns2" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://netservicos.com.br/core/schema" prefix="ns0" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/ContratoAssinante" prefix="ns3" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://www.netservicos.com.br/IdentificarContratos/" prefix="iden" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/><con1:varNsDecl namespace="http://www.openuri.org/" prefix="open" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-8000</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$operacao eq string('COD_CLIENTE')</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                  <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-603330243954972694-608e8430.143da144da6.-7ffd</con3:id>
+                  <con2:logLevel>debug</con2:logLevel>
+                  <con2:message>consultar contrato por codigo cliente$####</con2:message>
+                </con2:log>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fff</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="Infraestrutura/transicao/relacionar/atendimento/proxyservice/IdentificarContratos12V2" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>consultarContratoPorCodigoCliente</con1:operation>
+                  <con1:request>
+                    <con1:body>$consultarContratoPorCodigoClienteRequest</con1:body>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body>consultarContratoPorCodigoClienteResponse</con1:body>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="consultarContratoPorCodigoClienteRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff9</con2:id>
+                      <con1:expr>
+                        <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                          <con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/IdentificarContratoPorCodClienteRequestXQuery"/>
+                          <con2:param name="identificarContratoRequest1">
+                            <con2:path>$body/open:identificarContratoRequest</con2:path>
+                          </con2:param>
+                        </con2:xqueryTransform>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff8</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorCodigoClienteRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>consultarContratoPorCodigoClienteRequest</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff7</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorCodigoClienteResponse</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>formatando a saida o serviço consultarContratoPorCodigoClienteResponse</con2:message>
+                    </con2:log>
+                    <con1:transport-headers><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4706474230797867455--6aecf4d8.17e73ebdba6.-7ff0</con2:id><con1:header-set>inbound-response</con1:header-set><con1:header name="SOA-Base" value="copy"/></con1:transport-headers><con1:ifThenElse>
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fec</con2:id>
+                      <con1:case>
+                        <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($consultarContratoPorCodigoClienteResponse/ns3:contratos/ns3:contratoAssinante))</con2:xqueryText></con1:condition>
+                        <con1:actions>
+                          <con1:assign varName="retorno">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7feb</con2:id>
+                            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/retornoConsultarContratoXQuery"/><con2:param name="contratos1"><con2:path>$consultarContratoPorCodigoClienteResponse/ns3:contratos</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                          </con1:assign>
+                        </con1:actions>
+                      </con1:case>
+                      <con1:default>
+                        <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                          <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe4</con3:id>
+                          <con2:logLevel>debug</con2:logLevel>
+                          <con2:message>Contrato não encontrado</con2:message>
+                        </con2:log>
+                      </con1:default>
+                    </con1:ifThenElse>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$operacao eq string('CPF_CNPJ')</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ffe</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="Infraestrutura/transicao/relacionar/atendimento/proxyservice/IdentificarContratos12V2" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  
+                  <con1:operation>consultarContratoPorDocumento</con1:operation><con1:request><con1:body>$consultarContratoPorDocumentoRequest</con1:body></con1:request>
+                  <con1:response><con1:body>consultarContratoPorDocumentoResponse</con1:body></con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="consultarContratoPorDocumentoRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff6</con2:id>
+                      <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/identificarContratosPorDocumentoXQuery"/><con2:param name="identificarContratoRequest1"><con2:path>$body/open:identificarContratoRequest</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff5</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorDocumentoRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>consultarContratoPorDocumentoRequest</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff4</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr><con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorDocumentoResponse</con3:xqueryText></con2:expr>
+                      <con2:message>IdentificarContratos11V1 - consultarContratoPorDocumentoResponse</con2:message>
+                    </con2:log>
+                    <con1:ifThenElse>
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe3</con2:id>
+                      <con1:case>
+                        <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($consultarContratoPorDocumentoResponse/ns3:contratos/ns3:contratoAssinante))</con2:xqueryText></con1:condition>
+                        <con1:actions>
+                          <con1:assign varName="retorno">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe2</con2:id>
+                            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/retornoConsultarContratoXQuery"/><con2:param name="contratos1"><con2:path>$consultarContratoPorDocumentoResponse/ns3:contratos</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                          </con1:assign>
+                          <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1096935775526634438-2d86600b.1446f612755.-7ffa</con3:id>
+                            <con2:logLevel>debug</con2:logLevel>
+                            <con2:expr>
+                              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$retorno</con3:xqueryText>
+                            </con2:expr>
+                            <con2:message>IdentificarContratos11V1 - RETORNO CONSULTA POR DOCUMENTO</con2:message>
+                          </con2:log>
+                        </con1:actions>
+                      </con1:case>
+                      <con1:default>
+                        <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                          <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe1</con3:id>
+                          <con2:logLevel>debug</con2:logLevel>
+                          <con2:message>Contrato não encontrado</con2:message>
+                        </con2:log>
+                      </con1:default>
+                    </con1:ifThenElse>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$operacao eq string('TELEFONE')</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ffd</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="Infraestrutura/transicao/relacionar/atendimento/proxyservice/IdentificarContratos12V2" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  
+                  <con1:operation>consultarContratoPorTelefone</con1:operation><con1:request><con1:body>$consultarContratoPorTelefoneRequest</con1:body></con1:request>
+                  <con1:response><con1:body>consultarContratoPorTelefoneResponse</con1:body></con1:response>
+                  <con1:requestTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1932428592908395009--2f31dfce.144f543abc8.-8000</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/open:identificarContratoRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</con2:message>
+                    </con2:log>
+                    <con1:assign varName="consultarContratoPorTelefoneRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff2</con2:id>
+                      <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/IdentificarContratosPorTelefoneXQuery"/><con2:param name="identificarContratoRequest1"><con2:path>$body/open:identificarContratoRequest</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff3</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorTelefoneRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>listarContratosRequest</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff1</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratoPorTelefoneResponse</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>IdentificarContratos11V1 - consultarContratoPorTelefoneResponse</con2:message>
+                    </con2:log>
+                    <con1:ifThenElse>
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe0</con2:id>
+                      <con1:case>
+                        <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($consultarContratoPorTelefoneResponse/ns3:contratos/ns3:contratoAssinante))</con2:xqueryText></con1:condition>
+                        <con1:actions>
+                          <con1:assign varName="retorno">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fde</con2:id>
+                            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/retornoConsultarContratoXQuery"/><con2:param name="contratos1"><con2:path>$consultarContratoPorTelefoneResponse/ns3:contratos</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                          </con1:assign>
+                        </con1:actions>
+                      </con1:case>
+                      <con1:default>
+                        <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                          <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fdf</con3:id>
+                          <con2:logLevel>debug</con2:logLevel>
+                          <con2:message>Contrato não encontrado</con2:message>
+                        </con2:log>
+                      </con1:default>
+                    </con1:ifThenElse>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$operacao eq string('PROTOCOLO')</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ffc</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="Infraestrutura/transicao/relacionar/atendimento/proxyservice/IdentificarContratos12V2" xmlns:ref="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  <con1:operation>consultarContratosPorProtocolo</con1:operation>
+                  <con1:request>
+                    <con1:body>$consultarContratosPorProtocoloRequest</con1:body>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body>consultarContratosPorProtocoloResponse</con1:body>
+                  </con1:response>
+                  <con1:requestTransform>
+                    <con1:assign varName="consultarContratosPorProtocoloRequest">
+                      <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7ff0</con2:id>
+                      <con1:expr>
+                        <con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                          <con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/IdentificarContratoPorProtocoloRequestXQuery"/>
+                          <con2:param name="identificarContratoRequest1">
+                            <con2:path>$body/open:identificarContratoRequest</con2:path>
+                          </con2:param>
+                        </con2:xqueryTransform>
+                      </con1:expr>
+                    </con1:assign>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fef</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratosPorProtocoloRequest</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>consultarContratosPorProtocoloRequest</con2:message>
+                    </con2:log>
+                  </con1:requestTransform>
+                  <con1:responseTransform>
+                    <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fed</con3:id>
+                      <con2:logLevel>debug</con2:logLevel>
+                      <con2:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$consultarContratosPorProtocoloResponse</con3:xqueryText>
+                      </con2:expr>
+                      <con2:message>formatando a saida do serviço consultarContratosPorProtocoloResponse</con2:message>
+                    </con2:log>
+                    
+                    <con1:transport-headers><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4706474230797867455--6aecf4d8.17e73ebdba6.-7fee</con2:id><con1:header-set>inbound-response</con1:header-set><con1:header name="SOA-Base" value="copy"/></con1:transport-headers><con1:ifThenElse>
+                      <con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">verifica se consulta contrato por protocolo retornou informações</con2:comment><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fdd</con2:id>
+                      <con1:case>
+                        <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(empty($consultarContratosPorProtocoloResponse/ns3:contratos/ns3:contratoAssinante))</con2:xqueryText></con1:condition>
+                        <con1:actions>
+                          <con1:assign varName="retorno">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fdb</con2:id>
+                            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config"><con2:resource ref="Infraestrutura/transicao/relacionar/atendimento/transformation/retornoConsultarContratoXQuery"/><con2:param name="contratos1"><con2:path>$consultarContratosPorProtocoloResponse/ns3:contratos</con2:path></con2:param></con2:xqueryTransform></con1:expr>
+                          </con1:assign>
+                        </con1:actions>
+                      </con1:case>
+                      <con1:default>
+                        <con2:log xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+                          <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fdc</con3:id>
+                          <con2:logLevel>debug</con2:logLevel>
+                          <con2:message>Contrato não encontrato</con2:message>
+                        </con2:log>
+                      </con1:default>
+                    </con1:ifThenElse>
+                  </con1:responseTransform>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Identificar Contratos_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Tratamento de resposta">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="open" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://netservicos.com.br/atender/contrato/schema" prefix="ns2" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:userNsDecl namespace="http://netservicos.com.br/core/schema" prefix="ns0" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2782663356395872312--37dc4afe.1451e499e07.-7fff</con2:id><con1:logLevel>debug</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$retorno</con2:xqueryText></con1:expr><con1:message>Proxy Identificar Contratos legado - retorno </con1:message></con1:log><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">Verefica se retorno está preenchido com resultado da consulta, senão preencher mensagem de contrato não encontrado</con2:comment>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe9</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">empty($retorno)</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:assign varName="retorno">
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe8</con2:id>
+                  <con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<open:identificarContratoRequestResponse>
+   <ns2:RetornoIdentificaContrato>
+      <ns0:RetornoPadrao>
+                <ns0:RetornoPadraoRow>
+                    <PROVEDOR>br.com.netservicos.atender.processos.IdentificarContratos</PROVEDOR>
+                    <CATEGORIA_MENSAGEM>FALHA</CATEGORIA_MENSAGEM>
+                    <CODIGO_MENSAGEM>ATR-0029</CODIGO_MENSAGEM>
+                    <TEXTO_MENSAGEM>Dados Não encontrados.</TEXTO_MENSAGEM>
+                </ns0:RetornoPadraoRow>
+        </ns0:RetornoPadrao>
+   </ns2:RetornoIdentificaContrato>
+</open:identificarContratoRequestResponse>]]></con2:xqueryText></con1:expr>
+                </con1:assign>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+          <con1:replace varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe6</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;soap-env:Body>
+	{$retorno}
+&lt;/soap-env:Body></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-8183686601519104628-4c8330f7.143d05f69af.-7fe5</con2:id>
+            <con1:logLevel>debug</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+            </con1:expr>
+            <con1:message>Resposta serviço Identificar Contratos</con1:message>
+          </con1:log>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ffe" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Tratamento de erro">
+        <con:comment>Tratamento de erro do estagio de validação de dados de entrada</con:comment>
+        <con:context/>
+        <con:actions>
+          <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2877978171829717322-2e6d1b85.143a6b6cd1d.-7ffd</con2:id>
+            <con1:logLevel>error</con1:logLevel>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText>
+            </con1:expr>
+            <con1:message>IDENTIFICAR CONTRATOS: ERRO AO VALIDAR DADOS DE ENTRADA</con1:message>
+          </con1:log>
+          <con1:assign varName="errorHandlerRequest" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ffb</con2:id>
+            <con1:expr><con2:xqueryTransform xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con2:resource ref="general/NETESBExceptionHandler/transformation/TransformarEntradaExceptionHandlerXQuery"/>
+                <con2:param name="additionalInformation">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="currentFault">
+                  <con2:path>$fault</con2:path>
+                </con2:param>
+                <con2:param name="exceptionStackTrace">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="accessResourceName">
+                  <con2:path>'Infraestrutura/transicao/relacionar/atendimento/proxyservice/IdentificarContratos11V1.proxy - Validar Dados de Entrada'</con2:path>
+                </con2:param>
+                <con2:param name="responseSOAPVersion">
+                  <con2:path>'1.1'</con2:path>
+                </con2:param>
+                <con2:param name="currentBody">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="exceptionClassification">
+                  <con2:path>'CLASSIFICATION_VALIDATION'</con2:path>
+                </con2:param>
+                <con2:param name="messageParameters">
+                  <con2:path>$localMessageParameters</con2:path>
+                </con2:param>
+                <con2:param name="processo">
+                  <con2:path>'rede'</con2:path>
+                </con2:param>
+                <con2:param name="macroProcesso">
+                  <con2:path>'INFRAESTRUTURA'</con2:path>
+                </con2:param>
+                <con2:param name="callResponse">
+                  <con2:path>$body</con2:path>
+                </con2:param>
+                <con2:param name="validationMessages">
+                  <con2:path>$validationMessages</con2:path>
+                </con2:param>
+                <con2:param name="messageCode">
+                  <con2:path>data($fault/ctx:errorCode)</con2:path>
+                </con2:param>
+                <con2:param name="currentInbound">
+                  <con2:path>$inbound</con2:path>
+                </con2:param>
+              </con2:xqueryTransform></con1:expr>
+          </con1:assign>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ff9</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">data($fault/ctx:errorCode) eq 'ATR-0032'</con2:xqueryText></con1:condition><con1:actions><con1:Error>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2248766588846812300--7daa30f7.143d37bce0d.-7ffa</con2:id>
+            <con1:errCode>ATR-0032</con1:errCode>
+            <con1:message>Dados obrigatórios para identificação do contrato não preenchidos corretamente. Informar um e apenas um dos parâmetros: COD_ASSINANTE, TELEFONE, CPF_CNPJ OU PROTOCOLO.</con1:message>
+          </con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">data($fault/ctx:errorCode) eq 'ATR-0033'</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ff7</con2:id><con1:errCode>ATR-0033</con1:errCode><con1:message>O parâmetro Origem não foi informado. Este parâmetro é Obrigatório.</con1:message></con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">data($fault/ctx:errorCode) eq 'ATR-0034'</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ff6</con2:id><con1:errCode>ATR-0034</con1:errCode><con1:message>O parâmetro CONSUMIDOR não foi informado. Este parâmetro é Obrigatório.</con1:message></con1:Error></con1:actions></con1:case><con1:default><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1580817698374214207--37eacd07.15862f3afeb.-7ff5</con2:id><con1:errCode>ATR-9999</con1:errCode><con1:message>Erro inesperado</con1:message></con1:Error></con1:default></con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    
+    <con:pipeline type="error" name="_onErrorHandler-6101344389522702860--23cdd7ca.15867983efe.-7fff" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"><con:stage name="Tratamento de Erro Local"><con:comment>Tatamento de erro local para configurar extrair as informações necessarias da fault ocorrida</con:comment><con:context><con1:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/></con:context><con:actions><con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ffe</con2:id><con1:logLevel>error</con1:logLevel><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault</con2:xqueryText></con1:expr><con1:message>TRATAMENTO DE ERRO LOCAL - CHAMADA AO PROXY 12V2 PARA IDENTIFICAR CONTRATO</con1:message></con1:log><con1:assign varName="codigoErro" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ffd</con2:id><con1:expr><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$fault/ctx:details/con1:ReceivedFaultDetail/con1:detail/ctx:fault/ctx:errorCode
+</con2:xqueryText></con1:expr></con1:assign><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">Verificar o codigo de erro retornado e arremessar o mesma falha na nova fault</con2:comment><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ffa</con2:id><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$codigoErro eq "ATR-0032"</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ff9</con2:id><con1:errCode>ATR-0032</con1:errCode><con1:message>Dados obrigatórios para identificação do contrato não preenchidos corretamente. Informar um e apenas um dos parâmetros: COD_ASSINANTE, TELEFONE, CPF_CNPJ OU PROTOCOLO.</con1:message></con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$codigoErro eq "ATR-0028"</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ff8</con2:id><con1:errCode>ATR-0028</con1:errCode><con1:message>Não foi possível identificar a base do contrato informado.</con1:message></con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$codigoErro eq "ATR-0085"</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ff0</con2:id><con1:errCode>ATR-0085</con1:errCode><con1:message>O formato de um parâmetro está incorreto. O parâmetro correto é: código do assinante (numérico).</con1:message></con1:Error></con1:actions></con1:case><con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$codigoErro eq "ATR-0086"</con2:xqueryText></con1:condition><con1:actions><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ff0</con2:id><con1:errCode>ATR-0086</con1:errCode><con1:message>Assinante migrado para a base UNO.</con1:message></con1:Error></con1:actions></con1:case><con1:default><con1:Error><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6101344389522702860--23cdd7ca.15867983efe.-7ff7</con2:id><con1:errCode>ATR-9999</con1:errCode><con1:message>Erro inesperado</con1:message></con1:Error></con1:default></con1:ifThenElse></con:actions></con:stage></con:pipeline><con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="Identificar Contratos">
+        <con:comment>Identificar Contratos - valida dados de entrada e dispatch para a operação de consulta conforme atributo de entrada preenchido.</con:comment>
+        <con:request>Identificar Contratos_request</con:request>
+        <con:response>Identificar Contratos_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

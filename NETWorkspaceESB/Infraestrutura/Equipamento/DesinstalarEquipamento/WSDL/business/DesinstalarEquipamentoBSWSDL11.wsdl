@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="DesinstalarEquipamentoWebServiceDefinitions" targetNamespace="open:services.netservicos.com.br" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="open:services.netservicos.com.br" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="open:services.netservicos.com.br" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="desinstalarEquipamento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NUMERO_SERIE" type="xs:string"/>
+            <xs:element name="EQUIPE" type="xs:string"/>
+            <xs:element name="CREDENCIADA" type="xs:string"/>
+            <xs:element name="CONTRATO" type="xs:string"/>
+            <xs:element name="CIDADE_OPERADORA" type="xs:string"/>
+            <xs:element name="ORDEM_SERVICO" type="xs:string"/>
+            <xs:element name="ID_ESTADO_DESTINO" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="desinstalarEquipamentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="retorno" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="desinstalarEquipamento">
+    <s0:part element="s1:desinstalarEquipamento" name="parameters"/>
+  </s0:message>
+  <s0:message name="desinstalarEquipamentoResponse">
+    <s0:part element="s1:desinstalarEquipamentoResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="DesinstalarEquipamentoWebService">
+    <s0:operation name="desinstalarEquipamento" parameterOrder="parameters">
+      <s0:input message="s1:desinstalarEquipamento"/>
+      <s0:output message="s1:desinstalarEquipamentoResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="DesinstalarEquipamentoWebServiceSoapBinding" type="s1:DesinstalarEquipamentoWebService">
+    <s2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="desinstalarEquipamento">
+      <s2:operation soapAction="open:desinstalarEquipamento" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="DesinstalarEquipamentoWebService">
+    <s0:port binding="s1:DesinstalarEquipamentoWebServiceSoapBinding" name="DesinstalarEquipamentoWebServiceSoapPort">
+      <s2:address location="http://5.8.110.146:7001/nethomews/DesinstalarEquipamentoJWS"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

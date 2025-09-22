@@ -1,0 +1,136 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:SnContratoColetivoDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP">
+    <creationDate>2009-11-19T17:54:23</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="NUM_CONTRATO" type="xs:integer">
+        <extension nativeXpath="NUM_CONTRATO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="CID_CONTRATO" type="xs:string">
+        <extension nativeXpath="CID_CONTRATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="6" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_MODALIDADE_COLETIVO" type="xs:integer">
+        <extension nativeXpath="ID_MODALIDADE_COLETIVO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_MODALIDADE_COBRANCA" type="xs:integer">
+        <extension nativeXpath="ID_MODALIDADE_COBRANCA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="ID_TIPO_RESTRICAO" type="xs:integer">
+        <extension nativeXpath="ID_TIPO_RESTRICAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="VALOR_ADESAO" type="xs:decimal">
+        <extension nativeXpath="VALOR_ADESAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="2"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_PLANO_PGTO" type="xs:integer">
+        <extension nativeXpath="ID_PLANO_PGTO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CORTESIA" type="xs:string">
+        <extension nativeXpath="CORTESIA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="65" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CONTATO" type="xs:string">
+        <extension nativeXpath="CONTATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="40" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FONE_CONTATO" type="xs:string">
+        <extension nativeXpath="FONE_CONTATO" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="OBS" type="xs:string">
+        <extension nativeXpath="OBS" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="2000" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_PERIODO_MIN_VIGENCIA" type="xs:integer">
+        <extension nativeXpath="NUM_PERIODO_MIN_VIGENCIA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="DT_PERIODO_MIN_VIGENCIA" type="xs:dateTime">
+        <extension nativeXpath="DT_PERIODO_MIN_VIGENCIA" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="VALOR_CONSTR_MDU" type="xs:decimal">
+        <extension nativeXpath="VALOR_CONSTR_MDU" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="2"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="INDICADOR_PLANO_MDU" type="xs:integer">
+        <extension nativeXpath="INDICADOR_PLANO_MDU" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="QTD_PA_AREA_COMUM" type="xs:integer">
+        <extension nativeXpath="QTD_PA_AREA_COMUM" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_PERIODO_PAYBACK" type="xs:integer">
+        <extension nativeXpath="NUM_PERIODO_PAYBACK" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="DT_PERIODO_PAYBACK" type="xs:dateTime">
+        <extension nativeXpath="DT_PERIODO_PAYBACK" nativeTypeCode="91" nativeType="DATE" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_MULTIPLO_MENSALIDADE" type="xs:integer">
+        <extension nativeXpath="NUM_MULTIPLO_MENSALIDADE" nativeTypeCode="3" nativeType="NUMBER" nativeSize="2" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_TAXA_PENETRACAO" type="xs:decimal">
+        <extension nativeXpath="NUM_TAXA_PENETRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="2"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="INDICADOR_TAXA_PENETRACAO" type="xs:integer">
+        <extension nativeXpath="INDICADOR_TAXA_PENETRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="NUM_TAXA_MIGRACAO" type="xs:decimal">
+        <extension nativeXpath="NUM_TAXA_MIGRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="2"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="INDICADOR_TAXA_MIGRACAO" type="xs:integer">
+        <extension nativeXpath="INDICADOR_TAXA_MIGRACAO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="ID_CARACTERISTICA_COLETIVO" type="xs:integer">
+        <extension nativeXpath="ID_CARACTERISTICA_COLETIVO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="1" nativeFractionalDigits="0"/>
+        <properties nullable="false"/>
+    </field>
+    <key name="PKSN_CONTRATO_COLETIVO" type="snc:SnContratoColetivoDSP_KEY" inferredSchema="true" xmlns:snc="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP";
+
+import schema namespace t5 = "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoColetivoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoColetivoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoColetivoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_CONTRATO_COLETIVO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnContratoColetivoDSP() as schema-element(t5:SnContratoColetivoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_CONTRATO_COLETIVO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnContratoColetivoDSP($p as element(t5:SnContratoColetivoDSP)*)as schema-element(t5:SnContratoColetivoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_CONTRATO_COLETIVO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnContratoColetivoDSP($p as changed-element(t5:SnContratoColetivoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_CONTRATO_COLETIVO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnContratoColetivoDSP($p as element(t5:SnContratoColetivoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/SnContratoDSP" at "ld:br/com/netservicos/atendimento/contratovenda/physical/netsms/table/schemas/SnContratoDSP.xsd";
+
+   
+

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:description>GerarProtocoloAtendimento12</ser:description>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="relacionar/atendimento/protocolo/wsdl/proxyservice/GerarProtocoloAtendimentoWSDL12"/>
+      <con:binding>
+        <con:name>JwsServiceSoapBinding</con:name>
+        <con:namespace>http://www.netservicos.com.br/</con:namespace>
+      </con:binding>
+      <con:selector type="SOAP body"/>
+      <con:WSI-compliant>false</con:WSI-compliant>
+    </ser:binding>
+    <ser:monitoring isEnabled="true">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>false</ser:reporting>
+    <ser:logging isEnabled="false">
+      <ser:logLevel>warning</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="false">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="false">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+    <ser:throttling enabled="false">
+      <ser:capacity>0</ser:capacity>
+      <ser:maxQueueLength>0</ser:maxQueueLength>
+      <ser:timeToLive>0</ser:timeToLive>
+    </ser:throttling>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/relacionar/atendimento/protocolo/GerarProtocoloAtendimento12</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific><http:inbound-properties/><http:dispatch-policy>GerarProtocolo-WorkManager</http:dispatch-policy></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-4092226286066416176-4657edea.11d9ac8c40f.-7fe3">
+    <con:pipeline name="_onErrorHandler-4092226286066416176-4657edea.11d9ac8c40f.-7fe3" type="error">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fd7</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>'fault::Inicio*************'</con2:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fd8</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$fault</con2:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fd6</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>'fault::Fim*************'</con2:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con3:ifThenElse><con2:id>_ActionId-3302362018014429326--6c76b348.17062df1ee8.-8000</con2:id><con3:case><con3:condition><con2:xqueryText>fn:contains(fn:data($fault/ctx:details),
+     "TimeOut")</con2:xqueryText></con3:condition><con3:actions><con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id>_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              
+	        <con2:xqueryText>'ESB-ATEND-0015'</con2:xqueryText></con1:header>
+          </con1:transport-headers><con3:Error>
+            <con2:id>_ActionId-4092226286066416176-4657edea.11d9ac8c40f.-7fe2</con2:id>
+            <con3:errCode>ESB-ATEND-0015</con3:errCode>
+            <con3:message>TimeOut no Processo de Geração de Protocolos.</con3:message>
+          </con3:Error></con3:actions></con3:case><con3:default><con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"><con2:id>_ActionId-2200672819673162128--307c079d.1756f86f1cc.-8000</con2:id><con1:case><con1:condition><con2:xqueryText>fn:contains($fault, "ORA-") or
+fn:contains($body, "ORA-")</con2:xqueryText></con1:condition><con1:actions><con1:transport-headers>
+            <con2:id>_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header value="expression" name="SOA-Code">
+              
+	        <con2:xqueryTransform><con2:resource ref="general/transformation/FormatTransportHeaderResponseORAErrorXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:actions></con1:case><con1:default><con1:transport-headers>
+            <con2:id>_ActionId-8860558302490276716--75ff3585.1699161cd2f.-8000</con2:id>
+            <con1:header-set>inbound-response</con1:header-set>
+            <con1:header name="SOA-Code" value="expression">
+              
+	        <con2:xqueryTransform><con2:resource ref="general/transformation/FormatTransportHeaderResponseCodeXQTv1"/><con2:param name="fault"><con2:path>$fault</con2:path></con2:param><con2:param name="body"><con2:path>$body</con2:path></con2:param></con2:xqueryTransform></con1:header>
+          </con1:transport-headers></con1:default></con1:ifThenElse><con3:Error>
+            <con2:id>_ActionId-4092226286066416176-4657edea.11d9ac8c40f.-7fe2</con2:id>
+            <con3:errCode>1001</con3:errCode>
+            <con3:message>Erro  ao gerar protocolo.</con3:message>
+          </con3:Error></con3:default></con3:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="stage1">
+        <con:context>
+          <con2:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+          <con2:userNsDecl namespace="java:br.com.netservicos.atendimento.protocolo.bean" prefix="java"/>
+          <con2:varNsDecl namespace="http://www.netservicos.com.br/" prefix="net"/>
+          <con2:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/evento" prefix="even"/>
+        </con:context>
+        <con:actions>
+          <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fdf</con2:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con2:xqueryText>$body</con2:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con3:wsCallout>
+            <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fe1</con2:id>
+            <con3:service xsi:type="ref:BusinessServiceRef" ref="relacionar/atendimento/protocolo/businessservice/GerarProtocoloAtendimentoBSV2_0" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con3:operation>gerarProtocoloAtendimento</con3:operation>
+            <con3:request>
+              <con3:body>$protocoloRequest</con3:body>
+            </con3:request>
+            <con3:response>
+              <con3:body>protocoloResponse</con3:body>
+            </con3:response>
+            <con3:requestTransform>
+              <con3:assign varName="protocoloRequest">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fe0</con2:id>
+                <con3:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="relacionar/atendimento/protocolo/transformation/TransformarGerarProtCanonicoXEntradaEjbGerarProXQuery"/>
+                    <con2:param name="gerarProtocoloAtendimento1">
+                      <con2:path>$body/net:gerarProtocoloAtendimento</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con3:expr>
+              </con3:assign>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fdd</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'protocoloRequest::INICIO**********'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fde</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>$protocoloRequest</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fdc</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'protocoloRequest::FIM**********'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+            </con3:requestTransform>
+            <con3:responseTransform>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fda</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'protocoloResponse::Inicio**********'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fdb</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>$protocoloResponse</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7fd9</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'protocoloResponse::Fim**********'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7f9b</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'bodyResponse::Inicio*****************'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con3:assign varName="numeroProtocolo">
+                <con2:id>_ActionId-1786977029524032947-32223f0f.1287ea5f105.-7ffb</con2:id>
+                <con3:expr>
+                  <con2:xqueryText>fn:data($protocoloResponse/m:contato/java:numeroProtocolo)</con2:xqueryText>
+                </con3:expr>
+              </con3:assign>
+              <con3:assign varName="numeroChamado">
+                <con2:id>_ActionId-1786977029524032947-32223f0f.1287ea5f105.-7ffa</con2:id>
+                <con3:expr>
+                  <con2:xqueryText>fn:data($protocoloResponse/m:contato/java:numeroChamado)</con2:xqueryText>
+                </con3:expr>
+              </con3:assign>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7f9c</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>$body</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+              <con4:log xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-5216644878898827815-2b151e4.122d8c2a2bf.-7f9a</con2:id>
+                <con4:logLevel>debug</con4:logLevel>
+                <con4:expr>
+                  <con2:xqueryText>'bodyResponse::Fim*****************'</con2:xqueryText>
+                </con4:expr>
+              </con4:log>
+            </con3:responseTransform>
+          </con3:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response">
+      <con:stage name="Resposta">
+        <con:context/>
+        <con:actions>
+          <con3:assign varName="header">
+            <con2:id>_ActionId-1786977029524032947-32223f0f.1287ea5f105.-7ffd</con2:id>
+            <con3:expr>
+              <con2:xqueryText>&lt;env:Header xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" /></con2:xqueryText>
+            </con3:expr>
+          </con3:assign>
+          <con3:assign varName="body">
+            <con2:id>_ActionId-1786977029524032947-32223f0f.1287ea5f105.-7ffc</con2:id>
+            <con3:expr>
+              <con2:xqueryText><![CDATA[<env:Body xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+        <m:gerarProtocoloAtendimentoResponse xmlns:m="http://www.netservicos.com.br/">
+            <m:Contato>
+                <even:Protocolo xmlns:even="http://www.netservicos.com.br/modelocanonico/evento">{ fn:data($numeroProtocolo) }</even:Protocolo>
+                <even:NumeroChamado xmlns:even="http://www.netservicos.com.br/modelocanonico/evento">{ fn:data($numeroChamado) }</even:NumeroChamado>
+            </m:Contato>
+        </m:gerarProtocoloAtendimentoResponse>
+    </env:Body>]]></con2:xqueryText>
+            </con3:expr>
+          </con3:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

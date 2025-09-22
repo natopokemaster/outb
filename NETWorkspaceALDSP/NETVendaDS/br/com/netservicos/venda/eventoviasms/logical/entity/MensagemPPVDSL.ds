@@ -1,0 +1,81 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:SnMensagemSmsDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP"><creationDate>2012-02-07T16:17:49</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace snc="ld:br/com/netservicos/venda/operadora/physical/netsms/table/SnCidadeOperadoraDSP";
+
+declare namespace par= "ld:br/com/netservicos/venda/eventoviasms/logical/entity/ParametrosMensagemPPVDSL";
+
+import schema namespace ns1="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/SnMensagemSmsDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/SnMensagemSmsDSP.xsd";
+
+
+declare namespace tns="ld:br/com/netservicos/venda/eventoviasms/logical/entity/MensagemPPVDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:buscarMensagemFalha($codigoProduto as xs:string, $codigoOperadora as xs:string) as element(ns1:SnMensagemSmsDSP)* {
+	declare $mensagem as element(ns1:SnMensagemSmsDSP)*;
+	if($codigoOperadora eq '0') then {
+		set $mensagem :=
+		for $SnMensagemSmsDSP in ns1:SnMensagemSmsDSP()
+		where $codigoProduto eq $SnMensagemSmsDSP/CD_MENSAGEM_SMS
+		where fn:empty($SnMensagemSmsDSP/CID_CONTRATO)
+		where $SnMensagemSmsDSP/ID_TIPO_MENSAGEM eq par:getIdTipoMensagemFalha()
+		return
+		        <ns1:SnMensagemSmsDSP?>
+		            <ID_MENSAGEM?>{fn:data($SnMensagemSmsDSP/ID_MENSAGEM)}</ID_MENSAGEM>
+		            <CID_CONTRATO?>{fn:data($SnMensagemSmsDSP/CID_CONTRATO)}</CID_CONTRATO>
+		            <DS_MENSAGEM?>{fn:data($SnMensagemSmsDSP/DS_MENSAGEM)}</DS_MENSAGEM>
+		            <CD_MENSAGEM_SMS?>{fn:data($SnMensagemSmsDSP/CD_MENSAGEM_SMS)}</CD_MENSAGEM_SMS>
+		            <ID_TIPO_MENSAGEM?>{fn:data($SnMensagemSmsDSP/ID_TIPO_MENSAGEM)}</ID_TIPO_MENSAGEM>
+		        </ns1:SnMensagemSmsDSP>;
+		if (fn:empty($mensagem)) then
+			set $mensagem :=
+		        <ns1:SnMensagemSmsDSP>
+		            <ID_MENSAGEM/>
+		            <CID_CONTRATO/>
+		            <DS_MENSAGEM>{par:getMensagemFalhaPadrao()}</DS_MENSAGEM>
+		            <CD_MENSAGEM_SMS>{$codigoProduto}</CD_MENSAGEM_SMS>
+		            <ID_TIPO_MENSAGEM>{par:getIdTipoMensagemFalha()}</ID_TIPO_MENSAGEM>
+		        </ns1:SnMensagemSmsDSP>;
+	} else {
+		set $mensagem :=
+		for $SnMensagemSmsDSP in ns1:SnMensagemSmsDSP()
+		where $codigoProduto eq $SnMensagemSmsDSP/CD_MENSAGEM_SMS
+		where $SnMensagemSmsDSP/ID_TIPO_MENSAGEM eq par:getIdTipoMensagemFalha()
+		for $operadora in snc:SnCidadeOperadoraDSP()
+		where $codigoOperadora eq $operadora/COD_OPERADORA
+		where $SnMensagemSmsDSP/CID_CONTRATO eq $operadora/CID_CONTRATO
+		return
+		        <ns1:SnMensagemSmsDSP>
+		            <ID_MENSAGEM>{fn:data($SnMensagemSmsDSP/ID_MENSAGEM)}</ID_MENSAGEM>
+		            <CID_CONTRATO>{fn:data($SnMensagemSmsDSP/CID_CONTRATO)}</CID_CONTRATO>
+		            <DS_MENSAGEM>{fn:data($SnMensagemSmsDSP/DS_MENSAGEM)}</DS_MENSAGEM>
+		            <CD_MENSAGEM_SMS>{fn:data($SnMensagemSmsDSP/CD_MENSAGEM_SMS)}</CD_MENSAGEM_SMS>
+		            <ID_TIPO_MENSAGEM>{fn:data($SnMensagemSmsDSP/ID_TIPO_MENSAGEM)}</ID_TIPO_MENSAGEM>
+		        </ns1:SnMensagemSmsDSP>;
+	};
+	return value $mensagem;
+};
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarMensagemSucesso($codigoProduto as xs:string, $codigoOperadora as xs:string) as element(ns1:SnMensagemSmsDSP)* {
+	for $SnMensagemSmsDSP in ns1:SnMensagemSmsDSP()
+	where $SnMensagemSmsDSP/CD_MENSAGEM_SMS eq $codigoProduto
+	where $SnMensagemSmsDSP/ID_TIPO_MENSAGEM eq par:getIdTipoMensagemSucesso()
+	for $operadora in snc:SnCidadeOperadoraDSP()
+	where $operadora/CID_CONTRATO eq $SnMensagemSmsDSP/CID_CONTRATO
+	where $operadora/COD_OPERADORA eq $codigoOperadora
+	return
+        <ns1:SnMensagemSmsDSP>
+            <ID_MENSAGEM>{fn:data($SnMensagemSmsDSP/ID_MENSAGEM)}</ID_MENSAGEM>
+            <CID_CONTRATO>{fn:data($SnMensagemSmsDSP/CID_CONTRATO)}</CID_CONTRATO>
+            <DS_MENSAGEM>{fn:data($SnMensagemSmsDSP/DS_MENSAGEM)}</DS_MENSAGEM>
+            <CD_MENSAGEM_SMS>{fn:data($SnMensagemSmsDSP/CD_MENSAGEM_SMS)}</CD_MENSAGEM_SMS>
+            <ID_TIPO_MENSAGEM>{fn:data($SnMensagemSmsDSP/ID_TIPO_MENSAGEM)}</ID_TIPO_MENSAGEM>
+        </ns1:SnMensagemSmsDSP>
+    
+
+};
+

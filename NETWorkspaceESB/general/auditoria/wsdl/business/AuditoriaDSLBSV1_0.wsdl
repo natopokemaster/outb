@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/seguranca/logical/entity/AuditoriaDSL_ws" name="AuditoriaJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/seguranca/logical/entity/AuditoriaDSL_ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/seguranca/logical/entity/AuditoriaDSL_ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/seguranca/logical/entity/AuditoriaDSL_ws" xmlns:dsns0="http://www.netservicos.com.br/Auditoria">
+      <xs:import namespace="http://www.netservicos.com.br/Auditoria"/>
+      <xs:element name="inserirRegistroAuditoria">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="auditoria">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="dsns0:auditoria"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inserirRegistroAuditoriaResponse" type="xs:anyType"/>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/Auditoria" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/Auditoria">
+      <complexType name="AuditoriaType">
+        <sequence>
+          <element name="PSISTEMA" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="PUSUARIO" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="PCRITICIDADE" type="decimal" minOccurs="0" maxOccurs="1"/>
+          <element name="PACAO" type="decimal" minOccurs="0" maxOccurs="1"/>
+          <element name="PCIDADE" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="PCAMPO" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="PIDREGISTRO" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="PNOTA" type="string" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+      </complexType>
+      <element name="auditoria" type="tns:AuditoriaType"/>
+    </schema>
+  </types>
+  <message name="inserirRegistroAuditoriaIn">
+    <part name="parameters" element="tns:inserirRegistroAuditoria"/>
+  </message>
+  <message name="inserirRegistroAuditoriaOut">
+    <part name="parameters" element="tns:inserirRegistroAuditoriaResponse"/>
+  </message>
+  <portType name="AuditoriaJWSPT">
+    <operation name="inserirRegistroAuditoria">
+      <input message="tns:inserirRegistroAuditoriaIn"/>
+      <output message="tns:inserirRegistroAuditoriaOut"/>
+    </operation>
+  </portType>
+  <binding name="AuditoriaJWSSoapBinding" type="tns:AuditoriaJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="inserirRegistroAuditoria">
+      <soap:operation soapAction="ld:br/com/netservicos/seguranca/logical/entity/AuditoriaDSL_ws/inserirRegistroAuditoria" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AuditoriaJWSSoapService">
+    <port binding="tns:AuditoriaJWSSoapBinding" name="AuditoriaJWSSoapPort">
+      <soap:address location="http://10.230.230.121:7041/NETSegurancaDS/ALDSPWebServiceSOAP12/br/com/netservicos/seguranca/webservice/AuditoriaJWS.ws"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,58 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:buscarHistoricoResponse" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="ld:br/com/netservicos/atendimento/historicoatendimento/logical/library/PgsmsPesquisaAtendimentoDSL"><creationDate>2015-01-07T00:17:42</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace tns= "ld:br/com/netservicos/atendimento/historicoatendimento/logical/library/PgsmsPesquisaAtendimentoDSL";
+
+import schema namespace ns1="ld:br/com/netservicos/atendimento/historicoatendimento/logical/library/PgsmsPesquisaAtendimentoDSL" at "ld:br/com/netservicos/atendimento/historicoatendimento/logical/schema/BuscarHistoricoResponseDSL.xsd";
+import schema namespace t2 = "ld:br/com/netservicos/atendimento/historicoatendimento/physical/netsms/procedure/ATENDIMENTO" at "ld:br/com/netservicos/atendimento/historicoatendimento/physical/netsms/procedure/schemas/AtendimentoDSP.xsd";
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/historicoatendimento/physical/netsms/procedure/PgsmsPesquisaAtendimentoDSP";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarHistoricoContrato($numeroContrato as xs:long, $identificacaoCidade as xs:string, $dataIni as xs:dateTime?, $dataFim as xs:dateTime?, $status as xs:int?) as element(ns1:buscarHistoricoResponse)* {
+     
+    <tns:buscarHistoricoResponse>
+    {
+	    for $atendimento in f1:BuscaContratoDSP($identificacaoCidade, $numeroContrato, $dataIni, $dataFim, $status)
+		return 
+	        <tns:atendimento>
+	            <tns:ordem?>{data($atendimento/ORDEM)}</tns:ordem>
+	            <tns:numeroProtocolo?>{data($atendimento/ID_PROTOCOLO)}</tns:numeroProtocolo>
+	            <tns:numeroChamada?>{data($atendimento/ID_CHAMADA)}</tns:numeroChamada>
+	            <tns:acao?>{data($atendimento/ACAO)}</tns:acao>
+	            <tns:numeroOcorSolic?>{data($atendimento/NUMERO)}</tns:numeroOcorSolic>
+	            <tns:tipoOcorrencia?>{data($atendimento/TIPO_OCORRENCIA)}</tns:tipoOcorrencia>
+	            <tns:tipoOcorSolic?>{data($atendimento/TIPO)}</tns:tipoOcorSolic>
+	            <tns:dataAberturaOcorSolic?>{data($atendimento/DATA_ABERTURA)}</tns:dataAberturaOcorSolic>
+	            <tns:dataFechamentoOcorSolic?>{data($atendimento/DATA_FECHAMENTO)}</tns:dataFechamentoOcorSolic>
+	            <tns:situacaoOcorSolic?>{data($atendimento/SITUACAO)}</tns:situacaoOcorSolic>
+	            <tns:classificacao?>{data($atendimento/CLASSIFICACAO)}</tns:classificacao>
+	        </tns:atendimento>
+    }
+    </tns:buscarHistoricoResponse>
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:buscarHistoricoProtocolo($numeroProtocolo as xs:string, $identificacaoCidade as xs:string, $dataIni as xs:dateTime?, $dataFim as xs:dateTime?, $status as xs:int?) as element(ns1:buscarHistoricoResponse)* {
+     
+    <tns:buscarHistoricoResponse>
+    {
+	    for $atendimento in f1:BuscaProtocoloDSP($identificacaoCidade, $numeroProtocolo, $dataIni, $dataFim, $status)
+		return 
+	        <tns:atendimento>
+	            <tns:ordem?>{data($atendimento/ORDEM)}</tns:ordem>
+	            <tns:numeroProtocolo?>{data($atendimento/ID_PROTOCOLO)}</tns:numeroProtocolo>
+	            <tns:numeroChamada?>{data($atendimento/ID_CHAMADA)}</tns:numeroChamada>
+	            <tns:acao?>{data($atendimento/ACAO)}</tns:acao>
+	            <tns:numeroOcorSolic?>{data($atendimento/NUMERO)}</tns:numeroOcorSolic>
+	            <tns:tipoOcorSolic?>{data($atendimento/TIPO)}</tns:tipoOcorSolic>
+	            <tns:dataAberturaOcorSolic?>{data($atendimento/DATA_ABERTURA)}</tns:dataAberturaOcorSolic>
+	            <tns:dataFechamentoOcorSolic?>{data($atendimento/DATA_FECHAMENTO)}</tns:dataFechamentoOcorSolic>
+	            <tns:situacaoOcorSolic?>{data($atendimento/SITUACAO)}</tns:situacaoOcorSolic>
+	        </tns:atendimento>
+    }
+    </tns:buscarHistoricoResponse>
+};

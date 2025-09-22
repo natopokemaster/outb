@@ -1,0 +1,137 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xfl <x:xfl xmlns:x="urn:annotations.ld.bea.com"><creationDate>2012-05-30T15:37:59</creationDate></x:xfl> ::)
+
+
+declare namespace ns0= "ld:br/com/netservicos/atendimento/equipamento/physical/nethome/table/EnderecavelDSP";
+
+declare namespace mod= "ld:br/com/netservicos/atendimento/equipamento/physical/nethome/table/ModEquipTipoEnderDSP";
+
+import schema namespace end="ld:br/com/netservicos/atendimento/equipamento/physical/ENDERECAVEL" at "ld:br/com/netservicos/atendimento/equipamento/physical/nethome/table/schemas/EnderecavelDSP.xsd";
+
+declare namespace snr= "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnRelPontoProdutoDSP";
+
+declare namespace snp= "ld:br/com/netservicos/atendimento/produto/physical/netsms/table/SnProdutoDSP";
+
+declare namespace snc= "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnCaracteristicaDSP";
+
+declare namespace snt3= "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOcorrenciaDSP";
+
+declare namespace snt2= "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOCDSP";
+
+declare namespace snt1= "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoOSDSP";
+
+declare namespace usu= "http://www.netservicos.com.br/modelocanonico/v2/usuario";
+
+declare namespace snd= "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnDiagnosticoDSP";
+
+import schema namespace eve="http://www.netservicos.com.br/modelocanonico/v2/evento" at "ld:schemas/br/com/netservicos/modelocanonico/v2/evento/Evento.xsd";
+
+import schema namespace snt="ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/SnTipoDiagnosticoDSP" at "ld:br/com/netservicos/atendimento/diagnostico/physical/netsms/table/schemas/SnTipoDiagnosticoDSP.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/diagnostico/logical/entity/DiagnosticoDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarTipoDiagnosticoPorCodigo($codigo as xs:string) as element(snt:SnTipoDiagnosticoDSP)? {
+let $codigoTipoDiagnosticoInteiro := xs:int($codigo)
+for $SnTipoDiagnosticoDSP in snt:SnTipoDiagnosticoDSP()
+where $codigoTipoDiagnosticoInteiro eq $SnTipoDiagnosticoDSP/CD_DIAGNOSTICO_URA
+return
+        <snt:SnTipoDiagnosticoDSP>
+            <ID_TIPO_DIAGNOSTICO>{fn:data($SnTipoDiagnosticoDSP/ID_TIPO_DIAGNOSTICO)}</ID_TIPO_DIAGNOSTICO>
+            <CD_DIAGNOSTICO_URA>{fn:data($SnTipoDiagnosticoDSP/CD_DIAGNOSTICO_URA)}</CD_DIAGNOSTICO_URA>
+            <DS_TIPO_DIAGNOSTICO>{fn:data($SnTipoDiagnosticoDSP/DS_TIPO_DIAGNOSTICO)}</DS_TIPO_DIAGNOSTICO>
+        </snt:SnTipoDiagnosticoDSP>
+    
+
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare xqse function tns:consultarEventos($codigoDiagnostico as xs:string, $identificadorPontoInstalacao as xs:long) as element(eve:Eventos) {
+	declare $codDiagnosticoInt := xs:integer($codigoDiagnostico);
+	declare $idProdutoPacote := 1;
+    declare $dtFimAberta := fn-bea:dateTime-from-string-with-format("yyyy-MM-dd", "2049-12-30");
+	declare $pontoInstalado := 1;
+
+	declare $resultsetBase :=
+		for $SnTipoDiagnosticoDSP in snt:SnTipoDiagnosticoDSP()
+		where $SnTipoDiagnosticoDSP/CD_DIAGNOSTICO_URA eq $codDiagnosticoInt
+		for $SnDiagnosticoDSP in snd:SnDiagnosticoDSP()
+		where $SnDiagnosticoDSP/ID_TIPO_DIAGNOSTICO eq $SnTipoDiagnosticoDSP/ID_TIPO_DIAGNOSTICO
+		for $SnCaracteristica in snc:SnCaracteristicaDSP()
+		where $SnDiagnosticoDSP/ID_CARACTERISTICA eq $SnCaracteristica/ID_CARACTERISTICA
+		for $SnProdutoDSP in snp:SnProdutoDSP()
+		where $SnProdutoDSP/ID_CARACTERISTICA eq $SnCaracteristica/ID_CARACTERISTICA
+		and $SnProdutoDSP/ID_TIPO_PRODUTO eq $idProdutoPacote
+		for $SnRelPontoProdutoDSP in snr:SnRelPontoProdutoDSP()
+		where $SnRelPontoProdutoDSP/ID_PRODUTO eq $SnProdutoDSP/ID_PRODUTO
+		and $SnRelPontoProdutoDSP/ID_PONTO eq $identificadorPontoInstalacao
+		and $SnRelPontoProdutoDSP/DT_FIM eq $dtFimAberta
+		and $SnRelPontoProdutoDSP/INSTALADO eq $pontoInstalado
+		return 
+		<eventosTemp?>
+	        {
+			if(not(empty($SnDiagnosticoDSP/ID_TIPO_OS)))then
+				for $TipoOS in snt1:SnTipoOSDSP()
+				where $TipoOS/ID_TIPO_OS eq $SnDiagnosticoDSP/ID_TIPO_OS
+				return
+		        <eve:Evento? xsi:type="eve:OrdemCampo">
+		            <eve:Tipo?>
+		                <eve:Identificador?>{fn:data($TipoOS/ID_TIPO_OS)}</eve:Identificador>
+		                <eve:Descricao?>{fn:data($TipoOS/DESCRICAO)}</eve:Descricao>
+		            </eve:Tipo>
+			    </eve:Evento>
+		    else()
+		    }
+	        {
+			if(not(empty($SnDiagnosticoDSP/ID_TIPO_OC)))then
+				for $TipoOC in snt2:SnTipoOCDSP()
+				where $TipoOC/ID_TIPO_OC eq $SnDiagnosticoDSP/ID_TIPO_OC
+				return
+		        <eve:Evento? xsi:type="eve:OrdemAtivacao">
+		            <eve:Tipo?>
+		                <eve:Identificador?>{fn:data($TipoOC/ID_TIPO_OC)}</eve:Identificador>
+		                <eve:Descricao?>{fn:data($TipoOC/DESCRICAO)}</eve:Descricao>
+		            </eve:Tipo>
+			    </eve:Evento>
+		    else()
+		    }
+	        {
+			if(not(empty($SnDiagnosticoDSP/ID_TIPO_OCORRENCIA)))then
+				for $TipoOcorrencia in snt3:SnTipoOcorrenciaDSP()
+				where $TipoOcorrencia/ID_TIPO_OCORRENCIA eq $SnDiagnosticoDSP/ID_TIPO_OCORRENCIA
+				return
+		        <eve:Evento? xsi:type="eve:OrdemInterna">
+		            <eve:Tipo?>
+		                <eve:Identificador?>{fn:data($TipoOcorrencia/ID_TIPO_OCORRENCIA)}</eve:Identificador>
+		                <eve:Descricao?>{fn:data($TipoOcorrencia/DESCRICAO)}</eve:Descricao>
+		            </eve:Tipo>
+			    </eve:Evento>
+		    else()
+		    }
+	    </eventosTemp>;
+
+	return value
+    <eve:Eventos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eve="http://www.netservicos.com.br/modelocanonico/v2/evento">
+	    { $resultsetBase//eve:Evento  }
+    </eve:Eventos>;
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarEnderecavelSecundario($enderecavelPrincipal as xs:string) as element(end:ENDERECAVEL)?{
+	for $ENDERECAVEL in ns0:ENDERECAVEL()
+	where $enderecavelPrincipal eq $ENDERECAVEL/CD_ENDERECAVEL
+	for $ENDERECAVEL0 in ns0:ENDERECAVEL()
+	where $ENDERECAVEL/ID_EQUIPAMENTO eq $ENDERECAVEL0/ID_EQUIPAMENTO
+	and $ENDERECAVEL/CD_ENDERECAVEL ne $ENDERECAVEL0/CD_ENDERECAVEL
+	for $MOD_EQUIP_TIPO_ENDER in mod:MOD_EQUIP_TIPO_ENDER()
+	where $ENDERECAVEL0/ID_MOD_EQUIP_TIPO_ENDER eq $MOD_EQUIP_TIPO_ENDER/ID_MOD_EQUIP_TIPO_ENDER
+	and $MOD_EQUIP_TIPO_ENDER/FC_ENDERECAVEL_PRINCIPAL eq 'N'
+	return
+        <end:ENDERECAVEL>
+            <CD_ENDERECAVEL?>{fn:data($ENDERECAVEL0/CD_ENDERECAVEL)}</CD_ENDERECAVEL>
+        </end:ENDERECAVEL>
+};

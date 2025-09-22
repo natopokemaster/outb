@@ -1,0 +1,70 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelCobrancaBoletoDSP" xmlns:t="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnRelCobrancaBoletoDSP">
+<creationDate>2010-03-31T18:14:32</creationDate>
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_REL_COBRANCA_BOLETO" type="xs:integer">
+  <extension nativeXpath="ID_REL_COBRANCA_BOLETO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_BOLETO" type="xs:integer">
+  <extension nativeXpath="ID_BOLETO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="14" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_COBRANCA" type="xs:integer">
+  <extension nativeXpath="ID_COBRANCA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="9" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_COBRANCA_PARCEIRO" type="xs:integer">
+  <extension nativeXpath="ID_COBRANCA_PARCEIRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="15" nativeFractionalDigits="0"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="ID_PARCEIRO" type="xs:integer">
+  <extension nativeXpath="ID_PARCEIRO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="6" nativeFractionalDigits="0"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_COBRANCA_BOLETO" type="snr:SnRelCobrancaBoletoDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnRelCobrancaBoletoDSP"/>
+
+<relationshipTarget roleName="SnBoletoDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP.ds" opposite="SnRelCobrancaBoletoDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnRelCobrancaBoletoDSP";
+
+import schema namespace t3 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnRelCobrancaBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnRelCobrancaBoletoDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnRelCobrancaBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnRelCobrancaBoletoDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="SN_REL_COBRANCA_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelCobrancaBoletoDSP() as schema-element(t3:SnRelCobrancaBoletoDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="SN_REL_COBRANCA_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelCobrancaBoletoDSP($p as element(t3:SnRelCobrancaBoletoDSP)*)as schema-element(t3:SnRelCobrancaBoletoDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="SN_REL_COBRANCA_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelCobrancaBoletoDSP($p as changed-element(t3:SnRelCobrancaBoletoDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="SN_REL_COBRANCA_BOLETO" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelCobrancaBoletoDSP($p as element(t3:SnRelCobrancaBoletoDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/SnBoletoDSP" at "ld:br/com/netservicos/atendimento/fatura/physical/netsms/table/schemas/SnBoletoDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="navigate" roleName="SnBoletoDSP"/>::)
+
+   declare function f1:getSnBoletoDSP($fk as element(t3:SnRelCobrancaBoletoDSP)) as element(t1:SnBoletoDSP)*
+   {
+      for $pk in f2:SnBoletoDSP()
+      where $pk/ID_BOLETO eq $fk/ID_BOLETO
+      return $pk
+   };
+

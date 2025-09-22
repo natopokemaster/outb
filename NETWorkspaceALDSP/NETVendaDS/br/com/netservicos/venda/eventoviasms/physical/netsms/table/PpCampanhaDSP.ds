@@ -1,0 +1,48 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:PpCampanhaDSP" xmlns:t="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP">
+<creationDate>2012-02-11T11:49:28</creationDate>
+<relationalDB name="VENDA_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.vender.VendaOnlineNETSMSBindingProvider"/>
+<field xpath="ID_CAMPANHA" type="xs:integer">
+  <extension nativeXpath="ID_CAMPANHA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="4" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="CAMPANHA" type="xs:string">
+  <extension nativeXpath="CAMPANHA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+<field xpath="COD_CAMPANHA" type="xs:string">
+  <extension nativeXpath="COD_CAMPANHA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="5" nativeFractionalDigits="null"/>
+  <properties nullable="true"/>
+</field>
+
+<key name="CMP_PK" type="ppc:PpCampanhaDSP_KEY" inferredSchema="true" xmlns:ppc="ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP"/>
+
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpCampanhaDSP.xsd";
+
+import schema "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/PpCampanhaDSP" at "ld:br/com/netservicos/venda/eventoviasms/physical/netsms/table/schemas/PpCampanhaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="PP_CAMPANHA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:PpCampanhaDSP() as schema-element(t1:PpCampanhaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="PP_CAMPANHA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createPpCampanhaDSP($p as element(t1:PpCampanhaDSP)*)as schema-element(t1:PpCampanhaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="PP_CAMPANHA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updatePpCampanhaDSP($p as changed-element(t1:PpCampanhaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="PP_CAMPANHA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deletePpCampanhaDSP($p as element(t1:PpCampanhaDSP)*) as empty()  external;
+

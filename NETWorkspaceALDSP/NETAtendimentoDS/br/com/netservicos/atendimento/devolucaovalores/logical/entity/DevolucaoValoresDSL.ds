@@ -1,0 +1,38 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:Consultar" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="br/com/netservicos/atendimento/devolucaovalores/logical/entity/schemas/DevolucaoValores.xsd"><creationDate>2015-09-17T00:23:51</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/devolucaovalores/physical/netsms/function/FcValidaPreenchimentoDSP";
+declare namespace f2 = "ld:br/com/netservicos/atendimento/devolucaovalores/physical/netsms/procedure/PrAtualizaFormularioDSP";
+import schema namespace ns1="br/com/netservicos/atendimento/devolucaovalores/logical/entity/schemas/DevolucaoValores.xsd" at "ld:br/com/netservicos/atendimento/devolucaovalores/logical/entity/schemas/DevolucaoValores.xsd";
+
+declare namespace tns="ld:br/com/netservicos/atendimento/devolucaovalores/logical/entity/DevolucaoValoresDSL";
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultar($numDocumento as xs:string) as element(ns1:Consultar)* {
+    <ns1:Consultar>        
+    {
+	    for $consultar in f1:FC_VALIDA_PREENCHIMENTO($numDocumento)
+		return 
+			<mensagem>{$consultar}</mensagem>
+    }
+
+    </ns1:Consultar>
+
+};
+
+(::pragma  function <f:function kind="library" visibility="public" isPrimary="false" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:inserir($numDocumento as xs:string, $nomeCompleto as xs:string?, $idBanco as xs:decimal?, $agencia as xs:string?, $conta as xs:string?, $digito as xs:string?, $idMotivoReembolso as xs:decimal?, $dobro as xs:string?, $reemissao as xs:string?, $dddTelefone1 as xs:string?, $numTelefone1 as xs:string?, $dddTelefone2 as xs:string?, $numTelefone2 as xs:string?, $dddCelular as xs:string?, $numCelular as xs:string?, $email as xs:string?, $observacao as xs:string?, $pchamada as xs:string?, $pprotocolo as xs:integer?) as element(ns1:Inserir) {
+ <ns1:Inserir>
+ 	{
+	    for $inserir in f2:PR_ATUALIZA_FORMULARIO($numDocumento, $nomeCompleto, $idBanco, $agencia, $conta, $digito, $idMotivoReembolso, $dobro, $reemissao, $dddTelefone1, $numTelefone1, $dddTelefone2, $numTelefone2, $dddCelular, $numCelular, $email, $observacao , $pchamada, $pprotocolo)
+		return 
+			<mensagem>{$inserir}</mensagem>
+		
+    }
+  </ns1:Inserir>
+};
+
+

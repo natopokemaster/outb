@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netservicos.com.br/ContratoAssinante" xmlns:tns="http://www.netservicos.com.br/ContratoAssinante" elementFormDefault="qualified">
+
+    <complexType name="ContratoAssinante">
+    	<sequence>
+    		<element name="CELULA" type="string"></element>
+    		<element name="COD_IMOVEL" type="long"></element>
+    		<element name="FLAG_INTERNET" type="string"></element>
+    		<element name="FLAG_NODE_SD" type="string"></element>
+    		<element name="FLAG_PAYTV_ANALOGICO" type="string"></element>
+    		<element name="FLAG_PAYTV_DIGITAL" type="string"></element>
+    		<element name="FLAG_PJ" type="string"></element>
+    		<element name="FLAG_VENDA_PPV_EVENTO" type="string"></element>
+    		<element name="NODE" type="string"></element>
+    		<element name="SA_CPF" type="string"></element>
+    		<element name="SA_E_MAIL" type="string"></element>
+    		<element name="SA_ID_ENDER_INSTALACAO" type="long"></element>
+    		<element name="SA_ID_TIPO_PESSOA" type="int"></element>
+    		<element name="SA_NOME_TITULAR" type="string"></element>
+    		<element name="SC_CID_CONTRATO" type="string"></element>
+    		<element name="SC_DT_CADASTRO" type="date"></element>
+    		<element name="SC_ID_TIPO_COBRANCA" type="int"></element>
+    		<element name="SC_ID_TIPO_CONTRATO" type="int"></element>
+    		<element name="SC_NUM_CONTRATO" type="long"></element>
+    		<element name="SCO_COD_OPERADORA" type="string"></element>
+    		<element name="SCO_ID_EMPRESA" type="string"></element>
+    		<element name="SDV_DIA" type="int"></element>
+    		<element name="SE_ID_EDIFICACAO" type="long"></element>
+    		<element name="SRAP_DESCRICAO" type="string"></element>
+    		<element name="SRAS_ID_TIPO_SEGMENTO" type="int"></element>
+    		<element name="SRCPC_ID_PERFIL_CLIENTE" type="long"></element>
+    		<element name="SRSCA_ID_STATUS" type="int"></element>
+    		<element name="SSC_DESCRICAO" type="string"></element>
+    		<element name="STATUS_ADIMPL" type="string"></element>
+    		<element name="STC_DESCRICAO" type="string"></element>
+    		<element name="STS_DESCRICAO" type="string"></element>
+    		<element name="FLAG_NETFONE" type="string"></element>
+    		<element name="MIGRACAO_NET_UNO" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="contratos" type="tns:ContratosType"></element>
+
+
+    <complexType name="ContratosType">
+    	<sequence>
+    		<element name="contratoAssinante" type="tns:ContratoAssinante" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+</schema>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+	targetNamespace="http://www.netservicos.com.br/AuditoriaQueue"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:net="http://www.netservicos.com.br/AuditoriaQueue">
+	<xs:element name="auditoria">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="sistema" type="xs:string"
+					minOccurs="0" />
+				<xs:element name="usuario" type="xs:string"
+					minOccurs="0" />
+				<xs:element name="idCriticidade" type="xs:integer"
+					minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							Representa o campo id_crit da tabela
+							triaud.tblog_criticidade
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="idAcao" type="xs:integer"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Representa o campo id_acao da tabela
+							triaud.tblog_acao
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="cidade" type="xs:string"
+					minOccurs="0" />
+				<xs:element name="campo" type="xs:string"
+					minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Representa o campo id_crit da tabela
+							triaud.tblog_criticidade
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="nota" type="xs:string" minOccurs="0" />
+				<xs:element name="idRegistro" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

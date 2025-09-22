@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<wsdl:definitions name="NETESBExceptionHandlerWSDL12V1" targetNamespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" xmlns:soap-12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap-11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-env-11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap-env-12="http://www.w3.org/2003/05/soap-envelope/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:exhandler="http://www.netservicos.com.br/NETESBExceptionHandler12V1" xmlns:netHdr="http://www.netservicos.com.br/v2/NetHeader" xmlns:errorInfo="http://www.netservicos.com.br/modelocanonico/v2/errorinfo" xmlns:logging="http://www.netservicos.com.br/modelocanonico/v2/logging" xmlns:macroprocesso="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso" xmlns:processo="http://www.netservicos.com.br/modelocanonico/v2/processo">
+	<wsdl:documentation>
+		Proxy responsável pelo tratamento de exceções. Com base nos
+		parâmetros enviados, identifica qual dos parâmetros possui
+		informações da falha ocorrida, classifica a falha encontrada e
+		constrói uma resposta adequando as informações da falha para o
+		preenchimento de um elemento do tipo ErrorInfo.
+	</wsdl:documentation>
+	<wsdl:types>
+
+		<xsd:schema targetNamespace="http://www.netservicos.com.br/NETESBExceptionHandler12V1" elementFormDefault="qualified" xmlns:excepclass="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification">
+
+			<xsd:import schemaLocation="../../../modelocanonicoV2/geral/ErrorInfo.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/errorinfo"/>
+
+			<xsd:import schemaLocation="../../../modelocanonicoV2/geral/Logging.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/logging"/>
+
+			<xsd:import schemaLocation="../../../modelocanonicoV2/geral/ExceptionClassification.xsd" namespace="http://www.netservicos.com.br/modelocanonico/v2/exceptionclassification"/>
+
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/processo" schemaLocation="../../../modelocanonicoV2/geral/Processo.xsd"/>
+
+			<xsd:import namespace="http://www.netservicos.com.br/modelocanonico/v2/macroprocesso" schemaLocation="../../../modelocanonicoV2/geral/MacroProcesso.xsd"/>
+
+			<xsd:complexType name="NETESBExceptionHandlerRequestType">
+				<xsd:sequence>
+					<xsd:element name="currentBody" type="xsd:anyType" minOccurs="1" maxOccurs="1" nillable="false">
+						<xsd:annotation>
+							<xsd:documentation>
+								Parâmetro que recebe a variável $body,
+								do proxy onde ocorreu a falha. O
+								conteúdo deste parâmetro será analisado
+								para verificar a existência de falhas.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="currentFault" type="xsd:anyType" minOccurs="1" maxOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Parâmetro que recebe a variável $fault,
+								do proxy onde ocorreu a falha. O
+								conteúdo deste parâmetro será analisado
+								para verificar a existência de falhas.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="callResponse" type="xsd:anyType" minOccurs="1" maxOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Parâmetro que recebe a variável
+								informada para armazenar a resposta do
+								recurso sendo chamado no proxy onde
+								ocorreu a falha. O conteúdo deste
+								parâmetro será analisado para verificar
+								a existência de falhas.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="currentInbound" type="xsd:anyType" minOccurs="1" maxOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Parâmetro que recebe a variável
+								$inbound, do proxy onde ocorreu a falha.
+								O conteúdo deste parâmetro será
+								analisado para identificar se a chamada
+								é interna no ESB ou externa, definindo
+								se a falha retornada será no formato
+								SOAP ou ESB Fault.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="messageCode" type="xsd:string" maxOccurs="1" minOccurs="1" nillable="false">
+						<xsd:annotation>
+							<xsd:documentation>
+								Código da mensagem a ser logada. O
+								código deve estar cadastrado no XML de
+								mensagens de cada processo.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="messageParameters" type="logging:MessageParameters" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Parâmetros que serão substituídos na
+								mensagem de Log. O primeiro parâmetro, é
+								associado ao índice 0 (Zero). Ex:
+								message: 'Usuário {0} foi {1} com
+								sucesso.', parametros:
+								{'root','excluído'}. Resulta em 'Usuário
+								root foi excluído com sucesso.'
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="exceptionClassification" type="excepclass:ExceptionClassification" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Classificação da exceção, para ser
+								incluido no elemento de mesmo nome
+								dentro do elemento ErrorInfo, caso não
+								seja possível identificar essa
+								informação na falha enviada.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="accessResourceName" type="xsd:string" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Recurso responsável pela geração da
+								exceção, para ser incluido no elemento
+								de mesmo nome dentro do elemento
+								ErrorInfo, caso não seja possível
+								identificar essa informação na falha
+								enviada.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="additionalInformation" type="xsd:anyType" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Informações adicionais da exceção, para
+								ser incluido no elemento de mesmo nome
+								dentro do elemento ErrorInfo, caso não
+								seja possível identificar essa
+								informação na falha enviada.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="validationMessages" type="errorInfo:ValidationMessagesType" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Mensagens de validação da exceção, para
+								ser incluido no elemento de mesmo nome
+								dentro do elemento ErrorInfo, caso não
+								seja possível identificar essa
+								informação na falha enviada.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="exceptionStackTrace" type="xsd:string" maxOccurs="1" minOccurs="1" nillable="true">
+						<xsd:annotation>
+							<xsd:documentation>
+								Pilha de rastreamento da exceção, para
+								ser incluido no elemento de mesmo nome
+								dentro do elemento ErrorInfo, caso não
+								seja possível identificar essa
+								informação na falha enviada.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="macroProcesso" type="macroprocesso:MacroProcesso">
+						<xsd:annotation>
+							<xsd:documentation>
+								Macro processo de negócio a que a
+								mensagem de erro se refere. Os Macro
+								Processos possíveis são definidos na
+								entidade MacroProcesso.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<xsd:element name="processo" type="processo:Processo">
+						<xsd:annotation>
+							<xsd:documentation>
+								Processo de negócio a que a mensagem de
+								erro se refere. Os Processos possíveis
+								são definidos na entidade Processo.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+
+					<xsd:element name="responseSOAPVersion" minOccurs="1" maxOccurs="1" nillable="false">
+						<xsd:annotation>
+							<xsd:documentation>
+								Versão do SOAP em que a falha deverá ser
+								retornada, caso o retorno seja no
+								formato SOAP. Os valores possíveis são:
+								"1.1", "1.2". O tipo
+								do retorno é determinado com base no
+								conteúdo do paramentro currentInbound.
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="1.2"/>
+								<xsd:enumeration value="1.1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="NETESBExceptionHandlerResponseType">
+				<xsd:sequence>
+					<xsd:element name="handledFault" type="xsd:anyType">
+						<xsd:annotation>
+							<xsd:documentation>
+								Elemento que representa o fault que será
+								retornado, conforme a versão do Soap
+								passada por parametro.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+
+			</xsd:complexType>
+
+			<xsd:element name="NETESBExceptionHandlerResponse" type="xsd:anyType"/>
+
+			<xsd:element name="NETESBExceptionHandlerRequest" type="exhandler:NETESBExceptionHandlerRequestType"/>
+
+		</xsd:schema>
+
+	</wsdl:types>
+
+	<wsdl:message name="NETESBExceptionHandlerRequest">
+		<wsdl:part name="NETESBExceptionHandlerRequestBody" element="exhandler:NETESBExceptionHandlerRequest"/>
+	</wsdl:message>
+
+	<wsdl:message name="NETESBExceptionHandlerResponse">
+		<wsdl:part name="NETESBExceptionHandlerResponseBody" element="exhandler:NETESBExceptionHandlerResponse"/>
+	</wsdl:message>
+
+	<wsdl:portType name="NETESBExceptionHandlerWSDL12V1">
+		<wsdl:operation name="convertLocalExceptionToFault">
+			<wsdl:documentation>
+				Operação responsável pela conversão de diversos tipos de
+				falha que proxy sevicers podem receber em um elemento
+				ErrorInfo, adequando as informações da falha e
+				encapsulando este elemento em um SOAP Fault 1.1, SOAP
+				Fault 1.2 ou ESB Fault.
+			</wsdl:documentation>
+			<wsdl:input name="NETESBExceptionHandlerInput" message="exhandler:NETESBExceptionHandlerRequest"/>
+			<wsdl:output name="NETESBExceptionHandlerOutput" message="exhandler:NETESBExceptionHandlerResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="NETESBExceptionHandlerWSDL12V1SOAP" type="exhandler:NETESBExceptionHandlerWSDL12V1">
+		<soap-12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="convertLocalExceptionToFault">
+			<soap-12:operation soapAction="http://www.netservicos.com.br/NETESBExceptionHandler12/convertLocalExceptionToFault"/>
+			<wsdl:input name="NETESBExceptionHandlerInput">
+				<soap-12:body parts="NETESBExceptionHandlerRequestBody" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="NETESBExceptionHandlerOutput">
+				<soap-12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="NETESBExceptionHandlerWSDL12V1">
+		<wsdl:port binding="exhandler:NETESBExceptionHandlerWSDL12V1SOAP" name="NETESBExceptionHandlerWSDL12V1SOAP">
+			<soap-12:address location="http://servbus/general/NETESBExceptionHandler12V1"/>
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

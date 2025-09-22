@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ser:coreEntry isProxy="true" isEnabled="true" isTracingEnabled="false" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <ser:binding type="SOAP" isSoap12="true" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="general/NETAlert/wsdl/proxy/AlertWSDL12"/>
+      <con:port>
+        <con:name>AlertSOAP</con:name>
+        <con:namespace>http://www.netservicos.com.br/Alert</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig xmlns:ser="http://www.bea.com/wli/sb/services">
+    <tran:provider-id xmlns:tran="http://www.bea.com/wli/sb/transports">http</tran:provider-id>
+    <tran:inbound xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:inbound>
+    <tran:URI xmlns:tran="http://www.bea.com/wli/sb/transports">
+      <env:value xmlns:env="http://www.bea.com/wli/config/env">/general/Alert12</env:value>
+    </tran:URI>
+    <tran:inbound-properties xmlns:tran="http://www.bea.com/wli/sb/transports"/>
+    <tran:all-headers xmlns:tran="http://www.bea.com/wli/sb/transports">true</tran:all-headers>
+    <tran:provider-specific xmlns:tran="http://www.bea.com/wli/sb/transports"><http:inbound-properties xmlns:http="http://www.bea.com/wli/sb/transports/http"/></tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:pipeline type="request" name="Pipeline Roteamento Alerta_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio valida Alert">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/Alert" prefix="alert" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/modelocanonico/v2/alert" prefix="alertacanon" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">Valida se os campos necessários foram informados e estão válidos.</con2:comment>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2457651307343466875--321af984.1204333b27a.-8000</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/alert:alert/alertacanon:message))
+or not($body/alert:alert/alertacanon:message/node())
+or ($body/alert:alert/alertacanon:message eq "")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2457651307343466875--321af984.1204333b27a.-7fff</con2:id>
+                  <con1:errCode>MENSAGEM_NAO_PREENCHIDA</con1:errCode>
+                  <con1:message>Mensagem não foi preenchida. Seu preenchimento é obrigatório.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/alert:alert/alertacanon:serviceSeverityLevel))
+or not($body/alert:alert/alertacanon:serviceSeverityLevel/node())
+or ($body/alert:alert/alertacanon:serviceSeverityLevel eq "")
+or not(fn:matches(fn:concat('-',$body/alert:alert/alertacanon:serviceSeverityLevel,'-'),"-NIVEL1-|-NIVEL2-|-NIVEL3-|-NIVEL4-|-NIVEL5-"))</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2457651307343466875--321af984.1204333b27a.-7ffc</con2:id>
+                  <con1:errCode>NIVEL_SEV_NAO_PREENCHIDO_OU_INVALIDO</con1:errCode>
+                  <con1:message>Nível de Severidade do Alert não foi informado, ou não é válido. Os tipos válidos são: NIVEL1, NIVEL2, NIVEL3, NIVEL4, NIVEL5.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/alert:alert/alertacanon:macroProcesso))
+or not($body/alert:alert/alertacanon:macroProcesso/node())
+or ($body/alert:alert/alertacanon:macroProcesso eq "")
+or not(fn:matches(fn:concat('-',$body/alert:alert/alertacanon:macroProcesso,'-'),"-ARRECADAR-|-ATIVAR-|-FATURAR-|-INFRAESTRUTURA-|-RELACIONAR-|-VENDER-|-ENTERPRISE-|-INTEGRACAO-"))</con2:xqueryText></con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7920109603575515300--2fc40965.120497fbb54.-8000</con2:id>
+                  <con1:errCode>MACRO_PROCESSO_INVALIDO</con1:errCode>
+                  <con1:message>O Macro Processo não foi informado ou é inválido. Os valores Válidos são: 
+ARRECADAR, ATIVAR, FATURAR, RELACIONAR, 
+INFRAESTRUTURA, VENDER, ENTERPRISE</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">fn:exists($body/alert:alert/alertacanon:exceptionClassification)
+and $body/alert:alert/alertacanon:exceptionClassification/node()
+and ($body/alert:alert/alertacanon:exceptionClassification ne "")
+and not(fn:matches(fn:concat('-',$body/alert:alert/alertacanon:exceptionClassification,'-'),"-CLASSIFICATION_RESOURCE-|-CLASSIFICATION_UNEXPECTED-|-CLASSIFICATION_BUSINESS-|-CLASSIFICATION_VALIDATION-|-CLASSIFICATION_SECURITY-"))</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f52</con2:id>
+                  <con1:errCode>EXCEPTION_CLASSIFICATION_INVALIDA</con1:errCode>
+                  <con1:message>A classificação da exceção foi preenchida com inválido. 
+Os valores válidos são: CLASSIFICATION_RESOURCE, 
+CLASSIFICATION_UNEXPECTED, 
+CLASSIFICATION_BUSINESS, 
+CLASSIFICATION_VALIDATION, 
+CLASSIFICATION_SECURITY.
+Deixado em branco indica um alerta com severidade 'NORMAL'.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/alert:alert/alertacanon:transactionId))
+or not($body/alert:alert/alertacanon:transactionId/node())
+or ($body/alert:alert/alertacanon:transactionId eq "")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-4057795244248586580--5280ee6a.120e9a341e3.-7fff</con2:id>
+                  <con1:errCode>TRANSACTION_ID_NAO_PREENCHIDO</con1:errCode>
+                  <con1:message>O valor do campo transactionId não preenchido e é obrigatório.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:comment xmlns:con2="http://www.bea.com/wli/sb/stages/config">Valida se a regra de preenchimento de nível e sub nível foi obedecida.</con2:comment>
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f54</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/alert:alert/alertacanon:macroProcessoNivel))
+or not($body/alert:alert/alertacanon:macroProcessoNivel/node())
+or ($body/alert:alert/alertacanon:macroProcessoNivel eq "")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f51</con2:id>
+                  <con1:errCode>NIVEL_NAO_PREENCHIDO</con1:errCode>
+                  <con1:message>MacroProcessoNível é obrigatório e não foi preenchido.</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:default/>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+      <con:stage name="Triagem Alert por MacroProcesso">
+        <con:context>
+          <con1:varNsDecl prefix="alertacanon" namespace="http://www.netservicos.com.br/modelocanonico/v2/alert" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+          <con1:varNsDecl prefix="alert" namespace="http://www.netservicos.com.br/Alert" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2457651307343466875--321af984.1204333b27a.-7ffe</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"ARRECADAR" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7ff1</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertArrecadar12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"ATIVAR" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f60</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertAtivar12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"FATURAR" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f5f</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertFaturar12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"INFRAESTRUTURA" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f5e</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertInfraEstrutura12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"RELACIONAR" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f5d</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertRelacionar12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"VENDER" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1868099853632243644--32df0601.12087e6bdcf.-7f5c</con2:id>
+                  <con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertVender12" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"ENTERPRISE" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:wsCallout>
+                  <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6194297257506454963-2ac99635.1254258c225.-7fbb</con2:id>
+                  <con1:service ref="general/NETAlert/proxyservice/AlertEnterprise12" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con1:operation>alert</con1:operation>
+                  <con1:request>
+                    <con1:body wrapped="true">$body</con1:body>
+                    <con1:header/>
+                  </con1:request>
+                  <con1:response>
+                    <con1:body wrapped="true">retorno</con1:body>
+                    <con1:header/>
+                  </con1:response>
+                  <con1:requestTransform/>
+                  <con1:responseTransform/>
+                </con1:wsCallout>
+              </con1:actions>
+            </con1:case>
+            <con1:case><con1:condition><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">"INTEGRACAO" eq $body/alert:alert/alertacanon:macroProcesso</con2:xqueryText></con1:condition><con1:actions><con1:wsCallout><con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1722183377005275422--7fd557c.12947b80630.-7ea3</con2:id><con1:service xsi:type="ref:ProxyRef" ref="general/NETAlert/proxyservice/AlertIntegracao12" xmlns:ref="http://www.bea.com/wli/sb/reference"/><con1:operation>alert</con1:operation><con1:request><con1:body wrapped="true">$body</con1:body></con1:request><con1:response><con1:body wrapped="true">retorno</con1:body></con1:response><con1:requestTransform/><con1:responseTransform/></con1:wsCallout></con1:actions></con1:case><con1:default>
+              <con1:Error>
+                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-7920109603575515300--2fc40965.120497fbb54.-8000</con2:id>
+                <con1:errCode>MACRO_PROCESSO_INVALIDO</con1:errCode>
+                <con1:message>O Macro Processo não foi informado ou é inválido. Os valores Válidos são: 
+ARRECADAR, ATIVAR, FATURAR, RELACIONAR, 
+INFRAESTRUTURA, VENDER, ENTERPRISE</con1:message>
+              </con1:Error>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Pipeline Roteamento Alerta_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="Estágio Resposta Alert">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.netservicos.com.br/Alert" prefix="alert" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2457651307343466875--321af984.1204333b27a.-7fcd</con2:id>
+            <con1:location>
+              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;alert:alertResponse/></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="Pipeline Roteamento Alerta">
+        <con:request>Pipeline Roteamento Alerta_request</con:request>
+        <con:response>Pipeline Roteamento Alerta_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

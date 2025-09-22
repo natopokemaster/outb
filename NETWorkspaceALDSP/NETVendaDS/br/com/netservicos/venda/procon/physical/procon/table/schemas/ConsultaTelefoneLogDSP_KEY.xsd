@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/venda/procon/physical/procon/table/ConsultaTelefoneLogDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="ConsultaTelefoneLogDSP_KEY">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_CONSULTA_TELEFONE_LOG" type="xs:double"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

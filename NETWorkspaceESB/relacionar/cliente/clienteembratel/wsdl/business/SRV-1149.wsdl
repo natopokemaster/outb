@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="http://www.embratel.com.br/WSPessoa" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://www.embratel.com.br/schConsultaDocumento.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://www.embratel.com.br/WSPessoa">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.embratel.com.br/schConsultaDocumento.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.embratel.com.br/schConsultaDocumento.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="CEPResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:num_cep" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_tpo_lograd" minOccurs="0"/>
+                        <xs:element ref="ns0:des_logradouro" minOccurs="0"/>
+                        <xs:element ref="ns0:des_bairro" minOccurs="0"/>
+                        <xs:element ref="ns0:CNLResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CNAE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_CNAE" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_CNAE" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CNLRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_municip_TOM" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_municip_IBGE" minOccurs="0"/>
+                        <xs:element ref="ns0:des_municipio" minOccurs="0"/>
+                        <xs:element ref="ns0:des_uf" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CNLResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:des_municipio" minOccurs="0"/>
+                        <xs:element ref="ns0:des_uf" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_municip_TOM" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_municip_IBGE" minOccurs="0"/>
+                        <xs:element ref="ns0:PaisResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Contador">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_tpo_crc_contador_pj" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_classif_crc_contador_pj" minOccurs="0"/>
+                        <xs:element ref="ns0:num_crc_contador_pj" minOccurs="0"/>
+                        <xs:element ref="ns0:sgl_uf_crc_contador_pj" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_cnpj_contador" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_tpo_crc_contador_pf" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_classif_crc_contador_pf" minOccurs="0"/>
+                        <xs:element ref="ns0:num_crc_contador_pf" minOccurs="0"/>
+                        <xs:element ref="ns0:sgl_uf_crc_contador_pf" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_cpf_contador" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Data">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Header" minOccurs="0"/>
+                        <xs:element ref="ns0:Solicitacao"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EnderecoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_tpo_endereco" minOccurs="0"/>
+                        <xs:element ref="ns0:num_endereco" minOccurs="0"/>
+                        <xs:element ref="ns0:des_comp_endereco" minOccurs="0"/>
+                        <xs:element ref="ns0:CEPResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PaisResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_pais" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_pais" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Pessoa">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_tpo_doc" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_base_pesquisada"/>
+                        <xs:element ref="ns0:cod_inscr_estadual" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_situacao_inscr_estadual" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_situacao_inscr_estadual" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_tipo_assinante" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_classe_consumo" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_classe_pessoa" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_tpo_cliente" minOccurs="0"/>
+                        <xs:element ref="ns0:PessoaFisica" minOccurs="0"/>
+                        <xs:element ref="ns0:PessoaJuridica" minOccurs="0"/>
+                        <xs:element ref="ns0:EnderecoResponse" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PessoaFisica">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_cpf" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_pessoa_fisica" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_situacao_cadast" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_reside_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_pais_reside_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_pais_reside_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_mae" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_nascim" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_sexo" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_natureza_ocup" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_ocupacao_princip" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_natureza_ocup" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_ddd" minOccurs="0"/>
+                        <xs:element ref="ns0:num_telef" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_unid_administ" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_obito" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_estrang" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_titulo_eleitor" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_atualiz_cadastral" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PessoaJuridica">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_cnpj" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_estabelec" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_empresarial" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_fantasia" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_situacao_cadast" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_situacao_cadast" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_cidade_resid_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_pais_estab_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_pais_estab_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_natureza_jurid" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_abertura_estabelec" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_ddd1" minOccurs="0"/>
+                        <xs:element ref="ns0:num_telef1" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_ddd2" minOccurs="0"/>
+                        <xs:element ref="ns0:num_telef2" minOccurs="0"/>
+                        <xs:element ref="ns0:des_email" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_cpf_respons" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_respons" minOccurs="0"/>
+                        <xs:element ref="ns0:vlr_capital_social" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_porte_serpro" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_opcao_simples" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_opcao_simples" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_exclusao_simples" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_cnpj_sucedida" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_inscr_SUFRAMA" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_situacao_inscr_SUFRAMA" minOccurs="0"/>
+                        <xs:element ref="ns0:dta_situacao_inscr_SUFRAMA" minOccurs="0"/>
+                        <xs:element ref="ns0:ind_tipo_categr_fiscal" minOccurs="0"/>
+                        <xs:element ref="ns0:PessoaJuridicaSucessora" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element ref="ns0:Contador" minOccurs="0"/>
+                        <xs:element ref="ns0:CNAE" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element ref="ns0:Socio" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PessoaJuridicaSucessora">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_cnpj_sucessora" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PessoaRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_tpo_pesquisa"/>
+                        <xs:element ref="ns0:num_doc_pessoa" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_empresarial" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_fantasia" minOccurs="0"/>
+                        <xs:element ref="ns0:CNLRequest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Retorno">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:cod_retorno"/>
+                        <xs:element ref="ns0:des_msg" minOccurs="0"/>
+                        <xs:element ref="ns0:sgl_sis_emissor"/>
+                        <xs:element ref="ns0:des_tratamnt_retorno" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RetornoSolicitacao">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Retorno" maxOccurs="unbounded"/>
+                        <xs:element ref="ns0:Pessoa" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Socio">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ind_tpo_socio" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_socio" minOccurs="0"/>
+                        <xs:element ref="ns0:num_doc_socio" minOccurs="0"/>
+                        <xs:element ref="ns0:vlr_percentual_particip" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_pais_orig_exterior" minOccurs="0"/>
+                        <xs:element ref="ns0:nom_pais_orig_exterior" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Solicitacao">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:idt_solic"/>
+                        <xs:element ref="ns0:dta_hra_solic"/>
+                        <xs:element ref="ns0:ind_base_pesquisada"/>
+                        <xs:element ref="ns0:ind_pesquisa_fornec_externo" minOccurs="0"/>
+                        <xs:element ref="ns0:cod_chave_acesso"/>
+                        <xs:element ref="ns0:qtd_regis_retorno" minOccurs="0"/>
+                        <xs:element ref="ns0:num_dias_validade_dados" minOccurs="0"/>
+                        <xs:element ref="ns0:sgl_sist_consumidor"/>
+                        <xs:element ref="ns0:RetornoSolicitacao" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element ref="ns0:PessoaRequest" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cod_CNAE">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="7"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_chave_acesso">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cnpj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cnpj_contador">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cnpj_sucedida">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cnpj_sucessora">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cpf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cpf_contador">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_cpf_respons">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_ddd">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_ddd1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_ddd2">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_inscr_SUFRAMA">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="9"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_inscr_estadual">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_municip_IBGE">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="7"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_municip_TOM">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_natureza_jurid">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_natureza_ocup">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_ocupacao_princip">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_pais">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_pais_estab_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_pais_orig_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_pais_reside_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_retorno">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_titulo_eleitor">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="13"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cod_unid_administ">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="7"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_bairro">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_comp_endereco">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="156"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="115"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_logradouro">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="75"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_msg">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_municipio">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_tratamnt_retorno">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="des_uf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_abertura_estabelec">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_atualiz_cadastral">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_exclusao_simples">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_hra_solic">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_nascim">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_natureza_ocup">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_obito">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_opcao_simples">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_situacao_cadast">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_situacao_inscr_SUFRAMA">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="([0-9])*"/>
+                        <xs:maxLength value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dta_situacao_inscr_estadual">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="idt_solic">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_CNAE">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_base_pesquisada">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_classe_consumo">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_classe_pessoa">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_classif_crc_contador_pf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_classif_crc_contador_pj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_estabelec">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_estrang">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_opcao_simples">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_pesquisa_fornec_externo">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_porte_serpro">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_reside_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_sexo">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_situacao_cadast">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_situacao_inscr_SUFRAMA">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="([0-9])*"/>
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_situacao_inscr_estadual">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tipo_assinante">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tipo_categr_fiscal">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_cliente">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_crc_contador_pf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_crc_contador_pj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_doc">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_endereco">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_lograd">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_pesquisa">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ind_tpo_socio">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_cidade_resid_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="55"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_empresarial">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_fantasia">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="55"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_mae">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_pais">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="70"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_pais_estab_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="70"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_pais_orig_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="70"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_pais_reside_exterior">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="70"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_pessoa_fisica">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_respons">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nom_socio">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_cep">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_crc_contador_pf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_crc_contador_pj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_dias_validade_dados">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_doc_pessoa">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_doc_socio">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_endereco">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_telef">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="9"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_telef1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="9"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="num_telef2">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="9"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="qtd_regis_retorno">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="sgl_sis_emissor">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="sgl_sist_consumidor">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="sgl_uf_crc_contador_pf">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="sgl_uf_crc_contador_pj">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vlr_capital_social">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="14"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vlr_percentual_particip">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                        <xs:pattern value="([0-9])*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Header">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:strTrack_id_source" minOccurs="0"/>
+                        <xs:element ref="ns0:strSystemTrackingId"/>
+                        <xs:element ref="ns0:strResubmitFlag"/>
+                        <xs:element ref="ns0:strOriginalTrackingId"/>
+                        <xs:element ref="ns0:strSystem"/>
+                        <xs:element ref="ns0:strFlagSA"/>
+                        <xs:element ref="ns0:strURLReturn" minOccurs="0"/>
+                        <xs:element ref="ns0:strTimeStamp"/>
+                        <xs:element ref="ns0:strTimeOut" minOccurs="0"/>
+                        <xs:element ref="ns0:strStatusReturn" minOccurs="0"/>
+                        <xs:element ref="ns0:strMsgReturn" minOccurs="0"/>
+                        <xs:element ref="ns0:strErrorCode" minOccurs="0"/>
+                        <xs:element ref="ns0:strEventType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="strErrorCode" type="xs:string"/>
+            <xs:element name="strEventType" type="xs:string"/>
+            <xs:element name="strFlagSA" type="xs:string"/>
+            <xs:element name="strMsgReturn" type="xs:string"/>
+            <xs:element name="strOriginalTrackingId" type="xs:string"/>
+            <xs:element name="strResubmitFlag" type="xs:string"/>
+            <xs:element name="strStatusReturn" type="xs:string"/>
+            <xs:element name="strSystem" type="xs:string"/>
+            <xs:element name="strSystemTrackingId" type="xs:string"/>
+            <xs:element name="strTimeOut" type="xs:string"/>
+            <xs:element name="strTimeStamp" type="xs:string"/>
+            <xs:element name="strTrack_id_current" type="xs:string"/>
+            <xs:element name="strTrack_id_source" type="xs:string"/>
+            <xs:element name="strURLReturn" type="xs:string"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="intfPessoaIn-service_V4-Sec">
+        <wsdl:port name="Pessoa" binding="tns:PessoaBinding">
+            <soap:address location="http://localhost:31149/barramento/services/Pessoa/V4"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="Pessoa">
+        <wsdl:operation name="ConsultaDocumento">
+            <wsdl:input message="tns:ConsultaDocumento"/>
+            <wsdl:output message="tns:ConsultaDocumento"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PessoaBinding" type="tns:Pessoa">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ConsultaDocumento">
+            <soap:operation style="document" soapAction="/barramento/services/Pessoa/ConsultaDocumento"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ConsultaDocumento">
+        <wsdl:part name="parameters" element="ns0:Data"/>
+    </wsdl:message>
+</wsdl:definitions>

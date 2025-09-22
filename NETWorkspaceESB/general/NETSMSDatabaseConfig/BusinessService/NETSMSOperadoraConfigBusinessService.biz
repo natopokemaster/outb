@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:ejb="http://www.bea.com/wli/sb/transports/ejb">
+  <ser:coreEntry isProxy="false" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:description>Business Service used to identify the information of the netsms operator. The information is located either from the cidade contrato, identificador operadora or identificador de empresa.</ser:description>
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" transport-typed="true" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config"><con:binding><con:name>JwsServiceSoapBinding</con:name><con:namespace>http://www.openuri.org/</con:namespace></con:binding></ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+    </ser:monitoring>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:throttling enabled="false">
+      <ser:capacity>0</ser:capacity>
+      <ser:maxQueueLength>0</ser:maxQueueLength>
+      <ser:timeToLive>0</ser:timeToLive>
+    </ser:throttling>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>ejb</tran:provider-id>
+    <tran:inbound>false</tran:inbound>
+    <tran:URI weight="0">
+      <env:value>ejb:NETServiceBusConfigJNDIProvider:netservicos/ejb/config/NETSMSOperadoraConfigEJB</env:value>
+    </tran:URI>
+    <tran:outbound-properties>
+      <tran:load-balancing-algorithm>round-robin</tran:load-balancing-algorithm>
+      <tran:retry-count>0</tran:retry-count>
+      <tran:retry-interval>30</tran:retry-interval>
+      <tran:retry-application-errors>true</tran:retry-application-errors>
+      <tran:delay-interval-configuration isEnabled="false">
+        <tran:delay-interval>0</tran:delay-interval>
+      </tran:delay-interval-configuration>
+    </tran:outbound-properties>
+    <tran:provider-specific><ejb:transaction supports="false"/><ejb:service><ejb:clientJar ref="general/NETSMSDatabaseConfig/Transform/JAR/NETServiceBusConfigClient"/><ejb:ejbHome classname="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadoraConfigEJBHome"/><ejb:ejbObject classname="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadoraConfigEJB"><ejb:method name="getNETSMSOperadoraByCidadeContrato" signature="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora getNETSMSOperadoraByCidadeContrato(java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoraByCidadeContrato</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:return name="return" type="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora"/></ejb:method><ejb:method name="getNETSMSOperadoraByCodigoOperadora" signature="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora getNETSMSOperadoraByCodigoOperadora(java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoraByCodigoOperadora</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:return name="return" type="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora"/></ejb:method><ejb:method name="getNETSMSOperadoraByDDDTel" signature="java.lang.String getNETSMSOperadoraByDDDTel(java.lang.String,java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoraByDDDTel</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:param name="arg1" type="java.lang.String"/><ejb:return name="return" type="java.lang.String"/></ejb:method><ejb:method name="getNETSMSOperadoraByIdentifcadorEmpresa" signature="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora getNETSMSOperadoraByIdentifcadorEmpresa(java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoraByIdentifcadorEmpresa</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:return name="return" type="br.com.netservicos.sb.config.netsms.operadora.NETSMSOperadora"/></ejb:method><ejb:method name="getNETSMSOperadoraByNumBP" signature="java.lang.String getNETSMSOperadoraByNumBP(long)" exclude="false"><ejb:operation>getNETSMSOperadoraByNumBP</ejb:operation><ejb:param name="arg0" type="long"/><ejb:return name="return" type="java.lang.String"/></ejb:method><ejb:method name="getNETSMSOperadoraBySrcTrackIdSource" signature="java.lang.String getNETSMSOperadoraBySrcTrackIdSource(java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoraBySrcTrackIdSource</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:return name="return" type="java.lang.String"/></ejb:method><ejb:method name="getNETSMSOperadoras" signature="java.util.ArrayList getNETSMSOperadoras(java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadoras</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:return name="return" type="java.util.ArrayList"/></ejb:method><ejb:method name="getNETSMSOperadorasByNomeOperadora" signature="java.util.ArrayList getNETSMSOperadorasByNomeOperadora(java.lang.String,java.lang.String)" exclude="false"><ejb:operation>getNETSMSOperadorasByNomeOperadora</ejb:operation><ejb:param name="arg0" type="java.lang.String"/><ejb:param name="arg1" type="java.lang.String"/><ejb:return name="return" type="java.util.ArrayList"/></ejb:method><ejb:method name="getPrincipalIdentityBase" signature="java.lang.String getPrincipalIdentityBase()" exclude="false"><ejb:operation>getPrincipalIdentityBase</ejb:operation><ejb:return name="return" type="java.lang.String"/></ejb:method></ejb:ejbObject><ejb:targetNamespace>http://www.openuri.org/</ejb:targetNamespace><ejb:style>Document Wrapped</ejb:style><ejb:encoding>Literal</ejb:encoding></ejb:service></tran:provider-specific>
+  </ser:endpointConfig>
+</xml-fragment>

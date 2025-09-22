@@ -1,0 +1,59 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds xmlns:x="urn:annotations.ld.bea.com" targetType="t:SnRelObjSitCobrancaDSP" xmlns:t="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelObjSitCobrancaDSP">
+<creationDate>2014-07-30T09:59:50</creationDate>
+<!--<relationalDB name="jdbc/NETSMS_ONLINE_PAGAMENTO_BH" providerId="Oracle-9"/>-->
+<relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+<field xpath="ID_OBJETO" type="xs:double">
+  <extension nativeXpath="ID_OBJETO" nativeTypeCode="3" nativeType="NUMBER" nativeSize="22" nativeFractionalDigits="null" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+<field xpath="ID_SIT_COBRANCA" type="xs:integer">
+  <extension nativeXpath="ID_SIT_COBRANCA" nativeTypeCode="3" nativeType="NUMBER" nativeSize="3" nativeFractionalDigits="0" nativeKey="true"/>
+  <properties nullable="false"/>
+</field>
+
+<key name="PKSN_REL_OBJ_SIT_COB" type="snr:SnRelObjSitCobrancaDSP_KEY" inferredSchema="true" xmlns:snr="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelObjSitCobrancaDSP"/>
+
+<relationshipTarget roleName="SnSitCobrancaDSP" roleNumber="1" XDS="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnSitCobrancaDSP.ds" opposite="SnRelObjSitCobrancaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelObjSitCobrancaDSP";
+
+import schema namespace t4 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelObjSitCobrancaDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelObjSitCobrancaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnRelObjSitCobrancaDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnRelObjSitCobrancaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="read" isPrimary="false" nativeName="SN_REL_OBJ_SIT_COBRANCA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:SnRelObjSitCobrancaDSP() as schema-element(t4:SnRelObjSitCobrancaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="create" isPrimary="true" nativeName="SN_REL_OBJ_SIT_COBRANCA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createSnRelObjSitCobrancaDSP($p as element(t4:SnRelObjSitCobrancaDSP)*)as schema-element(t4:SnRelObjSitCobrancaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="update" isPrimary="true" nativeName="SN_REL_OBJ_SIT_COBRANCA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateSnRelObjSitCobrancaDSP($p as changed-element(t4:SnRelObjSitCobrancaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="delete" isPrimary="true" nativeName="SN_REL_OBJ_SIT_COBRANCA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteSnRelObjSitCobrancaDSP($p as element(t4:SnRelObjSitCobrancaDSP)*) as empty()  external;
+
+declare namespace f2="ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnSitCobrancaDSP";
+
+import schema namespace t6 = "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/SnSitCobrancaDSP" at "ld:br/com/netservicos/atendimento/contrato/physical/netsms/table/schemas/SnSitCobrancaDSP.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="public" kind="navigate" roleName="SnSitCobrancaDSP"/>::)
+
+   declare function f1:getSnSitCobrancaDSP($fk as element(t4:SnRelObjSitCobrancaDSP)) as element(t6:SnSitCobrancaDSP)*
+   {
+      for $pk in f2:SnSitCobrancaDSP()
+      where $pk/ID_SIT_COBRANCA eq $fk/ID_SIT_COBRANCA
+      return $pk
+   };
+

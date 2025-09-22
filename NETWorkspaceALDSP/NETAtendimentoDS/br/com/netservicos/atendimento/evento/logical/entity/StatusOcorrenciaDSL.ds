@@ -1,0 +1,23 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma xds <x:xds targetType="urn:StatusOcorrencia" xmlns:x="urn:annotations.ld.bea.com" xmlns:urn="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd"><creationDate>2009-07-07T22:18:15</creationDate><userDefinedView/></x:xds> ::)
+
+declare namespace snt= "ld:br/com/netservicos/atendimento/evento/physical/netsms/table/SnTipoOcorrenciaDSP";
+
+import schema namespace ns1="br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd" at "ld:br/com/netservicos/atendimento/evento/logical/entity/schemas/StatusOcorrencia.xsd";
+
+
+declare namespace tns="ld:br/com/netservicos/atendimento/evento/logical/entity/StatusOcorrenciaDSL";
+
+(::pragma  function <f:function kind="read" visibility="public" isPrimary="true" xmlns:f="urn:annotations.ld.bea.com"/>::)
+
+declare function tns:consultarStatusOcorrenciaByTipoOcorrencia($idTipoOcorrencia as xs:long) as element(ns1:StatusOcorrencia)*{
+for $SnTipoOcorrenciaDSP in snt:SnTipoOcorrenciaDSP()
+where $idTipoOcorrencia eq $SnTipoOcorrenciaDSP/ID_TIPO_OCORRENCIA
+return
+        <ns1:StatusOcorrencia>        <idStatus>{fn:data($SnTipoOcorrenciaDSP/ENCERRADA_POR_QUEM_ABRIU)}</idStatus>
+        </ns1:StatusOcorrencia>
+    
+
+};
+

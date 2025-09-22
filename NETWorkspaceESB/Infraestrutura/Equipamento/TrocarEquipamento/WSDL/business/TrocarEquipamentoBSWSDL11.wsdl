@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="TrocarEquipamentoWebServiceDefinitions" targetNamespace="open:services.netservicos.com.br" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="open:services.netservicos.com.br" xmlns:s2="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="open:services.netservicos.com.br" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="trocarEquipamento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="EQUIPE" type="xs:string"/>
+            <xs:element name="CREDENCIADA" type="xs:string"/>
+            <xs:element name="CONTRATO" type="xs:string"/>
+            <xs:element name="CIDADE_OPERADORA" type="xs:string"/>
+            <xs:element name="ORDEM_SERVICO" type="xs:string"/>
+            <xs:element name="NUMERO_SERIE_DESISTALACAO" type="xs:string"/>
+            <xs:element name="NUMERO_SERIE_INSTALACAO" type="xs:string"/>
+            <xs:element name="ESTADO_DESTINO_EQUIPAMENTO" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="trocarEquipamentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="retorno" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="trocarEquipamento">
+    <s0:part element="s1:trocarEquipamento" name="parameters"/>
+  </s0:message>
+  <s0:message name="trocarEquipamentoResponse">
+    <s0:part element="s1:trocarEquipamentoResponse" name="parameters"/>
+  </s0:message>
+  <s0:portType name="TrocarEquipamentoWebService">
+    <s0:operation name="trocarEquipamento" parameterOrder="parameters">
+      <s0:input message="s1:trocarEquipamento"/>
+      <s0:output message="s1:trocarEquipamentoResponse"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="TrocarEquipamentoWebServiceSoapBinding" type="s1:TrocarEquipamentoWebService">
+    <s2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="trocarEquipamento">
+      <s2:operation soapAction="open:trocarEquipamento" style="document"/>
+      <s0:input>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s2:body parts="parameters" use="literal"/>
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="TrocarEquipamentoWebService">
+    <s0:port binding="s1:TrocarEquipamentoWebServiceSoapBinding" name="TrocarEquipamentoWebServiceSoapPort">
+      <s2:address location="http://5.8.110.146:7001/nethomews/TrocarEquipamentoJWS"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

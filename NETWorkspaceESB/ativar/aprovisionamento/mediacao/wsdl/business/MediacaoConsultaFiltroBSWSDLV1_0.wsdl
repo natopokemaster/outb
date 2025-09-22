@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="ld:br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws" name="ConsultaMediacaoJWS" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ld:br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <documentation>AquaLogic Data Services Web Service</documentation>
+  <types>
+    <xs:schema targetNamespace="ld:br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws" elementFormDefault="qualified" xmlns:stns="ld:br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws" xmlns:dsns0="http://www.netservicos.com.br/mediacao/schemas">
+      <xs:import namespace="http://www.netservicos.com.br/mediacao/schemas"/>
+      <xs:element name="consultarMediacao">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cidadeContrato" type="xs:string"/>
+            <xs:element name="identificadorOrdemAtivacao" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="consultarMediacaoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="dsns0:mediacao" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <schema targetNamespace="http://www.netservicos.com.br/mediacao/schemas" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.netservicos.com.br/mediacao/schemas">
+      <complexType name="MediacaoType">
+        <sequence>
+          <element name="cidadeContrato" type="string"/>
+          <element name="identificadorOrdemAtivacao" type="int"/>
+          <element name="flagMediacao" type="string"/>
+        </sequence>
+      </complexType>
+      <element name="mediacao" type="tns:MediacaoType"/>
+    </schema>
+  </types>
+  <message name="consultarMediacaoIn">
+    <part name="parameters" element="tns:consultarMediacao"/>
+  </message>
+  <message name="consultarMediacaoOut">
+    <part name="parameters" element="tns:consultarMediacaoResponse"/>
+  </message>
+  <portType name="ConsultaMediacaoJWSPT">
+    <operation name="consultarMediacao">
+      <input message="tns:consultarMediacaoIn"/>
+      <output message="tns:consultarMediacaoOut"/>
+    </operation>
+  </portType>
+  <binding name="ConsultaMediacaoJWSSoapBinding" type="tns:ConsultaMediacaoJWSPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarMediacao">
+      <soap:operation soapAction="ld:br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws/consultarMediacao" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="ConsultaMediacaoJWSSoapService">
+    <port binding="tns:ConsultaMediacaoJWSSoapBinding" name="ConsultaMediacaoJWSSoapPort">
+      <soap:address location="http://172.16.0.2:7005/NETAprovisionamentoDS/ALDSPWebServiceSOAP12/br/com/netservicos/aprovisionamento/webservice/ConsultaMediacaoJWS.ws"/>
+    </port>
+  </service>
+</definitions>

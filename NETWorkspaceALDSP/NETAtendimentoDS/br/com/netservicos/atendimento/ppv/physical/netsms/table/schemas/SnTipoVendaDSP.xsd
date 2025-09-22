@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="ld:br/com/netservicos/atendimento/ppv/physical/netsms/table/SnTipoVendaDSP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SnTipoVendaDSP">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ID_TIPO_VENDA" type="xs:integer"/>
+            <xs:element name="DESCRICAO" type="xs:string"/>
+            <xs:element name="TRP_ID" type="xs:integer" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

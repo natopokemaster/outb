@@ -1,0 +1,70 @@
+xquery version "1.0" encoding "UTF-8";
+
+(::pragma  xds <x:xds targetType="t:RhPessoaJuridicaDSP" xmlns:x="urn:annotations.ld.bea.com" xmlns:t="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP">
+    <creationDate>2009-11-19T17:54:23</creationDate>
+    <relationalDB name="ATENDIMENTO_ONLINE" providerId="Oracle-9" sourceBindingProviderClassName="br.com.netservicos.binding.util.relacionar.AtendimentoOnlineNETSMSBindingProvider"/>
+    <field xpath="ID_EMPRESA" type="xs:string">
+        <extension nativeXpath="ID_EMPRESA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="7" nativeFractionalDigits="null" nativeKey="true"/>
+        <properties nullable="false"/>
+    </field>
+    <field xpath="CGC" type="xs:string">
+        <extension nativeXpath="CGC" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="14" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="RAZAO_SOCIAL" type="xs:string">
+        <extension nativeXpath="RAZAO_SOCIAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="50" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="INSCRICAO_ESTADUAL" type="xs:string">
+        <extension nativeXpath="INSCRICAO_ESTADUAL" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="14" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="CONTATO_EMPRESA" type="xs:string">
+        <extension nativeXpath="CONTATO_EMPRESA" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="20" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FONE" type="xs:string">
+        <extension nativeXpath="FONE" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="FAX" type="xs:string">
+        <extension nativeXpath="FAX" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="11" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <field xpath="MATRIZ" type="xs:string">
+        <extension nativeXpath="MATRIZ" nativeTypeCode="12" nativeType="VARCHAR2" nativeSize="7" nativeFractionalDigits="null"/>
+        <properties nullable="true"/>
+    </field>
+    <key name="SYS_C0050466" type="rhp:RhPessoaJuridicaDSP_KEY" inferredSchema="true" xmlns:rhp="ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP"/>
+</x:xds>::)
+
+declare namespace f1 = "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP";
+
+import schema namespace t1 = "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP" at "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/schemas/RhPessoaJuridicaDSP.xsd";
+
+import schema "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/RhPessoaJuridicaDSP" at "ld:br/com/netservicos/atendimento/operadora/physical/netsms/table/schemas/RhPessoaJuridicaDSP_KEY.xsd";
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="read" isPrimary="false" nativeName="RH_PESSOA_JURIDICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare function f1:RhPessoaJuridicaDSP() as schema-element(t1:RhPessoaJuridicaDSP)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="create" isPrimary="true" nativeName="RH_PESSOA_JURIDICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:createRhPessoaJuridicaDSP($p as element(t1:RhPessoaJuridicaDSP)*)as schema-element(t1:RhPessoaJuridicaDSP_KEY)* external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="update" isPrimary="true" nativeName="RH_PESSOA_JURIDICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:updateRhPessoaJuridicaDSP($p as changed-element(t1:RhPessoaJuridicaDSP)*) as empty()  external;
+
+   (::pragma function <f:function xmlns:f="urn:annotations.ld.bea.com" visibility="protected" kind="delete" isPrimary="true" nativeName="RH_PESSOA_JURIDICA" nativeLevel2Container="PROD_JD" style="table">
+   <nonCacheable/>   </f:function>::)
+
+   declare procedure f1:deleteRhPessoaJuridicaDSP($p as element(t1:RhPessoaJuridicaDSP)*) as empty()  external;
+
+   
+
+   
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netservicos.com.br/ParametroPPV" xmlns:tns="http://www.netservicos.com.br/ParametroPPV" elementFormDefault="qualified">
+
+    <complexType name="ParametroPPVType">
+    	<sequence>
+    		<element name="COD_OPERADORA" type="string"></element>
+    		<element name="COD_SMS_PPV" type="string"></element>
+    		<element name="ID_ORIGEM" type="int"></element>
+    		<element name="ID_PRODUTO" type="int"></element>
+    		<element name="ID_PACOTE_PPV" type="int"></element>
+    		<element name="ID_PROMOCAO" type="int"></element>
+    		<element name="ID_PLANO_PGTO" type="int"></element>
+    		<element name="TIPO_VENDA" type="string"></element>
+    		<element name="MIDIA" type="string"></element>
+    		<element name="CAMPANHA" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="ParametroPPV" type="tns:ParametroPPVType"></element>
+</schema>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	name="ListarAssinantesv1"
+	targetNamespace="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:tns="http://www.claro.com.br/EBS/Claro/v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:documentation>
+	<![CDATA[
+
+	ATENCAO: Arquivo gerado automaticamente, as alteracoes realizada diretamente neste arquivo serao perdidas.
+	Ferramenta: GeraSoa-v4.5.1
+	Especificacao de servico: ListarAssinantes v-1.10.0
+
+	]]>
+	</wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.claro.com.br/EBS/Claro/v1" schemaLocation="ListarAssinantesv1.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="ListarAssinantesRequestMsg">
+		<wsdl:part name="request" element="tns:ListarAssinantesRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="ListarAssinantesResponseMsg">
+		<wsdl:part name="response" element="tns:ListarAssinantesResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="ParametroInvalidoFaultMsg">
+		<wsdl:part name="ParametroInvalidoFault" element="tns:ParametroInvalidoFault" />
+	</wsdl:message>
+
+	<wsdl:message name="TechnicalFaultMsg">
+		<wsdl:part name="TechnicalFault" element="tns:TechnicalFault" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="SynPortType">
+
+		<wsdl:operation name="listarAssinantes">
+			<wsdl:input message="tns:ListarAssinantesRequestMsg" />
+			<wsdl:output message="tns:ListarAssinantesResponseMsg" />
+			<wsdl:fault name="ParametroInvalidoFault" message="tns:ParametroInvalidoFaultMsg" />
+			<wsdl:fault name="TechnicalFault" message="tns:TechnicalFaultMsg" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="SynPortTypeSOAP" type="tns:SynPortType">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="listarAssinantes">
+			<soap:operation soapAction="listarAssinantes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="ParametroInvalidoFault">
+				<soap:fault name="ParametroInvalidoFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="TechnicalFault">
+				<soap:fault name="TechnicalFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="ListarAssinantesv1">
+		<wsdl:port name="SynPortSOA" binding="tns:SynPortTypeSOAP">
+			<soap:address location="http://esbsoa.claro.com.br/esb/services/ListarAssinantesv1" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
